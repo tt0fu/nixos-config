@@ -11,6 +11,7 @@
     ./telegram.nix
     ./terminal.nix
     ./vlc.nix
+    ./yazi.nix
     ./zapret.nix
     ./zen-browser.nix
   ];

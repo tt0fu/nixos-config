@@ -12,7 +12,6 @@
   environment.systemPackages = with pkgs; [
     curl
     wget
-    qimgv
     killall
   ];
   # This option defines the first version of NixOS you have installed on this particular machine,
