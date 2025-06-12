@@ -21,6 +21,7 @@
     ];
     config.common.default = "*";
   };
+  programs.dconf.enable = true;
   services.gnome.gnome-settings-daemon.enable = true;
   home-manager.users.${userSettings.username} = { pkgs, ... }: { 
     wayland.windowManager.hyprland = {
@@ -83,7 +84,6 @@
 	};
 	exec-once = [ 
 	  "systemctl --user start hyprpolkitagent" 
-	  "glpaper ${systemSettings.monitor} /home/${userSettings.username}/wallpaper.frag --fork"
 	  "sleep 1; hyprlock --immediate"
 	];
 	env = [ "QT_QPA_PLATFORMTHEME,qt6ct" ];

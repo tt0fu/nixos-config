@@ -6,7 +6,7 @@
     glpaper
   ];
   home-manager.users.${userSettings.username} = { pkgs, ... }: {
-    wayland.windowManager.hyprland.settings.exec = [
+    wayland.windowManager.hyprland.settings.exec-once = [
 	  "glpaper ${systemSettings.monitor} ${./wallpaper.frag} --fork"
     ];
   };
