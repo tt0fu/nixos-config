@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./anki.nix
     ./discord.nix
     ./fastfetch/fastfetch.nix
     ./nvim.nix

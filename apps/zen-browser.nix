@@ -18,7 +18,7 @@
       nativeMessagingHosts = [pkgs.firefoxpwa];
     };
     wayland.windowManager.hyprland.settings.bind = [
-      "$mod, Z, exec, zen"
+      "SUPER, Z, exec, zen"
     ];
   };
 }

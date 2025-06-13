@@ -5,7 +5,12 @@
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
-    colorschemes.catppuccin.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      settings = {
+        transparent_background = true;
+      };
+    };
     lsp = {
       inlayHints.enable = true;
       servers = {

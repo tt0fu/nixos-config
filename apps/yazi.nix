@@ -1,8 +1,15 @@
-{ pkgs, ... }:
+{ inputs, pkgs, userSettings, ... }:
 
 {
-  programs.yazi = {
-    enable = true;
+  imports = [ inputs.home-manager.nixosModules.default ]; 
+  home-manager.users.${userSettings.username} = { pkgs, ... }: {
+    programs.yazi = {
+      enable = true;
+      enableBashIntegration = true;
+    };
+    wayland.windowManager.hyprland.settings.bind = [
+      "SUPER, E, exec, kitty yazi"
+    ];
   };
 }
 

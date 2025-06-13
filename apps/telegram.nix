@@ -7,7 +7,7 @@
   ];
   home-manager.users.${userSettings.username} = { pkgs, ... }: {
     wayland.windowManager.hyprland.settings.bind = [
-      "$mod, T, exec, telegram-desktop"
+      "SUPER, T, exec, telegram-desktop"
     ];
   };
 }

@@ -7,7 +7,6 @@
       bash.enable = true;
       oh-my-posh = {
         enable = true;
-        #useTheme = "multiverse-neon";
         enableBashIntegration = true;
 	settings = {
 	  "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";

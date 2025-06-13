@@ -3,6 +3,6 @@
 {
   environment.systemPackages = [
     pkgs.vlc
-  ]
-;}
+  ];
+}
 
