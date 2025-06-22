@@ -14,8 +14,8 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
+    nvf = {
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord = {
@@ -24,31 +24,38 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, hyprland, ... }: 
-    let 
+  outputs =
+    inputs@{
+      nixpkgs,
+      home-manager,
+      hyprland,
+      ...
+    }:
+    let
       systemSettings = {
         system = "x86_64-linux";
         hostname = "ttofu-pc";
         timeZone = "Europe/Moscow";
         locale = "en_US.UTF-8";
-	monitor = "DP-1";
+        monitor = "DP-1";
       };
       userSettings = {
         username = "ttofu";
-	gitEmail = "tt0fu@users.noreply.github.com";
+        gitEmail = "tt0fu@users.noreply.github.com";
       };
-    in {
+    in
+    {
       nixosConfigurations.${systemSettings.hostname} = nixpkgs.lib.nixosSystem {
         system = systemSettings.system;
         modules = [
-	  ./core/core.nix
+          ./core/core.nix
           ./desktop-environment/desktop-environment.nix
-	  ./apps/apps.nix
-	];
-	specialArgs = {
-	  inherit inputs; 
-	  inherit systemSettings;
-	  inherit userSettings; 	
+          ./apps/apps.nix
+        ];
+        specialArgs = {
+          inherit inputs;
+          inherit systemSettings;
+          inherit userSettings;
         };
       };
     };

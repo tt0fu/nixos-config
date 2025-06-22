@@ -1,64 +1,38 @@
-{ inputs, lib, pkgs, systemSettings, userSettings, ... }:
+{
+  inputs,
+  ...
+}:
 
 {
-  imports = [ inputs.nixvim.nixosModules.nixvim ];
-  programs.nixvim = {
+  imports = [ inputs.nvf.nixosModules.nvf ];
+  programs.nvf = {
     enable = true;
-    defaultEditor = true;
-    colorschemes.catppuccin = {
-      enable = true;
-      settings = {
-        transparent_background = true;
+    settings.vim = {
+      vimAlias = true;
+      syntaxHighlighting = true;
+      options = {
+        shiftwidth = 2;
       };
-    };
-    lsp = {
-      inlayHints.enable = true;
-      servers = {
-        "*" = {
-          settings = {
-      	    capabilities = {
-	      textDocument = {
-	        semanticTokens = {
-	          multilineTokenSupport = true;
-	        };
-	      };
-	    };
-            root_markers = [
-              ".git"
-            ];
-          };
-        };
-        clangd = {
-          enable = true;
-          settings = {
-            cmd = [
-              "clangd"
-              "--background-index"
-            ];
-            filetypes = [
-              "c"
-              "cpp"
-            ];
-            root_markers = [
-              "compile_commands.json"
-              "compile_flags.txt"
-            ];
-          };
-        };
-        lua_ls = {
-          enable = true;
-        };
-	nixd = {
-	  enable = true;
-	  settings = {
-	    formatting.cmd = [
-	      "${lib.getExe pkgs.nixfmt-rfc-style}"
-	    ];
-	  };
-	};
+      lsp = {
+        enable = true;
+        formatOnSave = true;
+        inlayHints.enable = true;
       };
+      languages = {
+        nix.enable = true;
+        clang = {
+          enable = true;
+          lsp.enable = true;
+        };
+      };
+      #lazy = {
+      #  enable = true;
+      #  plugins = {
+      #    lualine-nvim = {
+      #      enabled = true;
+      #    };
+      #  };
+      #};
     };
-    plugins.lualine.enable = true;
   };
 }
-

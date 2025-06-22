@@ -8,5 +8,3 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 }
-
-

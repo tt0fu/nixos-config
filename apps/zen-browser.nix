@@ -1,25 +1,31 @@
-{ inputs, systemSettings, userSettings, ... }:
+{
+  inputs,
+  systemSettings,
+  userSettings,
+  ...
+}:
 
 {
   environment.systemPackages = [
     inputs.zen-browser.packages."${systemSettings.system}".default
   ];
-  home-manager.users.${userSettings.username} = { pkgs, ... }: {
-    imports = [
-      inputs.zen-browser.homeModules.beta # twilight / twilight-official
-    ];
-    programs.zen-browser = {
-      enable = true;
-      policies = {
-        DisableAppUpdate = true;
-        DisableTelemetry = true;
-        # https://mozilla.github.io/policy-templates/
+  home-manager.users.${userSettings.username} =
+    { pkgs, ... }:
+    {
+      imports = [
+        inputs.zen-browser.homeModules.beta # twilight / twilight-official
+      ];
+      programs.zen-browser = {
+        enable = true;
+        policies = {
+          DisableAppUpdate = true;
+          DisableTelemetry = true;
+          # https://mozilla.github.io/policy-templates/
+        };
+        nativeMessagingHosts = [ pkgs.firefoxpwa ];
       };
-      nativeMessagingHosts = [pkgs.firefoxpwa];
+      wayland.windowManager.hyprland.settings.bind = [
+        "SUPER, Z, exec, zen"
+      ];
     };
-    wayland.windowManager.hyprland.settings.bind = [
-      "SUPER, Z, exec, zen"
-    ];
-  };
 }
-

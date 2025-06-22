@@ -1,6 +1,12 @@
-{ inputs, pkgs, systemSettings, userSettings, ... }:
+{
+  inputs,
+  pkgs,
+  systemSettings,
+  userSettings,
+  ...
+}:
 
-{ 
+{
   imports = [
     ./bootloader.nix
     ./configuration.nix
@@ -15,4 +21,3 @@
     ./user.nix
   ];
 }
-

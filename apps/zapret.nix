@@ -1,4 +1,9 @@
-{ inputs, pkgs, userSettings, ... }:
+{
+  inputs,
+  pkgs,
+  userSettings,
+  ...
+}:
 
 {
   services.zapret = {
@@ -13,4 +18,3 @@
     ];
   };
 }
-

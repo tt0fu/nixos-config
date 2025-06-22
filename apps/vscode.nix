@@ -7,15 +7,15 @@
 
 {
   imports = [ inputs.home-manager.nixosModules.default ];
+  environment.systemPackages = with pkgs; [
+    nixfmt-rfc-style
+  ];
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      programs.yazi = {
-        enable = true;
-        enableBashIntegration = true;
-      };
+      programs.vscode.enable = true;
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, E, exec, kitty yazi"
+        "SUPER, V, exec, code"
       ];
     };
 }
