@@ -1,6 +1,8 @@
 { systemSettings, ... }:
 
 {
-  # Set your time zone.
-  time.timeZone = systemSettings.timeZone;
+  time = {
+    timeZone = systemSettings.timeZone;
+    hardwareClockInLocalTime = true;
+  };
 }

@@ -10,6 +10,7 @@
   imports = [
     ./bootloader.nix
     ./configuration.nix
+    ./font.nix
     ./git.nix
     ./hardware-configuration.nix
     ./home-stateversion.nix
