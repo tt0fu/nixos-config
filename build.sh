@@ -1,7 +1,9 @@
 FILE_PATH="./core/hardware-configuration.nix"
 
-if [ ! -f "$FILE_PATH" ]; then
-  nixos-generate-config --show-hardware-config > "$FILE_PATH"
-fi
+rm "$FILE_PATH"
+
+nixos-generate-config --show-hardware-config > "$FILE_PATH"
+
+git add --all
 
 sudo nixos-rebuild switch --flake . --show-trace
