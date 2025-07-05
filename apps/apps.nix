@@ -10,14 +10,17 @@
 {
   imports = [
     ./anki.nix
+    ./btop.nix
     ./discord.nix
     ./fastfetch/fastfetch.nix
-    #./nvim.nix
+    ./helvum.nix
+    ./kitty.nix
+    ./nvim.nix
     ./obs-studio.nix
     ./oh-my-posh.nix
+    ./qbittorrent.nix
     ./steam.nix
     ./telegram.nix
-    ./terminal.nix
     ./vlc.nix
     ./vscode.nix
     ./yazi.nix

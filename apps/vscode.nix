@@ -17,5 +17,6 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, V, exec, code"
       ];
+      programs.waybar.settings."hyprland/workspaces".window-rewrite."class<.*code.*>" = "󰨞";
     };
 }

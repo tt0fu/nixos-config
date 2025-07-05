@@ -8,15 +8,11 @@
 {
   imports = [ inputs.home-manager.nixosModules.default ];
   environment.systemPackages = with pkgs; [
-    legcord
+    discord
   ];
-  nixpkgs.config.allowUnfree = true;
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      nixpkgs.config = {
-        allowUnfree = true;
-      };
       imports = [
         inputs.nixcord.homeModules.nixcord
       ];

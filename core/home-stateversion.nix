@@ -10,6 +10,17 @@
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      home.stateVersion = "24.11";
+      nixpkgs.config.allowUnfree = true;
+      home = {
+        stateVersion = "24.11";
+        username = userSettings.username;
+        homeDirectory = "/home/" + userSettings.username;
+        file = {
+          ".config/nixpkgs" = {
+            source = ./nixpkgs;
+            recursive = true;
+          };
+        };
+      };
     };
 }

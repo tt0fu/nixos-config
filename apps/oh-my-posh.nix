@@ -18,7 +18,7 @@
           enableBashIntegration = true;
           settings = {
             "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
-            "palette" = {
+            palette = {
               "red" = "#FF0000";
               "green" = "#00FF00";
               "blue" = "#0000FF";
@@ -33,7 +33,7 @@
               "5" = "#B4E1FF";
               "6" = "#F1CCFF";
             };
-            "blocks" = [
+            blocks = [
               {
                 alignment = "left";
                 segments = [
@@ -41,13 +41,8 @@
                     background = "p:0";
                     foreground = "p:black";
                     leading_diamond = "╭─";
-                    properties = {
-                      linux = "";
-                      macos = "";
-                      windows = "";
-                    };
                     style = "diamond";
-                    template = "{{ if .WSL }}WSL at {{ end }}{{.Icon}} ";
+                    template = "{{.Icon}} ";
                     type = "os";
                   }
                   {
@@ -55,18 +50,19 @@
                     foreground = "p:black";
                     powerline_symbol = "";
                     style = "powerline";
-                    template = " {{ .Name }} ";
+                    template = " {{if .Env.IN_NIX_SHELL}}nix-shell{{else}}{{.Name}}{{end}} ";
                     type = "shell";
                   }
                   {
-                    background = "p:red";
+                    background = "p:2";
                     foreground = "p:black";
-                    style = "diamond";
-                    template = "<parentBackground></>  ";
-                    type = "root";
+                    powerline_symbol = "";
+                    style = "powerline";
+                    template = " {{ .UserName }} ";
+                    type = "session";
                   }
                   {
-                    background = "p:2";
+                    background = "p:3";
                     foreground = "p:black";
                     powerline_symbol = "";
                     properties = {
@@ -77,7 +73,7 @@
                     type = "path";
                   }
                   {
-                    background = "p:3";
+                    background = "p:4";
                     foreground = "p:black";
                     powerline_symbol = "";
                     properties = {
@@ -90,7 +86,7 @@
                     type = "git";
                   }
                   {
-                    background = "p:4";
+                    background = "p:5";
                     foreground = "p:black";
                     properties = {
                       style = "roundrock";
@@ -108,29 +104,15 @@
                 alignment = "right";
                 segments = [
                   {
-                    background = "p:5";
-                    foreground = "p:black";
-                    invert_powerline = true;
-                    powerline_symbol = "";
-                    properties = {
-                      charged_icon = " ";
-                      charging_icon = " ";
-                      discharging_icon = " ";
-                    };
-                    style = "powerline";
-                    template = " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }} ";
-                    type = "battery";
-                  }
-                  {
                     background = "p:6";
                     foreground = "p:black";
                     invert_powerline = true;
-                    leading_diamond = "";
                     properties = {
                       time_format = "Jan _2, 15:04";
                     };
                     style = "diamond";
                     template = " {{ .CurrentDate | date .Format }} ";
+                    leading_diamond = "";
                     trailing_diamond = "";
                     type = "time";
                   }
@@ -160,6 +142,10 @@
                 type = "prompt";
               }
             ];
+            secondary_prompt = {
+              foreground = "p:0";
+              template = " ";
+            };
             version = 3;
           };
         };

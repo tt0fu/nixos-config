@@ -10,13 +10,11 @@
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      programs.yazi = {
+      programs.btop = {
         enable = true;
-        enableBashIntegration = true;
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, E, exec, kitty yazi"
+        "CTRL_SHIFT, ESCAPE, exec, kitty btop"
       ];
-      programs.waybar.settings."hyprland/workspaces".window-rewrite."class<kitty> title<.*Yazi.*>" = "";
     };
 }

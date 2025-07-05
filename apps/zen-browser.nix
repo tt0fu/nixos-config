@@ -13,7 +13,7 @@
     { pkgs, ... }:
     {
       imports = [
-        inputs.zen-browser.homeModules.beta # twilight / twilight-official
+        inputs.zen-browser.homeModules.twilight #  beta / twilight / twilight-official
       ];
       programs.zen-browser = {
         enable = true;

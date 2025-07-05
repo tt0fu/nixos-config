@@ -1,5 +1,5 @@
 {
-  description = "ttofu's flake";
+  description = "ttofu's nixos config";
 
   inputs = {
     nixpkgs = {
@@ -34,10 +34,10 @@
     let
       systemSettings = {
         system = "x86_64-linux";
-        hostname = "ttofu-pc";
-        timeZone = "Europe/Moscow";
+        hostname = "ttofu-laptop";
+        timeZone = "Asia/Yekaterinburg";
         locale = "en_US.UTF-8";
-        monitor = "DP-1";
+        monitor = "eDP-1";
       };
       userSettings = {
         username = "ttofu";
