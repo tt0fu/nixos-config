@@ -1,9 +1,4 @@
 {
-  inputs,
-  lib,
-  pkgs,
-  systemSettings,
-  userSettings,
   ...
 }:
 
@@ -13,11 +8,11 @@
     ./btop.nix
     ./discord.nix
     ./fastfetch/fastfetch.nix
-    ./helvum.nix
     ./kitty.nix
     ./nvim.nix
     ./obs-studio.nix
     ./oh-my-posh.nix
+    ./pavucontrol.nix
     ./qbittorrent.nix
     ./steam.nix
     ./telegram.nix

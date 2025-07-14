@@ -4,35 +4,40 @@
 }:
 
 {
-  imports = [ inputs.nvf.nixosModules.nvf ];
-  programs.nvf = {
+  programs.nixvim = {
     enable = true;
-    settings.vim = {
-      vimAlias = true;
-      syntaxHighlighting = true;
-      options = {
-        shiftwidth = 2;
-      };
-      lsp = {
-        enable = true;
-        formatOnSave = true;
-        inlayHints.enable = true;
-      };
-      languages = {
-        nix.enable = true;
-        clang = {
-          enable = true;
-          lsp.enable = true;
+    lsp = {
+      inlayHints.enable = true;
+
+      servers = {
+        "*" = {
+          settings = {
+            capabilities = {
+              textDocument = {
+                semanticTokens = {
+                  multilineTokenSupport = true;
+                };
+              };
+            };
+            root_markers = [
+              ".git"
+            ];
+          };
         };
+        clangd.enable = true;
       };
-      #lazy = {
-      #  enable = true;
-      #  plugins = {
-      #    lualine-nvim = {
-      #      enabled = true;
-      #    };
-      #  };
-      #};
+    };
+    colorschemes.catppuccin = {
+      enable = true;
+      settings.transparent_background = true;
+    };
+    plugins = {
+      lualine.enable = true;
+      lsp.enable = true;
+      lsp-format.enable = true;
+      lsp-signature.enable = true;
+      lsp-status.enable = true;
+      undotree.enable = true;
     };
   };
 }

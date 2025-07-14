@@ -19,13 +19,23 @@
   nix.optimise.automatic = true;
   nixpkgs.config = {
     allowUnfree = true;
-    #allowUnfreePredicate = (_: true);
   };
-  environment.systemPackages = with pkgs; [
-    curl
-    wget
-    killall
-  ];
+  home-manager.users.${userSettings.username} =
+    { pkgs, ... }:
+    {
+      nixpkgs.config.allowUnfree = true;
+      home = {
+        stateVersion = "24.11";
+        username = userSettings.username;
+        homeDirectory = "/home/" + userSettings.username;
+        file = {
+          ".config/nixpkgs" = {
+            source = ./nixpkgs;
+            recursive = true;
+          };
+        };
+      };
+    };
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

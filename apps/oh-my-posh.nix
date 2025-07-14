@@ -7,7 +7,6 @@
 }:
 
 {
-  imports = [ inputs.home-manager.nixosModules.default ];
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {

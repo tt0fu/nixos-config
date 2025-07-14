@@ -7,11 +7,6 @@
 }:
 
 {
-  imports = [ inputs.home-manager.nixosModules.default ];
-  # environment.systemPackages = with pkgs; [ 
-  #   wireguard-tools 
-  #   jq
-  # ];
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
@@ -52,7 +47,7 @@
                 "class<.*vlc.*>" = "󰕼";
                 "class<.*telegram.*>" = "";
                 "class<.*steam.*>" = "";
-                "class<.*helvum.*>" = "";
+                "class<.*pavucontrol.*>" = "";
                 "class<.*discord.*>" = "";
                 "class<kitty> title<.*nvim.*>" = "";
                 "class<kitty> title<.*yazi.*>" = "";
@@ -93,14 +88,14 @@
               interval = 1;
               format = "{:%a, %d %b %H:%M:%S}";
             };
-            pulseaudio.format = " {volume}%";
-            battery.format = " {capacity}%";
+            pulseaudio.format = "{volume}%";
+            battery.format = "{capacity}%";
           };
         };
         style = ''
                     * {
                       border: none;
-                      font-family: JetBrainsMono Nerd Font;
+                      font-family: JetBrainsMono Nerd Font Propo;
                     	font-size: 15px;
                     	color: white;
                     }
@@ -158,7 +153,7 @@
                     window#waybar.empty #window {
                       border-style: none;
                     }
-                    '';
+        '';
       };
       wayland.windowManager.hyprland.settings.layerrule = [
         "blur, waybar"

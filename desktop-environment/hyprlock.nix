@@ -7,7 +7,6 @@
 }:
 
 {
-  imports = [ inputs.home-manager.nixosModules.default ];
   security.pam.services.hyprlock = { };
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
@@ -60,6 +59,7 @@
       };
       wayland.windowManager.hyprland.settings = {
         bind = [ "$mod, L, exec, hyprlock --immediate" ];
+        exec-once = [ "sleep 0.1; hyprlock --immediate" ];
       };
     };
 }

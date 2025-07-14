@@ -6,7 +6,6 @@
 }:
 
 {
-  imports = [ inputs.home-manager.nixosModules.default ];
   programs.git.enable = true;
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:

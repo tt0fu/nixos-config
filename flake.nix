@@ -14,8 +14,8 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvf = {
-      url = "github:notashelf/nvf";
+    nixvim = {
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord = {
@@ -48,9 +48,11 @@
       nixosConfigurations.${systemSettings.hostname} = nixpkgs.lib.nixosSystem {
         system = systemSettings.system;
         modules = [
-          ./core/core.nix
-          ./desktop-environment/desktop-environment.nix
-          ./apps/apps.nix
+          inputs.home-manager.nixosModules.default
+          inputs.nixvim.nixosModules.nixvim
+          ./core
+          ./desktop-environment
+          ./apps
         ];
         specialArgs = {
           inherit inputs;

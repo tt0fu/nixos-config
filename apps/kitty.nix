@@ -6,7 +6,6 @@
 }:
 
 {
-  imports = [ inputs.home-manager.nixosModules.default ];
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
@@ -14,7 +13,7 @@
         kitty = {
           enable = true;
           font = {
-            name = "JetBrainsMono Nerd Font";
+            name = "JetBrainsMono Nerd Font Propo";
             size = 12;
           };
           shellIntegration.enableBashIntegration = true;
