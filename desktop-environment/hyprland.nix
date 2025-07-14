@@ -40,6 +40,9 @@
               kb_layout = "us, ru";
               kb_options = "grp:alt_shift_toggle";
               # sensitivity = -0.8;
+              touchpad = {
+                natural_scroll = true;
+              };
             }
           ];
           bind =
@@ -47,7 +50,6 @@
               "SUPER, ESCAPE, killactive"
               "SUPER, F12, exit"
               "SUPER, SPACE, togglefloating"
-              "SUPER, S, exec, hyprshot -o ~/Images/screenshots -m region"
               "SUPER, TAB, cyclenext"
               "SUPER, TAB, bringactivetotop"
               "SUPER&SHIFT, TAB, cyclenext, prev"
@@ -90,7 +92,7 @@
               passes = 3;
               noise = 0.0;
               contrast = 1.0;
-              brightness = 1.0;
+              brightness = 0.5;
             };
             shadow = {
               enabled = false;

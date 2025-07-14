@@ -6,6 +6,7 @@
   imports = [
     ./anki.nix
     ./btop.nix
+    ./carla.nix
     ./discord.nix
     ./fastfetch/fastfetch.nix
     ./kitty.nix

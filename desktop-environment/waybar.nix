@@ -48,7 +48,7 @@
                 "class<.*vlc.*>" = "󰕼";
                 "class<.*telegram.*>" = "";
                 "class<.*steam.*>" = "";
-                "class<.*pavucontrol.*>" = "";
+                "class<.*pavucontrol.*>" = "2";
                 "class<.*discord.*>" = "";
                 "class<kitty> title<.*nvim.*>" = "";
                 "class<kitty> title<.*yazi.*>" = "";
@@ -94,8 +94,8 @@
               format-wifi = " {signalStrength}%";
               format-ethernet = "";
               format-disconnected = "󱞐";
-              tooltip-format-wifi = " {essid}  {bandwidthUpBits}  {bandwidthDownBits}";
-              tooltip-format-ethernet = " {ifname}  {bandwidthUpBits}  {bandwidthDownBits}";
+              tooltip-format-wifi = " {essid}  {bandwidthDownBits}  {bandwidthUpBits}";
+              tooltip-format-ethernet = " {ifname}  {bandwidthDownBits}  {bandwidthUpBits}";
               tooltip-format-disconnected = "Disconnected";
               on-click = "kitty nmtui";
             };
