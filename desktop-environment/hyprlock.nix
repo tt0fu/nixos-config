@@ -58,7 +58,7 @@
         };
       };
       wayland.windowManager.hyprland.settings = {
-        bind = [ "$mod, L, exec, hyprlock --immediate" ];
+        bind = [ "SUPER, L, exec, hyprlock --immediate" ];
         exec-once = [ "sleep 0.1; hyprlock --immediate" ];
       };
     };

@@ -34,7 +34,6 @@
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {
-          "$mod" = "SUPER";
           input = [
             {
               kb_layout = "us, ru";
@@ -68,16 +67,15 @@
                   ws = i + 1;
                 in
                 [
-                  "$mod, code:1${toString i}, workspace, ${toString ws}"
-                  "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+                  "SUPER, code:1${toString i}, workspace, ${toString ws}"
+                  "SUPER SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
                 ]
               ) 9
             ));
           bindm = [
-            "$mod, mouse:272, movewindow"
-            "$mod, mouse:273, resizewindow"
+            "SUPER, mouse:272, movewindow"
+            "SUPER, mouse:273, resizewindow"
           ];
-          monitor = [ "${systemSettings.monitor}, 1366x768@60.00Hz, 0x0, 1" ];
           general = {
             gaps_in = 2;
             gaps_out = 2;

@@ -244,7 +244,7 @@
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "$mod, D, exec, vesktop"
+        "SUPER, D, exec, vesktop"
       ];
     };
 }
