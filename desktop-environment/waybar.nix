@@ -34,6 +34,7 @@
               "hyprland/language"
               "pulseaudio"
               "battery"
+              "network"
               "clock"
             ];
 
@@ -84,12 +85,26 @@
               format-en = "EN";
               format-ru = "RU";
             };
+            pulseaudio = {
+              format = " {volume}%";
+              on-click = "pavucontrol";
+            };
+            battery.format = " {capacity}%";
+            network = {
+              format-wifi = " {signalStrength}%";
+              format-ethernet = "";
+              format-disconnected = "󱞐";
+              tooltip-format-wifi = " {essid}  {bandwidthUpBits}  {bandwidthDownBits}";
+              tooltip-format-ethernet = " {ifname}  {bandwidthUpBits}  {bandwidthDownBits}";
+              tooltip-format-disconnected = "Disconnected";
+              on-click = "kitty nmtui";
+            };
             clock = {
               interval = 1;
-              format = "{:%a, %d %b %H:%M:%S}";
+              format = "{:%H:%M:%S}";
+              tooltip = true;
+              tooltip-format = "{:%Y %b %d %H:%M:%S}";
             };
-            pulseaudio.format = "{volume}%";
-            battery.format = "{capacity}%";
           };
         };
         style = ''
@@ -100,7 +115,8 @@
                     	color: white;
                     }
                     window#waybar,
-                    #tray menu {
+                    #tray menu,
+                    tooltip {
                       background: rgba(0, 0, 0, 0.01);
                     	border: 1px solid white;
                       border-radius: 5px;
@@ -114,6 +130,7 @@
                     #language,
                     #pulseaudio,
           					#battery,
+                    #network,
                     #clock {
                       border: 1px solid white;
                       border-radius: 5px;

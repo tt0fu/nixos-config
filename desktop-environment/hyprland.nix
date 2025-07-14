@@ -52,6 +52,10 @@
               "SUPER, TAB, bringactivetotop"
               "SUPER&SHIFT, TAB, cyclenext, prev"
               "SUPER&SHIFT, TAB, bringactivetotop"
+              "SUPER, Up, movefocus, u"
+              "SUPER, Down, movefocus, d"
+              "SUPER, Left, movefocus, l"
+              "SUPER, Right, movefocus, r"
               "SUPER, RETURN, fullscreen"
               "SUPER, P, exec, shutdown now"
             ]
