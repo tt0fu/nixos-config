@@ -48,11 +48,12 @@
                 "class<.*vlc.*>" = "󰕼";
                 "class<.*telegram.*>" = "";
                 "class<.*steam.*>" = "";
-                "class<.*pavucontrol.*>" = "2";
+                "class<.*pavucontrol.*>" = "";
                 "class<.*discord.*>" = "";
-                "class<kitty> title<.*nvim.*>" = "";
-                "class<kitty> title<.*yazi.*>" = "";
-                "class<kitty> title<.*btop.*>" = "";
+                "title<nvim>" = "";
+                "title<.*yazi.*>" = "";
+                "title<btop>" = "";
+                "title<nmtui>" = "󰖟";
                 "class<kitty>" = "";
               };
             };
@@ -65,7 +66,7 @@
             #   on-click-middle = "close";
             # };
             "hyprland/window" = {
-              format = "{title:.20}";
+              format = "{title:.30}";
               icon = true;
               icon-size = 20;
             };
@@ -84,6 +85,7 @@
             "hyprland/language" = {
               format-en = "EN";
               format-ru = "RU";
+              keyboard-name = "at-translated-set-2-keyboard";
             };
             pulseaudio = {
               format = " {volume}%";
