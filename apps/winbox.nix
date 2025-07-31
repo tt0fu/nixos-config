@@ -1,0 +1,7 @@
+{
+  ...
+}:
+
+{
+  programs.winbox.enable = true;
+}

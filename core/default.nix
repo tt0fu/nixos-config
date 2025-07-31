@@ -14,6 +14,7 @@
     ./git.nix
     ./hardware-configuration.nix
     ./internationalisation.nix
+    ./mounting.nix
     ./networking.nix
     ./power.nix
     ./sound.nix

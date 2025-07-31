@@ -43,17 +43,20 @@
               format-window-separator = " ";
               window-rewrite-default = "";
               window-rewrite = {
-                "class<.*zen.*>" = "󰺕";
+                "class<zen.*>" = "󰺕";
                 "class<.*code.*>" = "󰨞";
                 "class<.*vlc.*>" = "󰕼";
                 "class<.*telegram.*>" = "";
                 "class<.*steam.*>" = "";
                 "class<.*pavucontrol.*>" = "";
                 "class<.*discord.*>" = "";
-                "title<nvim>" = "";
-                "title<.*yazi.*>" = "";
-                "title<btop>" = "";
-                "title<nmtui>" = "󰖟";
+                "class<.*mixxx.*>" = "";
+                "class<dev.zed.Zed>" = "󰰶";
+                "class<.*winbox64.*>" = "󱂇";
+                "class<kitty>title<nvim>" = "";
+                "class<kitty>title<.*yazi.*>" = "";
+                "class<kitty>title<btop>" = "";
+                "class<kitty>title<nmtui>" = "󰖟";
                 "class<kitty>" = "";
               };
             };
@@ -140,7 +143,7 @@
                     	margin: 5px 2.5px;
                     	padding: 0px 5px;
                     }
-                    #workspaces, 
+                    #workspaces,
                     #taskbar {
                   	  padding: 2.5px;
                    	}
@@ -149,7 +152,7 @@
                    	}
                    	#clock {
                    	  margin-right: 5px;
-                   	}	
+                   	}
                    	button {
                    	  border: 1px solid #777777;
                    	  padding: 0px 5px;
@@ -162,7 +165,7 @@
                    	#workspaces button.urgent {
                    	  border-style: solid;
                    	  border-color: #ff6666;
-                   	}	
+                   	}
                    	button:hover {
                    	  box-shadow: inherit;
                    	  text-shadow: inherit;

@@ -14,6 +14,7 @@
     glib
     hyprshot
     hyprpolkitagent
+    gsettings-desktop-schemas
   ];
   services.pipewire.enable = true;
   services.pipewire.wireplumber.enable = true;
@@ -99,6 +100,7 @@
           animation = [ "global, 1, 1, default" ];
           exec-once = [
             "systemctl --user start hyprpolkitagent"
+            "gsettings set org.gnome.mutter check-alive-timeout 0"
           ];
           env = [ "QT_QPA_PLATFORMTHEME,qt6ct" ];
           misc = {
@@ -116,6 +118,11 @@
         theme = {
           package = pkgs.pkgs.flat-remix-gtk;
           name = "Flat-Remix-GTK-Grey-Darkest";
+        };
+      };
+      dconf.settings = {
+        "org/gnome/mutter" = {
+          check-alive-timeout = 0;
         };
       };
     };
