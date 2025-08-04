@@ -1,13 +1,11 @@
 {
-  inputs,
-  pkgs,
   userSettings,
   ...
 }:
 
 {
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       programs = {
         kitty = {

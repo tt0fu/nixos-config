@@ -1,14 +1,11 @@
 {
-  inputs,
-  pkgs,
-  systemSettings,
   userSettings,
   ...
 }:
 
 {
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       programs = {
         bash.enable = true;

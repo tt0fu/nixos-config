@@ -1,7 +1,4 @@
 {
-  inputs,
-  pkgs,
-  systemSettings,
   userSettings,
   ...
 }:
@@ -9,7 +6,7 @@
 {
   security.pam.services.hyprlock = { };
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       programs.hyprlock = {
         enable = true;
@@ -58,8 +55,8 @@
         };
       };
       wayland.windowManager.hyprland.settings = {
-        bind = [ "SUPER, L, exec, hyprlock --immediate" ];
-        exec-once = [ "sleep 0.1; hyprlock --immediate" ];
+        bind = [ "SUPER, L, exec, hyprlock" ];
+        exec-once = [ "sleep 0.5; hyprlock" ];
       };
     };
 }

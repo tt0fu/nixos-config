@@ -1,7 +1,5 @@
 {
-  inputs,
   pkgs,
-  systemSettings,
   userSettings,
   ...
 }:
@@ -18,11 +16,10 @@
   services.pipewire.enable = true;
   services.pipewire.wireplumber.enable = true;
   xdg.portal = {
+    xdgOpenUsePortal = true;
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
-      kdePackages.xdg-desktop-portal-kde
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
     ];
     config.common.default = "*";
   };
@@ -44,34 +41,33 @@
               };
             }
           ];
-          bind =
-            [
-              "SUPER, ESCAPE, killactive"
-              "SUPER, F12, exit"
-              "SUPER, SPACE, togglefloating"
-              "SUPER, TAB, cyclenext"
-              "SUPER, TAB, bringactivetotop"
-              "SUPER&SHIFT, TAB, cyclenext, prev"
-              "SUPER&SHIFT, TAB, bringactivetotop"
-              "SUPER, Up, movefocus, u"
-              "SUPER, Down, movefocus, d"
-              "SUPER, Left, movefocus, l"
-              "SUPER, Right, movefocus, r"
-              "SUPER, RETURN, fullscreen"
-              "SUPER, P, exec, shutdown now"
-            ]
-            ++ (builtins.concatLists (
-              builtins.genList (
-                i:
-                let
-                  ws = i + 1;
-                in
-                [
-                  "SUPER, code:1${toString i}, workspace, ${toString ws}"
-                  "SUPER SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-                ]
-              ) 9
-            ));
+          bind = [
+            "SUPER, ESCAPE, killactive"
+            "SUPER, F12, exit"
+            "SUPER, SPACE, togglefloating"
+            "SUPER, TAB, cyclenext"
+            "SUPER, TAB, bringactivetotop"
+            "SUPER&SHIFT, TAB, cyclenext, prev"
+            "SUPER&SHIFT, TAB, bringactivetotop"
+            "SUPER, Up, movefocus, u"
+            "SUPER, Down, movefocus, d"
+            "SUPER, Left, movefocus, l"
+            "SUPER, Right, movefocus, r"
+            "SUPER, RETURN, fullscreen"
+            "SUPER, P, exec, shutdown now"
+          ]
+          ++ (builtins.concatLists (
+            builtins.genList (
+              i:
+              let
+                ws = i + 1;
+              in
+              [
+                "SUPER, code:1${toString i}, workspace, ${toString ws}"
+                "SUPER SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+              ]
+            ) 9
+          ));
           bindm = [
             "SUPER, mouse:272, movewindow"
             "SUPER, mouse:273, resizewindow"
@@ -116,6 +112,11 @@
         theme = {
           package = pkgs.pkgs.flat-remix-gtk;
           name = "Flat-Remix-GTK-Grey-Darkest";
+        };
+      };
+      dconf.settings = {
+        "org/gnome/mutter" = {
+          check-alive-timeout = 60000;
         };
       };
     };

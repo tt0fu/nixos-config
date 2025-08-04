@@ -8,4 +8,6 @@ nano flake.nix
 
 git add --all
 
-sudo nixos-rebuild switch --flake . --show-trace
+sudo nixos-rebuild boot --flake . --show-trace
+
+reboot

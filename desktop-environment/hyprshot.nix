@@ -9,7 +9,7 @@
     hyprshot
   ];
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       wayland.windowManager.hyprland = {
         enable = true;

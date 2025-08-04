@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   userSettings,
   ...
@@ -10,7 +9,7 @@
     nixfmt-rfc-style
   ];
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       programs.vscode.enable = true;
       wayland.windowManager.hyprland.settings.bind = [

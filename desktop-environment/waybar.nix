@@ -1,6 +1,4 @@
 {
-  inputs,
-  pkgs,
   systemSettings,
   userSettings,
   ...
@@ -8,7 +6,7 @@
 
 {
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       programs.waybar = {
         enable = true;
@@ -43,17 +41,20 @@
               format-window-separator = " ";
               window-rewrite-default = "";
               window-rewrite = {
-                "class<.*zen.*>" = "󰺕";
-                "class<.*code.*>" = "󰨞";
-                "class<.*vlc.*>" = "󰕼";
-                "class<.*telegram.*>" = "";
-                "class<.*steam.*>" = "";
-                "class<.*pavucontrol.*>" = "";
-                "class<.*discord.*>" = "";
-                "title<nvim>" = "";
-                "title<.*yazi.*>" = "";
-                "title<btop>" = "";
-                "title<nmtui>" = "󰖟";
+                "class<zen.*>" = "󰺕";
+                "class<code>" = "󰨞";
+                "class<vlc>" = "󰕼";
+                "class<org.telegram.desktop>" = "";
+                "class<steam>" = "";
+                "class<org.pulseaudio.pavucontrol>" = "";
+                "class<vesktop>" = "";
+                "class<org.mixxx.Mixxx>" = "";
+                "class<dev.zed.Zed>" = "󰰶";
+                "class<WinBox>" = "󱂇";
+                "class<kitty>title<nvim>" = "";
+                "class<kitty>title<.*yazi.*>" = "";
+                "class<kitty>title<btop>" = "";
+                "class<kitty>title<nmtui>" = "󰖟";
                 "class<kitty>" = "";
               };
             };
@@ -91,7 +92,21 @@
               format = " {volume}%";
               on-click = "pavucontrol";
             };
-            battery.format = " {capacity}%";
+            battery = {
+              "interval" = 60;
+              "states" = {
+                "warning" = 30;
+                "critical" = 15;
+              };
+              "format" = "{icon} {capacity}%";
+              "format-icons" = [
+                ""
+                ""
+                ""
+                ""
+                ""
+              ];
+            };
             network = {
               format-wifi = " {signalStrength}%";
               format-ethernet = "";
@@ -140,7 +155,7 @@
                     	margin: 5px 2.5px;
                     	padding: 0px 5px;
                     }
-                    #workspaces, 
+                    #workspaces,
                     #taskbar {
                   	  padding: 2.5px;
                    	}
@@ -149,7 +164,7 @@
                    	}
                    	#clock {
                    	  margin-right: 5px;
-                   	}	
+                   	}
                    	button {
                    	  border: 1px solid #777777;
                    	  padding: 0px 5px;
@@ -162,7 +177,7 @@
                    	#workspaces button.urgent {
                    	  border-style: solid;
                    	  border-color: #ff6666;
-                   	}	
+                   	}
                    	button:hover {
                    	  box-shadow: inherit;
                    	  text-shadow: inherit;

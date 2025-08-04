@@ -1,17 +1,15 @@
 {
-  inputs,
   pkgs,
-  systemSettings,
   userSettings,
   ...
 }:
 
 {
-	environment.systemPackages = with pkgs; [
-		killall
-	];
+  environment.systemPackages = with pkgs; [
+    killall
+  ];
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       programs.wofi = {
         enable = true;
@@ -19,9 +17,8 @@
           show = "run";
           allow_images = true;
           allow_markup = true;
-          location = "bottom";
-          yoffset = -5;
           width = 400;
+          insensitive = true;
         };
         style = ''
                   * {
@@ -56,7 +53,7 @@
           	#entry {
           	  margin: 2.5px;
           	}
-          	
+
           	#inner-box {
           	  padding: 2.5px;
           	}

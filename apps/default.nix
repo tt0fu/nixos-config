@@ -9,7 +9,9 @@
     ./carla.nix
     ./discord.nix
     ./fastfetch/fastfetch.nix
+    ./kdeconnect.nix
     ./kitty.nix
+    ./mixxx.nix
     ./nvim.nix
     ./obs-studio.nix
     ./oh-my-posh.nix
@@ -19,8 +21,11 @@
     ./telegram.nix
     ./vlc.nix
     ./vscode.nix
+    ./wg-gui.nix
+    ./winbox.nix
     ./yazi.nix
     ./zapret.nix
+    ./zed.nix
     ./zen-browser.nix
   ];
 }

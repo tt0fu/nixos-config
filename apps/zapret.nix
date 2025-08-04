@@ -1,7 +1,4 @@
 {
-  inputs,
-  pkgs,
-  userSettings,
   ...
 }:
 

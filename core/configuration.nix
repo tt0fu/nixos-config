@@ -1,7 +1,5 @@
 {
   inputs,
-  pkgs,
-  systemSettings,
   userSettings,
   ...
 }:
@@ -21,7 +19,7 @@
     allowUnfree = true;
   };
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       nixpkgs.config.allowUnfree = true;
       home = {

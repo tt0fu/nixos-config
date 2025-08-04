@@ -10,7 +10,7 @@
     discord
   ];
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       imports = [
         inputs.nixcord.homeModules.nixcord
@@ -29,7 +29,7 @@
             --button-filled-brand-border: white;
             --button-danger-border: white;
             --user-profile-border: white;
-            
+
             --action-sheet-gradient-bg: transparent !important;
             --activity-card-background: transparent !important;
             --alert-bg: transparent !important;
