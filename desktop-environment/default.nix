@@ -7,10 +7,9 @@
     ./hyprland.nix
     ./hyprlock.nix
     ./hyprshot.nix
+    ./launcher.nix
     ./notifications.nix
     ./pointer-cursor.nix
     ./waybar.nix
-    ./wofi.nix
   ];
 }
-

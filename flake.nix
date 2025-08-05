@@ -59,9 +59,5 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    wireguard-gui = {
-      url = "github:leon3s/wireguard-gui";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }

@@ -21,7 +21,6 @@
     ./telegram.nix
     ./vlc.nix
     ./vscode.nix
-    ./wg-gui.nix
     ./winbox.nix
     ./yazi.nix
     ./zapret.nix

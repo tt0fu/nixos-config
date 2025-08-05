@@ -1,0 +1,41 @@
+* {
+  font:   "JetBrainsMono Nerd Font Propo 15";
+  background-color: transparent;
+  text-color: #ffffff;
+  // border: 1px;
+  // border-color: #ff0000;
+  padding: 0px;
+  margin: 0px;
+  spacing: 0px;
+}
+
+window {
+  width: 500px;
+  background-color: #00000001;
+}
+
+listview {
+  lines: 5;
+}
+
+inputbar, window, element selected, message, prompt, element-icon {
+  border: 1px;
+  border-color: #ffffff;
+  border-radius: 5px;
+}
+
+mainbox {
+  padding: 5px;
+}
+
+mainbox, listview {
+  spacing: 5px;
+}
+
+element, inputbar, prompt, entry, element-icon, element-text {
+  padding: 2.5px;
+}
+
+element-icon, element-text, prompt, entry, fr, ns, ci {
+  margin: 2.5px;
+}

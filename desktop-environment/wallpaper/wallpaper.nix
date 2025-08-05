@@ -7,13 +7,13 @@
 
 {
   environment.systemPackages = with pkgs; [
-    glpaper
+    shaderbg
   ];
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
       wayland.windowManager.hyprland.settings.exec-once = [
-        "glpaper ${systemSettings.monitor} ${./wallpaper.frag} --fork"
+        "shaderbg ${systemSettings.monitor} ${./wallpaper.frag}"
       ];
     };
 }

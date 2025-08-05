@@ -1,22 +1,7 @@
-#define glpaper
-
-#ifdef glpaper
-precision highp float;
-uniform vec2 resolution;
-uniform float time;
-#define fragColor gl_FragColor
-#define fragCoord gl_FragCoord.xy
-
-#else
-#define resolution iResolution.xy
-#define time iTime
-
-#endif
-
 #define LIGHTNESS 0.7
 #define CHROMA 0.1
-#define WARP_TIME_SCALE 0.02
-#define RAINBOW_TIME_SCALE 0.1
+#define WARP_iTime_SCALE 0.01
+#define RAINBOW_iTime_SCALE 0.1
 #define SCALE 2.0
 #define RAINBOW_REPEATS 2.0
 
@@ -113,47 +98,49 @@ vec3 hue_lsrgb(float hue) {
 // noise
 
 vec2 hash2(vec2 p) {
-    return fract(sin(vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)))) * 43758.5453);
+    return fract(sin(vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)))) * 43755.5453);
 }
 
-vec3 voronoi(in vec2 x) {
-    vec2 ip = floor(x);
-    vec2 fp = fract(x);
-    vec2 mg, mr;
+vec3 voronoi(in vec2 uv) {
+    vec2 int_part = floor(uv);
+    vec2 frac_part = fract(uv);
+    vec2 min_cell, min_dir;
+    float min_dist = 8.0;
 
-    float md = 8.0;
-    for (int j = -2; j <= 2; j++)
+    for (int j = -2; j <= 2; j++) {
         for (int i = -2; i <= 2; i++) {
-            vec2 g = vec2(float(i), float(j));
-            vec2 o = 0.5 + 0.5 * sin(time * WARP_TIME_SCALE + TWO_PI * hash2(ip + g));
-            vec2 r = g + o - fp;
-            float d = dot(r, r);
-            if (d < md) {
-                md = d;
-                mr = r;
-                mg = g;
+            vec2 cell = vec2(float(i), float(j));
+            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_iTime_SCALE + TWO_PI * hash2(int_part + cell));
+            vec2 dir = cell + offset - frac_part;
+            float dist = dot(dir, dir);
+            if (dist < min_dist) {
+                min_dist = dist;
+                min_dir = dir;
+                min_cell = cell;
             }
         }
+    }
 
-    md = 8.0;
-    for (int j = -2; j <= 2; j++)
+    min_dist = 8.0;
+    for (int j = -2; j <= 2; j++) {
         for (int i = -2; i <= 2; i++) {
-            vec2 g = mg + vec2(float(i), float(j));
-            vec2 o = 0.5 + 0.5 * sin(time * WARP_TIME_SCALE + TWO_PI * hash2(ip + g));
-            vec2 r = g + o - fp;
-            if (dot(mr - r, mr - r) > 0.00001) {
-                md = min(md, dot(0.5 * (mr + r), normalize(r - mr)));
+            vec2 cell = min_cell + vec2(float(i), float(j));
+            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_iTime_SCALE + TWO_PI * hash2(int_part + cell));
+            vec2 dir = cell + offset - frac_part;
+            if (dot(min_dir - dir, min_dir - dir) > 0.00001) {
+                min_dist = min(min_dist, dot(0.5 * (min_dir + dir), normalize(dir - min_dir)));
             }
         }
+    }
 
-    return vec3(md, mr);
+    return vec3(min_dist, min_dir);
 }
 
 // main
 
 vec3 noise_srgb(vec3 noise) {
     float p = length(noise.yz);
-    float hue = (p + fract(time * RAINBOW_TIME_SCALE)) * RAINBOW_REPEATS;
+    float hue = (p + fract(iTime * RAINBOW_iTime_SCALE)) * RAINBOW_REPEATS;
     return lsrgb_srgb(hue_lsrgb(hue));
 }
 
@@ -161,16 +148,9 @@ float noise_mask(vec3 noise) {
     return fade(noise.x);
 }
 
-#ifdef glpaper
-void main()
-#else
-void mainImage(out vec4 fragColor, in vec2 fragCoord)
-#endif
-{
-    vec2 scaled_uv = fragCoord * SCALE / resolution.y;
-    vec3 noise = voronoi(scaled_uv);
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+    vec3 noise = voronoi(fragCoord * SCALE / iResolution.y);
     vec3 srgb = noise_srgb(noise);
     float mask = noise_mask(noise);
-    fragColor = vec4(mask);
     fragColor = vec4(srgb * mask, 1.0);
 }
