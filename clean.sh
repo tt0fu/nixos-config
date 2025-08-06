@@ -1,1 +1,1 @@
-nh clean all
+nix-collect-garbage -d

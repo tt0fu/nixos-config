@@ -1,4 +1,4 @@
 git add --all
 
-sudo nixos-rebuild switch --flake . --show-trace
+nixos-rebuild switch --flake . --show-trace --sudo
 # nh os switch .

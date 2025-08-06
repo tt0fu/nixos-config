@@ -2,14 +2,14 @@
 
 {
   imports = [
-    ./wallpaper/wallpaper.nix
+    ./bar
     ./greetd.nix
     ./hyprland.nix
     ./hyprlock.nix
     ./hyprshot.nix
-    ./launcher.nix
+    ./launcher
     ./notifications.nix
     ./pointer-cursor.nix
-    ./waybar.nix
+    ./wallpaper
   ];
 }
