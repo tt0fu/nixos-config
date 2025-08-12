@@ -5,7 +5,7 @@
 }:
 
 {
-  environment.systemPackages = [ pkgs.greetd.greetd ];
+  environment.systemPackages = [ pkgs.greetd ];
   services.greetd = {
     enable = true;
     settings = {
