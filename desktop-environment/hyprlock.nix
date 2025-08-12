@@ -33,7 +33,7 @@
               size = "200, 50";
               fade_on_empty = false;
               font_color = "rgb(255, 255, 255)";
-              font_family = "JetBrainsMono Nerd Font";
+              font_family = "JetBrainsMono Nerd Font Propo";
               inner_color = "rgba(0, 0, 0, 0)";
               outer_color = "rgb(255, 255, 255)";
               outline_thickness = 1;
@@ -49,7 +49,31 @@
               text = "cmd[update:1000] echo \"<b>$(date '+%H:%M:%S')</b>\"";
               color = "rgb(255, 255, 255)";
               font_size = 50;
-              font_family = "JetBrainsMono Nerd Font";
+              font_family = "JetBrainsMono Nerd Font Propo";
+            }
+            {
+              position = "-100, -100";
+              text = "⏻";
+              color = "rgb(255, 255, 255)";
+              font_size = 30;
+              font_family = "JetBrainsMono Nerd Font Propo";
+              onclick = "shutdown now";
+            }
+            {
+              position = "0, -100";
+              text = "";
+              color = "rgb(255, 255, 255)";
+              font_size = 30;
+              font_family = "JetBrainsMono Nerd Font Propo";
+              onclick = "reboot";
+            }
+            {
+              position = "100, -100";
+              text = "󰈆";
+              color = "rgb(255, 255, 255)";
+              font_size = 30;
+              font_family = "JetBrainsMono Nerd Font Propo";
+              onclick = "hyprctl dispatch exit";
             }
           ];
         };

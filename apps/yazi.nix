@@ -12,8 +12,7 @@
         enableBashIntegration = true;
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, E, exec, kitty yazi"
+        "SUPER, E, exec, kitty --class yazi yazi"
       ];
-      programs.waybar.settings."hyprland/workspaces".window-rewrite."class<kitty> title<.*Yazi.*>" = "";
     };
 }

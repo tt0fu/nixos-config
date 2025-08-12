@@ -11,7 +11,7 @@
         enable = true;
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "CTRL_SHIFT, ESCAPE, exec, kitty btop"
+        "CTRL_SHIFT, ESCAPE, exec, kitty --class btop btop"
       ];
     };
 }

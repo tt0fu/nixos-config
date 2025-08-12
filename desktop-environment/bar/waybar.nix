@@ -6,8 +6,9 @@
 
 {
   home-manager.users.${userSettings.username} =
-    { ... }:
+    { pkgs, ... }:
     {
+      home.packages = [ pkgs.ripgrep ];
       programs.waybar = {
         enable = true;
         systemd = {
@@ -51,10 +52,10 @@
                 "class<org.mixxx.Mixxx>" = "";
                 "class<dev.zed.Zed>" = "󰰶";
                 "class<WinBox>" = "󱂇";
-                "class<kitty>title<nvim>" = "";
-                "class<kitty>title<.*yazi.*>" = "";
-                "class<kitty>title<btop>" = "";
-                "class<kitty>title<nmtui>" = "󰖟";
+                "class<nvim>" = "";
+                "class<yazi>" = "";
+                "class<btop>" = "";
+                "class<nmtui>" = "󰖟";
                 "class<kitty>" = "";
               };
             };
@@ -114,7 +115,7 @@
               tooltip-format-wifi = " {essid}  {bandwidthDownBits}  {bandwidthUpBits}";
               tooltip-format-ethernet = " {ifname}  {bandwidthDownBits}  {bandwidthUpBits}";
               tooltip-format-disconnected = "Disconnected";
-              on-click = "kitty nmtui";
+              on-click = "kitty --class nmtui nmtui";
             };
             clock = {
               interval = 1;

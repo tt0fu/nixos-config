@@ -43,18 +43,19 @@
           ];
           bind = [
             "SUPER, ESCAPE, killactive"
-            "SUPER, F12, exit"
             "SUPER, SPACE, togglefloating"
             "SUPER, TAB, cyclenext"
             "SUPER, TAB, bringactivetotop"
-            "SUPER&SHIFT, TAB, cyclenext, prev"
-            "SUPER&SHIFT, TAB, bringactivetotop"
+            "SUPER SHIFT, TAB, cyclenext, prev"
+            "SUPER SHIFT, TAB, bringactivetotop"
             "SUPER, Up, movefocus, u"
             "SUPER, Down, movefocus, d"
             "SUPER, Left, movefocus, l"
             "SUPER, Right, movefocus, r"
             "SUPER, RETURN, fullscreen"
-            "SUPER, P, exec, shutdown now"
+            "SUPER CTRL SHIFT, S, exec, shutdown now"
+            "SUPER CTRL SHIFT, R, exec, reboot"
+            "SUPER CTRL SHIFT, ESCAPE, exit"
           ]
           ++ (builtins.concatLists (
             builtins.genList (

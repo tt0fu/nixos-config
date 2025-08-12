@@ -25,7 +25,7 @@
     (middle)
     (right)))
 
-(defwindow example
+(defwindow bar
            :monitor '["<primary>", "eDP-1", "DP-1", 0]'
            :geometry (geometry :x "0%"
                                :y "0%"
