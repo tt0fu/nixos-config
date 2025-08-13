@@ -39,7 +39,7 @@
             system = systemSettings.system;
             modules = [
               home-manager.nixosModules.default
-              ./hosts
+              ./systems
               ./core
               ./desktop-environment
               ./apps
