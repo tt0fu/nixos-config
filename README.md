@@ -1,6 +1,6 @@
 # ttofu's NixOS config
 
-
+![image](assets/preview.png)
 
 ## Installation
 
