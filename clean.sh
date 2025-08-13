@@ -19,16 +19,6 @@ after=$(df -k . | awk 'NR==2 {print $4}')
 
 freed_kb=$((after - before))
 
-if [ "$freed_kb" -ge 1048576 ]; then
-    freed=$(echo "scale=2; $freed_kb / 1048576" | bc)
-    unit="GB"
-elif [ "$freed_kb" -ge 1024 ]; then
-    freed=$(echo "scale=2; $freed_kb / 1024" | bc)
-    unit="MB"
-else
-    freed=$freed_kb
-    unit="KB"
-fi
+echo ""
 
-# Display results
-echo "Freed $freed $unit"
+echo "Cleaning freed $freed_kb KB"
