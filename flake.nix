@@ -9,33 +9,49 @@
     }@inputs:
     let
       # change these settings
-      systemSettings = {
-        system = "x86_64-linux";
-        hostname = "ttofu-laptop";
-        timeZone = "Europe/Moscow";
-        locale = "en_US.UTF-8";
-        monitor = "eDP-1";
-      };
       userSettings = {
         username = "ttofu";
         gitEmail = "tt0fu@users.noreply.github.com";
       };
+
+      systems = [
+        {
+          hostname = "ttofu-laptop";
+          system = "x86_64-linux";
+          timeZone = "Europe/Moscow";
+          locale = "en_US.UTF-8";
+          monitor = "eDP-1";
+        }
+        {
+          hostname = "ttofu-pc";
+          system = "x86_64-linux";
+          timeZone = "Europe/Moscow";
+          locale = "en_US.UTF-8";
+          monitor = "DP-1";
+        }
+      ];
     in
     {
-      nixosConfigurations.${systemSettings.hostname} = nixpkgs.lib.nixosSystem {
-        system = systemSettings.system;
-        modules = [
-          inputs.home-manager.nixosModules.default
-          ./core
-          ./desktop-environment
-          ./apps
-        ];
-        specialArgs = {
-          inherit inputs;
-          inherit systemSettings;
-          inherit userSettings;
-        };
-      };
+      nixosConfigurations = builtins.listToAttrs (
+        map (systemSettings: {
+          name = systemSettings.hostname;
+          value = nixpkgs.lib.nixosSystem {
+            system = systemSettings.system;
+            modules = [
+              home-manager.nixosModules.default
+              ./hosts
+              ./core
+              ./desktop-environment
+              ./apps
+            ];
+            specialArgs = {
+              inherit inputs;
+              inherit systemSettings;
+              inherit userSettings;
+            };
+          };
+        }) systems
+      );
     };
 
   inputs = {
@@ -46,7 +62,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprland.url = "github:hyprwm/Hyprland";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";

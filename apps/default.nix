@@ -8,7 +8,7 @@
     ./btop.nix
     ./carla.nix
     ./discord.nix
-    ./fastfetch/fastfetch.nix
+    ./fastfetch
     ./kdeconnect.nix
     ./kitty.nix
     ./mixxx.nix

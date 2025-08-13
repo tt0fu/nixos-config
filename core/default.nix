@@ -8,7 +8,6 @@
     ./configuration.nix
     ./font.nix
     ./git.nix
-    ./hardware-configuration.nix
     ./internationalisation.nix
     ./mounting.nix
     ./networking.nix
