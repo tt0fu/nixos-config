@@ -38,7 +38,7 @@ cd my-config
 ./initial-build.sh
 ```
 
-It will generate a hardware configuration file based on your hostname and open `flake.nix` for editing.
+It will generate a hardware configuration file and place it under `systems/MY-HOSTNAME` and open `flake.nix` for editing.
 
 You must change the `systems` list to have an entry describing your machine.
 

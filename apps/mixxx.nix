@@ -1,10 +1,9 @@
-{
-  pkgs,
-  ...
-}:
+{ userSettings, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    mixxx
-  ];
+  home-manager.users.${userSettings.username} =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.mixxx ];
+    };
 }

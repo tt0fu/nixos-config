@@ -19,6 +19,7 @@
     ./qbittorrent.nix
     ./steam.nix
     ./telegram.nix
+    ./thunderbird.nix
     ./vlc.nix
     ./vscode.nix
     ./winbox.nix

@@ -1,5 +1,9 @@
-{ pkgs, ... }:
+{ userSettings, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ anki ];
+  home-manager.users.${userSettings.username} =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.anki ];
+    };
 }

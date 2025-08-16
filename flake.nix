@@ -21,6 +21,7 @@
           timeZone = "Europe/Moscow";
           locale = "en_US.UTF-8";
           monitor = "eDP-1";
+          vpnName = "NL2_Laptop";
         }
         {
           hostname = "ttofu-pc";
@@ -28,6 +29,7 @@
           timeZone = "Europe/Moscow";
           locale = "en_US.UTF-8";
           monitor = "DP-1";
+          vpnName = "NL2_PC";
         }
       ];
     in

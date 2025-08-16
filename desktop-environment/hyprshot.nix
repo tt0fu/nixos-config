@@ -1,16 +1,13 @@
 {
-  pkgs,
   userSettings,
   ...
 }:
 
 {
-  environment.systemPackages = with pkgs; [
-    hyprshot
-  ];
   home-manager.users.${userSettings.username} =
-    { ... }:
+    { pkgs, ... }:
     {
+      home.packages = [ pkgs.hyprshot ];
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {

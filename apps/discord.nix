@@ -1,17 +1,14 @@
 {
   inputs,
-  pkgs,
   userSettings,
   ...
 }:
 
 {
-  environment.systemPackages = with pkgs; [
-    discord
-  ];
   home-manager.users.${userSettings.username} =
     { ... }:
     {
+      # home.packages = [ pkgs.discord ];
       imports = [
         inputs.nixcord.homeModules.nixcord
       ];

@@ -8,7 +8,10 @@
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.ripgrep ];
+      home.packages = with pkgs; [
+        libnotify
+        helvum
+      ];
       programs.waybar = {
         enable = true;
         systemd = {
@@ -29,11 +32,12 @@
             ];
             modules-right = [
               "tray"
-              # "custom/vpn"
               "hyprland/language"
-              "pulseaudio"
+              # "pulseaudio"
+              "wireplumber"
               "battery"
               "network"
+              "custom/vpn"
               "clock"
             ];
 
@@ -77,36 +81,57 @@
               spacing = 10;
               show-passive-items = true;
             };
-            # "custom/vpn" = {
-            #   format = "󰖂 {}";
-            #   exec = "${../vpn-status.sh}";
-            #   on-click = "${../vpn-toggle.sh}";
-            #   return-type = "json";
-            #   interval = 5;
-            # };
             "hyprland/language" = {
               format-en = "EN";
               format-ru = "RU";
               keyboard-name = "at-translated-set-2-keyboard";
             };
-            pulseaudio = {
-              format = " {volume}%";
-              on-click = "pavucontrol";
+            # pulseaudio = {
+            #   format = " {volume}%";
+            #   format-muted = " {volume}%";
+            #   on-click = "pavucontrol";
+            #   reverse-scrolling = true;
+            # };
+            wireplumber = {
+              format = "{icon} {volume}%";
+              format-muted = " {volume}%";
+              on-click = "killall .helvum-wrapped || hyprctl dispatch exec '[float; size 500, 500; move 100%-w-5, 100%-w-50]' helvum";
+              max-volume = 150;
+              scroll-step = 1;
+              reverse-scrolling = true;
+              format-icons = [
+                ""
+                ""
+                ""
+              ];
             };
             battery = {
-              "interval" = 60;
-              "states" = {
-                "warning" = 30;
-                "critical" = 15;
+              interval = 10;
+              states = {
+                warning = 20;
+                critical = 10;
               };
-              "format" = "{icon} {capacity}%";
-              "format-icons" = [
+              format = "{icon} {capacity}%";
+              format-discharging-warning = "<span color='orange'>{icon} {capacity}%</span>";
+              format-discharging-critical = "<span color='red'>{icon} {capacity}%</span>";
+              format-charging = " {capacity}%";
+              format-charging-full = " {capacity}%";
+              format-full = "{icon} {capacity}%";
+              format-alt = "{icon} {capacity}%";
+              format-icons = [
                 ""
                 ""
                 ""
                 ""
                 ""
               ];
+              events = {
+                on-charging = "notify-send -u normal 'Battery Is Now Charging'";
+                on-discharging = "notify-send -u normal 'Battery Is No Longer Charging'";
+                on-discharging-warning = "notify-send -u normal 'Low Battery'";
+                on-discharging-critical = "notify-send -u critical 'Very Low Battery'";
+                on-charging-100 = "notify-send -u normal 'Battery Full!'";
+              };
             };
             network = {
               format-wifi = " {signalStrength}%";
@@ -115,7 +140,14 @@
               tooltip-format-wifi = " {essid}  {bandwidthDownBits}  {bandwidthUpBits}";
               tooltip-format-ethernet = " {ifname}  {bandwidthDownBits}  {bandwidthUpBits}";
               tooltip-format-disconnected = "Disconnected";
-              on-click = "kitty --class nmtui nmtui";
+              on-click = "killall nmtui || hyprctl dispatch exec '[float; size 500, 500; move 100%-w-5, 100%-w-50]' 'kitty --override font_size=10 --class nmtui nmtui'";
+            };
+            "custom/vpn" = {
+              format = "󰖂 {}";
+              exec = "(ip link show ${systemSettings.vpnName} >/dev/null 2>&1 && echo ) || echo ";
+              on-click = "pkexec bash -c 'wg-quick down ${systemSettings.vpnName} || wg-quick up ${systemSettings.vpnName}'";
+              return-type = "text";
+              interval = 1;
             };
             clock = {
               interval = 1;
@@ -147,6 +179,7 @@
                     #custom-vpn,
                     #language,
                     #pulseaudio,
+                    #wireplumber,
           					#battery,
                     #network,
                     #clock {

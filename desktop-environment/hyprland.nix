@@ -7,14 +7,13 @@
 {
   hardware.graphics.enable = true;
   environment.systemPackages = with pkgs; [
-    pipewire
-    wireplumber
+    # wireplumber
     glib
     hyprshot
     hyprpolkitagent
+    pulseaudio
+    brightnessctl
   ];
-  services.pipewire.enable = true;
-  services.pipewire.wireplumber.enable = true;
   xdg.portal = {
     xdgOpenUsePortal = true;
     enable = true;
@@ -56,6 +55,12 @@
             "SUPER CTRL SHIFT, S, exec, shutdown now"
             "SUPER CTRL SHIFT, R, exec, reboot"
             "SUPER CTRL SHIFT, ESCAPE, exit"
+            ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+            ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5"
+            ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+            ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+            ",XF86MonBrightnessUp, exec, brightnessctl s +10%"
           ]
           ++ (builtins.concatLists (
             builtins.genList (

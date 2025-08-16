@@ -1,5 +1,9 @@
-{ ... }:
+{ userSettings, ... }:
 
 {
-  programs.obs-studio.enable = true;
+  home-manager.users.${userSettings.username} =
+    { ... }:
+    {
+      programs.obs-studio.enable = true;
+    };
 }

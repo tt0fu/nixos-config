@@ -1,7 +1,9 @@
-{ pkgs, ... }:
+{ userSettings, ... }:
 
 {
-  environment.systemPackages = [
-    pkgs.vlc
-  ];
+  home-manager.users.${userSettings.username} =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.vlc ];
+    };
 }

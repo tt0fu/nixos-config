@@ -1,8 +1,9 @@
-{
-  pkgs,
-  ...
-}:
+{ userSettings, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ winbox4 ];
+  home-manager.users.${userSettings.username} =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.winbox4 ];
+    };
 }
