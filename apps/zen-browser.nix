@@ -27,5 +27,8 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, Z, exec, zen"
       ];
+      xdg.mimeApps.defaultApplications = {
+        "application/pdf" = "zen-twilight.desktop";
+      };
     };
 }

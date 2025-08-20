@@ -1,32 +1,28 @@
 {
-  pkgs,
   userSettings,
   ...
 }:
 
 {
   hardware.graphics.enable = true;
-  environment.systemPackages = with pkgs; [
-    # wireplumber
-    glib
-    hyprshot
-    hyprpolkitagent
-    pulseaudio
-    brightnessctl
-  ];
-  xdg.portal = {
-    xdgOpenUsePortal = true;
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
-    config.common.default = "*";
-  };
-  programs.dconf.enable = true;
-  services.gnome.gnome-settings-daemon.enable = true;
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
+      home.packages = with pkgs; [
+        glib
+        hyprshot
+        hyprpolkitagent
+        pulseaudio
+        brightnessctl
+      ];
+      xdg.portal = {
+        xdgOpenUsePortal = true;
+        enable = true;
+        extraPortals = [
+          pkgs.xdg-desktop-portal-gtk
+        ];
+        config.common.default = "*";
+      };
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {

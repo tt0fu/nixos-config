@@ -3,6 +3,7 @@
 {
   imports = [
     ./bar
+    ./bluetooth.nix
     ./greetd.nix
     ./hyprland.nix
     ./hyprlock.nix

@@ -12,7 +12,7 @@
         enable = true;
         settings = {
           bind = [
-            "SUPER, S, exec, hyprshot -o ~/Images/screenshots -m region"
+            "SUPER, S, exec, hyprshot -z -o ~/Images/screenshots -m region"
           ];
         };
       };
