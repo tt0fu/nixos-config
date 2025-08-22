@@ -19,7 +19,7 @@ nixpkgs.config.allowUnfree = true;
 ...
 ```
 
-2. Rebuild the repository:
+2. Rebuild the system:
 
 ```
 sudo nixos-rebuild switch
