@@ -5,6 +5,12 @@
 
 {
   hardware.graphics.enable = true;
+  programs.dconf.enable = true;
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
@@ -112,13 +118,20 @@
       gtk = {
         enable = true;
         theme = {
-          package = pkgs.pkgs.flat-remix-gtk;
+          package = pkgs.flat-remix-gtk;
           name = "Flat-Remix-GTK-Grey-Darkest";
+        };
+        iconTheme = {
+          package = pkgs.adwaita-icon-theme;
+          name = "Adwaita";
         };
       };
       dconf.settings = {
         "org/gnome/mutter" = {
           check-alive-timeout = 60000;
+        };
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
         };
       };
     };

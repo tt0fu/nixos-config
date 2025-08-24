@@ -18,7 +18,6 @@
           "nix"
           "glsl"
           "json"
-          "jetbrains-new-ui-icons"
         ];
         userSettings = {
           telemetry.metrics = false;
@@ -40,7 +39,6 @@
             thumb_border = "none";
           };
           theme = "Rainbow Dark";
-          icon_theme = "JetBrains New UI Icons (Dark)";
         };
         themes.Rainbow = {
           "$schema" = "https://zed.dev/schema/themes/v0.2.0.json";
