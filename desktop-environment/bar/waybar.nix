@@ -105,6 +105,7 @@
             };
             bluetooth = {
               format-disabled = "";
+              format-no-controller = "";
               format-off = "󰂲";
               format-on = "󰂯";
               format-connected = "󰂱";
