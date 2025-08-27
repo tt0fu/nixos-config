@@ -83,6 +83,7 @@
                 "class<btop>" = "";
                 "class<nmtui>" = "󰖟";
                 "class<kitty>" = "";
+                "class<org.kde.kdeconnect.app>" = "";
               };
             };
             "hyprland/window" = {
