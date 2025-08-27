@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./bootloader.nix
+    ./bootloader
     ./configuration.nix
     ./font.nix
     ./git.nix
