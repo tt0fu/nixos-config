@@ -3,9 +3,9 @@
 {
   environment.systemPackages = [ pkgs.wireguard-tools ];
   networking = {
-    hostName = systemSettings.hostname; # Define your hostname.
-    networkmanager.enable = true; # Easiest to use and most distros use this by default.
+    hostName = systemSettings.hostname;
+    networkmanager.enable = true;
     wireguard.enable = true;
-    firewall.enable = false;
+    firewall.enable = true;
   };
 }

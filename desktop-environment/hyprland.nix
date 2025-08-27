@@ -21,13 +21,16 @@
         pulseaudio
         brightnessctl
       ];
-      xdg.portal = {
-        xdgOpenUsePortal = true;
-        enable = true;
-        extraPortals = [
-          pkgs.xdg-desktop-portal-gtk
-        ];
-        config.common.default = "*";
+      xdg = {
+        mimeApps.enable = true;
+        portal = {
+          # xdgOpenUsePortal = true;
+          enable = true;
+          extraPortals = [
+            pkgs.xdg-desktop-portal-gtk
+          ];
+          config.common.default = "*";
+        };
       };
       wayland.windowManager.hyprland = {
         enable = true;
@@ -107,6 +110,7 @@
           env = [ "QT_QPA_PLATFORMTHEME,qt6ct" ];
           misc = {
             disable_hyprland_logo = true;
+            enable_anr_dialog = false;
           };
           ecosystem = {
             no_donation_nag = true;
@@ -128,6 +132,9 @@
       };
       dconf.settings = {
         "org/gnome/mutter" = {
+          check-alive-timeout = 60000;
+        };
+        "org/cinnamon/muffin" = {
           check-alive-timeout = 60000;
         };
         "org/gnome/desktop/interface" = {

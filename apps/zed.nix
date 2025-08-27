@@ -13,11 +13,14 @@
           nil
           nixd
           clang-tools
+          texlab
+          package-version-server
         ];
         extensions = [
           "nix"
           "glsl"
           "json"
+          "latex"
         ];
         userSettings = {
           telemetry.metrics = false;

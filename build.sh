@@ -1,4 +1,4 @@
-git add --all
+sudo git add --all
 
 command=$1;
 

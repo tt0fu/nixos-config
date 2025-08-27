@@ -5,6 +5,7 @@
 {
   imports = [
     ./anki.nix
+    ./alvr.nix
     ./btop.nix
     ./carla.nix
     ./discord.nix
