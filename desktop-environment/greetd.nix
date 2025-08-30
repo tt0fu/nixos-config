@@ -18,7 +18,7 @@
       };
       default_session = {
         user = userSettings.username;
-        command = "agreety --cmd bash";
+        command = "agreety --cmd sh";
       };
     };
   };
