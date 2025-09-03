@@ -9,6 +9,7 @@
     ./font.nix
     ./git.nix
     ./internationalisation.nix
+    ./keyring.nix
     ./mounting.nix
     ./networking.nix
     ./power.nix

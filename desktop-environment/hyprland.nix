@@ -1,4 +1,5 @@
 {
+  systemSettings,
   userSettings,
   ...
 }:
@@ -24,10 +25,13 @@
       xdg = {
         mimeApps.enable = true;
         portal = {
-          # xdgOpenUsePortal = true;
           enable = true;
           extraPortals = [
+            pkgs.xdg-desktop-portal-hyprland
             pkgs.xdg-desktop-portal-gtk
+            pkgs.xdg-desktop-portal-gnome
+            pkgs.xdg-desktop-portal-wlr
+            pkgs.xdg-desktop-portal-xapp
           ];
           config.common.default = "*";
         };
@@ -44,6 +48,9 @@
                 natural_scroll = true;
               };
             }
+          ];
+          monitor = [
+            "${systemSettings.monitor.name}, ${systemSettings.monitor.settings}"
           ];
           bind = [
             "SUPER, ESCAPE, killactive"

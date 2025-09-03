@@ -28,7 +28,6 @@
             mainBar = {
               layer = "top";
               position = "top";
-              output = systemSettings.monitor;
               height = 30;
               modules-left = [
                 "hyprland/language"
@@ -85,6 +84,7 @@
                   "class<vesktop>" = "";
                   "class<org.mixxx.Mixxx>" = "";
                   "class<dev.zed.Zed>" = "󰰶";
+                  "class<com.obsproject.Studio>" = "";
                   "class<WinBox>" = "󱂇";
                   "class<nvim>" = "";
                   "class<yazi>" = "";

@@ -13,7 +13,7 @@
     { ... }:
     {
       wayland.windowManager.hyprland.settings.exec-once = [
-        "shaderbg ${systemSettings.monitor} ${./wallpaper.frag}"
+        "shaderbg ${systemSettings.monitor.name} ${./wallpaper.frag}"
       ];
     };
 }

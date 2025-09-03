@@ -20,7 +20,10 @@
           system = "x86_64-linux";
           timeZone = "Europe/Moscow";
           locale = "en_US.UTF-8";
-          monitor = "eDP-1";
+          monitor = {
+            name = "eDP-1";
+            settings = "1920x1200@60, 0x0, 1.25";
+          };
           vpnName = "NL2_Laptop";
         }
         {
@@ -28,7 +31,10 @@
           system = "x86_64-linux";
           timeZone = "Europe/Moscow";
           locale = "en_US.UTF-8";
-          monitor = "DP-1";
+          monitor = {
+            name = "DP-1";
+            settings = "1920x1080@165, 0x0, 1";
+          };
           vpnName = "NL2_PC";
         }
       ];
