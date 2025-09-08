@@ -4,6 +4,7 @@
 
 {
   imports = [
+    ./boot.nix
     ./bootloader
     ./configuration.nix
     ./font.nix

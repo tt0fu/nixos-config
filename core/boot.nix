@@ -1,0 +1,4 @@
+{ ... }:
+{
+  boot.consoleLogLevel = 7;
+}
