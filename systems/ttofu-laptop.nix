@@ -10,6 +10,9 @@
 }:
 
 {
+  hardware.amdgpu = {
+    opencl.enable = true;
+  };
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
