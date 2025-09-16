@@ -1,7 +1,7 @@
 #define LIGHTNESS 0.7
 #define CHROMA 0.1
-#define WARP_iTime_SCALE 0.01
-#define RAINBOW_iTime_SCALE 0.1
+#define WARP_TIME_SCALE 0.01
+#define RAINBOW_TIME_SCALE 0.1
 #define SCALE 2.0
 #define RAINBOW_REPEATS 2.0
 
@@ -9,7 +9,7 @@ float fade(float x) {
     //float res = step(x, 0.1);
     float main_border = clamp(-3.0 - log(x), 0.0, 1.0);
     float ripple = abs(1.0 - 2.0 * fract(x * 10.0));
-    float secondary = pow(ripple, 10.0);
+    float secondary = pow(ripple, 5.0);
     float res = main_border + secondary;
     //float res = pow(1.0 - x, 20.0);
     //float res = 1.0 - sqrt(1.0 - (clamp(x, 0.0, 1.0) - 1.0) * (clamp(x, 0.0, 1.0) - 1.0))
@@ -110,7 +110,7 @@ vec3 voronoi(in vec2 uv) {
     for (int j = -2; j <= 2; j++) {
         for (int i = -2; i <= 2; i++) {
             vec2 cell = vec2(float(i), float(j));
-            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_iTime_SCALE + TWO_PI * hash2(int_part + cell));
+            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_TIME_SCALE + TWO_PI * hash2(int_part + cell));
             vec2 dir = cell + offset - frac_part;
             float dist = dot(dir, dir);
             if (dist < min_dist) {
@@ -125,7 +125,7 @@ vec3 voronoi(in vec2 uv) {
     for (int j = -2; j <= 2; j++) {
         for (int i = -2; i <= 2; i++) {
             vec2 cell = min_cell + vec2(float(i), float(j));
-            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_iTime_SCALE + TWO_PI * hash2(int_part + cell));
+            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_TIME_SCALE + TWO_PI * hash2(int_part + cell));
             vec2 dir = cell + offset - frac_part;
             if (dot(min_dir - dir, min_dir - dir) > 0.00001) {
                 min_dist = min(min_dist, dot(0.5 * (min_dir + dir), normalize(dir - min_dir)));
@@ -140,7 +140,7 @@ vec3 voronoi(in vec2 uv) {
 
 vec3 noise_srgb(vec3 noise) {
     float p = length(noise.yz);
-    float hue = (p + fract(iTime * RAINBOW_iTime_SCALE)) * RAINBOW_REPEATS;
+    float hue = (p + fract(iTime * RAINBOW_TIME_SCALE)) * RAINBOW_REPEATS;
     return lsrgb_srgb(hue_lsrgb(hue));
 }
 

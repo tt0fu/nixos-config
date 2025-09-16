@@ -119,6 +119,9 @@
             disable_hyprland_logo = true;
             enable_anr_dialog = false;
           };
+          dwindle = {
+            smart_split = true;
+          };
           ecosystem = {
             no_donation_nag = true;
             no_update_news = true;

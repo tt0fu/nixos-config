@@ -15,9 +15,6 @@
       ];
       programs.waybar = {
         enable = true;
-        systemd = {
-          enable = true;
-        };
         settings =
           let
             mkToggle =
@@ -280,10 +277,15 @@
                     }
         '';
       };
-      wayland.windowManager.hyprland.settings.layerrule = [
-        "blur, waybar"
-        "ignorezero, waybar"
-        "blurpopups, waybar"
-      ];
+      wayland.windowManager.hyprland.settings = {
+        layerrule = [
+          "blur, waybar"
+          "ignorezero, waybar"
+          "blurpopups, waybar"
+        ];
+        exec-once = [
+          "waybar"
+        ];
+      };
     };
 }
