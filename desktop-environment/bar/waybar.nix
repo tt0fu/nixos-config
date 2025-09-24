@@ -18,9 +18,10 @@
         systemd.enable = true;
         settings =
           let
-            mkToggle =
+            hyprToggle =
               { command, class }:
-              "hyprctl dispatch closewindow class:${class} | grep -q ok || hyprctl dispatch exec '[float; size 500, 500; move 100%-w-5, 55] ${command}'";
+              "hyprctl dispatch closewindow class:${class} | grep -q ok || \
+              hyprctl dispatch exec '[float; size 500, 500; move 100%-w-5, 55] ${command}'";
           in
           {
             mainBar = {
@@ -47,7 +48,6 @@
               "hyprland/language" = {
                 format-en = "EN";
                 format-ru = "RU";
-                # keyboard-name = "at-translated-set-2-keyboard";
               };
               "custom/vpn" = {
                 format = "󰖂 {}";
@@ -100,7 +100,7 @@
               wireplumber = {
                 format = "{icon} {volume}%";
                 format-muted = " {volume}%";
-                on-click = mkToggle {
+                on-click = hyprToggle {
                   class = "org.pipewire.Helvum";
                   command = "helvum";
                 };
@@ -120,7 +120,7 @@
                 format-on = "󰂯";
                 format-connected = "󰂱";
                 format-connected-battery = "󰂱  {device_battery_percentage}%";
-                on-click = mkToggle {
+                on-click = hyprToggle {
                   class = ".blueman-manager-wrapped";
                   command = "blueman-manager";
                 };
@@ -162,7 +162,7 @@
                 tooltip-format-wifi = " {essid}  {bandwidthDownBits}  {bandwidthUpBits}";
                 tooltip-format-ethernet = " {ifname}  {bandwidthDownBits}  {bandwidthUpBits}";
                 tooltip-format-disconnected = "Disconnected";
-                on-click = mkToggle {
+                on-click = hyprToggle {
                   class = "com.network.manager";
                   command = "nmgui";
                 };
