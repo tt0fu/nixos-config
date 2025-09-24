@@ -13,7 +13,6 @@
     {
       programs.rofi = {
         enable = true;
-        package = pkgs.rofi-wayland-unwrapped;
         font = "JetBrainsMono Nerd Font Propo 15";
         modes = [
           "window"

@@ -117,7 +117,11 @@
           env = [ "QT_QPA_PLATFORMTHEME,qt6ct" ];
           misc = {
             disable_hyprland_logo = true;
-            enable_anr_dialog = false;
+            disable_splash_rendering = true;
+            font_family = "JetBrainsMono Nerd Font Propo";
+            # enable_anr_dialog = false;
+            anr_missed_pings = 10;
+            middle_click_paste = false;
           };
           dwindle = {
             smart_split = true;

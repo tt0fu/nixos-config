@@ -3,18 +3,13 @@
 #define WARP_TIME_SCALE 0.01
 #define RAINBOW_TIME_SCALE 0.1
 #define SCALE 2.0
-#define RAINBOW_REPEATS 2.0
+#define RAINBOW_REPEATS 1.0
+#define MULTIPLIER_MIN 1.0
+#define MULTIPLIER_MAX 3.0
+#define MIN_SEARCH_SIZE 2
+#define DIST_SEARCH_SIZE 3
 
-float fade(float x) {
-    //float res = step(x, 0.1);
-    float main_border = clamp(-3.0 - log(x), 0.0, 1.0);
-    float ripple = abs(1.0 - 2.0 * fract(x * 10.0));
-    float secondary = pow(ripple, 5.0);
-    float res = main_border + secondary;
-    //float res = pow(1.0 - x, 20.0);
-    //float res = 1.0 - sqrt(1.0 - (clamp(x, 0.0, 1.0) - 1.0) * (clamp(x, 0.0, 1.0) - 1.0))
-    return clamp(res, 0.0, 1.0);
-}
+#define TWO_PI 6.28318530718
 
 // rainbow
 
@@ -51,8 +46,6 @@ vec3 oklab_lsrgb(vec3 oklab) {
     vec3 lms = fwdA * oklab;
     return fwdB * (lms * lms * lms);
 }
-
-#define TWO_PI 6.28318530718
 
 vec3 lch_oklab(vec3 lch) {
     float h = lch.b * TWO_PI;
@@ -101,56 +94,91 @@ vec2 hash2(vec2 p) {
     return fract(sin(vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)))) * 43755.5453);
 }
 
+float hash1(vec2 p) {
+    return fract(sin(dot(p, vec2(176.1, 239.7))) * 39455.5453);
+}
+
+vec2 cell_position(ivec2 cell) {
+    return vec2(cell) + 0.5 + 0.5 * cos(iTime * WARP_TIME_SCALE + TWO_PI * hash2(vec2(cell)));
+}
+
+float dist_multiplier(ivec2 cell) {
+    return mix(MULTIPLIER_MIN, MULTIPLIER_MAX, hash1(vec2(cell)));
+}
+
+float border_dist(vec2 a, vec2 b, float a_mult, float b_mult, vec2 p) {
+    float a_mult_2 = a_mult * a_mult;
+    float b_mult_2 = b_mult * b_mult;
+    vec2 center = (a_mult_2 * a - b_mult_2 * b) / (a_mult_2 - b_mult_2);
+    float radius = (a_mult * b_mult * distance(a, b)) / abs(a_mult_2 - b_mult_2);
+    return abs(distance(p, center) - radius);
+}
+
 vec3 voronoi(in vec2 uv) {
-    vec2 int_part = floor(uv);
+    ivec2 int_part = ivec2(uv);
     vec2 frac_part = fract(uv);
-    vec2 min_cell, min_dir;
+    ivec2 min_cell;
     float min_dist = 8.0;
 
-    for (int j = -2; j <= 2; j++) {
-        for (int i = -2; i <= 2; i++) {
-            vec2 cell = vec2(float(i), float(j));
-            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_TIME_SCALE + TWO_PI * hash2(int_part + cell));
-            vec2 dir = cell + offset - frac_part;
-            float dist = dot(dir, dir);
+    for (int j = -MIN_SEARCH_SIZE; j <= MIN_SEARCH_SIZE; j++) {
+        for (int i = -MIN_SEARCH_SIZE; i <= MIN_SEARCH_SIZE; i++) {
+            ivec2 cell = ivec2(i, j) + int_part;
+            float dist = length(cell_position(cell) - uv) * dist_multiplier(cell);
             if (dist < min_dist) {
                 min_dist = dist;
-                min_dir = dir;
                 min_cell = cell;
             }
         }
     }
 
-    min_dist = 8.0;
-    for (int j = -2; j <= 2; j++) {
-        for (int i = -2; i <= 2; i++) {
-            vec2 cell = min_cell + vec2(float(i), float(j));
-            vec2 offset = 0.5 + 0.5 * cos(iTime * WARP_TIME_SCALE + TWO_PI * hash2(int_part + cell));
-            vec2 dir = cell + offset - frac_part;
-            if (dot(min_dir - dir, min_dir - dir) > 0.00001) {
-                min_dist = min(min_dist, dot(0.5 * (min_dir + dir), normalize(dir - min_dir)));
+    vec2 min_cell_pos = cell_position(min_cell);
+    float min_cell_mult = dist_multiplier(min_cell);
+
+    min_dist = 1000.0;
+    for (int j = -DIST_SEARCH_SIZE; j <= DIST_SEARCH_SIZE; j++) {
+        for (int i = -DIST_SEARCH_SIZE; i <= DIST_SEARCH_SIZE; i++) {
+            ivec2 cell = ivec2(i, j) + min_cell;
+            float dist = border_dist(
+                    min_cell_pos,
+                    cell_position(cell),
+                    min_cell_mult,
+                    dist_multiplier(cell),
+                    uv
+                );
+            if (dist < min_dist) {
+                min_dist = dist;
             }
         }
     }
 
-    return vec3(min_dist, min_dir);
+    return vec3((min_cell_pos - uv) * min_cell_mult, min_dist);
 }
-
 // main
 
 vec3 noise_srgb(vec3 noise) {
-    float p = length(noise.yz);
+    float p = length(noise.xy);
     float hue = (p + fract(iTime * RAINBOW_TIME_SCALE)) * RAINBOW_REPEATS;
     return lsrgb_srgb(hue_lsrgb(hue));
 }
 
+float fade(float x) {
+    //float res = step(x, 0.1);
+    float main_border = clamp(-3.0 - log(x), 0.0, 1.0);
+    float ripple = abs(1.0 - 2.0 * fract(x * 10.0));
+    float secondary = pow(ripple, 5.0);
+    float res = main_border + secondary;
+    //float res = pow(1.0 - x, 20.0);
+    //float res = 1.0 - sqrt(1.0 - (clamp(x, 0.0, 1.0) - 1.0) * (clamp(x, 0.0, 1.0) - 1.0))
+    return clamp(res, 0.0, 1.0);
+}
+
 float noise_mask(vec3 noise) {
-    return fade(noise.x);
+    return fade(noise.z);
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec3 noise = voronoi(fragCoord * SCALE / iResolution.y);
     vec3 srgb = noise_srgb(noise);
     float mask = noise_mask(noise);
-    fragColor = vec4(srgb * mask, 1.0);
+    fragColor = vec4(srgb * mask, mask * 0.1);
 }

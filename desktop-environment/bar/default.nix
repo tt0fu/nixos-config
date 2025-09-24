@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./eww.nix
+    ./quickshell.nix
     ./waybar.nix
   ];
 }

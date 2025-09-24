@@ -15,6 +15,7 @@
       ];
       programs.waybar = {
         enable = true;
+        systemd.enable = true;
         settings =
           let
             mkToggle =
@@ -282,9 +283,6 @@
           "blur, waybar"
           "ignorezero, waybar"
           "blurpopups, waybar"
-        ];
-        exec-once = [
-          "waybar"
         ];
       };
     };
