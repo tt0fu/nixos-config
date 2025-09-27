@@ -25,7 +25,7 @@
         nativeMessagingHosts = [ pkgs.firefoxpwa ];
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, Z, exec, zen"
+        "SUPER, Z, exec, MOZ_LEGACY_PROFILES=1 zen"
       ];
       xdg = {
         desktopEntries.zen-browser = {
