@@ -55,7 +55,7 @@
               style =
                 let
                   transparent = "#00000000";
-                  mainBg = "#00000000";
+                  mainBg = "#000000a0";
                   white = "#ffffff";
                   white01 = "#ffffff01";
                   white02 = "#ffffff02";
