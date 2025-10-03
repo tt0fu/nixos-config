@@ -1,6 +1,7 @@
 {
   systemSettings,
   userSettings,
+  style,
   ...
 }:
 
@@ -27,7 +28,7 @@
             mainBar = {
               layer = "top";
               position = "top";
-              height = 30;
+              # height = 30;
               modules-left = [
                 "hyprland/language"
                 "custom/vpn"
@@ -58,10 +59,10 @@
               };
               privacy = {
                 icon-spacing = 5;
-                icon-size = 15;
+                icon-size = style.font.size;
               };
               tray = {
-                icon-size = 15;
+                icon-size = style.font.size;
                 spacing = 10;
                 show-passive-items = true;
               };
@@ -95,7 +96,7 @@
               "hyprland/window" = {
                 format = "{title:.30}";
                 icon = true;
-                icon-size = 15;
+                icon-size = style.font.size;
               };
               wireplumber = {
                 format = "{icon} {volume}%";
@@ -178,8 +179,8 @@
         style = ''
                     * {
                       border: none;
-                      font-family: JetBrainsMono Nerd Font Propo;
-                    	font-size: 15px;
+                      font-family: ${builtins.toString style.font.name};
+                    	font-size: ${builtins.toString style.font.size}px;
                       background: transparent;
                     	color: white;
                       margin: 0px;
@@ -210,8 +211,8 @@
           					#battery,
                     #network,
                     #clock {
-                      border: 1px solid white;
-                      border-radius: 5px;
+                      border: ${builtins.toString style.border.thickness}px solid white;
+                      border-radius: ${builtins.toString style.border.radius}px;
                     }
 
                     button,
@@ -227,7 +228,7 @@
           					#battery,
                     #network,
                     #clock {
-                      margin: 2.5px;
+                      margin: ${builtins.toString (style.spacing / 2.0)}px;
                     }
 
                     .modules-left,
@@ -235,7 +236,7 @@
                     .modules-right,
                     #workspaces,
                     #privacy {
-                      padding: 2.5px;
+                      padding: ${builtins.toString (style.spacing / 2.0)}px;
                     }
 
                     menu,
@@ -251,7 +252,7 @@
           					#battery,
                     #network,
                     #clock {
-                      padding: 0px 5px;
+                      padding: 0px ${builtins.toString style.spacing}px;
                     }
 
                    	button {
@@ -270,7 +271,7 @@
                    	  box-shadow: inherit;
                    	  text-shadow: inherit;
                    	  background: inherit;
-                   	  border: 1px solid white;
+                   	  border: ${builtins.toString style.border.thickness}px solid white;
                     }
 
                     window#waybar.empty #window {

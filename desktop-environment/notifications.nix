@@ -1,5 +1,6 @@
 {
   userSettings,
+  style,
   ...
 }:
 
@@ -13,10 +14,11 @@
           global = {
             offset = "(5, 5)";
             origin = "top-right";
-            frame_width = 1;
+            frame_width = style.border.thickness;
             background = "#00000001";
-            font = "JetBrainsMono Nerd Font";
-            corner_radius = 5;
+            font = style.font.name;
+            corner_radius = style.border.radius;
+            progress_bar = true;
           };
           urgency_low = {
             frame_color = "#808080";

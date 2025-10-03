@@ -22,7 +22,7 @@
     ./telegram.nix
     ./thunderbird.nix
     ./vlc.nix
-    ./vscode.nix
+    # ./vscode.nix
     ./winbox.nix
     ./yazi.nix
     ./zapret.nix

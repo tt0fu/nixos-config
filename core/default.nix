@@ -7,7 +7,6 @@
     ./boot.nix
     ./bootloader
     ./configuration.nix
-    ./font.nix
     ./git.nix
     ./internationalisation.nix
     ./keyring.nix

@@ -10,8 +10,8 @@
       home.pointerCursor = {
         enable = true;
         hyprcursor.enable = true;
-        name = "Afterglow-Recolored-Catppuccin-Macchiato";
-        package = pkgs.afterglow-cursors-recolored;
+        name = "Bibata-Modern-Ice";
+        package = pkgs.bibata-cursors;
         size = 30;
       };
     };

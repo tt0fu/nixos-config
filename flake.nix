@@ -14,37 +14,57 @@
         gitEmail = "tt0fu@users.noreply.github.com";
       };
 
+      baseStyle = {
+        font = {
+          size = 15;
+          package = pkgs: pkgs.nerd-fonts.jetbrains-mono;
+          name = "JetBrainsMono Nerd Font Propo";
+        };
+        border = {
+          thickness = 2;
+          radius = 6;
+        };
+        spacing = 6;
+      };
+
       systems = [
         {
-          hostname = "ttofu-laptop";
-          system = "x86_64-linux";
-          timeZone = "Europe/Moscow";
-          locale = "en_US.UTF-8";
-          monitor = {
-            name = "eDP-1";
-            settings = "1920x1200@60, 0x0, 1.25";
+          settings = {
+            hostname = "ttofu-laptop";
+            system = "x86_64-linux";
+            timeZone = "Europe/Moscow";
+            locale = "en_US.UTF-8";
+            monitor = {
+              name = "eDP-1";
+              settings = "1920x1200@60, 0x0, 1";
+            };
+            vpnName = "NL2_Laptop";
           };
-          vpnName = "NL2_Laptop";
+          styleOverrides = {
+            font.size = 20;
+          };
         }
         {
-          hostname = "ttofu-pc";
-          system = "x86_64-linux";
-          timeZone = "Europe/Moscow";
-          locale = "en_US.UTF-8";
-          monitor = {
-            name = "DP-1";
-            settings = "1920x1080@165, 0x0, 1";
+          settings = {
+            hostname = "ttofu-pc";
+            system = "x86_64-linux";
+            timeZone = "Europe/Moscow";
+            locale = "en_US.UTF-8";
+            monitor = {
+              name = "DP-1";
+              settings = "1920x1080@165, 0x0, 1";
+            };
+            vpnName = "NL2_PC";
           };
-          vpnName = "NL2_PC";
         }
       ];
     in
     {
       nixosConfigurations = builtins.listToAttrs (
-        map (systemSettings: {
-          name = systemSettings.hostname;
+        map (system: {
+          name = system.settings.hostname;
           value = nixpkgs.lib.nixosSystem {
-            system = systemSettings.system;
+            system = system.settings.system;
             modules = [
               home-manager.nixosModules.default
               ./systems
@@ -54,8 +74,9 @@
             ];
             specialArgs = {
               inherit inputs;
-              inherit systemSettings;
+              systemSettings = system.settings;
               inherit userSettings;
+              style = nixpkgs.lib.recursiveUpdate baseStyle system.styleOverrides;
             };
           };
         }) systems
@@ -83,5 +104,6 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-math.url = "github:xddxdd/nix-math";
   };
 }

@@ -1,6 +1,7 @@
 {
   systemSettings,
   userSettings,
+  style,
   ...
 }:
 
@@ -43,7 +44,6 @@
             {
               kb_layout = "us, ru";
               kb_options = "grp:alt_shift_toggle";
-              # sensitivity = -0.8;
               touchpad = {
                 natural_scroll = true;
               };
@@ -63,6 +63,10 @@
             "SUPER, Down, movefocus, d"
             "SUPER, Left, movefocus, l"
             "SUPER, Right, movefocus, r"
+            "SUPER SHIFT, Up, movewindow, u"
+            "SUPER SHIFT, Down, movewindow, d"
+            "SUPER SHIFT, Left, movewindow, l"
+            "SUPER SHIFT, Right, movewindow, r"
             "SUPER, RETURN, fullscreen"
             "SUPER CTRL SHIFT, S, exec, shutdown now"
             "SUPER CTRL SHIFT, R, exec, reboot"
@@ -91,24 +95,23 @@
             "SUPER, mouse:273, resizewindow"
           ];
           general = {
-            gaps_in = 2;
-            gaps_out = 2;
+            border_size = style.border.thickness;
+            gaps_in = style.spacing / 2;
+            gaps_out = style.spacing;
             resize_on_border = true;
-            "col.inactive_border" = "0x00000000";
+            "col.inactive_border" = "0xff808080";
             "col.active_border" = "0xffffffff";
           };
           decoration = {
-            rounding = 5;
+            rounding = style.border.radius;
             blur = {
               size = 10;
-              passes = 3;
-              noise = 0.0;
+              passes = 2;
+              noise = 0.1;
               contrast = 1.0;
-              brightness = 0.5;
+              brightness = 0.3;
             };
-            shadow = {
-              enabled = false;
-            };
+            shadow.enabled = false;
           };
           animation = [ "global, 1, 1, default" ];
           exec-once = [
@@ -118,7 +121,7 @@
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
-            font_family = "JetBrainsMono Nerd Font Propo";
+            font_family = style.font.name;
             # enable_anr_dialog = false;
             anr_missed_pings = 10;
             middle_click_paste = false;
@@ -145,12 +148,6 @@
         };
       };
       dconf.settings = {
-        "org/gnome/mutter" = {
-          check-alive-timeout = 60000;
-        };
-        "org/cinnamon/muffin" = {
-          check-alive-timeout = 60000;
-        };
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
         };

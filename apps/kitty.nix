@@ -1,5 +1,6 @@
 {
   userSettings,
+  style,
   ...
 }:
 
@@ -11,8 +12,8 @@
         kitty = {
           enable = true;
           font = {
-            name = "JetBrainsMono Nerd Font Propo";
-            size = 12;
+            name = style.font.name;
+            size = style.font.size / 1.2;
           };
           shellIntegration.enableBashIntegration = true;
           enableGitIntegration = true;

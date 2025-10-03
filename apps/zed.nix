@@ -1,5 +1,8 @@
 {
+  inputs,
+  systemSettings,
   userSettings,
+  style,
   ...
 }:
 
@@ -25,14 +28,13 @@
         ];
         userSettings = {
           telemetry.metrics = false;
-          base_keymap = "JetBrains";
           vim_mode = false;
-          ui_font_size = 14;
-          buffer_font_size = 14;
-          buffer_font_family = "JetBrainsMono Nerd Font Propo";
+          ui_font_size = style.font.size;
+          buffer_font_size = style.font.size;
+          buffer_font_family = style.font.name;
           buffer_line_height = "standard";
           terminal = {
-            font_family = "JetBrainsMono Nerd Font Propo";
+            font_family = style.font.name;
             line_height = "standard";
             cursor_shape = "bar";
           };
@@ -54,25 +56,168 @@
               appearance = "dark";
               style =
                 let
-                  transparent = "#00000000";
-                  mainBg = "#000000a0";
-                  white = "#ffffff";
-                  white01 = "#ffffff01";
-                  white02 = "#ffffff02";
-                  white04 = "#ffffff04";
-                  white08 = "#ffffff08";
-                  white10 = "#ffffff10";
-                  white20 = "#ffffff20";
-                  white40 = "#ffffff40";
-                  white80 = "#ffffff80";
-                  black = "#000000";
-                  substituteBg = "#1c1c1c";
+                  math = inputs.nix-math.lib.math;
+                  hex =
+                    value:
+                    (if (value >= 16) then (hex (value / 16)) else "")
+                    + (builtins.substring (math.mod value 16) 1 "0123456789abcdef");
+                  pad =
+                    string: length:
+                    (builtins.concatStringsSep "" (builtins.genList (i: "0") (length - builtins.stringLength string)))
+                    + string;
+                  color = channels: "#" + builtins.concatStringsSep "" (map (channel: pad (hex channel) 2) channels);
+                  grayTransparent =
+                    value: transparency:
+                    color [
+                      value
+                      value
+                      value
+                      transparency
+                    ];
+                  blackTransparent = grayTransparent 0;
+                  whiteTransparent = grayTransparent 255;
+                  gray =
+                    value:
+                    color [
+                      value
+                      value
+                      value
+                    ];
+                  to255 = rgb: color (map (channel: builtins.floor (channel * 255)) rgb);
 
-                  inactive = "#303030";
-                  active = "#606060";
-                  hover = "#808080";
-                  selected = "#404040";
-                  disabled = "#202020";
+                  element-wise =
+                    op: a: b:
+                    map (i: (op (builtins.elemAt a i) (builtins.elemAt b i))) (
+                      builtins.genList (i: i) (builtins.length a)
+                    );
+
+                  vec = len: x: builtins.genList (i: x) len;
+
+                  addV = element-wise (a: b: a + b);
+                  subV = element-wise (a: b: a - b);
+                  multV = element-wise (a: b: a * b);
+                  divV = element-wise (a: b: a / b);
+                  powV = element-wise math.pow;
+
+                  multS = v: s: map (i: i * s) v;
+                  divS = v: s: map (i: i / s) v;
+                  powS = v: s: map (i: math.pow i s) v;
+
+                  dot = a: b: builtins.foldl' (acc: x: acc + x) 0 (multV a b);
+
+                  multM =
+                    a: b:
+                    let
+                      rowsA = builtins.length a;
+                      colsB = builtins.length (builtins.elemAt b 0);
+                      getCol = j: map (row: builtins.elemAt row j) b;
+                    in
+                    builtins.genList (i: builtins.genList (j: dot (builtins.elemAt a i) (getCol j)) colsB) rowsA;
+
+                  lerp =
+                    a: b: x:
+                    addV (multS a (1.0 - x)) (multS b x);
+
+                  # vec3 lsrgb_srgb(vec3 lsrgb) {
+                  #     vec3 xlo = 12.92 * lsrgb;
+                  #     vec3 xhi = 1.055 * pow(lsrgb, vec3(0.4166666666666667)) - 0.055;
+                  #     return mix(xlo, xhi, step(vec3(0.0031308), lsrgb));
+                  # }
+
+                  # vec3 srgb_lsrgb(vec3 srgb) {
+                  #     vec3 xlo = srgb / 12.92;
+                  #     vec3 xhi = pow((srgb + 0.055) / 1.055, vec3(2.4));
+                  #     return mix(xlo, xhi, step(vec3(0.04045), srgb));
+                  # }
+
+                  srgb =
+                    lrgb:
+                    let
+                      xlo = multS lrgb 12.92;
+                      xhi = (multS (powV lrgb (vec 3 0.4166666666666667)) 1.055);
+
+                    in
+                    "";
+
+                  # lab = l: a: b:
+
+                  # const mat3 fwdA = mat3(
+                  #         1.0, 1.0, 1.0,
+                  #         0.3963377774, -0.1055613458, -0.0894841775,
+                  #         0.2158037573, -0.0638541728, -1.2914855480
+                  #     );
+
+                  # const mat3 fwdB = mat3(
+                  #         4.0767245293, -1.2681437731, -0.0041119885,
+                  #         -3.3072168827, 2.6093323231, -0.7034763098,
+                  #         0.2307590544, -0.3411344290, 1.7068625689
+                  #     );
+
+                  # const mat3 invA = mat3(
+                  #         0.2104542553, 1.9779984951, 0.0259040371,
+                  #         0.7936177850, -2.4285922050, 0.7827717662,
+                  #         -0.0040720468, 0.4505937099, -0.8086757660
+                  #     );
+
+                  # const mat3 invB = mat3(
+                  #         0.4121656120, 0.2118591070, 0.0883097947,
+                  #         0.5362752080, 0.6807189584, 0.2818474174,
+                  #         0.0514575653, 0.1074065790, 0.6302613616
+                  #     );
+
+                  # vec3 lsrgb_oklab(vec3 lsrgb) {
+                  #     vec3 lms = invB * lsrgb;
+                  #     return invA * (sign(lms) * pow(abs(lms), vec3(0.3333333333333)));
+                  # }
+
+                  # vec3 oklab_lsrgb(vec3 oklab) {
+                  #     vec3 lms = fwdA * oklab;
+                  #     return fwdB * (lms * lms * lms);
+                  # }
+
+                  # vec3 lch_oklab(vec3 lch) {
+                  #     float h = lch.b * TWO_PI;
+                  #     return vec3(lch.r, lch.g * cos(h), lch.g * sin(h));
+                  # }
+
+                  # vec3 oklab_lch(vec3 lab) {
+                  #     float a = lab.g;
+                  #     float b = lab.b;
+                  #     return vec3(lab.r, sqrt(a * a + b * b), atan(b / a) / TWO_PI);
+                  # }
+
+                  # vec3 lch_lsrgb(vec3 lch) {
+                  #     return oklab_lsrgb(lch_oklab(lch));
+                  # }
+
+                  # vec3 lsrgb_lch(vec3 lsrgb) {
+                  #     return oklab_lch(lsrgb_oklab(lsrgb));
+                  # }
+
+                  # vec3 hueshift(vec3 lsrgb, float shift) {
+                  #     vec3 lch = lsrgb_lch(lsrgb);
+                  #     lch.b = fract(lch.b + shift + 1.0);
+                  #     return lch_lsrgb(lch);
+                  # }
+
+                  # vec3 hue_lsrgb(float hue) {
+                  #     return lch_lsrgb(vec3(LIGHTNESS, CHROMA, hue));
+                  # }
+
+                  transparent = blackTransparent 0;
+                  white = gray 255;
+                  black = gray 0;
+
+                  mainBg = blackTransparent 1; # blackTransparent 160;
+                  substituteBg = gray 16;
+
+                  inactive = gray 32;
+                  active = gray 64;
+                  hover = gray 80;
+                  selected = gray 48;
+                  disabled = gray 48;
+                  muted = gray 128;
+
                   colors = [
                     "#d2849c"
                     "#d28a69"
@@ -128,20 +273,20 @@
                   "ghost_element.selected" = selected;
                   "ghost_element.disabled" = disabled;
                   text = white;
-                  "text.muted" = white80;
+                  "text.muted" = muted;
                   "text.placeholder" = inactive;
                   "text.disabled" = disabled;
                   "text.accent" = white;
                   icon = white;
-                  "icon.muted" = white80;
+                  "icon.muted" = muted;
                   "icon.disabled" = disabled;
                   "icon.placeholder" = inactive;
                   "icon.accent" = white;
                   "toolbar.background" = transparent;
                   "tab_bar.background" = transparent;
                   "tab.inactive_background" = transparent;
-                  "tab.active_background" = white04;
-                  "search.match_background" = white20;
+                  "tab.active_background" = whiteTransparent 32;
+                  "search.match_background" = whiteTransparent 48;
                   "panel.background" = transparent;
                   "panel.focused_border" = white;
                   "panel.indent_guide" = inactive;
@@ -150,8 +295,8 @@
 
                   "pane.focused_border" = white;
                   "pane_group.border" = white;
-                  "scrollbar.thumb.background" = white10;
-                  "scrollbar.thumb.hover_background" = white20;
+                  "scrollbar.thumb.background" = whiteTransparent 16;
+                  "scrollbar.thumb.hover_background" = whiteTransparent 32;
                   "scrollbar.thumb.border" = white;
                   "scrollbar.track.background" = transparent;
                   "scrollbar.track.border" = transparent;
@@ -159,15 +304,15 @@
                   "editor.background" = transparent;
                   "editor.gutter.background" = transparent;
                   "editor.active_line.background" = transparent;
-                  "editor.highlighted_line.background" = white20;
-                  "editor.line_number" = white20;
+                  "editor.highlighted_line.background" = whiteTransparent 32;
+                  "editor.line_number" = whiteTransparent 32;
                   "editor.active_line_number" = white;
-                  "editor.invisible" = white20;
+                  "editor.invisible" = whiteTransparent 32;
                   "editor.wrap_guide" = inactive;
                   "editor.active_wrap_guide" = active;
-                  "editor.document_highlight.bracket_background" = white10;
-                  "editor.document_highlight.read_background" = white20;
-                  "editor.document_highlight.write_background" = white20;
+                  "editor.document_highlight.bracket_background" = whiteTransparent 16;
+                  "editor.document_highlight.read_background" = whiteTransparent 32;
+                  "editor.document_highlight.write_background" = whiteTransparent 32;
                   "editor.indent_guide" = inactive;
                   "editor.indent_guide_active" = active;
 
@@ -801,10 +946,10 @@
         bind = [
           "SUPER, W, exec, zeditor"
         ];
-        layerrule = [
-          "blur, zeditor"
-          "blurpopups, zeditor"
-        ];
+        # layerrule = [
+        #   "blur, zeditor"
+        #   "blurpopups, zeditor"
+        # ];
       };
     };
 }

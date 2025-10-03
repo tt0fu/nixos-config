@@ -1,5 +1,6 @@
 {
   userSettings,
+  style,
   ...
 }:
 
@@ -19,11 +20,11 @@
           background = [
             {
               path = "screenshot";
-              blur_passes = 3;
+              blur_passes = 2;
               blur_size = 10;
-              noise = 0.0;
+              noise = 0.1;
               contrast = 1.0;
-              brightness = 0.7;
+              brightness = 0.3;
               vibrancy = 0.0;
               vibrancy_darkness = 0.0;
             }
@@ -33,7 +34,7 @@
               size = "200, 50";
               fade_on_empty = false;
               font_color = "rgb(255, 255, 255)";
-              font_family = "JetBrainsMono Nerd Font Propo";
+              font_family = style.font.name;
               inner_color = "rgba(0, 0, 0, 0)";
               outer_color = "rgb(255, 255, 255)";
               outline_thickness = 1;
@@ -48,31 +49,31 @@
               position = "0, 100";
               text = "cmd[update:1000] echo \"<b>$(date '+%H:%M:%S')</b>\"";
               color = "rgb(255, 255, 255)";
-              font_size = 50;
-              font_family = "JetBrainsMono Nerd Font Propo";
+              font_size = style.font.size * 3;
+              font_family = style.font.name;
             }
             {
               position = "-100, -100";
               text = "⏻";
               color = "rgb(255, 255, 255)";
-              font_size = 30;
-              font_family = "JetBrainsMono Nerd Font Propo";
+              font_size = style.font.size * 2;
+              font_family = style.font.name;
               onclick = "shutdown now";
             }
             {
               position = "0, -100";
               text = "";
               color = "rgb(255, 255, 255)";
-              font_size = 30;
-              font_family = "JetBrainsMono Nerd Font Propo";
+              font_size = style.font.size * 2;
+              font_family = style.font.name;
               onclick = "reboot";
             }
             {
               position = "100, -100";
               text = "󰈆";
               color = "rgb(255, 255, 255)";
-              font_size = 30;
-              font_family = "JetBrainsMono Nerd Font Propo";
+              font_size = style.font.size * 2;
+              font_family = style.font.name;
               onclick = "hyprctl dispatch exit";
             }
           ];
