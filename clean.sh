@@ -14,8 +14,8 @@ nix store optimise
 
 after=$(df -k . | awk 'NR==2 {print $4}')
 
-freed_kb=$((after - before))
+freed_gb=$(echo $after $before | awk '{print ($1 - $2) / 1024.0 / 1024.0}')
 
 echo ""
 
-echo "Cleaning freed $freed_kb KB"
+echo "Cleaning freed $freed_gb GB"

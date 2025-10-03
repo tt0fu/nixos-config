@@ -22,7 +22,7 @@
         };
         border = {
           thickness = 2;
-          radius = 6;
+          radius = 10;
         };
         spacing = 6;
       };
@@ -56,6 +56,7 @@
             };
             vpnName = "NL2_PC";
           };
+          styleOverrides = { };
         }
       ];
     in

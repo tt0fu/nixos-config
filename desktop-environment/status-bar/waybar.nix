@@ -19,16 +19,19 @@
         systemd.enable = true;
         settings =
           let
+            height = 65;
             hyprToggle =
               { command, class }:
               "hyprctl dispatch closewindow class:${class} | grep -q ok || \
-              hyprctl dispatch exec '[float; size 500, 500; move 100%-w-5, 55] ${command}'";
+              (hyprctl dispatch exec '[float; size 750, 750; move 100%-w-${builtins.toString style.spacing}, ${
+                              builtins.toString (height + style.spacing)
+                            }] ${command}' && hyprctl dispatch movewindow u && hyprctl dispatch movewindow r)";
           in
           {
             mainBar = {
               layer = "top";
               position = "top";
-              # height = 30;
+              inherit height;
               modules-left = [
                 "hyprland/language"
                 "custom/vpn"
@@ -67,7 +70,7 @@
                 show-passive-items = true;
               };
               "hyprland/workspaces" = {
-                format = "{icon} {windows} ";
+                format = "{icon} {windows}";
                 format-window-separator = " ";
                 window-rewrite-default = "";
                 window-rewrite = {
@@ -252,7 +255,9 @@
           					#battery,
                     #network,
                     #clock {
-                      padding: 0px ${builtins.toString style.spacing}px;
+                      padding: ${
+                        builtins.toString (style.spacing / 2.0)
+                      }px ${builtins.toString (style.spacing)}px;
                     }
 
                    	button {

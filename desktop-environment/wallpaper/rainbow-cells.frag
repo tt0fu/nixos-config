@@ -5,7 +5,7 @@
 #define SCALE 2.0
 #define RAINBOW_REPEATS 1.0
 #define MULTIPLIER_MIN 1.0
-#define MULTIPLIER_MAX 3.0
+#define MULTIPLIER_MAX 4.0
 #define MIN_SEARCH_SIZE 2
 #define DIST_SEARCH_SIZE 3
 
