@@ -19,19 +19,16 @@
         systemd.enable = true;
         settings =
           let
-            height = 65;
             hyprToggle =
               { command, class }:
               "hyprctl dispatch closewindow class:${class} | grep -q ok || \
-              (hyprctl dispatch exec '[float; size 750, 750; move 100%-w-${builtins.toString style.spacing}, ${
-                              builtins.toString (height + style.spacing)
-                            }] ${command}' && hyprctl dispatch movewindow u && hyprctl dispatch movewindow r)";
+              (hyprctl dispatch exec '[float; size 750, 750; move 100%-w-5, 65] ${command}' && \
+              sleep 1.0 && hyprctl dispatch movewindow u && hyprctl dispatch movewindow r)";
           in
           {
             mainBar = {
               layer = "top";
               position = "top";
-              inherit height;
               modules-left = [
                 "hyprland/language"
                 "custom/vpn"

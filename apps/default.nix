@@ -26,7 +26,7 @@
     ./winbox.nix
     ./yazi.nix
     ./zapret.nix
-    ./zed.nix
+    ./zed-editor
     ./zen-browser.nix
   ];
 }
