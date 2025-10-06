@@ -11,7 +11,6 @@
       # change these settings
       userSettings = {
         username = "ttofu";
-        gitEmail = "tt0fu@users.noreply.github.com";
       };
 
       baseStyle = {

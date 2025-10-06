@@ -7,10 +7,6 @@
   home-manager.users.${userSettings.username} =
     { ... }:
     {
-      programs.git = {
-        enable = true;
-        userName = userSettings.username;
-        userEmail = userSettings.gitEmail;
-      };
+      programs.git.enable = true;
     };
 }
