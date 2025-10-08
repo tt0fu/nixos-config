@@ -77,6 +77,7 @@
               systemSettings = system.settings;
               inherit userSettings;
               style = nixpkgs.lib.recursiveUpdate baseStyle system.styleOverrides;
+              color = import ./lib/color.nix { math = inputs.nix-math.lib.math; };
             };
           };
         }) systems

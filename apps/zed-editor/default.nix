@@ -3,6 +3,7 @@
   systemSettings,
   userSettings,
   style,
+  color,
   ...
 }:
 
@@ -48,7 +49,7 @@
           theme = "Rainbow Dark";
         };
         userKeymaps = import ./keybinds.nix;
-        themes.Rainbow = import ./theme.nix { math = inputs.nix-math.lib.math; };
+        themes.Rainbow = import ./theme.nix { color = color; };
       };
       wayland.windowManager.hyprland.settings = {
         bind = [
