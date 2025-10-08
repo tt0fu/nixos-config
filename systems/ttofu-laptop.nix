@@ -23,7 +23,10 @@
     "xhci_pci"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "cpufreq_schedutil"
+  ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {

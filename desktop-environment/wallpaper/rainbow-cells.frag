@@ -1,12 +1,19 @@
-#define LIGHTNESS 0.7
+#define LIGHTNESS 0.8
 #define CHROMA 0.1
-#define WARP_TIME_SCALE 0.01
+#define MOVE_TIME_SCALE 0.02
+#define BEND_TIME_SCALE 0.05
+#define RIPPLE_TIME_SCALE 0.05
 #define RAINBOW_TIME_SCALE 0.1
-#define SCALE 2.0
+#define SCALE 3.0
+#define WARP_AMPLITUDE 0.6
 #define RAINBOW_REPEATS 1.0
+#define BORDER_WIDTH 0.03
+#define RIPPLE_COUNT 10.0
+#define RIPPLE_WIDTH 0.005
+#define GLOW_WIDTH 0.01
 #define MULTIPLIER_MIN 1.0
-#define MULTIPLIER_MAX 4.0
-#define MIN_SEARCH_SIZE 2
+#define MULTIPLIER_MAX 1.5
+#define MIN_SEARCH_SIZE 3
 #define DIST_SEARCH_SIZE 3
 
 #define TWO_PI 6.28318530718
@@ -98,36 +105,92 @@ float hash1(vec2 p) {
     return fract(sin(dot(p, vec2(176.1, 239.7))) * 39455.5453);
 }
 
-vec2 cell_position(ivec2 cell) {
-    return vec2(cell) + 0.5 + 0.5 * cos(iTime * WARP_TIME_SCALE + TWO_PI * hash2(vec2(cell)));
+vec2 cell_position(vec2 cell) {
+    return cell + 0.5 + WARP_AMPLITUDE * 0.5 * cos(iTime * MOVE_TIME_SCALE + TWO_PI * hash2(cell));
 }
 
-float dist_multiplier(ivec2 cell) {
-    return mix(MULTIPLIER_MIN, MULTIPLIER_MAX, hash1(vec2(cell)));
+float dist_multiplier(vec2 cell) {
+    return mix(MULTIPLIER_MIN, MULTIPLIER_MAX, 0.5 + 0.5 * sin(iTime * BEND_TIME_SCALE + TWO_PI * hash1(cell)));
 }
 
-float border_dist(vec2 a, vec2 b, float a_mult, float b_mult, vec2 p) {
-    float a_mult_2 = a_mult * a_mult;
-    float b_mult_2 = b_mult * b_mult;
-    vec2 center = (a_mult_2 * a - b_mult_2 * b) / (a_mult_2 - b_mult_2);
-    float radius = (a_mult * b_mult * distance(a, b)) / abs(a_mult_2 - b_mult_2);
-    return abs(distance(p, center) - radius);
+float border_dist(vec2 a, vec2 b, float k, float l, vec2 p) { // distance from p to {v : k|v-a|=l|v-b|}
+    float k2 = k * k;
+    float l2 = l * l;
+    vec2 ap = p - a;
+    vec2 bp = p - b;
+    float f = k2 * dot(ap, ap) - l2 * dot(bp, bp);
+    float m = k * l * distance(a, b);
+    return abs(f) / (sqrt(m * m + (k2 - l2) * f) + m);
 }
+
+const uint[] search_ids = uint[](
+        1u, 5u, 9u, 13u, 21u, 25u, 29u, 37u, 45u, 49u, 61u, 69u, 77u, 81u, 89u, 97u,
+        101u, 109u, 113u, 121u, 137u, 145u, 149u, 153u, 169u, 177u, 185u, 193u,
+        201u, 205u, 213u, 221u, 225u, 241u, 249u, 253u, 269u, 277u, 285u, 293u,
+        305u, 313u, 317u, 317u
+    );
+
+const uint min_search_id = search_ids[MIN_SEARCH_SIZE];
+const uint dist_search_id = search_ids[DIST_SEARCH_SIZE];
+
+const vec2[] search = vec2[](
+        vec2(0, 0),
+        vec2(-1, 0), vec2(0, -1), vec2(0, 1), vec2(1, 0),
+        vec2(-1, -1), vec2(-1, 1), vec2(1, -1), vec2(1, 1),
+        vec2(-2, 0), vec2(0, -2), vec2(0, 2), vec2(2, 0),
+        vec2(-2, -1), vec2(-2, 1), vec2(-1, -2), vec2(-1, 2), vec2(1, -2), vec2(1, 2), vec2(2, -1), vec2(2, 1),
+        vec2(-2, -2), vec2(-2, 2), vec2(2, -2), vec2(2, 2),
+        vec2(-3, 0), vec2(0, -3), vec2(0, 3), vec2(3, 0),
+        vec2(-3, -1), vec2(-3, 1), vec2(-1, -3), vec2(-1, 3), vec2(1, -3), vec2(1, 3), vec2(3, -1), vec2(3, 1),
+        vec2(-3, -2), vec2(-3, 2), vec2(-2, -3), vec2(-2, 3), vec2(2, -3), vec2(2, 3), vec2(3, -2), vec2(3, 2),
+        vec2(-4, 0), vec2(0, -4), vec2(0, 4), vec2(4, 0),
+        vec2(-4, -1), vec2(-4, 1), vec2(-3, -3), vec2(-3, 3), vec2(-1, -4), vec2(-1, 4), vec2(1, -4), vec2(1, 4), vec2(3, -3), vec2(3, 3), vec2(4, -1), vec2(4, 1),
+        vec2(-4, -2), vec2(-4, 2), vec2(-2, -4), vec2(-2, 4), vec2(2, -4), vec2(2, 4), vec2(4, -2), vec2(4, 2),
+        vec2(-4, -3), vec2(-4, 3), vec2(-3, -4), vec2(-3, 4), vec2(3, -4), vec2(3, 4), vec2(4, -3), vec2(4, 3),
+        vec2(-5, 0), vec2(0, -5), vec2(0, 5), vec2(5, 0),
+        vec2(-5, -1), vec2(-5, 1), vec2(-1, -5), vec2(-1, 5), vec2(1, -5), vec2(1, 5), vec2(5, -1), vec2(5, 1),
+        vec2(-5, -2), vec2(-5, 2), vec2(-2, -5), vec2(-2, 5), vec2(2, -5), vec2(2, 5), vec2(5, -2), vec2(5, 2),
+        vec2(-4, -4), vec2(-4, 4), vec2(4, -4), vec2(4, 4),
+        vec2(-5, -3), vec2(-5, 3), vec2(-3, -5), vec2(-3, 5), vec2(3, -5), vec2(3, 5), vec2(5, -3), vec2(5, 3),
+        vec2(-6, 0), vec2(0, -6), vec2(0, 6), vec2(6, 0),
+        vec2(-6, -1), vec2(-6, 1), vec2(-1, -6), vec2(-1, 6), vec2(1, -6), vec2(1, 6), vec2(6, -1), vec2(6, 1),
+        vec2(-6, -2), vec2(-6, 2), vec2(-5, -4), vec2(-5, 4), vec2(-4, -5), vec2(-4, 5), vec2(-2, -6), vec2(-2, 6), vec2(2, -6), vec2(2, 6), vec2(4, -5), vec2(4, 5), vec2(5, -4), vec2(5, 4), vec2(6, -2), vec2(6, 2),
+        vec2(-6, -3), vec2(-6, 3), vec2(-3, -6), vec2(-3, 6), vec2(3, -6), vec2(3, 6), vec2(6, -3), vec2(6, 3),
+        vec2(-5, -5), vec2(-5, 5), vec2(5, -5), vec2(5, 5),
+        vec2(-7, 0), vec2(0, -7), vec2(0, 7), vec2(7, 0),
+        vec2(-7, -1), vec2(-7, 1), vec2(-6, -4), vec2(-6, 4), vec2(-4, -6), vec2(-4, 6), vec2(-1, -7), vec2(-1, 7), vec2(1, -7), vec2(1, 7), vec2(4, -6), vec2(4, 6), vec2(6, -4), vec2(6, 4), vec2(7, -1), vec2(7, 1),
+        vec2(-7, -2), vec2(-7, 2), vec2(-2, -7), vec2(-2, 7), vec2(2, -7), vec2(2, 7), vec2(7, -2), vec2(7, 2),
+        vec2(-7, -3), vec2(-7, 3), vec2(-3, -7), vec2(-3, 7), vec2(3, -7), vec2(3, 7), vec2(7, -3), vec2(7, 3),
+        vec2(-6, -5), vec2(-6, 5), vec2(-5, -6), vec2(-5, 6), vec2(5, -6), vec2(5, 6), vec2(6, -5), vec2(6, 5),
+        vec2(-7, -4), vec2(-7, 4), vec2(-4, -7), vec2(-4, 7), vec2(4, -7), vec2(4, 7), vec2(7, -4), vec2(7, 4),
+        vec2(-8, 0), vec2(0, -8), vec2(0, 8), vec2(8, 0),
+        vec2(-8, -1), vec2(-8, 1), vec2(-1, -8), vec2(-1, 8), vec2(1, -8), vec2(1, 8), vec2(8, -1), vec2(8, 1),
+        vec2(-8, -2), vec2(-8, 2), vec2(-2, -8), vec2(-2, 8), vec2(2, -8), vec2(2, 8), vec2(8, -2), vec2(8, 2),
+        vec2(-6, -6), vec2(-6, 6), vec2(6, -6), vec2(6, 6),
+        vec2(-8, -3), vec2(-8, 3), vec2(-7, -5), vec2(-7, 5), vec2(-5, -7), vec2(-5, 7), vec2(-3, -8), vec2(-3, 8), vec2(3, -8), vec2(3, 8), vec2(5, -7), vec2(5, 7), vec2(7, -5), vec2(7, 5), vec2(8, -3), vec2(8, 3),
+        vec2(-8, -4), vec2(-8, 4), vec2(-4, -8), vec2(-4, 8), vec2(4, -8), vec2(4, 8), vec2(8, -4), vec2(8, 4),
+        vec2(-9, 0), vec2(0, -9), vec2(0, 9), vec2(9, 0),
+        vec2(-9, -1), vec2(-9, 1), vec2(-7, -6), vec2(-7, 6), vec2(-6, -7), vec2(-6, 7), vec2(-1, -9), vec2(-1, 9), vec2(1, -9), vec2(1, 9), vec2(6, -7), vec2(6, 7), vec2(7, -6), vec2(7, 6), vec2(9, -1), vec2(9, 1),
+        vec2(-9, -2), vec2(-9, 2), vec2(-2, -9), vec2(-2, 9), vec2(2, -9), vec2(2, 9), vec2(9, -2), vec2(9, 2),
+        vec2(-8, -5), vec2(-8, 5), vec2(-5, -8), vec2(-5, 8), vec2(5, -8), vec2(5, 8), vec2(8, -5), vec2(8, 5),
+        vec2(-9, -3), vec2(-9, 3), vec2(-3, -9), vec2(-3, 9), vec2(3, -9), vec2(3, 9), vec2(9, -3), vec2(9, 3),
+        vec2(-9, -4), vec2(-9, 4), vec2(-7, -7), vec2(-7, 7), vec2(-4, -9), vec2(-4, 9), vec2(4, -9), vec2(4, 9), vec2(7, -7), vec2(7, 7), vec2(9, -4), vec2(9, 4),
+        vec2(-8, -6), vec2(-8, 6), vec2(-6, -8), vec2(-6, 8), vec2(6, -8), vec2(6, 8), vec2(8, -6), vec2(8, 6),
+        vec2(-10, 0), vec2(0, -10), vec2(0, 10), vec2(10, 0)
+    );
 
 vec3 voronoi(in vec2 uv) {
-    ivec2 int_part = ivec2(uv);
+    vec2 int_part = floor(uv);
     vec2 frac_part = fract(uv);
-    ivec2 min_cell;
+    vec2 min_cell;
     float min_dist = 8.0;
 
-    for (int j = -MIN_SEARCH_SIZE; j <= MIN_SEARCH_SIZE; j++) {
-        for (int i = -MIN_SEARCH_SIZE; i <= MIN_SEARCH_SIZE; i++) {
-            ivec2 cell = ivec2(i, j) + int_part;
-            float dist = length(cell_position(cell) - uv) * dist_multiplier(cell);
-            if (dist < min_dist) {
-                min_dist = dist;
-                min_cell = cell;
-            }
+    for (uint i = 0u; i <= min_search_id; i++) {
+        vec2 cell = search[i] + int_part;
+        float dist = length(cell_position(cell) - uv) * dist_multiplier(cell);
+        if (dist < min_dist) {
+            min_dist = dist;
+            min_cell = cell;
         }
     }
 
@@ -135,24 +198,23 @@ vec3 voronoi(in vec2 uv) {
     float min_cell_mult = dist_multiplier(min_cell);
 
     min_dist = 1000.0;
-    for (int j = -DIST_SEARCH_SIZE; j <= DIST_SEARCH_SIZE; j++) {
-        for (int i = -DIST_SEARCH_SIZE; i <= DIST_SEARCH_SIZE; i++) {
-            ivec2 cell = ivec2(i, j) + min_cell;
-            float dist = border_dist(
-                    min_cell_pos,
-                    cell_position(cell),
-                    min_cell_mult,
-                    dist_multiplier(cell),
-                    uv
-                );
-            if (dist < min_dist) {
-                min_dist = dist;
-            }
+    for (uint i = 1u; i <= dist_search_id; i++) {
+        vec2 cell = search[i] + min_cell;
+        float dist = border_dist(
+                min_cell_pos,
+                cell_position(cell),
+                min_cell_mult,
+                dist_multiplier(cell),
+                uv
+            );
+        if (dist < min_dist) {
+            min_dist = dist;
         }
     }
 
     return vec3((min_cell_pos - uv) * min_cell_mult, min_dist);
 }
+
 // main
 
 vec3 noise_srgb(vec3 noise) {
@@ -162,13 +224,10 @@ vec3 noise_srgb(vec3 noise) {
 }
 
 float fade(float x) {
-    //float res = step(x, 0.1);
-    float main_border = clamp(-3.0 - log(x), 0.0, 1.0);
-    float ripple = abs(1.0 - 2.0 * fract(x * 10.0));
-    float secondary = pow(ripple, 5.0);
+    float main_border = clamp(1.0 + (BORDER_WIDTH - x) / GLOW_WIDTH, 0.0, 1.0);
+    float ripple = abs(1.0 - 2.0 * fract(x * RIPPLE_COUNT + iTime * RIPPLE_TIME_SCALE));
+    float secondary = clamp(1.0 + (RIPPLE_WIDTH * RIPPLE_COUNT - ripple) / (GLOW_WIDTH * RIPPLE_COUNT * 2.0), 0.0, 1.0); //pow(ripple, 5.0);
     float res = main_border + secondary;
-    //float res = pow(1.0 - x, 20.0);
-    //float res = 1.0 - sqrt(1.0 - (clamp(x, 0.0, 1.0) - 1.0) * (clamp(x, 0.0, 1.0) - 1.0))
     return clamp(res, 0.0, 1.0);
 }
 
@@ -180,5 +239,5 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec3 noise = voronoi(fragCoord * SCALE / iResolution.y);
     vec3 srgb = noise_srgb(noise);
     float mask = noise_mask(noise);
-    fragColor = vec4(srgb * mask, mask * 0.1);
+    fragColor = vec4(srgb * mask, 0.1 * mask);
 }

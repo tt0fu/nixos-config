@@ -5,8 +5,9 @@
 
 {
   home-manager.users.${userSettings.username} =
-    { ... }:
+    { pkgs, ... }:
     {
+      home.packages = [ pkgs.rocmPackages.rocm-smi ];
       programs.btop = {
         enable = true;
       };
