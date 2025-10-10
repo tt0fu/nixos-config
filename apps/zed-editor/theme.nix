@@ -19,17 +19,22 @@
           white = gray 1.0;
           black = gray 0;
 
-          lch = lch: color.toHex (color.lrgbToSrgb (color.oklabToLrgb (color.lchToOklab lch)));
+          # lch = lch: color.toHex (color.lrgbToSrgb (color.oklabToLrgb (color.lchToOklab lch)));
           palette =
             n: lightness: chroma:
             map color.toHex (color.palette n lightness chroma);
+          paletteTransparent =
+            n: lightness: chroma: transparency:
+            map color.toHex (color.paletteTransparent n lightness chroma transparency);
 
-          mainBg = blackTransparent 0.8; # blackTransparent 1;
+          mainBg = blackTransparent 0.8; # blackTransparent 0.01;
           substituteBg = gray 0.06;
 
-          background = palette 8 0.5 0.1;
+          background = paletteTransparent 8 0.5 0.1 0.5;
           regular = palette 8 0.7 0.1;
           accent = palette 8 0.8 0.1;
+
+          syntax = builtins.elemAt (palette 16 0.8 0.1);
 
           getColor = ind: list: builtins.elemAt list ind;
 
@@ -155,597 +160,166 @@
           "terminal.ansi.dim_magenta" = "#b000b0";
           "terminal.ansi.dim_cyan" = "#00b0b0";
           "terminal.ansi.dim_white" = "#b0b0b0";
-          "link_text.hover" = "#89dceb";
+
+          "link_text.hover" = mint regular;
           conflict = red regular;
           "conflict.border" = red accent;
           "conflict.background" = red background;
           created = green regular;
           "created.border" = green accent;
           "created.background" = green background;
-          deleted = orange regular;
-          "deleted.border" = orange accent;
-          "deleted.background" = orange background;
+          deleted = purple regular;
+          "deleted.border" = purple accent;
+          "deleted.background" = purple background;
           hidden = gray 0.5;
           "hidden.border" = gray 0.8;
           "hidden.background" = gray 0.2;
           hint = yellow regular;
           "hint.border" = yellow accent;
           "hint.background" = yellow background;
-          ignored = lavender regular;
-          "ignored.border" = lavender accent;
-          "ignored.background" = lavender background;
+          ignored = gray 0.3;
+          "ignored.border" = gray 0.5;
+          "ignored.background" = gray 0.15;
           modified = yellow regular;
           "modified.border" = yellow accent;
           "modified.background" = yellow background;
-          predictive = "#6c7086";
-          "predictive.border" = "#b4befe";
-          "predictive.background" = "#181825";
-          renamed = "#74c7ec";
-          "renamed.border" = "#74c7ec";
-          "renamed.background" = "#74c7ec26";
-          info = "#94e2d5";
-          "info.border" = "#94e2d5";
-          "info.background" = "#1c2d33";
-          warning = "#f9e2af";
-          "warning.border" = "#f9e2af";
-          "warning.background" = "#342a1e";
-          error = "#f38ba8";
-          "error.border" = "#f38ba8";
-          "error.background" = "#3b2022";
-          success = "#a6e3a1";
-          "success.border" = "#a6e3a1";
-          "success.background" = "#213023";
-          unreachable = "#f38ba8";
-          "unreachable.border" = "#f38ba8";
-          "unreachable.background" = "#f38ba81f";
-          players = [
-            {
-              cursor = "#f5e0dc";
-              selection = "#585b7080";
-              background = "#f5e0dc";
-            }
-            {
-              cursor = "#cbb0f7";
-              selection = "#cbb0f733";
-              background = "#cbb0f7";
-            }
-            {
-              cursor = "#b9c3fc";
-              selection = "#b9c3fc33";
-              background = "#b9c3fc";
-            }
-            {
-              cursor = "#86caee";
-              selection = "#86caee33";
-              background = "#86caee";
-            }
-            {
-              cursor = "#aee1b2";
-              selection = "#aee1b233";
-              background = "#aee1b2";
-            }
-            {
-              cursor = "#f0e0bd";
-              selection = "#f0e0bd33";
-              background = "#f0e0bd";
-            }
-            {
-              cursor = "#f1ba9d";
-              selection = "#f1ba9d33";
-              background = "#f1ba9d";
-            }
-            {
-              cursor = "#eb9ab7";
-              selection = "#eb9ab733";
-              background = "#eb9ab7";
-            }
-          ];
-          "version_control.added" = "#a6e3a1";
-          "version_control.added_background" = "#a6e3a126";
-          "version_control.deleted" = "#f38ba8";
-          "version_control.deleted_background" = "#f38ba826";
-          "version_control.modified" = "#f9e2af";
-          "version_control.modified_background" = "#f9e2af26";
-          "version_control.renamed" = "#74c7ec";
-          "version_control.conflict" = "#fab387";
-          "version_control.conflict_background" = "#fab38726";
-          "version_control.ignored" = "#6c7086";
+          predictive = gray 0.5;
+          "predictive.border" = gray 0.8;
+          "predictive.background" = gray 0.2;
+          renamed = blue regular;
+          "renamed.border" = blue accent;
+          "renamed.background" = blue background;
+          info = mint regular;
+          "info.border" = mint accent;
+          "info.background" = mint background;
+          warning = orange regular;
+          "warning.border" = orange accent;
+          "warning.background" = orange background;
+          error = red regular;
+          "error.border" = red accent;
+          "error.background" = red background;
+          success = green regular;
+          "success.border" = green accent;
+          "success.background" = green background;
+          unreachable = red regular;
+          "unreachable.border" = red accent;
+          "unreachable.background" = red background;
+          players = builtins.genList (i: {
+            cursor = builtins.elemAt accent i;
+            selection = builtins.elemAt background i;
+            background = builtins.elemAt background i;
+          }) (builtins.length regular);
+
+          "version_control.added" = green regular;
+          "version_control.added_background" = green background;
+          "version_control.deleted" = purple regular;
+          "version_control.deleted_background" = purple background;
+          "version_control.modified" = yellow regular;
+          "version_control.modified_background" = yellow background;
+          "version_control.renamed" = blue regular;
+          "version_control.conflict" = red regular;
+          "version_control.conflict_background" = red background;
+          "version_control.ignored" = gray 0.5;
           syntax = {
-            variable = {
-              color = "#cdd6f4";
-              font_style = null;
-              font_weight = null;
-            };
-            "variable.builtin" = {
-              color = "#f38ba8";
-              font_style = null;
-              font_weight = null;
-            };
-            "variable.parameter" = {
-              color = "#eba0ac";
-              font_style = null;
-              font_weight = null;
-            };
-            "variable.member" = {
-              color = "#89b4fa";
-              font_style = null;
-              font_weight = null;
-            };
-            "variable.special" = {
-              color = "#f38ba8";
-              font_style = "italic";
-              font_weight = null;
-            };
-            constant = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            "constant.builtin" = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            "constant.macro" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            module = {
-              color = "#f9e2af";
-              font_style = "italic";
-              font_weight = null;
-            };
-            label = {
-              color = "#74c7ec";
-              font_style = null;
-              font_weight = null;
-            };
-            string = {
-              color = "#a6e3a1";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.documentation" = {
-              color = "#94e2d5";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.regexp" = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.escape" = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.special" = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.special.path" = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.special.symbol" = {
-              color = "#f2cdcd";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.special.url" = {
-              color = "#f5e0dc";
-              font_style = "italic";
-              font_weight = null;
-            };
-            character = {
-              color = "#94e2d5";
-              font_style = null;
-              font_weight = null;
-            };
-            "character.special" = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            boolean = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            number = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            "number.float" = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            type = {
-              color = "#f9e2af";
-              font_style = null;
-              font_weight = null;
-            };
-            "type.builtin" = {
-              color = "#cba6f7";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "type.definition" = {
-              color = "#f9e2af";
-              font_style = null;
-              font_weight = null;
-            };
-            "type.interface" = {
-              color = "#f9e2af";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "type.super" = {
-              color = "#f9e2af";
-              font_style = "italic";
-              font_weight = null;
-            };
-            attribute = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            property = {
-              color = "#89b4fa";
-              font_style = null;
-              font_weight = null;
-            };
-            function = {
-              color = "#89b4fa";
-              font_style = null;
-              font_weight = null;
-            };
-            "function.builtin" = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            "function.call" = {
-              color = "#89b4fa";
-              font_style = null;
-              font_weight = null;
-            };
-            "function.macro" = {
-              color = "#94e2d5";
-              font_style = null;
-              font_weight = null;
-            };
-            "function.method" = {
-              color = "#89b4fa";
-              font_style = null;
-              font_weight = null;
-            };
-            "function.method.call" = {
-              color = "#89b4fa";
-              font_style = null;
-              font_weight = null;
-            };
-            constructor = {
-              color = "#f2cdcd";
-              font_style = null;
-              font_weight = null;
-            };
-            operator = {
-              color = "#89dceb";
-              font_style = null;
-              font_weight = null;
-            };
-            keyword = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.modifier" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.type" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.coroutine" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.function" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.operator" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.import" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.repeat" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.return" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.debug" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.exception" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.conditional" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.conditional.ternary" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.directive" = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.directive.define" = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            "keyword.export" = {
-              color = "#89dceb";
-              font_style = null;
-              font_weight = null;
-            };
-            punctuation = {
-              color = "#9399b2";
-              font_style = null;
-              font_weight = null;
-            };
-            "punctuation.delimiter" = {
-              color = "#9399b2";
-              font_style = null;
-              font_weight = null;
-            };
-            "punctuation.bracket" = {
-              color = "#9399b2";
-              font_style = null;
-              font_weight = null;
-            };
-            "punctuation.special" = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            "punctuation.special.symbol" = {
-              color = "#f2cdcd";
-              font_style = null;
-              font_weight = null;
-            };
-            "punctuation.list_marker" = {
-              color = "#94e2d5";
-              font_style = null;
-              font_weight = null;
-            };
-            comment = {
-              color = "#9399b2";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "comment.doc" = {
-              color = "#9399b2";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "comment.documentation" = {
-              color = "#9399b2";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "comment.error" = {
-              color = "#f38ba8";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "comment.warning" = {
-              color = "#f9e2af";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "comment.hint" = {
-              color = "#89b4fa";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "comment.todo" = {
-              color = "#f2cdcd";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "comment.note" = {
-              color = "#f5e0dc";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "diff.plus" = {
-              color = "#a6e3a1";
-              font_style = null;
-              font_weight = null;
-            };
-            "diff.minus" = {
-              color = "#f38ba8";
-              font_style = null;
-              font_weight = null;
-            };
-            tag = {
-              color = "#89b4fa";
-              font_style = null;
-              font_weight = null;
-            };
-            "tag.attribute" = {
-              color = "#f9e2af";
-              font_style = "italic";
-              font_weight = null;
-            };
-            "tag.delimiter" = {
-              color = "#94e2d5";
-              font_style = null;
-              font_weight = null;
-            };
-            parameter = {
-              color = "#eba0ac";
-              font_style = null;
-              font_weight = null;
-            };
-            field = {
-              color = "#b4befe";
-              font_style = null;
-              font_weight = null;
-            };
-            namespace = {
-              color = "#f9e2af";
-              font_style = "italic";
-              font_weight = null;
-            };
-            float = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            symbol = {
-              color = "#f5c2e7";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.regex" = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            text = {
-              color = "#cdd6f4";
-              font_style = null;
-              font_weight = null;
-            };
-            "emphasis.strong" = {
-              color = "#eba0ac";
-              font_style = null;
-              font_weight = 700;
-            };
-            emphasis = {
-              color = "#eba0ac";
-              font_style = "italic";
-              font_weight = null;
-            };
-            embedded = {
-              color = "#eba0ac";
-              font_style = null;
-              font_weight = null;
-            };
-            "text.literal" = {
-              color = "#a6e3a1";
-              font_style = null;
-              font_weight = null;
-            };
-            concept = {
-              color = "#74c7ec";
-              font_style = null;
-              font_weight = null;
-            };
-            enum = {
-              color = "#94e2d5";
-              font_style = null;
-              font_weight = 700;
-            };
-            "function.decorator" = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            "type.class.definition" = {
-              color = "#f9e2af";
-              font_style = null;
-              font_weight = 700;
-            };
-            hint = {
-              color = "#585b70";
-              font_style = "italic";
-              font_weight = null;
-            };
-            link_text = {
-              color = "#b4befe";
-              font_style = null;
-              font_weight = null;
-            };
-            link_uri = {
-              color = "#89b4fa";
-              font_style = "italic";
-              font_weight = null;
-            };
-            parent = {
-              color = "#fab387";
-              font_style = null;
-              font_weight = null;
-            };
-            predictive = {
-              color = "#6c7086";
-              font_style = null;
-              font_weight = null;
-            };
-            predoc = {
-              color = "#f38ba8";
-              font_style = null;
-              font_weight = null;
-            };
-            primary = {
-              color = "#eba0ac";
-              font_style = null;
-              font_weight = null;
-            };
-            "tag.doctype" = {
-              color = "#cba6f7";
-              font_style = null;
-              font_weight = null;
-            };
-            "string.doc" = {
-              color = "#94e2d5";
-              font_style = "italic";
-              font_weight = null;
-            };
-            title = {
-              color = "#cdd6f4";
-              font_style = null;
-              font_weight = 800;
-            };
-            variant = {
-              color = "#f38ba8";
-              font_style = null;
-              font_weight = null;
-            };
+            variable.color = syntax 3;
+            "variable.builtin".color = "#f38ba8";
+            "variable.parameter".color = "#eba0ac";
+            "variable.member".color = "#89b4fa";
+            "variable.special".color = "#f38ba8";
+            constant.color = "#fab387";
+            "constant.builtin".color = "#fab387";
+            "constant.macro".color = "#cba6f7";
+            module.color = "#f9e2af";
+            label.color = "#74c7ec";
+            string.color = "#a6e3a1";
+            "string.documentation".color = "#94e2d5";
+            "string.regexp".color = "#fab387";
+            "string.escape".color = "#f5c2e7";
+            "string.special".color = "#f5c2e7";
+            "string.special.path".color = "#f5c2e7";
+            "string.special.symbol".color = "#f2cdcd";
+            "string.special.url".color = "#f5e0dc";
+            character.color = "#94e2d5";
+            "character.special".color = "#f5c2e7";
+            boolean.color = "#fab387";
+            number.color = "#fab387";
+            "number.float".color = "#fab387";
+            type.color = "#f9e2af";
+            "type.builtin".color = "#cba6f7";
+            "type.definition".color = "#f9e2af";
+            "type.interface".color = "#f9e2af";
+            "type.super".color = "#f9e2af";
+            attribute.color = "#fab387";
+            property.color = "#89b4fa";
+            function.color = "#89b4fa";
+            "function.builtin".color = "#fab387";
+            "function.call".color = "#89b4fa";
+            "function.macro".color = "#94e2d5";
+            "function.method".color = "#89b4fa";
+            "function.method.call".color = "#89b4fa";
+            constructor.color = "#f2cdcd";
+            operator.color = "#89dceb";
+            keyword.color = "#cba6f7";
+            "keyword.modifier".color = "#cba6f7";
+            "keyword.type".color = "#cba6f7";
+            "keyword.coroutine".color = "#cba6f7";
+            "keyword.function".color = "#cba6f7";
+            "keyword.operator".color = "#cba6f7";
+            "keyword.import".color = "#cba6f7";
+            "keyword.repeat".color = "#cba6f7";
+            "keyword.return".color = "#cba6f7";
+            "keyword.debug".color = "#cba6f7";
+            "keyword.exception".color = "#cba6f7";
+            "keyword.conditional".color = "#cba6f7";
+            "keyword.conditional.ternary".color = "#cba6f7";
+            "keyword.directive".color = "#f5c2e7";
+            "keyword.directive.define".color = "#f5c2e7";
+            "keyword.export".color = "#89dceb";
+            punctuation.color = "#9399b2";
+            "punctuation.delimiter".color = "#9399b2";
+            "punctuation.bracket".color = "#9399b2";
+            "punctuation.special".color = "#f5c2e7";
+            "punctuation.special.symbol".color = "#f2cdcd";
+            "punctuation.list_marker".color = "#94e2d5";
+            comment.color = "#9399b2";
+            "comment.doc".color = "#9399b2";
+            "comment.documentation".color = "#9399b2";
+            "comment.error".color = "#f38ba8";
+            "comment.warning".color = "#f9e2af";
+            "comment.hint".color = "#89b4fa";
+            "comment.todo".color = "#f2cdcd";
+            "comment.note".color = "#f5e0dc";
+            "diff.plus".color = "#a6e3a1";
+            "diff.minus".color = "#f38ba8";
+            tag.color = "#89b4fa";
+            "tag.attribute".color = "#f9e2af";
+            "tag.delimiter".color = "#94e2d5";
+            parameter.color = "#eba0ac";
+            field.color = "#b4befe";
+            namespace.color = "#f9e2af";
+            float.color = "#fab387";
+            symbol.color = "#f5c2e7";
+            "string.regex".color = "#fab387";
+            text.color = "#cdd6f4";
+            "emphasis.strong".color = "#eba0ac";
+            emphasis.color = "#eba0ac";
+            embedded.color = "#eba0ac";
+            "text.literal".color = "#a6e3a1";
+            concept.color = "#74c7ec";
+            enum.color = "#94e2d5";
+            "function.decorator".color = "#fab387";
+            "type.class.definition".color = "#f9e2af";
+            hint.color = "#585b70";
+            link_text.color = "#b4befe";
+            link_uri.color = "#89b4fa";
+            parent.color = "#fab387";
+            predictive.color = "#6c7086";
+            predoc.color = "#f38ba8";
+            primary.color = "#eba0ac";
+            "tag.doctype".color = "#cba6f7";
+            "string.doc".color = "#94e2d5";
+            title.color = "#cdd6f4";
+            variant.color = "#f38ba8";
           };
         };
     }
