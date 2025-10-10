@@ -28,5 +28,6 @@
     ./zapret.nix
     ./zed-editor
     ./zen-browser.nix
+    ./zoom.nix
   ];
 }
