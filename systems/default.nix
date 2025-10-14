@@ -5,6 +5,6 @@
 
 {
   imports = [
-    ./${systemSettings.hostname}.nix
+    ./${systemSettings.hostname}
   ];
 }
