@@ -11,7 +11,7 @@
     {
       home.packages = with pkgs; [
         libnotify
-        helvum
+        pulsemeeter
         nmgui
       ];
       programs.waybar = {
@@ -79,8 +79,8 @@
                   "class<steam>" = "";
                   "class<.blueman-manager-wrapped>" = "󰂯";
                   "class<org.pulseaudio.pavucontrol>" = "";
-                  "class<org.pipewire.Helvum>" = "󱡫";
-                  "class<vesktop>" = "";
+                  "class<org.pulsemeeter.pulsemeeter>" = "󱡫";
+                  "class<discord>" = "";
                   "class<org.mixxx.Mixxx>" = "";
                   "class<dev.zed.Zed>" = "󰰶";
                   "class<com.obsproject.Studio>" = "";
@@ -102,8 +102,8 @@
                 format = "{icon} {volume}%";
                 format-muted = " {volume}%";
                 on-click = hyprToggle {
-                  class = "org.pipewire.Helvum";
-                  command = "helvum";
+                  class = "org.pulsemeeter.pulsemeeter";
+                  command = "pulsemeeter";
                 };
                 max-volume = 150;
                 scroll-step = 1;

@@ -27,7 +27,7 @@
             n: lightness: chroma: transparency:
             map color.toHex (color.paletteTransparent n lightness chroma transparency);
 
-          mainBg = blackTransparent 0.8; # blackTransparent 0.01;
+          mainBg = blackTransparent 0.01; # blackTransparent 0.8;
           substituteBg = gray 0.06;
 
           background = paletteTransparent 8 0.5 0.1 0.5;
@@ -56,7 +56,7 @@
         in
         {
           accents = accent;
-          "background.appearance" = "blurred";
+          "background.appearance" = "transparent";
 
           background = mainBg;
           "status_bar.background" = mainBg;

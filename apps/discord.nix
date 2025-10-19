@@ -241,7 +241,7 @@
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, D, exec, vesktop"
+        "SUPER, D, exec, discord"
       ];
     };
 }

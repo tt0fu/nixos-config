@@ -7,7 +7,7 @@
     ./anki.nix
     ./alvr.nix
     ./btop.nix
-    # ./carla.nix
+    ./carla.nix
     ./discord.nix
     ./fastfetch
     ./kdeconnect.nix
@@ -22,7 +22,9 @@
     ./telegram.nix
     ./thunderbird.nix
     ./vlc.nix
+    ./vr
     # ./vscode.nix
+    ./winboat.nix
     ./winbox.nix
     ./yazi.nix
     ./zapret.nix
