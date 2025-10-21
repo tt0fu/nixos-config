@@ -117,7 +117,7 @@ float fbm(vec2 p)
     // p = mtx * p * 2.02;
     // f += 0.031250 * noise(p);
     p = mtx * p * 2.01;
-    f += 0.250000 * noise(p);
+    f += 0.250000 * noise(p + MOVE_AMPLITUDE * sin(iTime * MOVE_TIME_SCALE));
     p = mtx * p * 2.03;
     f += 0.125000 * noise(p);
     // p = mtx * p * 2.01;
