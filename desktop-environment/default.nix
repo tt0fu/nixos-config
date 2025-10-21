@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./bluetooth.nix
     ./clipboard.nix
     ./envfs.nix
     ./font.nix
@@ -12,6 +11,7 @@
     ./hyprshot.nix
     ./launcher.nix
     ./notifications.nix
+    ./oh-my-posh.nix
     ./pointer-cursor.nix
     ./status-bar
     ./wallpaper

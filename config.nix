@@ -33,6 +33,15 @@
       styleOverrides = {
         font.size = 20;
       };
+      apps = [
+        /essential
+        /coding
+        /misc
+        /networking
+        /social
+        /studying
+        /utils
+      ];
     }
     {
       settings = {

@@ -1,5 +1,6 @@
 {
   userSettings,
+  color,
   ...
 }:
 
@@ -14,21 +15,24 @@
           enableBashIntegration = true;
           settings = {
             "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
-            palette = {
-              "red" = "#FF0000";
-              "green" = "#00FF00";
-              "blue" = "#0000FF";
-              "white" = "#FFFFFF";
-              "black" = "#111111";
-              "orange" = "#FF7700";
-              "0" = "#FFC2DB";
-              "1" = "#FFCBA1";
-              "2" = "#EAE192";
-              "3" = "#A9F2C0";
-              "4" = "#87F1FE";
-              "5" = "#B4E1FF";
-              "6" = "#F1CCFF";
-            };
+            palette =
+              let
+                count = 7;
+                palette = map color.toHex (color.palette count 0.9 0.1);
+              in
+              {
+                "red" = "#FF0000";
+                "green" = "#00FF00";
+                "blue" = "#0000FF";
+                "white" = "#FFFFFF";
+                "black" = "#111111";
+              }
+              // builtins.listToAttrs (
+                builtins.genList (i: {
+                  name = builtins.toString i;
+                  value = builtins.elemAt palette i;
+                }) count
+              );
             blocks = [
               {
                 alignment = "left";

@@ -13,7 +13,7 @@
         shaderbg
       ];
       wayland.windowManager.hyprland.settings.exec-once = [
-        "shaderbg ${systemSettings.monitor.name} ${./rainbow-cells.frag}"
+        "shaderbg ${systemSettings.monitor.name} ${./fbm.frag}"
       ];
     };
 }

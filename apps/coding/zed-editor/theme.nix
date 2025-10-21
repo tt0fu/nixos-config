@@ -19,7 +19,6 @@
           white = gray 1.0;
           black = gray 0;
 
-          # lch = lch: color.toHex (color.lrgbToSrgb (color.oklabToLrgb (color.lchToOklab lch)));
           palette =
             n: lightness: chroma:
             map color.toHex (color.palette n lightness chroma);
@@ -27,7 +26,7 @@
             n: lightness: chroma: transparency:
             map color.toHex (color.paletteTransparent n lightness chroma transparency);
 
-          mainBg = blackTransparent 0.01; # blackTransparent 0.8;
+          mainBg = blackTransparent 0.0; # blackTransparent 0.8;
           substituteBg = gray 0.06;
 
           background = paletteTransparent 8 0.5 0.1 0.5;

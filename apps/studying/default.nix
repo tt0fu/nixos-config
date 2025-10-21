@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./alvr.nix
-    ./wivrn.nix
+    ./anki.nix
   ];
 }

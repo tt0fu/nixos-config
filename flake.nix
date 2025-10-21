@@ -49,8 +49,8 @@
               ./systems
               ./core
               ./desktop-environment
-              ./apps
-            ];
+            ]
+            ++ (map (path: ./apps + path) system.apps);
             specialArgs = {
               inherit inputs;
               systemSettings = system.settings;
