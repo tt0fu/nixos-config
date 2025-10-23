@@ -139,6 +139,6 @@ float fade(float x) {
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float p = pattern(fragCoord * SCALE / iResolution.y);
-    float hue = (p + fract(iTime * RAINBOW_TIME_SCALE)) * RAINBOW_REPEATS;
+    float hue = (p + iTime * RAINBOW_TIME_SCALE) * RAINBOW_REPEATS;
     fragColor = vec4(lsrgb_srgb(hue_lsrgb(hue)) * fade(p), 1.0);
 }
