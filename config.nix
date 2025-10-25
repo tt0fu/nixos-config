@@ -56,6 +56,20 @@
         vpnName = "NL2_PC";
       };
       styleOverrides = { };
+      apps = [
+        /essential
+        /coding
+        /misc
+        /networking
+        /social
+        /studying
+        /utils
+        /audio
+        /dj
+        /gaming
+        /virtualization
+        /vr
+      ];
     }
   ];
 }
