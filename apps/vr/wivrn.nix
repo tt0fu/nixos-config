@@ -50,19 +50,11 @@
       '';
     });
   };
-  environment.systemPackages = with pkgs; [
-    motoc
-    wlx-overlay-s
-  ];
   home-manager.users.${userSettings.username} =
-    { ... }:
+    { pkgs, ... }:
     {
-      home.file = {
-        ".config/wlxoverlay" = {
-          source = ./wlxoverlay;
-          recursive = true;
-        };
-      };
+      home.packages = with pkgs; [
+        motoc
+      ];
     };
-
 }
