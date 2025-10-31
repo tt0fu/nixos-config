@@ -27,6 +27,10 @@
       url = "github:TibixDev/winboat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sonusmix = {
+      url = "git+https://codeberg.org/ttofu/sonusmix.git";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
