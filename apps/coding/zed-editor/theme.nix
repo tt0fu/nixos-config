@@ -33,7 +33,7 @@
           regular = palette 8 0.7 0.1;
           accent = palette 8 0.8 0.1;
 
-          syntax = builtins.elemAt (palette 16 0.8 0.1);
+          syntax = builtins.elemAt (palette 34 0.9 0.2);
 
           getColor = ind: list: builtins.elemAt list ind;
 
@@ -220,105 +220,142 @@
           "version_control.conflict_background" = red background;
           "version_control.ignored" = gray 0.5;
           syntax = {
-            variable.color = syntax 3;
-            "variable.builtin".color = "#f38ba8";
-            "variable.parameter".color = "#eba0ac";
-            "variable.member".color = "#89b4fa";
-            "variable.special".color = "#f38ba8";
-            constant.color = "#fab387";
-            "constant.builtin".color = "#fab387";
-            "constant.macro".color = "#cba6f7";
-            module.color = "#f9e2af";
-            label.color = "#74c7ec";
-            string.color = "#a6e3a1";
-            "string.documentation".color = "#94e2d5";
-            "string.regexp".color = "#fab387";
-            "string.escape".color = "#f5c2e7";
-            "string.special".color = "#f5c2e7";
-            "string.special.path".color = "#f5c2e7";
-            "string.special.symbol".color = "#f2cdcd";
-            "string.special.url".color = "#f5e0dc";
-            character.color = "#94e2d5";
-            "character.special".color = "#f5c2e7";
-            boolean.color = "#fab387";
-            number.color = "#fab387";
-            "number.float".color = "#fab387";
-            type.color = "#f9e2af";
-            "type.builtin".color = "#cba6f7";
-            "type.definition".color = "#f9e2af";
-            "type.interface".color = "#f9e2af";
-            "type.super".color = "#f9e2af";
-            attribute.color = "#fab387";
-            property.color = "#89b4fa";
-            function.color = "#89b4fa";
-            "function.builtin".color = "#fab387";
-            "function.call".color = "#89b4fa";
-            "function.macro".color = "#94e2d5";
-            "function.method".color = "#89b4fa";
-            "function.method.call".color = "#89b4fa";
-            constructor.color = "#f2cdcd";
-            operator.color = "#89dceb";
-            keyword.color = "#cba6f7";
-            "keyword.modifier".color = "#cba6f7";
-            "keyword.type".color = "#cba6f7";
-            "keyword.coroutine".color = "#cba6f7";
-            "keyword.function".color = "#cba6f7";
-            "keyword.operator".color = "#cba6f7";
-            "keyword.import".color = "#cba6f7";
-            "keyword.repeat".color = "#cba6f7";
-            "keyword.return".color = "#cba6f7";
-            "keyword.debug".color = "#cba6f7";
-            "keyword.exception".color = "#cba6f7";
-            "keyword.conditional".color = "#cba6f7";
-            "keyword.conditional.ternary".color = "#cba6f7";
-            "keyword.directive".color = "#f5c2e7";
-            "keyword.directive.define".color = "#f5c2e7";
-            "keyword.export".color = "#89dceb";
-            punctuation.color = "#9399b2";
-            "punctuation.delimiter".color = "#9399b2";
-            "punctuation.bracket".color = "#9399b2";
-            "punctuation.special".color = "#f5c2e7";
-            "punctuation.special.symbol".color = "#f2cdcd";
-            "punctuation.list_marker".color = "#94e2d5";
-            comment.color = "#9399b2";
-            "comment.doc".color = "#9399b2";
-            "comment.documentation".color = "#9399b2";
-            "comment.error".color = "#f38ba8";
-            "comment.warning".color = "#f9e2af";
-            "comment.hint".color = "#89b4fa";
-            "comment.todo".color = "#f2cdcd";
-            "comment.note".color = "#f5e0dc";
-            "diff.plus".color = "#a6e3a1";
-            "diff.minus".color = "#f38ba8";
-            tag.color = "#89b4fa";
-            "tag.attribute".color = "#f9e2af";
-            "tag.delimiter".color = "#94e2d5";
-            parameter.color = "#eba0ac";
-            field.color = "#b4befe";
-            namespace.color = "#f9e2af";
-            float.color = "#fab387";
-            symbol.color = "#f5c2e7";
-            "string.regex".color = "#fab387";
-            text.color = "#cdd6f4";
-            "emphasis.strong".color = "#eba0ac";
-            emphasis.color = "#eba0ac";
-            embedded.color = "#eba0ac";
-            "text.literal".color = "#a6e3a1";
-            concept.color = "#74c7ec";
-            enum.color = "#94e2d5";
-            "function.decorator".color = "#fab387";
-            "type.class.definition".color = "#f9e2af";
-            hint.color = "#585b70";
-            link_text.color = "#b4befe";
-            link_uri.color = "#89b4fa";
-            parent.color = "#fab387";
-            predictive.color = "#6c7086";
-            predoc.color = "#f38ba8";
-            primary.color = "#eba0ac";
-            "tag.doctype".color = "#cba6f7";
-            "string.doc".color = "#94e2d5";
-            title.color = "#cdd6f4";
-            variant.color = "#f38ba8";
+            attribute.color = syntax 0;
+
+            boolean.color = syntax 1;
+
+            character.color = syntax 2;
+            "character.special".color = syntax 2;
+
+            comment.color = syntax 3;
+            "comment.doc".color = syntax 3;
+            "comment.documentation".color = syntax 3;
+            "comment.error".color = syntax 3;
+            "comment.hint".color = syntax 3;
+            "comment.note".color = syntax 3;
+            "comment.todo".color = syntax 3;
+            "comment.warning".color = syntax 3;
+
+            concept.color = syntax 4;
+
+            constant.color = syntax 5;
+            "constant.builtin".color = syntax 5;
+            "constant.macro".color = syntax 5;
+
+            constructor.color = syntax 6;
+
+            "diff.minus".color = syntax 7;
+            "diff.plus".color = syntax 7;
+
+            embedded.color = syntax 8;
+
+            emphasis.color = syntax 9;
+            "emphasis.strong".color = syntax 9;
+
+            enum.color = syntax 10;
+
+            field.color = syntax 11;
+
+            float.color = syntax 12;
+
+            function.color = syntax 13;
+            "function.builtin".color = syntax 13;
+            "function.call".color = syntax 13;
+            "function.decorator".color = syntax 13;
+            "function.macro".color = syntax 13;
+            "function.method".color = syntax 13;
+            "function.method.call".color = syntax 13;
+
+            hint.color = syntax 14;
+
+            keyword.color = syntax 15;
+            "keyword.conditional".color = syntax 15;
+            "keyword.conditional.ternary".color = syntax 15;
+            "keyword.coroutine".color = syntax 15;
+            "keyword.debug".color = syntax 15;
+            "keyword.directive".color = syntax 15;
+            "keyword.directive.define".color = syntax 15;
+            "keyword.exception".color = syntax 15;
+            "keyword.export".color = syntax 15;
+            "keyword.function".color = syntax 15;
+            "keyword.import".color = syntax 15;
+            "keyword.modifier".color = syntax 15;
+            "keyword.operator".color = syntax 15;
+            "keyword.repeat".color = syntax 15;
+            "keyword.return".color = syntax 15;
+            "keyword.type".color = syntax 15;
+
+            label.color = syntax 16;
+
+            link_text.color = syntax 16;
+
+            link_uri.color = syntax 16;
+
+            module.color = syntax 16;
+
+            namespace.color = syntax 16;
+
+            number.color = syntax 17;
+            "number.float".color = syntax 17;
+
+            operator.color = syntax 18;
+
+            parameter.color = syntax 19;
+
+            parent.color = syntax 20;
+
+            predictive.color = syntax 21;
+
+            predoc.color = syntax 22;
+
+            primary.color = syntax 23;
+
+            property.color = syntax 24;
+
+            punctuation.color = syntax 25;
+            "punctuation.bracket".color = syntax 25;
+            "punctuation.delimiter".color = syntax 25;
+            "punctuation.list_marker".color = syntax 25;
+            "punctuation.special".color = syntax 25;
+            "punctuation.special.symbol".color = syntax 25;
+
+            string.color = syntax 26;
+            "string.doc".color = syntax 26;
+            "string.documentation".color = syntax 26;
+            "string.escape".color = syntax 26;
+            "string.regex".color = syntax 26;
+            "string.regexp".color = syntax 26;
+            "string.special".color = syntax 26;
+            "string.special.path".color = syntax 26;
+            "string.special.symbol".color = syntax 26;
+            "string.special.url".color = syntax 26;
+
+            symbol.color = syntax 27;
+
+            tag.color = syntax 28;
+            "tag.attribute".color = syntax 28;
+            "tag.delimiter".color = syntax 28;
+            "tag.doctype".color = syntax 28;
+
+            text.color = syntax 29;
+            "text.literal".color = syntax 29;
+
+            title.color = syntax 30;
+
+            type.color = syntax 31;
+            "type.builtin".color = syntax 31;
+            "type.class.definition".color = syntax 31;
+            "type.definition".color = syntax 31;
+            "type.interface".color = syntax 31;
+            "type.super".color = syntax 31;
+
+            variable.color = syntax 32;
+            "variable.builtin".color = syntax 32;
+            "variable.member".color = syntax 32;
+            "variable.parameter".color = syntax 32;
+            "variable.special".color = syntax 32;
+
+            variant.color = syntax 33;
           };
         };
     }
