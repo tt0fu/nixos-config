@@ -6,9 +6,9 @@
 }:
 
 {
-  environment.systemPackages = [
-    inputs.zen-browser.packages."${systemSettings.system}".default
-  ];
+  # environment.systemPackages = [
+  # inputs.zen-browser.packages."${pkgs.system}".default
+  # ];
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
@@ -23,51 +23,55 @@
           # https://mozilla.github.io/policy-templates/
         };
         nativeMessagingHosts = [ pkgs.firefoxpwa ];
+        # extensions = {
+        #   packages = with inputs.firefox-addons.packages.${pkgs.system}; [
+        #     ublock-origin
+        #     transparent-zen
+        #     darkreader
+        #     sponsorblock
+        #   ];
+        # };
       };
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, Z, exec, zen"
       ];
       home.sessionVariables.MOZ_LEGACY_PROFILES = "1";
-      xdg = {
-        desktopEntries.zen-browser = {
-          name = "Zen browser";
-          exec = "zen %U";
-          genericName = "Web Browser";
-          terminal = false;
-          categories = [
-            "Application"
-            "Network"
-            "WebBrowser"
-          ];
-          mimeType = [
-            "text/html"
-            "text/xml"
-            "x-scheme-handler/http"
-            "x-scheme-handler/https"
-            "x-scheme-handler/chrome"
-            "application/pdf"
-            "application/x-extension-htm"
-            "application/x-extension-html"
-            "application/x-extension-shtml"
-            "application/xhtml+xml"
-            "application/x-extension-xhtml"
-            "application/x-extension-xht"
-          ];
+
+      xdg.mimeApps =
+        let
+          value =
+            let
+              zen-browser = inputs.zen-browser.packages.${pkgs.system}.twilight;
+            in
+            zen-browser.meta.desktopFileName;
+
+          associations = builtins.listToAttrs (
+            map
+              (name: {
+                inherit name value;
+              })
+              [
+                "application/x-extension-shtml"
+                "application/x-extension-xhtml"
+                "application/x-extension-html"
+                "application/x-extension-xht"
+                "application/x-extension-htm"
+                "x-scheme-handler/unknown"
+                "x-scheme-handler/mailto"
+                "x-scheme-handler/chrome"
+                "x-scheme-handler/about"
+                "x-scheme-handler/https"
+                "x-scheme-handler/http"
+                "application/xhtml+xml"
+                "application/json"
+                "text/plain"
+                "text/html"
+              ]
+          );
+        in
+        {
+          associations.added = associations;
+          defaultApplications = associations;
         };
-        mimeApps.defaultApplications = {
-          "text/html" = "zen-browser.desktop";
-          "text/xml" = "zen-browser.desktop";
-          "x-scheme-handler/http" = "zen-browser.desktop";
-          "x-scheme-handler/https" = "zen-browser.desktop";
-          "x-scheme-handler/chrome" = "zen-browser.desktop";
-          "application/pdf" = "zen-browser.desktop";
-          "application/x-extension-htm" = "zen-browser.desktop";
-          "application/x-extension-html" = "zen-browser.desktop";
-          "application/x-extension-shtml" = "zen-browser.desktop";
-          "application/xhtml+xml" = "zen-browser.desktop";
-          "application/x-extension-xhtml" = "zen-browser.desktop";
-          "application/x-extension-xht" = "zen-browser.desktop";
-        };
-      };
     };
 }
