@@ -47,6 +47,8 @@
           };
           base_keymap = "None";
           theme = "Rainbow Dark";
+          format_on_save = "off";
+          auto_fold_dirs = false;
         };
         userKeymaps = import ./keybinds.nix;
         themes.Rainbow = import ./theme.nix { color = color; };
