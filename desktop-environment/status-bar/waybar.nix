@@ -40,6 +40,7 @@
               ];
               modules-right = [
                 "wireplumber"
+                "wireplumber#source"
                 "bluetooth"
                 "battery"
                 "network"
@@ -114,6 +115,13 @@
                   ""
                   ""
                 ];
+              };
+              "wireplumber#source" = {
+                node-type = "Audio/Source";
+                format = "󰍬 {volume}%";
+                format-muted = "󰍭";
+                on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+                scroll-step = 5;
               };
               bluetooth = {
                 format-disabled = "";
