@@ -11,7 +11,6 @@
     {
       home.packages = with pkgs; [
         libnotify
-        helvum
         nmgui
       ];
       programs.waybar = {
@@ -102,11 +101,8 @@
               };
               wireplumber = {
                 format = "{icon} {volume}%";
-                format-muted = " {volume}%";
-                on-click = hyprToggle {
-                  class = "org.pipewire.Helvum";
-                  command = "helvum";
-                };
+                format-muted = "";
+                on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
                 max-volume = 150;
                 scroll-step = 1;
                 reverse-scrolling = true;
