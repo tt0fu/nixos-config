@@ -1,6 +1,4 @@
 {
-  inputs,
-  systemSettings,
   userSettings,
   style,
   color,
@@ -11,21 +9,21 @@
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
+      home.packages = with pkgs; [
+        nil
+        nixd
+        clang-tools
+        texlab
+        package-version-server
+      ];
       programs.zed-editor = {
         enable = true;
-        extraPackages = with pkgs; [
-          nil
-          nixd
-          clang-tools
-          texlab
-          package-version-server
-        ];
         extensions = [
           "nix"
           "glsl"
           "json"
           "latex"
-          "qml"
+          "java"
         ];
         userSettings = {
           telemetry.metrics = false;
