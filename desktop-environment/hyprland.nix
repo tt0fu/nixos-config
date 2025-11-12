@@ -19,10 +19,10 @@
       home.packages = with pkgs; [
         glib
         hyprshot
-        hyprpolkitagent
         pulseaudio
         brightnessctl
       ];
+      services.polkit-gnome.enable = true;
       xdg = {
         mimeApps.enable = true;
         portal = {
@@ -114,9 +114,6 @@
             shadow.enabled = false;
           };
           animation = [ "global, 1, 1, default" ];
-          exec-once = [
-            "systemctl --user start hyprpolkitagent"
-          ];
           env = [ "QT_QPA_PLATFORMTHEME,qt6ct" ];
           misc = {
             disable_hyprland_logo = true;
