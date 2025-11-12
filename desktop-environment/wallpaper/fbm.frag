@@ -132,6 +132,8 @@ float pattern(in vec2 p)
     return fbm(p + fbm(p + fbm(p)));
 }
 
+// main
+
 float fade(float x) {
     float ripple = abs(1.0 - 2.0 * fract(x * RIPPLE_COUNT + iTime * RIPPLE_TIME_SCALE));
     return clamp(1.0 + (RIPPLE_WIDTH * RIPPLE_COUNT - ripple) / (GLOW_WIDTH * RIPPLE_COUNT * 2.0), 0.0, 1.0); //pow(ripple, 5.0);
