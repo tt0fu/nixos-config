@@ -14,9 +14,13 @@
         settings = {
           general = {
             disable_loading_bar = true;
+            grace = 0;
             hide_cursor = false;
             no_fade_in = false;
+            no_fade_out = false;
+            ignore_empty_input = false;
           };
+          auth."fingerprint:enabled" = true;
           background = [
             {
               path = "screenshot";

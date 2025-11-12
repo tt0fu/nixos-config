@@ -17,4 +17,5 @@
     "kvm-amd"
     "cpufreq_schedutil"
   ];
+  services.fprintd.enable = true;
 }
