@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   userSettings,
@@ -29,7 +30,7 @@
         application = [
           (pkgs.writeShellScriptBin "wivrn-launch-script" ''
             sleep 5
-            (${pkgs.motoc}/bin/motoc continue && notify-send "motoc calibration loaded") || notify-send -u critical "Failed to load motoc calibration!"
+            (${pkgs.motoc}/bin/motoc continue && ${pkgs.libnotify}/bin/notify-send "motoc calibration loaded") || ${pkgs.libnotify}/bin/notify-send -u critical "Failed to load motoc calibration!"
             sleep 1
             ${pkgs.wlx-overlay-s}/bin/wlx-overlay-s
           '')
@@ -38,8 +39,29 @@
         openvr-compat-path = "${pkgs.opencomposite}/lib/opencomposite";
       };
     };
-    package = pkgs.wivrn.overrideAttrs (oldAttrs: {
-      preFixup = oldAttrs.preFixup + ''
+    # package = pkgs.wivrn.overrideAttrs (
+    #   prevAttrs: finalAttrs: {
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "WiVRn";
+    #       repo = "WiVRn";
+    #       rev = "v25.11.1";
+    #       sha256 = "sha256-pEKMeRdI9UhdZ+NksRBcF7yPC7Ys2haE+B4PPGQ4beE=";
+    #     };
+    #     monado = pkgs.applyPatches {
+    #       src = pkgs.fetchFromGitLab {
+    #         domain = "gitlab.freedesktop.org";
+    #         owner = "monado";
+    #         repo = "monado";
+    #         rev = "06e62fc7d9c5cbcbc43405bb86dfde3bf01ce043";
+    #         sha256 = "sha256-0ALB9eLY4NAUqNOYZMwpvYnLxVpHsQDJc1er8Txdezs=";
+    #       };
+    #       postPatch = ''
+    #         ${finalAttrs.src}/patches/apply.sh ${finalAttrs.src}/patches/monado/*
+    #       '';
+    #     };
+    # };
+    package = inputs.wivrn.packages.${pkgs.system}.default.overrideAttrs (prevAttrs: {
+      preFixup = prevAttrs.preFixup + ''
         wrapProgram "$out/bin/wivrn-server" \
           --prefix LD_LIBRARY_PATH : ${
             lib.makeLibraryPath [

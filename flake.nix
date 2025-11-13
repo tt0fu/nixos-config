@@ -31,6 +31,10 @@
       url = "git+https://codeberg.org/ttofu/sonusmix.git";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    wivrn = {
+      url = "github:WiVRn/WiVRn/v25.11.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
