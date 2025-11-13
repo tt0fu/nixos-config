@@ -39,6 +39,9 @@
       };
       wayland.windowManager.hyprland = {
         enable = true;
+        plugins = [
+          pkgs.hyprlandPlugins.hyprscrolling
+        ];
         settings = {
           input = [
             {
@@ -55,22 +58,34 @@
           bind = [
             "SUPER, ESCAPE, killactive"
             "SUPER, SPACE, togglefloating"
+            "SUPER, RETURN, fullscreen"
             "SUPER, TAB, cyclenext"
             "SUPER, TAB, bringactivetotop"
             "SUPER SHIFT, TAB, cyclenext, prev"
             "SUPER SHIFT, TAB, bringactivetotop"
+
             "SUPER, Up, movefocus, u"
             "SUPER, Down, movefocus, d"
             "SUPER, Left, movefocus, l"
             "SUPER, Right, movefocus, r"
-            "SUPER SHIFT, Up, movewindow, u"
-            "SUPER SHIFT, Down, movewindow, d"
-            "SUPER SHIFT, Left, movewindow, l"
-            "SUPER SHIFT, Right, movewindow, r"
-            "SUPER, RETURN, fullscreen"
+
+            # "SUPER SHIFT, Up, movewindow, u"
+            # "SUPER SHIFT, Down, movewindow, d"
+            # "SUPER SHIFT, Left, movewindow, l"
+            # "SUPER SHIFT, Right, movewindow, r"
+
+            "SUPER, mouse_down, layoutmsg, move +col"
+            "SUPER, mouse_up, layoutmsg, move -col"
+
+            "SUPER SHIFT, Right, layoutmsg, movewindowto r"
+            "SUPER SHIFT, Left, layoutmsg, movewindowto l"
+            "SUPER SHIFT, Up, layoutmsg, movewindowto u"
+            "SUPER SHIFT, Down, layoutmsg, movewindowto d"
+
             "SUPER CTRL SHIFT, S, exec, shutdown now"
             "SUPER CTRL SHIFT, R, exec, reboot"
             "SUPER CTRL SHIFT, ESCAPE, exit"
+
             ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
             ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5"
             ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
@@ -94,7 +109,15 @@
             "SUPER, mouse:272, movewindow"
             "SUPER, mouse:273, resizewindow"
           ];
+          gesture = [
+            "3, up, dispatcher, movefocus, d"
+            "3, down, dispatcher, movefocus, u"
+            "3, left, dispatcher, movefocus, r"
+            "3, right, dispatcher, movefocus, l"
+            "4, horizontal, workspace"
+          ];
           general = {
+            layout = "scrolling";
             border_size = style.border.thickness;
             gaps_in = style.spacing / 2;
             gaps_out = style.spacing;
@@ -114,7 +137,6 @@
             shadow.enabled = false;
           };
           animation = [ "global, 1, 1, default" ];
-          env = [ "QT_QPA_PLATFORMTHEME,qt6ct" ];
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
@@ -130,9 +152,19 @@
             no_donation_nag = true;
             no_update_news = true;
           };
+          plugin = {
+            hyprscrolling = {
+              column_width = 0.9;
+              fullscreen_on_one_column = true;
+              focus_fit_method = 1;
+            };
+          };
         };
       };
-      home.sessionVariables.NIXOS_OZONE_WL = "1";
+      home.sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+        QT_QPA_PLATFORMTHEME = "qt6ct";
+      };
       gtk = {
         enable = true;
         theme = {
