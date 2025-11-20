@@ -47,6 +47,8 @@
           theme = "Rainbow Dark";
           format_on_save = "off";
           auto_fold_dirs = false;
+          preview_tabs.enabled = false;
+          agent.enabled = false;
         };
         userKeymaps = import ./keybinds.nix;
         themes.Rainbow = import ./theme.nix { color = color; };
