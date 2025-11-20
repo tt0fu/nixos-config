@@ -1,0 +1,56 @@
+<!DOCTYPE template>
+<!-- channel vu meter column for right-side channels (2, 4) -->
+<Template>
+  <SetVariable name="group">[Channel<Variable name="i"/>]</SetVariable>
+
+  <SingletonDefinition>
+    <ObjectName>StereoVUMeter<Variable name="i"/></ObjectName>
+    <Children>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <SizePolicy>me,me</SizePolicy>
+        <Children>
+          <WidgetGroup><Size>3f,0min</Size></WidgetGroup>
+          <WidgetGroup>
+            <ObjectName>channel_VuMeter_Group</ObjectName>
+            <Layout>horizontal</Layout>
+            <SizePolicy>min,me</SizePolicy>
+            <Children>
+              <Template src="skin:vumeter_v.xml">
+                <SetVariable name="width">5</SetVariable>
+                <SetVariable name="group"><Variable name="group"/></SetVariable>
+                <SetVariable name="side">_left</SetVariable>
+                <SetVariable name="tooltip_meter">channel_VuMeterL</SetVariable>
+                <SetVariable name="tooltip_clip">channel_peak_indicator_left</SetVariable>
+              </Template>
+              <Template src="skin:vumeter_v.xml">
+                <SetVariable name="width">5</SetVariable>
+                <SetVariable name="group"><Variable name="group"/></SetVariable>
+                <SetVariable name="side">_right</SetVariable>
+                <SetVariable name="tooltip_meter">channel_VuMeterR</SetVariable>
+                <SetVariable name="tooltip_clip">channel_peak_indicator_right</SetVariable>
+              </Template>
+            </Children>
+          </WidgetGroup>
+          <WidgetGroup><Size>1f,0min</Size></WidgetGroup>
+        </Children>
+      </WidgetGroup>
+    </Children>
+  </SingletonDefinition>
+
+  <WidgetGroup>
+    <ObjectName>MixerStrip_4Decks</ObjectName>
+    <Layout>vertical</Layout>
+    <Children>
+      <WidgetGroup>
+        <Layout>vertical</Layout>
+        <SizePolicy>min,me</SizePolicy>
+        <Children>
+          <SingletonContainer>
+            <ObjectName>StereoVUMeter<Variable name="i"/></ObjectName>
+          </SingletonContainer>
+        </Children>
+      </WidgetGroup>
+    </Children>
+  </WidgetGroup>
+</Template>

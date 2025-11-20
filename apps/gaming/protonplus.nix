@@ -4,6 +4,6 @@
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.mixxx ];
+      home.packages = [ pkgs.protonplus ];
     };
 }
