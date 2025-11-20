@@ -59,8 +59,8 @@
     #         ${finalAttrs.src}/patches/apply.sh ${finalAttrs.src}/patches/monado/*
     #       '';
     #     };
-    # };
-    package = inputs.wivrn.packages.${pkgs.system}.default.overrideAttrs (prevAttrs: {
+    # });
+    package = pkgs.wivrn.overrideAttrs (prevAttrs: {
       preFixup = prevAttrs.preFixup + ''
         wrapProgram "$out/bin/wivrn-server" \
           --prefix LD_LIBRARY_PATH : ${
