@@ -10,17 +10,75 @@
       ctrl-o = "workspace::Open";
       ctrl-alt-o = "projects::OpenRecent";
     };
+
+  }
+  {
+    context = "Workspace";
+    bindings = {
+      save = "workspace::Save";
+      ctrl-s = "workspace::Save";
+
+      shift-save = "workspace::SaveAs";
+      ctrl-shift-s = "workspace::SaveAs";
+
+      new = "workspace::NewFile";
+      ctrl-n = "workspace::NewFile";
+
+      shift-new = "workspace::NewWindow";
+      ctrl-shift-n = "workspace::NewWindow";
+
+      ctrl-alt-b = "workspace::ToggleRightDock";
+      ctrl-b = "workspace::ToggleLeftDock";
+      ctrl-j = "workspace::ToggleBottomDock";
+
+      shift-find = "pane::DeploySearch";
+      ctrl-shift-f = "pane::DeploySearch";
+      ctrl-shift-r = [
+        "pane::DeploySearch"
+        {
+          replace_enabled = true;
+        }
+      ];
+
+      ctrl-t = "file_finder::Toggle";
+      ctrl-shift-t = "pane::ReopenClosedItem";
+
+      ctrl-tab = "tab_switcher::Toggle";
+      ctrl-shift-tab = [
+        "tab_switcher::Toggle"
+        {
+          select_last = true;
+        }
+      ];
+
+      ctrl-shift-w = "editor::ToggleFocus";
+      ctrl-shift-q = "terminal_panel::ToggleFocus";
+      ctrl-shift-e = "project_panel::ToggleFocus";
+      ctrl-shift-g = "git_panel::ToggleFocus";
+
+      alt-save = "workspace::SaveAll";
+      ctrl-alt-s = "workspace::SaveAll";
+
+      ctrl-w = [
+        "pane::CloseActiveItem"
+        {
+          close_pinned = false;
+        }
+      ];
+    };
   }
   {
     context = "Editor";
     bindings = {
       escape = "editor::Cancel";
+
       shift-backspace = "editor::Backspace";
       backspace = "editor::Backspace";
+
       delete = "editor::Delete";
 
       shift-enter = "editor::Newline";
-      enter = "editor::Newline";
+
       ctrl-enter = "editor::NewlineBelow";
       ctrl-shift-enter = "editor::NewlineAbove";
 
@@ -91,6 +149,41 @@
 
       ctrl-shift-i = "editor::Format";
       alt-shift-o = "editor::OrganizeImports";
+
+      ctrl-shift-a = "editor::ToggleCodeActions";
+
+      f2 = "editor::Rename";
+
+      "ctrl-/" = [
+        "editor::ToggleComments"
+        {
+          advance_downwards = false;
+        }
+      ];
+    };
+  }
+  {
+    context = "Editor && !(mode == single_line || renaming || showing_completions)";
+    bindings = {
+      enter = "editor::Newline";
+    };
+  }
+  {
+    context = "Editor && mode == single_line";
+    bindings = {
+      enter = "menu::Confirm";
+    };
+  }
+  {
+    context = "Editor && renaming";
+    bindings = {
+      enter = "editor::ConfirmRename";
+    };
+  }
+  {
+    context = "Editor && showing_completions";
+    bindings = {
+      tab = "editor::ComposeCompletion";
     };
   }
   {
@@ -143,8 +236,6 @@
         "ctrl-w"
       ];
 
-      ctrl-shift-a = "editor::SelectAll";
-
       find = "buffer_search::Deploy";
       ctrl-shift-f = "buffer_search::Deploy";
 
@@ -185,51 +276,66 @@
     };
   }
   {
-    context = "Workspace";
+    context = "ProjectPanel";
     bindings = {
-      save = "workspace::Save";
-      ctrl-s = "workspace::Save";
+      left = "project_panel::CollapseSelectedEntry";
 
-      shift-save = "workspace::SaveAs";
-      ctrl-shift-s = "workspace::SaveAs";
+      ctrl-left = "project_panel::CollapseAllEntries";
 
-      new = "workspace::NewFile";
-      ctrl-n = "workspace::NewFile";
+      right = "project_panel::ExpandSelectedEntry";
 
-      shift-new = "workspace::NewWindow";
-      ctrl-shift-n = "workspace::NewWindow";
+      new = "project_panel::NewFile";
+      ctrl-n = "project_panel::NewFile";
 
-      ctrl-alt-b = "workspace::ToggleRightDock";
-      ctrl-b = "workspace::ToggleLeftDock";
-      ctrl-j = "workspace::ToggleBottomDock";
+      alt-new = "project_panel::NewDirectory";
+      alt-ctrl-n = "project_panel::NewDirectory";
 
-      shift-find = "pane::DeploySearch";
-      ctrl-shift-f = "pane::DeploySearch";
-      ctrl-shift-r = [
-        "pane::DeploySearch"
+      cut = "project_panel::Cut";
+      ctrl-x = "project_panel::Cut";
+
+      copy = "project_panel::Copy";
+      ctrl-c = "project_panel::Copy";
+
+      paste = "project_panel::Paste";
+      ctrl-v = "project_panel::Paste";
+
+      alt-copy = "project_panel::CopyPath";
+      ctrl-alt-c = "project_panel::CopyPath";
+
+      alt-shift-copy = "workspace::CopyRelativePath";
+      alt-ctrl-shift-c = "workspace::CopyRelativePath";
+
+      f2 = "project_panel::Rename";
+
+      delete = [
+        "project_panel::Trash"
         {
-          replace_enabled = true;
+          skip_prompt = false;
+        }
+      ];
+      shift-delete = [
+        "project_panel::Trash"
+        {
+          skip_prompt = true;
+        }
+      ];
+      ctrl-delete = [
+        "project_panel::Delete"
+        {
+          skip_prompt = false;
+        }
+      ];
+      ctrl-shift-delete = [
+        "project_panel::Delete"
+        {
+          skip_prompt = true;
         }
       ];
 
-      ctrl-t = "file_finder::Toggle";
-      ctrl-shift-t = "pane::ReopenClosedItem";
+      shift-down = "menu::SelectNext";
+      shift-up = "menu::SelectPrevious";
 
-      ctrl-tab = "tab_switcher::Toggle";
-      ctrl-shift-tab = [
-        "tab_switcher::Toggle"
-        {
-          select_last = true;
-        }
-      ];
-
-      ctrl-shift-w = "editor::ToggleFocus";
-      ctrl-shift-q = "terminal_panel::ToggleFocus";
-      ctrl-shift-e = "project_panel::ToggleFocus";
-      ctrl-shift-g = "git_panel::ToggleFocus";
-
-      alt-save = "workspace::SaveAll";
-      ctrl-alt-s = "workspace::SaveAll";
+      enter = "project_panel::Open";
     };
   }
 ]
