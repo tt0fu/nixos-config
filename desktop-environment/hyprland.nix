@@ -10,7 +10,7 @@
   programs.dconf.enable = true;
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme = "kde";
     style = "adwaita-dark";
   };
   home-manager.users.${userSettings.username} =
@@ -66,21 +66,26 @@
 
             "SUPER, Up, movefocus, u"
             "SUPER, Down, movefocus, d"
-            "SUPER, Left, movefocus, l"
-            "SUPER, Right, movefocus, r"
+            # "SUPER, Left, movefocus, l"
+            # "SUPER, Right, movefocus, r"
+            # "SUPER, mouse_down, movefocus, l"
+            # "SUPER, mouse_up, movefocus, r"
+            "SUPER, Left, layoutmsg, move -col"
+            "SUPER, Right, layoutmsg, move +col"
+            "SUPER, mouse_down, layoutmsg, move -col"
+            "SUPER, mouse_up, layoutmsg, move +col"
 
             # "SUPER SHIFT, Up, movewindow, u"
             # "SUPER SHIFT, Down, movewindow, d"
             # "SUPER SHIFT, Left, movewindow, l"
             # "SUPER SHIFT, Right, movewindow, r"
 
-            "SUPER, mouse_down, layoutmsg, move +col"
-            "SUPER, mouse_up, layoutmsg, move -col"
-
-            "SUPER SHIFT, Right, layoutmsg, movewindowto r"
-            "SUPER SHIFT, Left, layoutmsg, movewindowto l"
             "SUPER SHIFT, Up, layoutmsg, movewindowto u"
             "SUPER SHIFT, Down, layoutmsg, movewindowto d"
+            "SUPER SHIFT, Left, layoutmsg, movewindowto l"
+            "SUPER SHIFT, Right, layoutmsg, movewindowto r"
+            "SUPER SHIFT, mouse_down, layoutmsg, movewindowto l"
+            "SUPER SHIFT, mouse_up, layoutmsg, movewindowto r"
 
             "SUPER CTRL SHIFT, S, exec, shutdown now"
             "SUPER CTRL SHIFT, R, exec, reboot"
@@ -116,6 +121,9 @@
             "3, right, dispatcher, movefocus, l"
             "4, horizontal, workspace"
           ];
+          binds = {
+            scroll_event_delay = 50;
+          };
           general = {
             layout = "scrolling";
             border_size = style.border.thickness;
@@ -170,10 +178,16 @@
         theme = {
           package = pkgs.flat-remix-gtk;
           name = "Flat-Remix-GTK-Grey-Darkest";
+          # package = pkgs.materia-theme-transparent;
+          # name = "Materia-dark";
         };
         iconTheme = {
           package = pkgs.adwaita-icon-theme;
           name = "Adwaita";
+        };
+        font = {
+          name = style.font.name;
+          package = (style.font.package pkgs);
         };
       };
       dconf.settings = {

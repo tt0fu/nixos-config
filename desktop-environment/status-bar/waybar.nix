@@ -93,6 +93,7 @@
                   "class<com.network.manager>" = "󰖟";
                   "class<kitty>" = "";
                   "class<org.kde.kdeconnect.app>" = "";
+                  "class<Unity>" = "";
                 };
               };
               "hyprland/window" = {
@@ -105,7 +106,7 @@
                 format-muted = "";
                 on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
                 max-volume = 150;
-                scroll-step = 1;
+                scroll-step = 5;
                 reverse-scrolling = true;
                 format-icons = [
                   ""
@@ -118,6 +119,7 @@
                 format = "󰍬 {volume}%";
                 format-muted = "󰍭";
                 on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+                max-volume = 150;
                 scroll-step = 5;
               };
               bluetooth = {
