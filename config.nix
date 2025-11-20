@@ -69,6 +69,7 @@
         /gaming
         /virtualization
         /vr
+        /3d
       ];
     }
   ];
