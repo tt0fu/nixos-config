@@ -49,6 +49,7 @@
               "hyprland/language" = {
                 format-en = "EN";
                 format-ru = "RU";
+                on-click = "hyprctl switchxkblayout main next";
               };
               "custom/vpn" = {
                 format = "󰖂 {}";
