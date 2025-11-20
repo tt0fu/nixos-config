@@ -1,6 +1,5 @@
 {
   inputs,
-  systemSettings,
   userSettings,
   ...
 }:
