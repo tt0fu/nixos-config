@@ -8,6 +8,7 @@
   # environment.systemPackages = [
   # inputs.zen-browser.packages."${pkgs.system}".default
   # ];
+  services.speechd.enable = true;
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
@@ -22,14 +23,6 @@
           # https://mozilla.github.io/policy-templates/
         };
         nativeMessagingHosts = [ pkgs.firefoxpwa ];
-        # extensions = {
-        #   packages = with inputs.firefox-addons.packages.${pkgs.system}; [
-        #     ublock-origin
-        #     transparent-zen
-        #     darkreader
-        #     sponsorblock
-        #   ];
-        # };
       };
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, Z, exec, zen"
@@ -40,7 +33,7 @@
         let
           value =
             let
-              zen-browser = inputs.zen-browser.packages.${pkgs.system}.twilight;
+              zen-browser = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
             in
             zen-browser.meta.desktopFileName;
 

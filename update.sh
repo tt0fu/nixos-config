@@ -1,3 +1,1 @@
-sudo nix flake update
-
-./build.sh boot && reboot
+sudo nix flake update && ./build.sh boot && reboot

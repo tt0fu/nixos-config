@@ -23,10 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-math.url = "github:xddxdd/nix-math";
-    winboat = {
-      url = "github:TibixDev/winboat";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     sonusmix = {
       url = "git+https://codeberg.org/ttofu/sonusmix.git";
       # inputs.nixpkgs.follows = "nixpkgs";

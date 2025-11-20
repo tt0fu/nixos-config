@@ -108,6 +108,8 @@ rec {
       (c * (math.sin h))
     ];
 
+  lchToSrgb = lch: (lrgbToSrgb (oklabToLrgb (lchToOklab lch)));
+
   # converison
 
   to255 = rgb: (map (channel: builtins.floor ((clamp channel 0.0 1.0) * 255)) rgb);
@@ -126,6 +128,8 @@ rec {
     col: "#" + builtins.concatStringsSep "" (map (channel: pad (hex channel) 2) col);
 
   toHex = col: toHexString (to255 col);
+
+  # helper
 
   grayTransparent = value: transparency: [
     value
@@ -150,26 +154,23 @@ rec {
     n: lightness: chroma:
     builtins.genList (
       i:
-      lrgbToSrgb (
-        oklabToLrgb (lchToOklab [
-          lightness
-          chroma
-          (i * 1.0 / n)
-        ])
-      )
+      lchToSrgb [
+        lightness
+        chroma
+        (i * 1.0 / n)
+      ]
     ) n;
 
   paletteTransparent =
     n: lightness: chroma: transparency:
     builtins.genList (
       i:
-      lrgbToSrgb (
-        oklabToLrgb (lchToOklab [
-          lightness
-          chroma
-          (i * 1.0 / n)
-        ])
-      )
+      lchToSrgb [
+        lightness
+        chroma
+        (i * 1.0 / n)
+      ]
       ++ [ transparency ]
     ) n;
+
 }

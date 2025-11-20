@@ -1,4 +1,4 @@
-{ inputs, userSettings, ... }:
+{ userSettings, ... }:
 
 {
   virtualisation.docker = {
@@ -10,9 +10,9 @@
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      home.packages = [
-        inputs.winboat.winboat
-        pkgs.freerdp
+      home.packages = with pkgs; [
+        # winboat
+        freerdp
       ];
     };
 }
