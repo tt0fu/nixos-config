@@ -201,7 +201,7 @@
       find = "buffer_search::Deploy";
       ctrl-f = "buffer_search::Deploy";
       ctrl-h = "buffer_search::DeployReplace";
-      "ctrl->" = "agent::QuoteSelection";
+      "ctrl->" = "agent::AddSelectionToThread";
       "ctrl-<" = "assistant::InsertIntoEditor";
       ctrl-alt-e = "editor::SelectEnclosingSymbol";
       ctrl-shift-backspace = "editor::GoToPreviousChange";
@@ -620,7 +620,7 @@
           create_new_window = false;
         }
       ];
-      alt-ctrl-shift-b = "branches::OpenRecent";
+      alt-ctrl-shift-b = "git::Branch";
       alt-shift-enter = "toast::RunAction";
       "ctrl-~" = "workspace::NewTerminal";
       save = "workspace::Save";
@@ -712,7 +712,6 @@
         }
       ];
       ctrl-shift-t = "pane::ReopenClosedItem";
-      "ctrl-k ctrl-s" = "zed::OpenKeymapEditor";
       "ctrl-k ctrl-t" = "theme_selector::Toggle";
       ctrl-alt-super-p = "settings_profile_selector::Toggle";
       ctrl-t = "project_symbols::Toggle";
@@ -770,7 +769,7 @@
   {
     context = "Workspace && debugger_running";
     bindings = {
-      f5 = "zed::NoAction";
+      f5 = null;
     };
   }
   {
@@ -952,8 +951,8 @@
       paste = "project_panel::Paste";
       shift-insert = "project_panel::Paste";
       ctrl-v = "project_panel::Paste";
-      alt-copy = "project_panel::CopyPath";
-      ctrl-alt-c = "project_panel::CopyPath";
+      alt-copy = "workspace::CopyPath";
+      ctrl-alt-c = "workspace::CopyPath";
       alt-shift-copy = "workspace::CopyRelativePath";
       alt-ctrl-shift-c = "workspace::CopyRelativePath";
       enter = "project_panel::Rename";
@@ -1416,9 +1415,6 @@
     context = "Onboarding";
     use_key_equivalents = true;
     bindings = {
-      ctrl-1 = "onboarding::ActivateBasicsPage";
-      ctrl-2 = "onboarding::ActivateEditingPage";
-      ctrl-3 = "onboarding::ActivateAISetupPage";
       ctrl-enter = "onboarding::Finish";
       alt-shift-l = "onboarding::SignIn";
       alt-shift-a = "onboarding::OpenAccount";
