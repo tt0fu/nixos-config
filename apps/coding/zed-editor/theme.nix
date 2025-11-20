@@ -33,7 +33,15 @@
           regular = palette 8 0.7 0.1;
           accent = palette 8 0.8 0.1;
 
-          syntax = builtins.elemAt (palette 34 0.9 0.2);
+          syntax =
+            i:
+            (color.toHex (
+              color.lchToSrgb [
+                0.9
+                0.2
+                ((i / 34.0) * 0.5 + 0.875)
+              ]
+            ));
 
           getColor = ind: list: builtins.elemAt list ind;
 
