@@ -82,6 +82,7 @@
                   "class<org.pulseaudio.pavucontrol>" = "";
                   "class<org.pulsemeeter.pulsemeeter>" = "󱡫";
                   "class<org.pipewire.Helvum>" = "󱡫";
+                  "class<qpwgraph>" = "󱡫";
                   "class<discord>" = "";
                   "class<org.mixxx.Mixxx>" = "";
                   "class<dev.zed.Zed>" = "󰰶";
