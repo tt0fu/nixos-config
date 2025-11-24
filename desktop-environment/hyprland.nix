@@ -7,22 +7,14 @@
 
 {
   hardware.graphics.enable = true;
-  programs.dconf.enable = true;
-  qt = {
-    enable = true;
-    platformTheme = "kde";
-    style = "adwaita-dark";
-  };
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
         glib
         hyprshot
-        pulseaudio
         brightnessctl
       ];
-      services.polkit-gnome.enable = true;
       xdg = {
         mimeApps.enable = true;
         portal = {
@@ -47,9 +39,7 @@
             {
               kb_layout = "us, ru";
               kb_options = "grp:alt_shift_toggle";
-              touchpad = {
-                natural_scroll = true;
-              };
+              touchpad.natural_scroll = true;
             }
           ];
           monitor = [
@@ -99,16 +89,10 @@
             ",XF86MonBrightnessUp, exec, brightnessctl s +10%"
           ]
           ++ (builtins.concatLists (
-            builtins.genList (
-              i:
-              let
-                ws = i + 1;
-              in
-              [
-                "SUPER, code:1${toString i}, workspace, ${toString ws}"
-                "SUPER SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-              ]
-            ) 9
+            builtins.genList (i: [
+              "SUPER, code:1${toString i}, workspace, ${toString (i + 1)}"
+              "SUPER SHIFT, code:1${toString i}, movetoworkspace, ${toString (i + 1)}"
+            ]) 9
           ));
           bindm = [
             "SUPER, mouse:272, movewindow"
@@ -164,37 +148,14 @@
             hyprscrolling = {
               column_width = 0.9;
               fullscreen_on_one_column = true;
-              focus_fit_method = 1;
+              # follow_focus = false;
+              # focus_fit_method = 1;
             };
           };
         };
       };
       home.sessionVariables = {
         NIXOS_OZONE_WL = "1";
-        QT_QPA_PLATFORMTHEME = "qt6ct";
-      };
-      gtk = {
-        enable = true;
-        theme = {
-          package = pkgs.flat-remix-gtk;
-          name = "Flat-Remix-GTK-Grey-Darkest";
-          # package = pkgs.materia-theme-transparent;
-          # name = "Materia-dark";
-        };
-        iconTheme = {
-          package = pkgs.adwaita-icon-theme;
-          name = "Adwaita";
-        };
-        font = {
-          name = style.font.name;
-          package = (style.font.package pkgs);
-        };
-      };
-      dconf.settings = {
-        "org/gnome/desktop/interface" = {
-          color-scheme = "prefer-dark";
-          icon-theme = "Adwaita";
-        };
       };
     };
 }
