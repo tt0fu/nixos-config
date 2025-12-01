@@ -4,17 +4,5 @@
 }:
 
 {
-  home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
-    {
-      home.packages = [ pkgs.gnome-keyring ];
-      services.gnome-keyring = {
-        enable = true;
-        components = [
-          "pkcs11"
-          "secrets"
-          "ssh"
-        ];
-      };
-    };
+  services.gnome.gnome-keyring.enable = true;
 }

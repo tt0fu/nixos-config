@@ -16,5 +16,6 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, X, exec, thunderbird"
       ];
+      programs.niri.settings.binds."Mod+X".action.spawn = [ "thunderbird" ];
     };
 }

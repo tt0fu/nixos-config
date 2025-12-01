@@ -11,6 +11,7 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, C, exec, kdeconnect-app"
       ];
+      programs.niri.settings.binds."Mod+C".action.spawn = [ "kdeconnect-app" ];
     };
   networking.firewall = rec {
     allowedTCPPortRanges = [

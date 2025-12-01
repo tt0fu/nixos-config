@@ -48,5 +48,11 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, E, exec, kitty --class yazi yazi"
       ];
+      programs.niri.settings.binds."Mod+E".action.spawn = [
+        "kitty"
+        "--class"
+        "yazi"
+        "yazi"
+      ];
     };
 }

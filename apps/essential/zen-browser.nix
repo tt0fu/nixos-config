@@ -24,11 +24,7 @@
         };
         nativeMessagingHosts = [ pkgs.firefoxpwa ];
       };
-      wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, Z, exec, zen"
-      ];
       home.sessionVariables.MOZ_LEGACY_PROFILES = "1";
-
       xdg.mimeApps =
         let
           value =
@@ -66,5 +62,10 @@
           associations.added = associations;
           defaultApplications = associations;
         };
+
+      wayland.windowManager.hyprland.settings.bind = [
+        "SUPER, Z, exec, zen"
+      ];
+      programs.niri.settings.binds."Mod+Z".action.spawn = [ "zen" ];
     };
 }

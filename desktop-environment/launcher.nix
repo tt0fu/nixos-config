@@ -77,13 +77,18 @@
           };
       };
       wayland.windowManager.hyprland.settings = {
-        bindr = [
-          "SUPER, SUPER_L, exec, killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"window,drun,run,filebrowser,recursivebrowser\""
+        bind = [
+          "SUPER, A, exec, killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"window,drun,run,filebrowser,recursivebrowser\""
         ];
         layerrule = [
           "blur, rofi"
           "ignorezero, rofi"
         ];
       };
+      programs.niri.settings.binds."Mod+A".action.spawn = [
+        "sh"
+        "-c"
+        "killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"window,drun,run,filebrowser,recursivebrowser\""
+      ];
     };
 }

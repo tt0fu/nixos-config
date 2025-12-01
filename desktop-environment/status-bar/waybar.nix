@@ -91,10 +91,12 @@
                   "class<nvim>" = "";
                   "class<yazi>" = "";
                   "class<btop>" = "";
+                  "class<io.missioncenter.MissionCenter>" = "";
                   "class<com.network.manager>" = "󰖟";
                   "class<kitty>" = "";
                   "class<org.kde.kdeconnect.app>" = "";
                   "class<Unity>" = "";
+                  "class<Godot>" = "";
                 };
               };
               "hyprland/window" = {

@@ -35,7 +35,7 @@
             --app-background-frame: transparent !important;
             --autocomplete-bg: black !important;
             --background-accent: transparent !important;
-            --background-base-low: transparent !important;
+            --background-base-low: black !important;
             --background-base-lower: transparent !important;
             --background-base-lowest: transparent !important;
             --background-code-addition: transparent !important;
@@ -243,5 +243,6 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, D, exec, discord"
       ];
+      programs.niri.settings.binds."Mod+D".action.spawn = [ "discord" ];
     };
 }

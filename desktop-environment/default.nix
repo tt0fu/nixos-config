@@ -11,6 +11,7 @@
     ./hyprlock.nix
     ./hyprshot.nix
     ./launcher.nix
+    ./niri.nix
     ./notifications.nix
     ./oh-my-posh.nix
     ./pointer-cursor.nix

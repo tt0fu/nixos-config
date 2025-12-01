@@ -22,11 +22,14 @@
             cursor_shape_unfocused = "unchanged";
             background_opacity = 0.0;
             confirm_os_window_close = 0;
+            cursor_trail = 3;
+            cursor_trail_decay = "0.1 0.5";
           };
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, Q, exec, kitty"
       ];
+      programs.niri.settings.binds."Mod+Q".action.spawn = [ "kitty" ];
     };
 }

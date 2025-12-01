@@ -164,9 +164,9 @@
     <!-- stacked mode: off-white/yellow/blue bands
          note: despite the "RGB" name, these are used by stacked waveforms,
          not literal rgb. changing this would require core code modifications. -->
-    <SetVariable name="WaveformSignalRGBHighColor">#FFDDCC</SetVariable>
-    <SetVariable name="WaveformSignalRGBMidColor">#F8D200</SetVariable>
-    <SetVariable name="WaveformSignalRGBLowColor">#0055FF</SetVariable>
+    <SetVariable name="WaveformSignalRGBHighColor">#FF0000</SetVariable>
+    <SetVariable name="WaveformSignalRGBMidColor">#00FF00</SetVariable>
+    <SetVariable name="WaveformSignalRGBLowColor">#0000FF</SetVariable>
 
     <!-- overview waveform colors (deck overview + library column) -->
     <!-- behavior depends on waveform type setting:
@@ -181,9 +181,9 @@
 
     <!-- rgb/stacked mode: off-white/yellow/blue bands
          used by deck and library overviews when waveform type is set to rgb -->
-    <SetVariable name="OverviewSignalRGBHighColor">#FFDDCC</SetVariable>
-    <SetVariable name="OverviewSignalRGBMidColor">#F8D200</SetVariable>
-    <SetVariable name="OverviewSignalRGBLowColor">#0055FF</SetVariable>
+    <SetVariable name="OverviewSignalRGBHighColor">#FF0000</SetVariable>
+    <SetVariable name="OverviewSignalRGBMidColor">#00FF00</SetVariable>
+    <SetVariable name="OverviewSignalRGBLowColor">#0000FF</SetVariable>
 
     <!-- waveform marker colors -->
     <SetVariable name="WaveformBeatColor">#ffffff</SetVariable>

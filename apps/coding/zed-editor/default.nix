@@ -49,14 +49,23 @@
           auto_fold_dirs = false;
           preview_tabs.enabled = false;
           agent.enabled = false;
+          disable_ai = true;
+          collaboration_panel = {
+            button = false;
+          };
+          title_bar = {
+            show_sign_in = false;
+            show_menus = true;
+          };
+          show_edit_predictions = false;
         };
         userKeymaps = import ./keybinds.nix;
         themes.Rainbow = import ./theme.nix { color = color; };
       };
-      wayland.windowManager.hyprland.settings = {
-        bind = [
-          "SUPER, W, exec, zeditor"
-        ];
-      };
+
+      wayland.windowManager.hyprland.settings.bind = [
+        "SUPER, W, exec, zeditor"
+      ];
+      programs.niri.settings.binds."Mod+W".action.spawn = [ "zeditor" ];
     };
 }

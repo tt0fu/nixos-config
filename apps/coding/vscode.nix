@@ -9,8 +9,5 @@
     {
       home.packages = [ pkgs.nixfmt-rfc-style ];
       programs.vscode.enable = true;
-      wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, V, exec, code"
-      ];
     };
 }

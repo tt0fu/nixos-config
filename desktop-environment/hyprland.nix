@@ -106,7 +106,7 @@
             "4, horizontal, workspace"
           ];
           binds = {
-            scroll_event_delay = 50;
+            scroll_event_delay = 100;
           };
           general = {
             layout = "scrolling";
@@ -148,8 +148,8 @@
             hyprscrolling = {
               column_width = 0.9;
               fullscreen_on_one_column = true;
-              # follow_focus = false;
-              # focus_fit_method = 1;
+              follow_focus = false;
+              focus_fit_method = 0;
             };
           };
         };
