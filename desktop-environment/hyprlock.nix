@@ -87,6 +87,6 @@
         bind = [ "SUPER, L, exec, hyprlock" ];
         exec-once = [ "sleep 0.5; hyprlock" ];
       };
-      programs.niri.settings.binds."Mod+L".action.spawn = [ "hyprlock" ];
+      # programs.niri.settings.binds."Mod+L".action.spawn = [ "hyprlock" ];
     };
 }

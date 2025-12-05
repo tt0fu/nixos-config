@@ -243,6 +243,6 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, D, exec, discord"
       ];
-      programs.niri.settings.binds."Mod+D".action.spawn = [ "discord" ];
+      # programs.niri.settings.binds."Mod+D".action.spawn = [ "discord" ];
     };
 }

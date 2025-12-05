@@ -66,6 +66,6 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, W, exec, zeditor"
       ];
-      programs.niri.settings.binds."Mod+W".action.spawn = [ "zeditor" ];
+      # programs.niri.settings.binds."Mod+W".action.spawn = [ "zeditor" ];
     };
 }

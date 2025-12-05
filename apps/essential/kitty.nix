@@ -30,6 +30,6 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, Q, exec, kitty"
       ];
-      programs.niri.settings.binds."Mod+Q".action.spawn = [ "kitty" ];
+      # programs.niri.settings.binds."Mod+Q".action.spawn = [ "kitty" ];
     };
 }

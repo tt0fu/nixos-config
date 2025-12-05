@@ -85,10 +85,10 @@
           "ignorezero, rofi"
         ];
       };
-      programs.niri.settings.binds."Mod+A".action.spawn = [
-        "sh"
-        "-c"
-        "killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"window,drun,run,filebrowser,recursivebrowser\""
-      ];
+      # programs.niri.settings.binds."Mod+A".action.spawn = [
+      #   "sh"
+      #   "-c"
+      #   "killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"window,drun,run,filebrowser,recursivebrowser\""
+      # ];
     };
 }

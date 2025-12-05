@@ -17,10 +17,10 @@
       wayland.windowManager.hyprland.settings = {
         bind = [ "SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" ];
       };
-      programs.niri.settings.binds."Mod+V".action.spawn = [
-        "sh"
-        "-c"
-        "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-      ];
+      # programs.niri.settings.binds."Mod+V".action.spawn = [
+      #   "sh"
+      #   "-c"
+      #   "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+      # ];
     };
 }
