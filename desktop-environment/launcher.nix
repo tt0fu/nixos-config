@@ -13,7 +13,6 @@
         enable = true;
         font = "${style.font.name} ${builtins.toString style.font.size}";
         modes = [
-          "window"
           "drun"
           "run"
           "filebrowser"
@@ -78,7 +77,7 @@
       };
       wayland.windowManager.hyprland.settings = {
         bind = [
-          "SUPER, A, exec, killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"window,drun,run,filebrowser,recursivebrowser\""
+          "SUPER, A, exec, killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"drun,run,filebrowser,recursivebrowser\""
         ];
         layerrule = [
           "blur, rofi"
