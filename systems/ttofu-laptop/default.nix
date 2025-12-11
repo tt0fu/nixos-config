@@ -16,6 +16,7 @@
   boot.kernelModules = [
     "kvm-amd"
     "cpufreq_schedutil"
+    "snd_pci_acp6x"
   ];
   services.fprintd.enable = true;
 }
