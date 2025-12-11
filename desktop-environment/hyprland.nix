@@ -101,8 +101,8 @@
           gesture = [
             "3, up, dispatcher, movefocus, d"
             "3, down, dispatcher, movefocus, u"
-            "3, left, dispatcher, movefocus, r"
-            "3, right, dispatcher, movefocus, l"
+            "3, left, dispatcher, layoutmsg, move +col"
+            "3, right, dispatcher, layoutmsg, move -col"
             "4, horizontal, workspace"
           ];
           binds = {
