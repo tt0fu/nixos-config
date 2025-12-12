@@ -10,6 +10,7 @@
     ./configuration.nix
     ./git.nix
     ./internationalisation.nix
+    ./kernel.nix
     ./keyring.nix
     ./mounting.nix
     ./networking.nix
