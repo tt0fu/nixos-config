@@ -65,6 +65,8 @@
           close_pinned = false;
         }
       ];
+
+      f1 = "command_palette::Toggle";
     };
   }
   {
@@ -74,7 +76,6 @@
 
       shift-backspace = "editor::Backspace";
       backspace = "editor::Backspace";
-
       delete = "editor::Delete";
 
       shift-enter = "editor::Newline";
@@ -86,7 +87,6 @@
       ctrl-f = "buffer_search::Deploy";
       ctrl-r = "buffer_search::DeployReplace";
 
-      tab = "editor::Tab";
       shift-tab = "editor::Backtab";
 
       ctrl-backspace = "editor::DeleteToPreviousWordStart";
@@ -108,11 +108,11 @@
       redo = "editor::Redo";
       ctrl-shift-z = "editor::Redo";
 
-      up = "editor::MoveUp";
-      down = "editor::MoveDown";
-
       ctrl-up = "editor::LineUp";
       ctrl-down = "editor::LineDown";
+
+      alt-up = "editor::MoveLineUp";
+      alt-down = "editor::MoveLineDown";
 
       pageup = "editor::MovePageUp";
       pagedown = "editor::MovePageDown";
@@ -165,7 +165,10 @@
   {
     context = "Editor && !(mode == single_line || renaming || showing_completions)";
     bindings = {
+      tab = "editor::Tab";
       enter = "editor::Newline";
+      up = "editor::MoveUp";
+      down = "editor::MoveDown";
     };
   }
   {
@@ -183,7 +186,10 @@
   {
     context = "Editor && showing_completions";
     bindings = {
+      enter = "editor::ConfirmCompletion";
       tab = "editor::ComposeCompletion";
+      up = "editor::ContextMenuPrevious";
+      down = "editor::ContextMenuNext";
     };
   }
   {
