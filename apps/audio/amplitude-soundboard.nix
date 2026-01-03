@@ -32,7 +32,7 @@
             ]);
 
           meta = with pkgs.lib; {
-            description = "A sleek, flexible, free and open source soundboard";
+            description = "A free and open source soundboard";
             homepage = "https://github.com/dan0v/AmplitudeSoundboard";
             license = licenses.gpl3;
             platforms = platforms.linux;

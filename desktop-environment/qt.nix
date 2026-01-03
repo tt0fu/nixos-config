@@ -1,7 +1,5 @@
 {
-  systemSettings,
   userSettings,
-  style,
   ...
 }:
 

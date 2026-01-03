@@ -20,7 +20,7 @@
               in
               builtins.listToAttrs (
                 builtins.genList (i: {
-                  name = builtins.toString (i + 1);
+                  name = toString (i + 1);
                   value = builtins.elemAt palette i;
                 }) 6
               );

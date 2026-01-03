@@ -28,7 +28,6 @@
           name = "eDP-1";
           settings = "1920x1200@60, 0x0, 1";
         };
-        vpnName = "NL2_Laptop";
       };
       styleOverrides = {
         font.size = 20;
@@ -53,7 +52,6 @@
           name = "DP-1";
           settings = "1920x1080@165, 0x0, 1";
         };
-        vpnName = "NL2_PC";
       };
       styleOverrides = { };
       apps = [
@@ -69,6 +67,7 @@
         /gaming
         /virtualization
         /vr
+        /2d
         /3d
       ];
     }

@@ -1,5 +1,4 @@
 {
-  userSettings,
   ...
 }:
 

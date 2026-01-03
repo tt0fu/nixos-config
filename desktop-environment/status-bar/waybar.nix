@@ -1,5 +1,4 @@
 {
-  systemSettings,
   userSettings,
   style,
   ...
@@ -30,7 +29,6 @@
               position = "top";
               modules-left = [
                 "hyprland/language"
-                "custom/vpn"
                 "tray"
                 "privacy"
               ];
@@ -50,13 +48,6 @@
                 format-en = "EN";
                 format-ru = "RU";
                 on-click = "hyprctl switchxkblayout main next";
-              };
-              "custom/vpn" = {
-                format = "󰖂 {}";
-                exec = "(ip link show ${systemSettings.vpnName} >/dev/null 2>&1 && echo ) || echo ";
-                on-click = "pkexec bash -c 'wg-quick down ${systemSettings.vpnName} || wg-quick up ${systemSettings.vpnName}'";
-                return-type = "text";
-                interval = 1;
               };
               privacy = {
                 icon-spacing = 5;
@@ -97,6 +88,8 @@
                   "class<org.kde.kdeconnect.app>" = "";
                   "class<Unity>" = "";
                   "class<Godot>" = "";
+                  "class<org.ttofu.lava>" = "󰥛";
+                  "class<amplitude_soundboard>" = "";
                 };
               };
               "hyprland/window" = {
@@ -190,8 +183,8 @@
         style = ''
                     * {
                       border: none;
-                      font-family: ${builtins.toString style.font.name};
-                    	font-size: ${builtins.toString style.font.size}px;
+                      font-family: ${toString style.font.name};
+                    	font-size: ${toString style.font.size}px;
                       background: transparent;
                     	color: white;
                       margin: 0px;
@@ -215,15 +208,14 @@
                     #taskbar,
                     #window,
                     #tray,
-                    #custom-vpn,
                     #language,
                     #wireplumber,
                     #bluetooth,
           					#battery,
                     #network,
                     #clock {
-                      border: ${builtins.toString style.border.thickness}px solid white;
-                      border-radius: ${builtins.toString style.border.radius}px;
+                      border: ${toString style.border.thickness}px solid white;
+                      border-radius: ${toString style.border.radius}px;
                     }
 
                     button,
@@ -232,14 +224,13 @@
                     #taskbar,
                     #window,
                     #tray,
-                    #custom-vpn,
                     #language,
                     #wireplumber,
                     #bluetooth,
           					#battery,
                     #network,
                     #clock {
-                      margin: ${builtins.toString (style.spacing / 2.0)}px;
+                      margin: ${toString (style.spacing / 2.0)}px;
                     }
 
                     .modules-left,
@@ -247,7 +238,7 @@
                     .modules-right,
                     #workspaces,
                     #privacy {
-                      padding: ${builtins.toString (style.spacing / 2.0)}px;
+                      padding: ${toString (style.spacing / 2.0)}px;
                     }
 
                     menu,
@@ -256,7 +247,6 @@
                     #privacy-item,
                     #window,
                     #tray,
-                    #custom-vpn,
                     #language,
                     #wireplumber,
                     #bluetooth,
@@ -264,8 +254,8 @@
                     #network,
                     #clock {
                       padding: ${
-                        builtins.toString (style.spacing / 2.0)
-                      }px ${builtins.toString (style.spacing)}px;
+                        toString (style.spacing / 2.0)
+                      }px ${toString (style.spacing)}px;
                     }
 
                    	button {
@@ -284,7 +274,7 @@
                    	  box-shadow: inherit;
                    	  text-shadow: inherit;
                    	  background: inherit;
-                   	  border: ${builtins.toString style.border.thickness}px solid white;
+                   	  border: ${toString style.border.thickness}px solid white;
                     }
 
                     window#waybar.empty #window {

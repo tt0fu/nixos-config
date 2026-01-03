@@ -9,8 +9,8 @@
     { pkgs, ... }:
     {
       home.packages = [ inputs.sonusmix.defaultPackage.${pkgs.stdenv.hostPlatform.system} ];
-      # wayland.windowManager.hyprland.settings.exec-once = [
-      #   "sonusmix"
-      # ];
+      wayland.windowManager.hyprland.settings.exec-once = [
+        "sonusmix"
+      ];
     };
 }

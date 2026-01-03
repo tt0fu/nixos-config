@@ -1,7 +1,9 @@
 { ... }:
 {
   imports = [
+    # ./tor.nix
     ./winbox.nix
-    ./zapret.nix
+    ./xray.nix
+    # ./zapret
   ];
 }

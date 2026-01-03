@@ -11,7 +11,7 @@
       home.packages = [ pkgs.killall ];
       programs.rofi = {
         enable = true;
-        font = "${style.font.name} ${builtins.toString style.font.size}";
+        font = "${style.font.name} ${toString style.font.size}";
         modes = [
           "drun"
           "run"
@@ -63,11 +63,11 @@
             };
 
             "element, inputbar, prompt, entry, element-text" = {
-              padding = mkLiteral "${builtins.toString (style.spacing / 2.0)}px";
+              padding = mkLiteral "${toString (style.spacing / 2.0)}px";
             };
 
             "element-icon, element-text, prompt, entry, fr, ns, ci" = {
-              margin = mkLiteral "${builtins.toString (style.spacing / 2.0)}px";
+              margin = mkLiteral "${toString (style.spacing / 2.0)}px";
             };
 
             element-icon = {

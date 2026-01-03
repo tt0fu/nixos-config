@@ -29,7 +29,7 @@
               }
               // builtins.listToAttrs (
                 builtins.genList (i: {
-                  name = builtins.toString i;
+                  name = toString i;
                   value = builtins.elemAt palette i;
                 }) count
               );

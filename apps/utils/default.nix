@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./baobab.nix
     ./feh.nix
     ./kdeconnect.nix
     ./missioncenter.nix

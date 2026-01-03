@@ -12,6 +12,7 @@
     openFirewall = true;
     defaultRuntime = true;
     autoStart = true;
+    steam.importOXRRuntimes = true;
     config = {
       enable = true;
       json = {
@@ -20,7 +21,7 @@
         encoders = [
           {
             encoder = "vaapi";
-            codec = "h265";
+            codec = "av1";
             width = 1.0;
             height = 1.0;
             offset_x = 0.0;
@@ -60,17 +61,22 @@
     #       '';
     #     };
     # });
-    package = pkgs.wivrn.overrideAttrs (prevAttrs: {
-      preFixup = prevAttrs.preFixup + ''
-        wrapProgram "$out/bin/wivrn-server" \
-          --prefix LD_LIBRARY_PATH : ${
-            lib.makeLibraryPath [
-              pkgs.sdl2-compat
-              pkgs.udev
-            ]
-          }
-      '';
-    });
+    package =
+      let
+        src = pkgs.wivrn;
+        # src = inputs.wivrn.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      in
+      src.overrideAttrs (prevAttrs: {
+        preFixup = prevAttrs.preFixup + ''
+          wrapProgram "$out/bin/wivrn-server" \
+            --prefix LD_LIBRARY_PATH : ${
+              lib.makeLibraryPath [
+                pkgs.sdl2-compat
+                pkgs.udev
+              ]
+            }
+        '';
+      });
   };
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:

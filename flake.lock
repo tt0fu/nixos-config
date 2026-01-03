@@ -368,6 +368,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1758690382,
+        "narHash": "sha256-NY3kSorgqE5LMm1LqNwGne3ZLMF2/ILgLpFr1fS4X3o=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e643668fd71b949c53f8626614b21ff71a07379d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -478,21 +494,19 @@
     "wivrn": {
       "inputs": {
         "flake-parts": "flake-parts_4",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1762796646,
-        "narHash": "sha256-pEKMeRdI9UhdZ+NksRBcF7yPC7Ys2haE+B4PPGQ4beE=",
+        "lastModified": 1766140432,
+        "narHash": "sha256-gadfW3/PXi9SEztaHbi4U29Vj7ik/ia8BVDTy8P5aJE=",
         "owner": "WiVRn",
         "repo": "WiVRn",
-        "rev": "09031b9aa5296d3be45c996fada9347f5ccb6f66",
+        "rev": "2095ab6f7e1c8fc84c1607306d04cfc430692bd3",
         "type": "github"
       },
       "original": {
         "owner": "WiVRn",
-        "ref": "v25.11.1",
+        "ref": "v25.12",
         "repo": "WiVRn",
         "type": "github"
       }

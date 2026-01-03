@@ -1,14 +1,9 @@
-{
-  userSettings,
-  ...
-}:
+{ userSettings, ... }:
 
 {
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
-      home.packages = with pkgs; [
-        vrcx
-      ];
+      home.packages = [ pkgs.pinta ];
     };
 }

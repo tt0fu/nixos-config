@@ -2,8 +2,8 @@
 {
   imports = [
     ./alvr.nix
+    ./sidequest.nix
     ./wivrn.nix
-    ./vrcx.nix
     ./wlxoverlay
   ];
 }

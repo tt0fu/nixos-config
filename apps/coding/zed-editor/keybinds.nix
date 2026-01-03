@@ -67,6 +67,22 @@
       ];
 
       f1 = "command_palette::Toggle";
+
+      f3 = "task::Spawn";
+      shift-f3 = [
+        "task::Spawn"
+        {
+          reveal_target = "center";
+        }
+      ];
+
+      f4 = "task::Rerun";
+      shift-f4 = [
+        "task::Rerun"
+        {
+          reevaluate_context = false;
+        }
+      ];
     };
   }
   {

@@ -28,8 +28,8 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
     wivrn = {
-      url = "github:WiVRn/WiVRn/v25.11.1";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:WiVRn/WiVRn/v25.12";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -58,7 +58,7 @@
               ./core
               ./desktop-environment
             ]
-            ++ (map (path: ./apps + path) system.apps);
+            ++ (map (p: ./apps + p) system.apps);
             specialArgs = {
               inherit inputs;
               systemSettings = system.settings;

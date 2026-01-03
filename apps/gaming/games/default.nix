@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    # ./c++.nix
-    ./nix.nix
+    ./vrchat.nix
   ];
 }

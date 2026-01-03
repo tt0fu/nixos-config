@@ -7,24 +7,10 @@
 
 {
   home-manager.users.${userSettings.username} =
-    { pkgs, ... }:
+    { ... }:
     {
-      home.packages = with pkgs; [
-        nil
-        nixd
-        clang-tools
-        texlab
-        package-version-server
-      ];
       programs.zed-editor = {
         enable = true;
-        extensions = [
-          "nix"
-          "glsl"
-          "json"
-          "latex"
-          "java"
-        ];
         userSettings = {
           telemetry.metrics = false;
           vim_mode = false;
