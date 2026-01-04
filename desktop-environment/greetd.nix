@@ -14,7 +14,7 @@
       };
       initial_session = {
         user = userSettings.username;
-        command = "Hyprland && exit";
+        command = "start-hyprland && exit";
       };
       default_session = {
         user = userSettings.username;

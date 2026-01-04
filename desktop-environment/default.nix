@@ -19,5 +19,6 @@
     ./qt.nix
     ./status-bar
     ./wallpaper
+    ./xdg.nix
   ];
 }

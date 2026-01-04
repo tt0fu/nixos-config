@@ -284,9 +284,9 @@
       };
       wayland.windowManager.hyprland.settings = {
         layerrule = [
-          "blur, waybar"
-          "ignorezero, waybar"
-          "blurpopups, waybar"
+          "blur on, match:namespace waybar"
+          "ignore_alpha 0, match:namespace waybar"
+          "blur_popups on, match:namespace waybar"
         ];
       };
     };

@@ -9,7 +9,23 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-math.url = "github:xddxdd/nix-math";
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,17 +38,12 @@
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-math.url = "github:xddxdd/nix-math";
     sonusmix = {
       url = "git+https://codeberg.org/ttofu/sonusmix.git";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     wivrn = {
       url = "github:WiVRn/WiVRn/v25.12";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-    niri = {
-      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

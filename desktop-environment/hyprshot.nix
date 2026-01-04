@@ -9,13 +9,13 @@
     {
       home.packages = [ pkgs.hyprshot ];
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, S, exec, hyprshot -z -o ~/Images/screenshots -m region"
+        "SUPER, S, exec, hyprshot -z -o ~/Pictures/Screenshots -m region"
       ];
       # programs.niri.settings.binds."Mod+S".action.spawn = [
       #   "hyprshot"
       #   "-z"
       #   "-o"
-      #   "~/Images/screenshots"
+      #   "~/Pictures/Screenshots"
       #   "-m"
       #   "region"
       # ];

@@ -12,8 +12,8 @@
       ];
       auto-optimise-store = true;
     };
+    optimise.automatic = true;
   };
-  nix.optimise.automatic = true;
   nixpkgs.config = {
     allowUnfree = true;
   };

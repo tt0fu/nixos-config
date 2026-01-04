@@ -17,6 +17,7 @@
     ./power.nix
     ./sound.nix
     ./ssh.nix
+    ./systemd.nix
     ./time.nix
     ./user.nix
   ];

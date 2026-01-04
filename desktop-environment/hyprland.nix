@@ -1,4 +1,5 @@
 {
+  inputs,
   systemSettings,
   userSettings,
   style,
@@ -15,24 +16,12 @@
         hyprshot
         brightnessctl
       ];
-      xdg = {
-        mimeApps.enable = true;
-        portal = {
-          enable = true;
-          extraPortals = [
-            pkgs.xdg-desktop-portal-hyprland
-            pkgs.xdg-desktop-portal-gtk
-            pkgs.xdg-desktop-portal-gnome
-            pkgs.xdg-desktop-portal-wlr
-            pkgs.xdg-desktop-portal-xapp
-          ];
-          config.common.default = "*";
-        };
-      };
       wayland.windowManager.hyprland = {
         enable = true;
+        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         plugins = [
-          pkgs.hyprlandPlugins.hyprscrolling
+          inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
         ];
         settings = {
           input = [

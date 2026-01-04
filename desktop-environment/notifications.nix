@@ -39,9 +39,9 @@
           "dunst"
         ];
         layerrule = [
-          "blur, notifications"
-          "ignorezero, notifications"
-          "blurpopups, notifications"
+          "blur on, match:namespace notifications"
+          "ignore_alpha 0, match:namespace notifications"
+          "blur_popups on, match:namespace notifications"
         ];
       };
     };

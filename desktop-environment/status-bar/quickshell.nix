@@ -21,9 +21,9 @@
       };
       wayland.windowManager.hyprland.settings = {
         layerrule = [
-          "blur, quickshell"
-          "ignorezero, quickshell"
-          "blurpopups, quickshell"
+          "blur on, match:namespace quickshell"
+          "ignore_alpha 0, match:namespace quickshell"
+          "blur_popups on, match:namespace quickshell"
         ];
         # exec-once = [
         #   "qs"

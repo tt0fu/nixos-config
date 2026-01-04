@@ -80,8 +80,8 @@
           "SUPER, A, exec, killall rofi || rofi -show-icons -show combi -modes combi -combi-modes \"drun,run,filebrowser,recursivebrowser\""
         ];
         layerrule = [
-          "blur, rofi"
-          "ignorezero, rofi"
+          "blur on, match:namespace rofi"
+          "ignore_alpha 0, match:namespace rofi"
         ];
       };
       # programs.niri.settings.binds."Mod+A".action.spawn = [
