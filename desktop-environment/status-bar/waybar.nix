@@ -29,6 +29,7 @@
               position = "top";
               modules-left = [
                 "hyprland/language"
+                "custom/vpn"
                 "tray"
                 "privacy"
               ];
@@ -48,6 +49,13 @@
                 format-en = "EN";
                 format-ru = "RU";
                 on-click = "hyprctl switchxkblayout main next";
+              };
+              "custom/vpn" = {
+                format = "󰖂 {}";
+                exec = "(ip link show config >/dev/null 2>&1 && echo ) || echo ";
+                on-click = "pkexec bash -c 'wg-quick down config || wg-quick up config'";
+                return-type = "text";
+                interval = 1;
               };
               privacy = {
                 icon-spacing = 5;
@@ -207,6 +215,7 @@
                     #workspaces,
                     #taskbar,
                     #window,
+                    #custom-vpn,
                     #tray,
                     #language,
                     #wireplumber,
@@ -223,6 +232,7 @@
                     #workspaces,
                     #taskbar,
                     #window,
+                    #custom-vpn,
                     #tray,
                     #language,
                     #wireplumber,
@@ -246,6 +256,7 @@
                     button,
                     #privacy-item,
                     #window,
+                    #custom-vpn,
                     #tray,
                     #language,
                     #wireplumber,
@@ -253,9 +264,7 @@
           					#battery,
                     #network,
                     #clock {
-                      padding: ${
-                        toString (style.spacing / 2.0)
-                      }px ${toString (style.spacing)}px;
+                      padding: ${toString (style.spacing / 2.0)}px ${toString (style.spacing)}px;
                     }
 
                    	button {

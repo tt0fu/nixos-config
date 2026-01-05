@@ -5,6 +5,7 @@
     ./throne.nix
     # ./tor.nix
     ./winbox.nix
+    ./wireguard.nix
     # ./zapret
   ];
 }
