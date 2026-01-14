@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    # ./discord.nix
+    ./discord.nix
     ./element.nix
     ./telegram.nix
   ];
