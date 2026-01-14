@@ -2,5 +2,6 @@
 {
   imports = [
     ./mixxx
+    # ./stemgen
   ];
 }
