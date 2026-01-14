@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./pinta.nix
     ./inkscape.nix
+    ./pinta.nix
   ];
 }
