@@ -8,6 +8,11 @@
 
 {
   hardware.graphics.enable = true;
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  };
   home-manager.users.${userSettings.username} =
     { pkgs, ... }:
     {
@@ -19,7 +24,8 @@
       wayland.windowManager.hyprland = {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        portalPackage =
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         plugins = [
           inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
         ];
@@ -29,6 +35,7 @@
               kb_layout = "us, ru";
               kb_options = "grp:alt_shift_toggle";
               touchpad.natural_scroll = true;
+              # follow_mouse = 0;
             }
           ];
           monitor = [
@@ -36,12 +43,19 @@
           ];
           bind = [
             "SUPER, ESCAPE, killactive"
+            "SUPER SHIFT, ESCAPE, forcekillactive"
+            "SUPER, mouse:274, killactive" # closewindow undercursor
+            "SUPER SHIFT, mouse:274, killactive" # killwindow undercursor
             "SUPER, SPACE, togglefloating"
             "SUPER, RETURN, fullscreen"
             "SUPER, TAB, cyclenext"
             "SUPER, TAB, bringactivetotop"
             "SUPER SHIFT, TAB, cyclenext, prev"
             "SUPER SHIFT, TAB, bringactivetotop"
+
+            "SUPER CTRL SHIFT, S, exec, shutdown now"
+            "SUPER CTRL SHIFT, R, exec, reboot"
+            "SUPER CTRL SHIFT, ESCAPE, exit"
 
             "SUPER, Up, movefocus, u"
             "SUPER, Down, movefocus, d"
@@ -65,10 +79,6 @@
             "SUPER SHIFT, Right, layoutmsg, movewindowto r"
             "SUPER SHIFT, mouse_down, layoutmsg, movewindowto l"
             "SUPER SHIFT, mouse_up, layoutmsg, movewindowto r"
-
-            "SUPER CTRL SHIFT, S, exec, shutdown now"
-            "SUPER CTRL SHIFT, R, exec, reboot"
-            "SUPER CTRL SHIFT, ESCAPE, exit"
 
             ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
             ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5"
