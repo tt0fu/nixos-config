@@ -32,6 +32,8 @@
           base_keymap = "None";
           theme = "Rainbow Dark";
           format_on_save = "off";
+          remove_trailing_whitespace_on_save = false;
+          ensure_final_newline_on_save = false;
           auto_fold_dirs = false;
           preview_tabs.enabled = false;
           agent.enabled = false;
