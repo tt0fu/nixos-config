@@ -7,6 +7,9 @@
   home-manager.users.${userSettings.username} =
     { ... }:
     {
-      programs.git.enable = true;
+      programs.git = {
+        enable = true;
+        lfs.enable = true;
+      };
     };
 }
