@@ -5,8 +5,9 @@
 
 {
   home-manager.users.${userSettings.username} =
-    { ... }:
+    { pkgs, ... }:
     {
+      home.packages = [ pkgs.zip ];
       programs.yazi = {
         enable = true;
         enableBashIntegration = true;
@@ -35,6 +36,13 @@
               desc = "Open terminal at current dir";
             }
             {
+              on = "z";
+              run = ''
+                shell 'printf "Archive name:"; read name; zip -r "$name.zip" %s' --block --confirm
+              '';
+              desc = "zip selection";
+            }
+            {
               on = [
                 "g"
                 "m"
@@ -46,7 +54,7 @@
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, E, exec, kitty --class yazi yazi"
+        "SUPER SHIFT, E, exec, kitty --class yazi yazi"
       ];
       # program1s.niri.settings.binds."Mod+E".action.spawn = [
       #   "kitty"
