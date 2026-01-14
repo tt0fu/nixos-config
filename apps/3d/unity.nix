@@ -6,9 +6,10 @@
     {
       home.packages = with pkgs; [
         unityhub
+        p7zip
         dotnetCorePackages.sdk_8_0-bin
         vrc-get
-        (import ./vpm-cli.nix { inherit pkgs; })
+        (pkgs.callPackage ./vpm-cli.nix {})
       ];
     };
 }

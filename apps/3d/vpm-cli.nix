@@ -1,8 +1,9 @@
 {
-  pkgs,
+  buildDotnetGlobalTool,
+  lib,
 }:
 
-pkgs.buildDotnetGlobalTool {
+buildDotnetGlobalTool {
   pname = "vrchat-vpm-cli";
   version = "0.1.28";
 
@@ -11,7 +12,7 @@ pkgs.buildDotnetGlobalTool {
 
   executables = [ "vpm" ];
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "VRChat Package Manager CLI";
     homepage = "https://vcc.docs.vrchat.com/vpm/cli/";
     license = licenses.unfree;
