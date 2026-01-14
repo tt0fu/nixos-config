@@ -95,6 +95,7 @@
                   "class<kitty>" = "";
                   "class<org.kde.kdeconnect.app>" = "";
                   "class<Unity>" = "";
+                  "class<unityhub>" = "";
                   "class<Godot>" = "";
                   "class<org.ttofu.lava>" = "󰥛";
                   "class<amplitude_soundboard>" = "";
