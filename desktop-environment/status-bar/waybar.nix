@@ -89,6 +89,7 @@
                   "class<WinBox>" = "󱂇";
                   "class<nvim>" = "";
                   "class<yazi>" = "";
+                  "class<thunar>" = "";
                   "class<btop>" = "";
                   "class<io.missioncenter.MissionCenter>" = "";
                   "class<com.network.manager>" = "󰖟";
@@ -99,6 +100,7 @@
                   "class<Godot>" = "";
                   "class<org.ttofu.lava>" = "󰥛";
                   "class<amplitude_soundboard>" = "";
+                  "class<com.github.xournalpp.xournalpp>" = "";
                 };
               };
               "hyprland/window" = {

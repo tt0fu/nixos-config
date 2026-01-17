@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
-    ./anki.nix
+    ./anki
+    ./xournalpp.nix
   ];
 }
