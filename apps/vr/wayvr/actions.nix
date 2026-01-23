@@ -1,25 +1,5 @@
 [
   {
-    profile = "/interaction_profiles/khr/simple_controller";
-    pose = {
-      left = "/user/hand/left/input/aim/pose";
-      right = "/user/hand/right/input/aim/pose";
-    };
-    haptic = {
-      left = "/user/hand/left/output/haptic";
-      right = "/user/hand/right/output/haptic";
-    };
-    click = {
-      left = "/user/hand/left/input/select/click";
-    };
-    grab = {
-      right = "/user/hand/right/input/select/click";
-    };
-    show_hide = {
-      left = "/user/hand/left/input/menu/click";
-    };
-  }
-  {
     profile = "/interaction_profiles/oculus/touch_controller";
     pose = {
       left = "/user/hand/left/input/aim/pose";

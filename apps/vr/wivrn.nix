@@ -33,7 +33,7 @@
             sleep 5
             (${pkgs.motoc}/bin/motoc continue && ${pkgs.libnotify}/bin/notify-send "motoc calibration loaded") || ${pkgs.libnotify}/bin/notify-send -u critical "Failed to load motoc calibration!"
             sleep 1
-            ${pkgs.wlx-overlay-s}/bin/wlx-overlay-s
+            ${pkgs.wayvr}/bin/wayvr
           '')
         ];
         use-steamvr-lh = true;
