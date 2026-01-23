@@ -6,9 +6,9 @@
     {
       programs.anki = {
         enable = true;
-        addons = [
-          (pkgs.callPackage ./anki-typst.nix {})
-        ];
+        # addons = [
+        #   (pkgs.callPackage ./anki-typst.nix {})
+        # ];
       };
     };
 }
