@@ -101,6 +101,8 @@
                   "class<org.ttofu.lava>" = "󰥛";
                   "class<amplitude_soundboard>" = "";
                   "class<com.github.xournalpp.xournalpp>" = "";
+                  "class<winboat>" = "";
+                  "class<xfreerdp>" = "";
                 };
               };
               "hyprland/window" = {
