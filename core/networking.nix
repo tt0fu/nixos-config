@@ -1,4 +1,4 @@
-{ pkgs, systemSettings, ... }:
+{ systemSettings, ... }:
 
 {
   networking = {
