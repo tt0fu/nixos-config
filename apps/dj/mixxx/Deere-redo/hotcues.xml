@@ -134,7 +134,7 @@
   <WidgetGroup>
     <Layout>vertical</Layout>
     <MinimumSize>228,48</MinimumSize>
-    <MaximumSize>-1,48</MaximumSize>
+    <MaximumSize>-288,48</MaximumSize>
     <SizePolicy>min,min</SizePolicy>
     <Children>
       <!-- Row 1: Hotcues 1-12 -->

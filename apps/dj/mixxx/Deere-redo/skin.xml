@@ -208,7 +208,7 @@
     <Template src="skin:deck_singletons.xml">
       <SetVariable name="i">1</SetVariable>
       <SetVariable name="DeckSignalColor">#007BCD</SetVariable>
-      <SetVariable name="DeckBackgroundColor">#343940</SetVariable>
+      <SetVariable name="DeckBackgroundColor">#222222</SetVariable>
       <SetVariable name="PlayedOverlayColor">#30000011</SetVariable>
     </Template>
 
@@ -216,7 +216,7 @@
     <Template src="skin:deck_singletons.xml">
       <SetVariable name="i">2</SetVariable>
       <SetVariable name="DeckSignalColor">#E67A00</SetVariable>
-      <SetVariable name="DeckBackgroundColor">#403c34</SetVariable>
+      <SetVariable name="DeckBackgroundColor">#222222</SetVariable>
       <SetVariable name="PlayedOverlayColor">#30001111</SetVariable>
     </Template>
 
