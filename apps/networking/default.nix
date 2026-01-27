@@ -2,7 +2,7 @@
 {
   imports = [
     # ./cloudflare-warp.nix
-    ./throne.nix
+    # ./throne.nix
     # ./tor.nix
     ./winbox.nix
     ./wireguard.nix
