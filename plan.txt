@@ -50,7 +50,7 @@
   my-pc = { # the hostname of my pc
     system = "x86_64-linux";
     modules = with modules; [
-       baz # references ./modules/baz.nix which is written in the same manner as 
+       baz # references ./modules/baz.nix which is written in the same manner as foobar.nix
     ];
     settings = {
       monitor = "DP-1"

@@ -40,27 +40,6 @@
         openvr-compat-path = "${pkgs.opencomposite}/lib/opencomposite";
       };
     };
-    # package = pkgs.wivrn.overrideAttrs (
-    #   prevAttrs: finalAttrs: {
-    #     src = pkgs.fetchFromGitHub {
-    #       owner = "WiVRn";
-    #       repo = "WiVRn";
-    #       rev = "v25.11.1";
-    #       sha256 = "sha256-pEKMeRdI9UhdZ+NksRBcF7yPC7Ys2haE+B4PPGQ4beE=";
-    #     };
-    #     monado = pkgs.applyPatches {
-    #       src = pkgs.fetchFromGitLab {
-    #         domain = "gitlab.freedesktop.org";
-    #         owner = "monado";
-    #         repo = "monado";
-    #         rev = "06e62fc7d9c5cbcbc43405bb86dfde3bf01ce043";
-    #         sha256 = "sha256-0ALB9eLY4NAUqNOYZMwpvYnLxVpHsQDJc1er8Txdezs=";
-    #       };
-    #       postPatch = ''
-    #         ${finalAttrs.src}/patches/apply.sh ${finalAttrs.src}/patches/monado/*
-    #       '';
-    #     };
-    # });
     package =
       let
         src = pkgs.wivrn;

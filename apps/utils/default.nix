@@ -6,6 +6,7 @@
     ./feh.nix
     ./kdeconnect.nix
     ./missioncenter.nix
+    ./nh.nix
     ./thunar.nix
     ./vlc.nix
     ./yazi.nix
