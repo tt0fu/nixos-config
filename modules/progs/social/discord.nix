@@ -1,34 +1,13 @@
 {
   home =
-    { inputs, pkgs, ... }:
+    { inputs, ... }:
     {
-      # home.packages = [ pkgs.discord ];
       imports = [
         inputs.nixcord.homeModules.nixcord
       ];
       programs.nixcord = {
         enable = true;
-        vesktop = {
-          enable = true;
-          package = pkgs.vesktop.overrideAttrs (old: {
-            preBuild = ''
-              cp -r ${pkgs.electron.dist} electron-dist
-              chmod -R u+w electron-dist
-            '';
-            buildPhase = ''
-              runHook preBuild
-
-              pnpm build
-              pnpm exec electron-builder \
-                --dir \
-                -c.asarUnpack="**/*.node" \
-                -c.electronDist="electron-dist" \
-                -c.electronVersion=${pkgs.electron.version}
-
-              runHook postBuild
-            '';
-          });
-        };
+        vesktop.enable = true;
         quickCss = ''
           * {
             --border-faint: white !important;
