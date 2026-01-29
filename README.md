@@ -8,7 +8,7 @@
 
 ```
 ...
-networking.hostName = "MY-HOSTNAME";
+networking.hostName = "<your hostname>";
 environment.systemPackages = with pkgs; [
   ...
   git
@@ -20,26 +20,31 @@ nixpkgs.config.allowUnfree = true;
 ```
 
 2. Rebuild the system:
+
 ```
 $ sudo nixos-rebuild switch
 ```
 
 3. Clone this repository and enter it:
+
 ```
 $ git clone https://github.com/tt0fu/nixos-config
 $ cd nixos-config
 ```
 
-4. Add your `hardware-configuration.nix` as a module in `./modules/systems/MY-HOSTNAME.nix`. Don't forget to wrap it:
+4. Add your `hardware-configuration.nix` as a module in `./modules/systems/<your hostname>.nix`. Don't forget to wrap it:
+
 ```
-# modules/systems/MY-HOSTNAME.nix
+# modules/systems/<your hostname>.nix
 {
-  os = <the contents of the original hardware-configuration.nix> 
+  os = <the contents of the original hardware-configuration.nix>
 }
 ```
+
 So it will look something like this:
+
 ```
-# modules/systems/MY-HOSTNAME.nix
+# modules/systems/<your hostname>.nix
 {
   os =
     {
@@ -59,9 +64,10 @@ So it will look something like this:
 }
 ```
 
-5. Go to `settings.nix`. Add `MY-HOSTNAME` into the `systems` attrset and copy the configuration seen in other systems in that attrset. From here, change the settings to your liking. They should be self-explanatory. Make sure to add `systems.MY-HOSTNAME` to the module list.
+5. Go to `settings.nix`. Add your hostname to the `systems` attrset, copying the configuration from other systems. Change the settings to your liking, they should be self-explanatory. Make sure to add `systems.<your hostname>` to the module list.
 
 6. Build the system and reboot:
+
 ```
 $ build.sh boot && reboot
 ```
@@ -71,6 +77,7 @@ After rebooting, you should now see the config successfully applied to your inst
 ## Module structure
 
 Each module has the following structure:
+
 ```
 {
   os = <nixos configuration expression>
@@ -80,10 +87,11 @@ Each module has the following structure:
   ];
 }
 ```
+
 The structure of the `deps` attribute is the same as the module list in `settings.nix`. Adding a module with dependencies will add all of it's dependencies.
 
 ## Usage
 
-- To rebuild, run `build.sh` with the command of nixos-rebuild. For example: `build.sh boot` or `build.sh repl`, etc. The default argument is `switch`. 
+- To rebuild, run `build.sh` with the command of nixos-rebuild. For example: `build.sh boot` or `build.sh repl`, etc. The default argument is `switch`.
 - To update and rebuild, run `update.sh` with the command of nixos-rebuild. The default argument is `boot`.
 - To clean unused files, delete previous generations and optimize the nix store, run `clean.sh`.
