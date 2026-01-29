@@ -1,7 +1,0 @@
-{ ... }:
-{
-  imports = [
-    ./anki
-    ./xournalpp.nix
-  ];
-}

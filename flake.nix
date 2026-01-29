@@ -44,37 +44,5 @@
     };
   };
 
-  outputs =
-    {
-      nixpkgs,
-      home-manager,
-      ...
-    }@inputs:
-    let
-      config = import ./config.nix;
-    in
-    {
-      nixosConfigurations = builtins.listToAttrs (
-        map (system: {
-          name = system.settings.hostname;
-          value = nixpkgs.lib.nixosSystem {
-            system = system.settings.system;
-            modules = [
-              home-manager.nixosModules.default
-              ./systems
-              ./core
-              ./desktop-environment
-            ]
-            ++ (map (p: ./apps + p) system.apps);
-            specialArgs = {
-              inherit inputs;
-              systemSettings = system.settings;
-              userSettings = config.userSettings;
-              style = nixpkgs.lib.recursiveUpdate config.baseStyle system.styleOverrides;
-              color = import ./lib/color.nix { math = inputs.nix-math.lib.math; };
-            };
-          };
-        }) config.systems
-      );
-    };
+  outputs = inputs: ((import ./lib/builder.nix) inputs);
 }
