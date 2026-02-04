@@ -47,7 +47,7 @@
             # src = inputs.wivrn.packages.${pkgs.stdenv.hostPlatform.system}.default;
           in
           src.overrideAttrs (prevAttrs: {
-            preFixup = prevAttrs.preFixup + ''
+            preFixup = (builtins.elemAt prevAttrs.preFixup 0) + ''
               wrapProgram "$out/bin/wivrn-server" \
                 --prefix LD_LIBRARY_PATH : ${
                   lib.makeLibraryPath [

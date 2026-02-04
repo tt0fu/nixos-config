@@ -1,7 +1,7 @@
 {
   deps =
     modules: with modules.progs.audio; [
-      amplitude-soundboard.default
+      amplitude-soundboard
       audacity
       carla
       qpwgraph

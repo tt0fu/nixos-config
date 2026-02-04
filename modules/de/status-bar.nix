@@ -83,7 +83,7 @@
                   "class<WinBox>" = "󱂇";
                   "class<nvim>" = "";
                   "class<yazi>" = "";
-                  "class<thunar>" = "";
+                  "class<org.gnome.Nautilus>" = "";
                   "class<btop>" = "";
                   "class<io.missioncenter.MissionCenter>" = "";
                   "class<com.network.manager>" = "󰖟";

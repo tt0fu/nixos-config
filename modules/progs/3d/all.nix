@@ -3,7 +3,7 @@
     modules: with modules.progs."3d"; [
       blender
       godot
-      metashape.default
+      metashape
       unity
       vrc
     ];

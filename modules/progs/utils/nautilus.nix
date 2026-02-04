@@ -2,9 +2,9 @@
   home =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.thunar ];
+      home.packages = [ pkgs.nautilus ];
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, E, exec, thunar"
+        "SUPER, E, exec, nautilus"
       ];
     };
 }

@@ -1,7 +1,5 @@
-{ userSettings, ... }:
-
 {
-  home-manager.users.${userSettings.username} =
+  home =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.vrcx ];

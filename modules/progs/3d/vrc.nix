@@ -1,11 +1,11 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, allModules, ... }:
     {
       home.packages = with pkgs; [
         vrc-get
         alcom
-        (pkgs.callPackage ./vpm-cli.nix { })
+        (pkgs.callPackage allModules.progs."3d".vpm-cli.package { })
       ];
     };
   deps =

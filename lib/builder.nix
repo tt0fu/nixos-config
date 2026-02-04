@@ -79,7 +79,10 @@ let
 
       system = systemSettings.system;
 
-      style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or {});
+      style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
+
+      requested = curSystem.modules allModules;
+      expanded = resolveDeps requested;
 
       specialArgs = {
         inherit
@@ -88,11 +91,10 @@ let
           userSettings
           style
           color
+          allModules
           ;
+        usedModules = expanded;
       };
-
-      requested = curSystem.modules allModules;
-      expanded = resolveDeps requested;
 
       modules = (collectOS expanded) ++ [
         inputs.home-manager.nixosModules.default
