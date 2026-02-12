@@ -31,18 +31,25 @@
         font.size = 20;
       };
       modules =
-        modules: with modules; [
-          systems.ttofu-laptop
-          core.all
-          de.all
-          progs.coding.all
-          progs.essential.all
-          progs.misc.all
-          progs.networking.all
-          progs.social.all
-          progs.studying.all
-          progs.utils.all
-        ];
+        modules:
+        (
+          with modules;
+          [
+            systems.ttofu-laptop
+            core.all
+            de.all
+          ]
+          ++ (with progs; [
+            coding.all
+            essential.all
+            misc.all
+            networking.all
+            office.all
+            social.all
+            studying.all
+            utils.all
+          ])
+        );
     };
     ttofu-pc = {
       settings = {
@@ -55,27 +62,33 @@
         };
       };
       modules =
-        modules: with modules; [
-          systems.ttofu-pc
-          core.all
-          de.all
-          progs."2d".all
-          progs."3d".all
-          progs.audio.all
-          progs.coding.all
-          progs.dj.all
-          progs.essential.all
-          progs.gaming.all
-          progs.misc.all
-          progs.networking.all
-          progs.office.all
-          progs.social.all
-          progs.studying.all
-          progs.utils.all
-          progs.video.all
-          progs.virtualization.all
-          progs.vr.all
-        ];
+        modules:
+        (
+          with modules;
+          [
+            systems.ttofu-pc
+            core.all
+            de.all
+          ]
+          ++ (with progs; [
+            "2d".all
+            "3d".all
+            audio.all
+            coding.all
+            dj.all
+            essential.all
+            gaming.all
+            misc.all
+            networking.all
+            office.all
+            social.all
+            studying.all
+            utils.all
+            video.all
+            virtualization.all
+            vr.all
+          ])
+        );
     };
   };
 }
