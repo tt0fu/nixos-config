@@ -1,6 +1,7 @@
 {
   os =
     {
+      inputs,
       pkgs,
       config,
       lib,
@@ -11,6 +12,8 @@
     {
       imports = [
         (modulesPath + "/installer/scan/not-detected.nix")
+        inputs.nixos-hardware.nixosModules.common-cpu-amd
+        inputs.nixos-hardware.nixosModules.common-gpu-amd
       ];
 
       hardware = {
