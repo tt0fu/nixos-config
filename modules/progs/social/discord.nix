@@ -236,6 +236,7 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, D, exec, discord"
       ];
+      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<discord>" = "";
       # programs.niri.settings.binds."Mod+D".action.spawn = [ "discord" ];
     };
 }

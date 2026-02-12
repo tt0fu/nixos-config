@@ -3,9 +3,9 @@
     { pkgs, ... }:
     {
       home.packages = [ pkgs.element-desktop ];
-      # wayland.windowManager.hyprland.settings.bind = [
-      # "SUPER, T, exec, Telegram"
-      # ];
-      # programs.niri.settings.binds."Mod+T".action.spawn = [ "Telegram" ];
+      wayland.windowManager.hyprland.settings.bind = [
+        "SUPER, F, exec, element-desktop"
+      ];
+      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<Element>" = "󰘨";
     };
 }

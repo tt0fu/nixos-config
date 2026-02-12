@@ -9,5 +9,7 @@
           '';
         }))
       ];
+      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<org.mixxx.Mixxx>" =
+        "";
     };
 }

@@ -136,7 +136,7 @@ pkgs: ''
                 </Button>
               </div>
               <div gap="8">
-                <Button macro="button_style" _press="::ShellExec ${pkgs.kitty}/bin/kitty --class motoc -- ${pkgs.motoc}/bin/motoc calibrate --src 'WiVRn right controller' --dst 'LHR-B8E3267C'" tooltip_str="Recalibrate playspace" tooltip_side="left">
+                <Button macro="button_style" _press="::ShellExec hyprctl dispatch exec '[float; size 300, 300; move 100%-w-5, 65] kitty --class motoc -- motoc calibrate --src WiVRn\ right\ controller --dst LHR-B8E3267C'" tooltip_str="Recalibrate playspace" tooltip_side="left">
                   <sprite width="40" height="40" color="~color_text" src="watch/track2.svg" />
                 </Button>
                 <Button macro="button_style" _press="::PlayspaceFixFloor" tooltip="WATCH.FIX_FLOOR" tooltip_side="left">

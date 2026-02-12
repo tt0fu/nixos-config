@@ -47,10 +47,12 @@
         userKeymaps = import ./keybinds.nix;
         themes.Rainbow = import ./theme.nix color;
       };
-
+      xdg.mimeApps.defaultApplications = {
+        "text/*" = "dev.zed.Zed.desktop";
+      };
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, W, exec, zeditor"
       ];
-      # programs.niri.settings.binds."Mod+W".action.spawn = [ "zeditor" ];
+      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<dev.zed.Zed>" = "󰰶";
     };
 }

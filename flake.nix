@@ -39,7 +39,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     wivrn = {
-      url = "github:WiVRn/WiVRn/v25.12";
+      url = "github:WiVRn/WiVRn/v26.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    freenet = {
+      url = "github:freenet/freenet-core?ref=pull/2954/head";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

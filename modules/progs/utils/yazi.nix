@@ -51,11 +51,6 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER SHIFT, E, exec, kitty --class yazi yazi"
       ];
-      # program1s.niri.settings.binds."Mod+E".action.spawn = [
-      #   "kitty"
-      #   "--class"
-      #   "yazi"
-      #   "yazi"
-      # ];
+      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<yazi>" = "";
     };
 }

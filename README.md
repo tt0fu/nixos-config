@@ -16,6 +16,7 @@ environment.systemPackages = with pkgs; [
 ];
 nix.settings.experimental-features = ["nix-command" "flakes"];
 nixpkgs.config.allowUnfree = true;
+programs.nh.enable = true;
 ...
 ```
 
@@ -69,7 +70,7 @@ So it will look something like this:
 6. Build the system and reboot:
 
 ```
-$ build.sh boot && reboot
+$ ./build.sh boot && reboot
 ```
 
 After rebooting, you should now see the config successfully applied to your install.
@@ -85,6 +86,7 @@ Each module has the following structure:
   deps = modules: with modules; [
     <list of modules this module depends on>
   ];
+  <any additional fields that can be referenced with allModules or usedModules special arg>
 }
 ```
 

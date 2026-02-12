@@ -8,7 +8,6 @@
       kdeconnect
       missioncenter
       nautilus
-      nh
       vlc
       yazi
     ];

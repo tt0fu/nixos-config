@@ -5,6 +5,8 @@
       home.packages = [
         (pkgs.callPackage allModules.progs.audio.amplitude-soundboard.package { })
       ];
+      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<amplitude_soundboard>" =
+        "";
     };
   package =
     {

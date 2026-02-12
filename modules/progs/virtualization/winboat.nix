@@ -16,5 +16,9 @@
         winboat
         freerdp
       ];
+      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite = {
+        "class<winboat>" = "";
+        "class<xfreerdp>" = "";
+      };
     };
 }
