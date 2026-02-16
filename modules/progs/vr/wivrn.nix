@@ -1,9 +1,6 @@
 {
   os =
     {
-      inputs,
-      pkgs,
-      lib,
       ...
     }:
     {
