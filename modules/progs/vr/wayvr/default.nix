@@ -14,7 +14,7 @@
             ".config/wayvr/keyboard.yaml".text = toYAML (import ./keyboard.nix);
             ".config/wayvr/conf.d/theme.yaml".text = toYAML (import ./theme.nix);
             ".config/wayvr/conf.d/clock.yaml".text = toYAML (import ./clock.nix);
-            ".config/wayvr/theme/gui/watch.xml".text = (import ./watch.nix pkgs);
+            ".config/wayvr/theme/gui/watch.xml".source = ./watch.xml;
           };
       };
     };
