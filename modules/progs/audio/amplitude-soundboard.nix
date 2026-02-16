@@ -25,8 +25,7 @@
       };
 
       extraPkgs =
-        pkgs:
-        (with pkgs; [
+        pkgs: with pkgs; [
           icu
           libglvnd
           freetype
@@ -36,7 +35,7 @@
           openssl
           zlib
           stdenv.cc.cc.lib
-        ]);
+        ];
 
       meta = with lib; {
         description = "A free and open source soundboard";
