@@ -44,7 +44,7 @@
     };
     
     freenet = {
-      url = "github:freenet/freenet-core?ref=pull/2954/head";
+      url = "github:freenet/freenet-core";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
