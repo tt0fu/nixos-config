@@ -27,17 +27,32 @@
       fontconfig,
       freetype,
       libxkbcommon,
-      xorg,
+      libxcb,
+      libx11,
+      libxext,
+      libsm,
+      libice,
+      libxcb-wm,
+      libxcb-image,
+      libxcb-keysyms,
+      libxcb-render-util,
+      libxi,
+      libxrender,
+      libxml2,
+      libtinfo,
+      libdrm,
+      libxshmfence,
+      ncurses5,
       ...
     }:
 
     stdenv.mkDerivation {
       pname = "metashape";
-      version = "2.2.2";
+      version = "2.3.0";
 
       src = fetchurl {
-        url = "https://download.agisoft.com/metashape_2_2_2_amd64.tar.gz";
-        sha256 = "sha256-wC6QgvNlC4INjfsKTblK8VYjix1Lk8BCVPdh+x/kzy0=";
+        url = "https://download.agisoft.com/metashape_2_3_0_amd64.tar.gz";
+        sha256 = "sha256-vuyNevBlFHCmVk8V6JFO+ZHTQyTH4NePXZmJAqzgb8Y=";
       };
 
       nativeBuildInputs = [
@@ -60,17 +75,22 @@
         fontconfig
         freetype
         libxkbcommon
-        xorg.libxcb
-        xorg.libX11
-        xorg.libXext
-        xorg.libSM
-        xorg.libICE
-        xorg.xcbutilwm
-        xorg.xcbutilimage
-        xorg.xcbutilkeysyms
-        xorg.xcbutilrenderutil
-        xorg.libXi
-        xorg.libXrender
+        libxcb
+        libx11
+        libxext
+        libsm
+        libice
+        libxcb-wm
+        libxcb-image
+        libxcb-keysyms
+        libxcb-render-util
+        libxi
+        libxrender
+        libxml2
+        libtinfo
+        libdrm
+        libxshmfence
+        ncurses5
       ];
 
       sourceRoot = "metashape";
@@ -91,7 +111,7 @@
 
         runHook postInstall
       '';
-
+      
       meta = with lib; {
         description = "Professional photogrammetry software by Agisoft";
         homepage = "https://www.agisoft.com/";
