@@ -69,10 +69,10 @@
             systems.ttofu-pc
             core.all
             de.all
+            progs."2d".all
+            progs."3d".all
           ]
           ++ (with progs; [
-            "2d".all
-            "3d".all
             audio.all
             coding.all
             dj.all
