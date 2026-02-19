@@ -20,5 +20,6 @@
           ];
         };
       };
+      wayland.windowManager.hyprland.settings.windowrule = "match:class steam_app_438100, tile on";
     };
 }
