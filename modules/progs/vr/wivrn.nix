@@ -69,7 +69,7 @@
               width = 1;
             }
           ];
-          openvr-compat-path = "${pkgs.opencomposite}/lib/opencomposite";
+          openvr-compat-path = "${pkgs.xrizer}/lib/xrizer";
           scale = 1;
           use-steamvr-lh = true;
         };
