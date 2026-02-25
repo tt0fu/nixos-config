@@ -11,7 +11,7 @@
     };
   home =
     {
-      inputs,
+      # inputs,
       systemSettings,
       style,
       pkgs,
@@ -22,15 +22,16 @@
         glib
         hyprshot
         brightnessctl
+        playerctl
       ];
       wayland.windowManager.hyprland = {
         enable = true;
-        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        portalPackage =
-          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-        plugins = [
-          inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
-        ];
+        # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        # portalPackage =
+        #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        # plugins = [
+        #   inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+        # ];
         settings = {
           input = [
             {
@@ -61,31 +62,36 @@
 
             "SUPER, Up, movefocus, u"
             "SUPER, Down, movefocus, d"
-            # "SUPER, Left, movefocus, l"
-            # "SUPER, Right, movefocus, r"
-            # "SUPER, mouse_down, movefocus, l"
-            # "SUPER, mouse_up, movefocus, r"
-            "SUPER, Left, layoutmsg, move -col"
-            "SUPER, Right, layoutmsg, move +col"
-            "SUPER, mouse_down, layoutmsg, move -col"
-            "SUPER, mouse_up, layoutmsg, move +col"
+            "SUPER, Left, movefocus, l"
+            "SUPER, Right, movefocus, r"
+            "SUPER, mouse_down, movefocus, l"
+            "SUPER, mouse_up, movefocus, r"
 
-            # "SUPER SHIFT, Up, movewindow, u"
-            # "SUPER SHIFT, Down, movewindow, d"
-            # "SUPER SHIFT, Left, movewindow, l"
-            # "SUPER SHIFT, Right, movewindow, r"
+            # "SUPER, Left, layoutmsg, move -col"
+            # "SUPER, Right, layoutmsg, move +col"
+            # "SUPER, mouse_down, layoutmsg, move -col"
+            # "SUPER, mouse_up, layoutmsg, move +col"
 
-            "SUPER SHIFT, Up, layoutmsg, movewindowto u"
-            "SUPER SHIFT, Down, layoutmsg, movewindowto d"
-            "SUPER SHIFT, Left, layoutmsg, movewindowto l"
-            "SUPER SHIFT, Right, layoutmsg, movewindowto r"
-            "SUPER SHIFT, mouse_down, layoutmsg, movewindowto l"
-            "SUPER SHIFT, mouse_up, layoutmsg, movewindowto r"
+            "SUPER SHIFT, Up, movewindow, u"
+            "SUPER SHIFT, Down, movewindow, d"
+            "SUPER SHIFT, Left, movewindow, l"
+            "SUPER SHIFT, Right, movewindow, r"
+
+            # "SUPER SHIFT, Up, layoutmsg, movewindowto u"
+            # "SUPER SHIFT, Down, layoutmsg, movewindowto d"
+            # "SUPER SHIFT, Left, layoutmsg, movewindowto l"
+            # "SUPER SHIFT, Right, layoutmsg, movewindowto r"
+            # "SUPER SHIFT, mouse_down, layoutmsg, movewindowto l"
+            # "SUPER SHIFT, mouse_up, layoutmsg, movewindowto r"
 
             ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
             ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5"
             ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
             ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+            ",XF86AudioPlay, exec, playerctl play-pause" # play
+            ",XF86AudioStop, exec, playerctl stop"
+            ",XF86AudioPrev, exec, playerctl previous"
+            ",XF86AudioNext, exec, playerctl next"
             ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
             ",XF86MonBrightnessUp, exec, brightnessctl s +10%"
           ]
@@ -110,7 +116,7 @@
             scroll_event_delay = 100;
           };
           general = {
-            layout = "scrolling";
+            layout = "master";
             border_size = style.border.thickness;
             gaps_in = style.spacing / 2;
             gaps_out = style.spacing;
