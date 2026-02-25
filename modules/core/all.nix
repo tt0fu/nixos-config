@@ -9,6 +9,7 @@
       mounting
       networking
       nix
+      plymouth
       power-management
       shebang-support
       sound
