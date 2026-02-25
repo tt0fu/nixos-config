@@ -2,11 +2,11 @@
   os =
     { ... }:
     {
-      system.stateVersion = "24.11";
+      system.stateVersion = "26.05";
     };
   home =
     { ... }:
     {
-      home.stateVersion = "24.11";
+      home.stateVersion = "26.05";
     };
 }
