@@ -12,6 +12,7 @@ before=$(df -k . | awk 'NR==2 {print $4}')
 # sudo nix store optimise
 # nix store optimise
 
+sudo nh clean all
 nh clean all
 
 after=$(df -k . | awk 'NR==2 {print $4}')
