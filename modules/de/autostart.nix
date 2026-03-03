@@ -1,13 +1,11 @@
 {
   os =
     {
-      pkgs,
       userSettings,
       ...
     }:
 
     {
-      environment.systemPackages = [ pkgs.greetd ];
       services.greetd = {
         enable = true;
         settings = {
@@ -16,7 +14,7 @@
           };
           initial_session = {
             user = userSettings.username;
-            command = "start-hyprland && exit";
+            command = "start-hyprland > /dev/null && exit";
           };
           default_session = {
             user = userSettings.username;

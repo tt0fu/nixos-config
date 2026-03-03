@@ -4,9 +4,9 @@
     {
       boot.plymouth = {
         enable = true;
-        font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFont-Medium.ttf";
+        # font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFont-Medium.ttf";
         themePackages = [
-          pkgs.adi1090x-plymouth-themes
+          (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "circle_alt" ]; })
         ];
         theme = "circle_alt";
       };
