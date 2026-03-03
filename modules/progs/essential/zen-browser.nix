@@ -13,6 +13,7 @@
           # https://mozilla.github.io/policy-templates/
         };
         nativeMessagingHosts = [ pkgs.firefoxpwa ];
+        suppressXdgMigrationWarning = true;
       };
       home.sessionVariables.MOZ_LEGACY_PROFILES = "1";
       xdg.mimeApps =
