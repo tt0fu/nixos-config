@@ -147,17 +147,18 @@
           dwindle = {
             smart_split = true;
           };
+          # scrolling = {
+          #   column_width = 0.6;
+          #   fullscreen_on_one_column = true;
+          #   follow_focus = false;
+          #   focus_fit_method = 1;
+          # };
+          master = {
+            allow_small_split = true;
+          };
           ecosystem = {
             no_donation_nag = true;
             no_update_news = true;
-          };
-          plugin = {
-            hyprscrolling = {
-              column_width = 0.9;
-              fullscreen_on_one_column = true;
-              follow_focus = false;
-              focus_fit_method = 0;
-            };
           };
         };
       };
