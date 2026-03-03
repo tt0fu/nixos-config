@@ -1,7 +1,6 @@
 {
   os =
     { ... }:
-
     {
       nix = {
         settings = {
@@ -13,9 +12,7 @@
         };
         optimise.automatic = true;
       };
-      nixpkgs.config = {
-        allowUnfree = true;
-      };
+      nixpkgs.config.allowUnfree = true;
     };
   home =
     { userSettings, ... }:
