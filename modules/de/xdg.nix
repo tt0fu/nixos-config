@@ -8,7 +8,7 @@
       ];
     };
   home =
-    { inputs, pkgs, ... }:
+    { pkgs, ... }:
     {
       home.packages = with pkgs; [
         glib
@@ -19,13 +19,12 @@
         mimeApps.enable = true;
         portal = {
           enable = true;
-          extraPortals = [
-            # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
-            pkgs.xdg-desktop-portal-hyprland
-            pkgs.xdg-desktop-portal-gtk
-            pkgs.xdg-desktop-portal-gnome
-            pkgs.xdg-desktop-portal-wlr
-            pkgs.xdg-desktop-portal-xapp
+          extraPortals = with pkgs; [
+            xdg-desktop-portal-hyprland
+            xdg-desktop-portal-gtk
+            xdg-desktop-portal-gnome
+            xdg-desktop-portal-wlr
+            xdg-desktop-portal-xapp
           ];
           config.common.default = "*";
         };
