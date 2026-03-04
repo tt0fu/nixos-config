@@ -15,6 +15,7 @@
       polkit
       prompt
       qt
+      quickshell.default
       status-bar
       wallpaper.default
       xdg
