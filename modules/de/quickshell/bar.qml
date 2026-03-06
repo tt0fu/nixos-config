@@ -1,4 +1,3 @@
-//@ pragma UseQApplication
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
@@ -104,6 +103,70 @@ PanelWindow {
                 }
 
                 Rectangle {
+                    id: vpn
+                    implicitWidth: vpnText.implicitWidth + root.gap * 2
+                    implicitHeight: vpnText.implicitHeight + root.gap * 2
+
+                    color: "transparent"
+                    border.color: root.colBorder
+                    border.width: root.borderWidth
+                    radius: root.borderRadius
+
+                    property bool enabled: false
+
+                    Process {
+                        id: vpnSwitchProc
+                        command: ["pkexec", "sh", "-c", "wg-quick down config || wg-quick up config"]
+                        stdout: SplitParser {
+                            onRead: data => {
+                                vpnDisplayProc.running = true;
+                            }
+                        }
+                        running: false
+                    }
+                    Process {
+                        id: vpnDisplayProc
+                        command: ["sh", "-c", "ip link show config > /dev/null 2> /dev/null; echo $?"]
+                        stdout: SplitParser {
+                            onRead: data => {
+                                vpn.enabled = parseInt(data) === 0;
+                            }
+                        }
+
+                        running: true
+                    }
+                    Timer {
+                        interval: 2000
+                        running: true
+                        repeat: true
+                        onTriggered: {
+                            vpnDisplayProc.running = true;
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            vpnSwitchProc.running = true;
+                            vpnDisplayProc.running = true;
+                        }
+                    }
+
+                    Text {
+                        id: vpnText
+                        color: root.colFg
+                        font {
+                            family: root.fontFamily
+                            pixelSize: root.fontSize
+                        }
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        text: "󰖂 " + (vpn.enabled ? "" : "")
+                    }
+                }
+
+                Rectangle {
                     id: tray
                     implicitWidth: trayLayout.implicitWidth + root.gap * 2
                     implicitHeight: trayLayout.implicitHeight + root.gap * 2
@@ -112,6 +175,7 @@ PanelWindow {
                     border.color: root.colBorder
                     border.width: root.borderWidth
                     radius: root.borderRadius
+                    visible: SystemTray.items.values.length !== 0
 
                     RowLayout {
                         id: trayLayout
@@ -134,7 +198,7 @@ PanelWindow {
                                 fillMode: Image.PreserveAspectFit
 
                                 PopupWindow {
-                                    id: menuWindow
+                                    id: trayWindow
                                     anchor.window: root
                                     anchor.rect.x: trayIcon.x + trayLayout.x + tray.x + leftRow.x + barLayout.x + windowRect.x
                                     anchor.rect.y: root.implicitHeight
@@ -206,7 +270,7 @@ PanelWindow {
                                                         anchors.fill: parent
                                                         onClicked: {
                                                             modelData.triggered();
-                                                            menuWindow.visible = false;
+                                                            trayWindow.visible = false;
                                                         }
                                                         onEntered: {
                                                             if (modelData.hasChildren) {
@@ -222,8 +286,8 @@ PanelWindow {
 
                                     HyprlandFocusGrab {
                                         id: menuWindowFocusGrab
-                                        windows: [menuWindow]
-                                        onCleared: menuWindow.visible = false
+                                        windows: [trayWindow]
+                                        onCleared: trayWindow.visible = false
                                     }
                                 }
 
@@ -233,7 +297,7 @@ PanelWindow {
                                     onPressed: event => {
                                         if (event.buttons & Qt.LeftButton) {
                                             if (modelData.onlyMenu) {
-                                                menuWindow.visible = true;
+                                                trayWindow.visible = true;
                                                 menuWindowFocusGrab.active = true;
                                             } else {
                                                 modelData.activate();
@@ -241,7 +305,7 @@ PanelWindow {
                                         }
                                         if (event.buttons & Qt.RightButton) {
                                             if (modelData.hasMenu) {
-                                                menuWindow.visible = true;
+                                                trayWindow.visible = true;
                                                 menuWindowFocusGrab.active = true;
                                             } else {
                                                 modelData.activate();
@@ -326,7 +390,7 @@ PanelWindow {
 
                                     Image {
                                         required property HyprlandToplevel modelData
-                                        property string path: Quickshell.iconPath(modelData.wayland?.appId ?? "", true)
+                                        property string path: Quickshell.iconPath(DesktopEntries.heuristicLookup(modelData.wayland?.appId ?? "")?.icon ?? "", true)
 
                                         source: path === "" ? Qt.resolvedUrl("fallback-icon.svg") : path
                                         sourceSize.width: root.iconSize
