@@ -3,6 +3,8 @@ import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Services.SystemTray
+import Quickshell.Services.Pipewire
+import Quickshell.Services.UPower
 import QtQuick
 import QtQuick.Layouts
 
@@ -411,6 +413,148 @@ PanelWindow {
                     verticalCenter: parent.verticalCenter
                 }
                 spacing: root.gap
+
+                PwObjectTracker {
+                    id: pwObjectTracker
+                    objects: [Pipewire.defaultAudioSource, Pipewire.defaultAudioSink]
+                }
+
+                Rectangle {
+                    id: audioSink
+                    implicitWidth: audioSinkText.implicitWidth + root.gap * 2
+                    implicitHeight: audioSinkText.implicitHeight + root.gap * 2
+
+                    color: "transparent"
+                    border.color: root.colBorder
+                    border.width: root.borderWidth
+                    radius: root.borderRadius
+
+                    Process {
+                        id: audioSinkMuteProc
+                        command: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"]
+                        running: false
+                    }
+                    Process {
+                        id: audioSinkIncreaseVolumeProc
+                        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", "--limit", "1.5"]
+                        running: false
+                    }
+                    Process {
+                        id: audioSinkDecreaseVolumeProc
+                        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-"]
+                        running: false
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: audioSinkMuteProc.running = true
+                        onWheel: wheelEvent => {
+                            if (wheelEvent.angleDelta.y > 0) {
+                                audioSinkIncreaseVolumeProc.running = true;
+                            }
+                            if (wheelEvent.angleDelta.y < 0) {
+                                audioSinkDecreaseVolumeProc.running = true;
+                            }
+                        }
+                    }
+
+                    Text {
+                        id: audioSinkText
+                        color: root.colFg
+                        font {
+                            family: root.fontFamily
+                            pixelSize: root.fontSize
+                        }
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        property int volume: Pipewire.defaultAudioSink.audio.volume * 100
+
+                        property string volumeIcon: volume >= 75 ? "" : (volume <= 25 ? "" : "")
+
+                        text: Pipewire.defaultAudioSink.audio.muted ? "" : volumeIcon + " " + volume + "%"
+                    }
+                }
+
+                Rectangle {
+                    id: audioSource
+                    implicitWidth: audioSourceText.implicitWidth + root.gap * 2
+                    implicitHeight: audioSourceText.implicitHeight + root.gap * 2
+
+                    color: "transparent"
+                    border.color: root.colBorder
+                    border.width: root.borderWidth
+                    radius: root.borderRadius
+
+                    Process {
+                        id: audioSourceMuteProc
+                        command: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle"]
+                        running: false
+                    }
+                    Process {
+                        id: audioSourceIncreaseVolumeProc
+                        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SOURCE@", "5%+", "--limit", "1.5"]
+                        running: false
+                    }
+                    Process {
+                        id: audioSourceDecreaseVolumeProc
+                        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SOURCE@", "5%-"]
+                        running: false
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: audioSourceMuteProc.running = true
+                        onWheel: wheelEvent => {
+                            if (wheelEvent.angleDelta.y > 0) {
+                                audioSourceIncreaseVolumeProc.running = true;
+                            }
+                            if (wheelEvent.angleDelta.y < 0) {
+                                audioSourceDecreaseVolumeProc.running = true;
+                            }
+                        }
+                    }
+
+                    Text {
+                        id: audioSourceText
+                        color: root.colFg
+                        font {
+                            family: root.fontFamily
+                            pixelSize: root.fontSize
+                        }
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        property int volume: Pipewire.defaultAudioSource.audio.volume * 100
+
+                        text: Pipewire.defaultAudioSource.audio.muted ? "󰍭" : "󰍬 " + volume + "%"
+                    }
+                }
+
+                Rectangle {
+                    id: power
+                    implicitWidth: powerText.implicitWidth + root.gap * 2
+                    implicitHeight: powerText.implicitHeight + root.gap * 2
+
+                    color: "transparent"
+                    border.color: root.colBorder
+                    border.width: root.borderWidth
+                    radius: root.borderRadius
+
+                    Text {
+                        id: powerText
+                        color: root.colFg
+                        font {
+                            family: root.fontFamily
+                            pixelSize: root.fontSize
+                        }
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        property int charge: UPower.displayDevice.percentage * 100
+                        property string batteryIcon: ["", "", "", "", ""][Math.floor(charge * 5 / 100 - 1)]
+
+                        text: (UPower.onBattery ? batteryIcon : "") + " " + charge + "%"
+                    }
+                }
 
                 Rectangle {
                     id: clock

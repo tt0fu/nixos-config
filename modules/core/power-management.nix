@@ -41,5 +41,8 @@
           AMDGPU_ABM_LEVEL_ON_BAT = 4;
         };
       };
+      services.upower = {
+        enable = true;
+      };
     };
 }
