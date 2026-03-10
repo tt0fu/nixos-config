@@ -11,7 +11,7 @@
     };
   home =
     {
-      # inputs,
+      inputs,
       systemSettings,
       style,
       pkgs,
@@ -29,9 +29,10 @@
         # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
         # portalPackage =
         #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-        # plugins = [
-        #   inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
-        # ];
+        plugins = [
+          # pkgs.hyprlandPlugins.hypr-dynamic-cursors
+          # inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors
+        ];
         settings = {
           input = [
             {
@@ -162,6 +163,9 @@
             no_donation_nag = true;
             no_update_news = true;
           };
+          # plugin = {
+          #   dynamic-cursors = { };
+          # };
         };
       };
       home.sessionVariables = {

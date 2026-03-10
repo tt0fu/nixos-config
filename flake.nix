@@ -13,14 +13,18 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-math.url = "github:xddxdd/nix-math";
 
-    # hyprland = {
-    #   url = "github:hyprwm/Hyprland";
-    #   # inputs.nixpkgs.follows = "nixpkgs";
-    # };
-    # hyprland-plugins = {
-    #   url = "github:hyprwm/hyprland-plugins";
-    #   inputs.hyprland.follows = "hyprland";
-    # };1
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hypr-dynamic-cursors = {
+      url = "github:VirtCode/hypr-dynamic-cursors";
+      inputs.hyprland.follows = "hyprland";
+    };
     # niri = {
     #   url = "github:sodiboo/niri-flake";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +49,7 @@
       url = "github:WiVRn/WiVRn/v26.2.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     freenet = {
       url = "github:freenet/freenet-core";
       inputs.nixpkgs.follows = "nixpkgs";
