@@ -137,7 +137,80 @@ PopupWindow {
                 }
             }
         }
+
+        // Note that quickshell Wrappers resize their child, so this is like setting
+        // the width: 600 and height: 600 in the GridLayout
+        // Setting the width/height of any layout
+        // is needed so that fillWidth/fillHeight works
+        // WrapperRectangle {
+        //     implicitWidth: 600
+        //     implicitHeight: 600
+
+        //     margin: 18
+        //     radius: 20
+        //     color: "grey"
+
+        //     anchors.centerIn: parent
+
+        //     GridLayout {
+        //         columns: 3
+
+        //         MyRect {}
+        //         Text {
+        //             text: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+        //             Layout.fillWidth: true
+        //         }
+        //         MyRect {}
+
+        //         Separator {}
+
+        //         MyRect {}
+        //         Text {
+        //             text: "hhhhhhhhhhhhhhhhhhh"
+        //             Layout.fillWidth: true
+        //         }
+        //         MyRect {}
+
+        //         Separator {}
+
+        //         MyRect {}
+        //         Text {
+        //             text: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+        //             Layout.fillWidth: true
+        //         }
+        //         MyRect {}
+
+        //         Separator {}
+
+        //         // Spacer
+        //         Item {
+        //             Layout.columnSpan: 3
+        //             Layout.fillWidth: true
+        //             Layout.fillHeight: true
+        //         }
+
+        //         Separator {}
+
+        //         MyRect {}
+        //         Text {
+        //             text: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+        //             Layout.fillWidth: true
+        //         }
+        //         MyRect {}
+        //     }
+        // }
     }
+
+    // component MyRect: Rectangle {
+    //     implicitWidth: 20
+    //     implicitHeight: 20
+    //     radius: 2
+    // }
+    // component Separator: Rectangle {
+    //     Layout.fillWidth: true
+    //     Layout.columnSpan: 3
+    //     implicitHeight: 2
+    // }
 
     HoverHandler {
         id: menuHover
