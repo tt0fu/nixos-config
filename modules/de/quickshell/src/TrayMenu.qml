@@ -71,34 +71,22 @@ PopupWindow {
                             visible: modelData.icon !== ""
                         }
 
-                        Text {
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                        CenterText {
+                            anchors.fill: null
                             text: modelData.text
-                            color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
-                            font {
-                                family: root.fontFamily
-                                pixelSize: root.fontSize
-                            }
                         }
 
                         Item {
                             Layout.fillWidth: true
                         }
 
-                        Text {
+                        CenterText {
                             property string checkBoxIcon: modelData.checkState === Qt.Unchecked ? "" : (modelData.checkState === Qt.Checked ? "" : "󰇘")
                             property string radioBoxIcon: modelData.checkState === Qt.Unchecked ? "" : (modelData.checkState === Qt.Checked ? "" : "󰇘")
                             property string icon: modelData.buttonType === QsMenuButtonType.None ? (modelData.hasChildren ? "" : "") : (modelData.buttonType === QsMenuButtonType.CheckBox ? checkBoxIcon : radioBoxIcon)
 
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                            anchors.fill: null
                             text: icon
-                            color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
-                            font {
-                                family: root.fontFamily
-                                pixelSize: root.fontSize
-                            }
                         }
                     }
 
@@ -232,6 +220,7 @@ PopupWindow {
     }
 
     function closeSelf() {
+        destroyChild();
         if (menuHover.hovered) {
             return;
         }
@@ -264,7 +253,7 @@ PopupWindow {
 
     function toggleVisibility() {
         if (visible) {
-            closeAllMenus();
+            closeSelf();
         } else {
             visible = true;
             // startSelfCloseTimer();

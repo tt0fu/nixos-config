@@ -3,18 +3,11 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 
-Rectangle {
+PaddedRect {
     id: workspaces
-    implicitWidth: workspacesLayout.implicitWidth + root.gap * 2
-    implicitHeight: workspacesLayout.implicitHeight + root.gap * 2
     anchors.centerIn: parent
 
-    color: "transparent"
-    border.color: root.colBorder
-    border.width: root.borderWidth
-    radius: root.borderRadius
-
-    RowLayout {
+    child: RowLayout {
         id: workspacesLayout
         anchors.fill: parent
         anchors.margins: root.gap
@@ -23,12 +16,9 @@ Rectangle {
         Repeater {
             model: 9
 
-            Rectangle {
+            PaddedRect {
                 id: workspace
-                color: "transparent"
-                border.width: root.borderWidth
-                radius: root.borderRadius
-
+                required property int index;
                 property var currentWorkspace: Hyprland.workspaces.values.find(w => w.id === index + 1)
                 property var workspaceClients: isNonEmpty ? currentWorkspace.toplevels.values : []
                 property bool isNonEmpty: currentWorkspace ? true : false
@@ -39,8 +29,6 @@ Rectangle {
                 border.color: isUrgent ? root.colUrgent : (isActive ? root.colActive : (isHover ? root.colHover : root.colInactive))
                 visible: isNonEmpty
 
-                implicitWidth: workspaceLayout.implicitWidth + root.gap * 2
-                implicitHeight: workspaceLayout.implicitHeight + root.gap * 2
                 MouseArea {
                     id: workspaceMouseArea
                     anchors.fill: parent
@@ -48,22 +36,16 @@ Rectangle {
                     hoverEnabled: true
                 }
 
-                RowLayout {
+                child: RowLayout {
                     id: workspaceLayout
                     anchors.fill: parent
                     anchors.margins: root.gap
                     spacing: root.gap
 
-                    Text {
+                    CenterText {
                         id: workspaceText
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
+                        anchors.fill: null
                         text: index + 1
-                        color: root.colFg
-                        font {
-                            family: root.fontFamily
-                            pixelSize: root.fontSize
-                        }
                     }
 
                     Repeater {
@@ -76,7 +58,6 @@ Rectangle {
                             source: path === "" ? Qt.resolvedUrl("fallback-icon.svg") : path
                             sourceSize.width: root.iconSize
                             sourceSize.height: root.iconSize
-                            fillMode: Image.PreserveAspectFit
                         }
                     }
                 }

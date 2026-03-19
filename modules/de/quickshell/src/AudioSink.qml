@@ -2,15 +2,8 @@ import QtQuick
 import Quickshell.Services.Pipewire
 import Quickshell.Io
 
-Rectangle {
+PaddedRect {
     id: audioSink
-    implicitWidth: audioSinkText.implicitWidth + root.gap * 2
-    implicitHeight: audioSinkText.implicitHeight + root.gap * 2
-
-    color: "transparent"
-    border.color: root.colBorder
-    border.width: root.borderWidth
-    radius: root.borderRadius
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink]
@@ -44,16 +37,8 @@ Rectangle {
         }
     }
 
-    Text {
+    child: CenterText {
         id: audioSinkText
-        color: root.colFg
-        font {
-            family: root.fontFamily
-            pixelSize: root.fontSize
-        }
-        anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
         property int volume: Pipewire.defaultAudioSink.audio.volume * 100
 
         property string volumeIcon: volume >= 75 ? "" : (volume <= 25 ? "" : "")

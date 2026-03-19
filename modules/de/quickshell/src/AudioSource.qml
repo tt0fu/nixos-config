@@ -2,15 +2,8 @@ import QtQuick
 import Quickshell.Services.Pipewire
 import Quickshell.Io
 
-Rectangle {
+PaddedRect {
     id: audioSource
-    implicitWidth: audioSourceText.implicitWidth + root.gap * 2
-    implicitHeight: audioSourceText.implicitHeight + root.gap * 2
-
-    color: "transparent"
-    border.color: root.colBorder
-    border.width: root.borderWidth
-    radius: root.borderRadius
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSource]
@@ -44,16 +37,8 @@ Rectangle {
         }
     }
 
-    Text {
+    child: CenterText {
         id: audioSourceText
-        color: root.colFg
-        font {
-            family: root.fontFamily
-            pixelSize: root.fontSize
-        }
-        anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
         property int volume: Pipewire.defaultAudioSource.audio.volume * 100
 
         text: Pipewire.defaultAudioSource.audio.muted ? "󰍭" : "󰍬 " + volume + "%"

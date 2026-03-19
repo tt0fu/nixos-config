@@ -4,18 +4,12 @@ import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
 
-Rectangle {
+PaddedRect {
     id: tray
-    implicitWidth: trayLayout.implicitWidth + root.gap * 2
-    implicitHeight: trayLayout.implicitHeight + root.gap * 2
 
-    color: "transparent"
-    border.color: root.colBorder
-    border.width: root.borderWidth
-    radius: root.borderRadius
     visible: SystemTray.items.values.length !== 0
 
-    RowLayout {
+    child: RowLayout {
         id: trayLayout
         anchors.fill: parent
         anchors.margins: root.gap

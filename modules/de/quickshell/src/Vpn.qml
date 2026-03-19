@@ -1,15 +1,8 @@
 import QtQuick
 import Quickshell.Io
 
-Rectangle {
+PaddedRect {
     id: vpn
-    implicitWidth: vpnText.implicitWidth + root.gap * 2
-    implicitHeight: vpnText.implicitHeight + root.gap * 2
-
-    color: "transparent"
-    border.color: root.colBorder
-    border.width: root.borderWidth
-    radius: root.borderRadius
 
     property bool enabled: false
 
@@ -51,16 +44,8 @@ Rectangle {
         }
     }
 
-    Text {
+    child: CenterText {
         id: vpnText
-        color: root.colFg
-        font {
-            family: root.fontFamily
-            pixelSize: root.fontSize
-        }
-        anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
         text: "󰖂 " + (vpn.enabled ? "" : "")
     }
 }
