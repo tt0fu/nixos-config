@@ -11,7 +11,7 @@
             "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
             palette =
               let
-                count = 7;
+                count = 8;
                 palette = map color.toHex (color.palette count 0.9 0.1);
               in
               {
@@ -59,6 +59,14 @@
                     background = "p:3";
                     foreground = "p:black";
                     powerline_symbol = "";
+                    style = "powerline";
+                    template = " {{ .HostName }} ";
+                    type = "session";
+                  }
+                  {
+                    background = "p:4";
+                    foreground = "p:black";
+                    powerline_symbol = "";
                     properties = {
                       style = "full";
                     };
@@ -67,7 +75,7 @@
                     type = "path";
                   }
                   {
-                    background = "p:4";
+                    background = "p:5";
                     foreground = "p:black";
                     powerline_symbol = "";
                     properties = {
@@ -80,7 +88,7 @@
                     type = "git";
                   }
                   {
-                    background = "p:5";
+                    background = "p:6";
                     foreground = "p:black";
                     properties = {
                       style = "roundrock";
@@ -98,7 +106,7 @@
                 alignment = "right";
                 segments = [
                   {
-                    background = "p:6";
+                    background = "p:7";
                     foreground = "p:black";
                     invert_powerline = true;
                     properties = {
