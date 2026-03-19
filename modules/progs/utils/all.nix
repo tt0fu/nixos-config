@@ -8,6 +8,7 @@
       kdeconnect
       missioncenter
       nautilus
+      stderred
       vlc
       yazi
     ];
