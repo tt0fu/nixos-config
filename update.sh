@@ -4,4 +4,4 @@ if [ "$1" == "" ]; then
     command="boot"
 fi
 
-sudo nix flake update && ./build.sh $command
+nix flake update && ./build.sh $command "${@:2}"
