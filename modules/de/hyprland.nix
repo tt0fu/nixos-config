@@ -42,8 +42,8 @@
               # follow_mouse = 0;
             }
           ];
-          monitor = [
-            "${systemSettings.monitor.name}, ${systemSettings.monitor.settings}"
+          monitor = with systemSettings.monitor; [
+            "${name}, ${toString width}x${toString height}@${toString framerate}, ${toString x}x${toString y}, ${toString scale}"
           ];
           bind = [
             "SUPER, ESCAPE, killactive"

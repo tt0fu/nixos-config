@@ -24,7 +24,12 @@
         locale = "en_US.UTF-8";
         monitor = {
           name = "eDP-1";
-          settings = "1920x1200@60, 0x0, 1";
+          width = 1920;
+          height = 1200;
+          framerate = 60;
+          x = 0;
+          y = 0;
+          scale = 1;
         };
       };
       styleOverrides = {
@@ -58,7 +63,12 @@
         locale = "en_US.UTF-8";
         monitor = {
           name = "DP-1";
-          settings = "1920x1080@165, 0x0, 1";
+          width = 1920;
+          height = 1080;
+          framerate = 165;
+          x = 0;
+          y = 0;
+          scale = 1;
         };
       };
       modules =
