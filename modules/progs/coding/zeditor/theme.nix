@@ -29,18 +29,9 @@ color: {
           substituteBg = gray 0.06;
 
           background = paletteTransparent 8 0.5 0.1 0.5;
-          regular = palette 8 0.7 0.1;
-          accent = palette 8 0.8 0.1;
-
-          syntax =
-            i:
-            (color.toHex (
-              color.lchToSrgb [
-                0.9
-                0.2
-                ((i / 34.0) * 0.5 + 0.875)
-              ]
-            ));
+          regular = palette 8 0.75 0.1;
+          accent = palette 8 0.9 0.1;
+          syntax = palette 8 0.75 0.15;
 
           getColor = ind: list: builtins.elemAt list ind;
 
@@ -227,142 +218,188 @@ color: {
           "version_control.conflict_background" = red background;
           "version_control.ignored" = gray 0.5;
           syntax = {
-            attribute.color = syntax 0;
 
-            boolean.color = syntax 1;
+            # <div foo="bar">
+            #      ^^^
+            attribute.color = yellow syntax;
 
-            character.color = syntax 2;
-            "character.special".color = syntax 2;
+            # bool flag = true;
+            #             ^^^^
+            boolean.color = mint syntax;
 
-            comment.color = syntax 3;
-            "comment.doc".color = syntax 3;
-            "comment.documentation".color = syntax 3;
-            "comment.error".color = syntax 3;
-            "comment.hint".color = syntax 3;
-            "comment.note".color = syntax 3;
-            "comment.todo".color = syntax 3;
-            "comment.warning".color = syntax 3;
+            # foo = bar; // comment
+            #            ^^^^^^^^^^
+            comment.color = gray 0.5;
 
-            concept.color = syntax 4;
+            # /**
+            #  * Some documentation
+            #  */
+            # ^^^^^^^^^^^^^^^^^^^^^
+            comment.doc.color = gray 0.75;
 
-            constant.color = syntax 5;
-            "constant.builtin".color = syntax 5;
-            "constant.macro".color = syntax 5;
+            # Const int FOO = 42;
+            #           ^^^
+            constant.color = blue syntax;
 
-            constructor.color = syntax 6;
+            # String foo = null;
+            #              ^^^^
+            constant.builtin.color = blue syntax;
 
-            "diff.minus".color = syntax 7;
-            "diff.plus".color = syntax 7;
+            # Foo foo = new Foo();
+            #               ^^^
+            constructor.color = orange syntax;
 
-            embedded.color = syntax 8;
+            # <script>alert('hello')</script>
+            #         ^^^^^^^^^^^^^^
+            embedded.color = gray 0.8;
 
-            emphasis.color = syntax 9;
-            "emphasis.strong".color = syntax 9;
+            # this text is *italic*
+            #              ^^^^^^^^
+            emphasis = {
+              color = gray 0.8;
+              font_style = "italic";
+            };
 
-            enum.color = syntax 10;
+            # this text is *bold*
+            #              ^^^^^^
+            emphasis.strong = {
+              color = gray 0.8;
+              font_weight = 700;
+            };
 
-            field.color = syntax 11;
+            # enum Foo { BAR, BAZ };
+            #      ^^^
+            enum.color = orange syntax;
 
-            float.color = syntax 12;
+            # void foo() { ... }
+            #      ^^^
+            function.color = orange syntax;
 
-            function.color = syntax 13;
-            "function.builtin".color = syntax 13;
-            "function.call".color = syntax 13;
-            "function.decorator".color = syntax 13;
-            "function.macro".color = syntax 13;
-            "function.method".color = syntax 13;
-            "function.method.call".color = syntax 13;
+            # /*@__PURE__*/ foo();
+            # ^^^^^^^^^^^^^
+            hint.color = lavender syntax;
 
-            hint.color = syntax 14;
+            # if (foo == bar) { ... }
+            # ^^
+            keyword.color = red syntax;
 
-            keyword.color = syntax 15;
-            "keyword.conditional".color = syntax 15;
-            "keyword.conditional.ternary".color = syntax 15;
-            "keyword.coroutine".color = syntax 15;
-            "keyword.debug".color = syntax 15;
-            "keyword.directive".color = syntax 15;
-            "keyword.directive.define".color = syntax 15;
-            "keyword.exception".color = syntax 15;
-            "keyword.export".color = syntax 15;
-            "keyword.function".color = syntax 15;
-            "keyword.import".color = syntax 15;
-            "keyword.modifier".color = syntax 15;
-            "keyword.operator".color = syntax 15;
-            "keyword.repeat".color = syntax 15;
-            "keyword.return".color = syntax 15;
-            "keyword.type".color = syntax 15;
+            # start: goto start;
+            # ^^^^^
+            label.color = orange syntax;
 
-            label.color = syntax 16;
+            # [example](https://example.com)
+            #  ^^^^^^^
+            link_text.color = gray 0.8;
 
-            link_text.color = syntax 16;
+            # [example](https://example.com)
+            #           ^^^^^^^^^^^^^^^^^^^
+            link_uri.color = lavender syntax;
 
-            link_uri.color = syntax 16;
+            # int foo = 42;
+            #           ^^
+            number.color = mint syntax;
 
-            module.color = syntax 16;
+            # int foo = bar + baz;
+            #         ^     ^
+            operator.color = red syntax;
 
-            namespace.color = syntax 16;
+            # # @predictive
+            #   ^^^^^^^^^^^
+            predictive.color = lavender syntax;
 
-            number.color = syntax 17;
-            "number.float".color = syntax 17;
+            # #include<iostream>
+            # ^^^^^^^^^^^^^^^^^^
+            preproc.color = lavender syntax;
 
-            operator.color = syntax 18;
+            # int a = b + c
+            #         ^
+            primary.color = mint syntax;
 
-            parameter.color = syntax 19;
+            # foo.bar = 42;
+            #     ^^^
+            property.color = yellow syntax;
 
-            parent.color = syntax 20;
+            # int foo = 42;
+            #             ^
+            punctuation.color = red syntax;
 
-            predictive.color = syntax 21;
+            # if (foo == bar) { ... }
+            #    ^          ^ ^     ^
+            punctuation.bracket.color = red syntax;
 
-            predoc.color = syntax 22;
+            # int arr[] = {1, 2, 3};
+            #               ^  ^
+            punctuation.delimiter.color = red syntax;
 
-            primary.color = syntax 23;
+            # foo
+            # - bar
+            # - baz
+            # ^
+            punctuation.list_marker.color = red syntax;
 
-            property.color = syntax 24;
+            # `code`
+            # ^    ^
+            punctuation.special.color = red syntax;
 
-            punctuation.color = syntax 25;
-            "punctuation.bracket".color = syntax 25;
-            "punctuation.delimiter".color = syntax 25;
-            "punctuation.list_marker".color = syntax 25;
-            "punctuation.special".color = syntax 25;
-            "punctuation.special.symbol".color = syntax 25;
+            # String foo = "bar"
+            #              ^^^^^
+            string.color = green syntax;
 
-            string.color = syntax 26;
-            "string.doc".color = syntax 26;
-            "string.documentation".color = syntax 26;
-            "string.escape".color = syntax 26;
-            "string.regex".color = syntax 26;
-            "string.regexp".color = syntax 26;
-            "string.special".color = syntax 26;
-            "string.special.path".color = syntax 26;
-            "string.special.symbol".color = syntax 26;
-            "string.special.url".color = syntax 26;
+            # print("hello \n world")
+            #              ^^
+            string.escape.color = mint syntax;
 
-            symbol.color = syntax 27;
+            # foo.match(/.*d*/)
+            #           ^^^^^^
+            string.regex.color = green syntax;
 
-            tag.color = syntax 28;
-            "tag.attribute".color = syntax 28;
-            "tag.delimiter".color = syntax 28;
-            "tag.doctype".color = syntax 28;
+            # f"Hello {name}"
+            # ^^^^^^^^^^^^^^^
+            string.special.color = mint syntax;
 
-            text.color = syntax 29;
-            "text.literal".color = syntax 29;
+            # :symbol
+            # ^^^^^^^
+            string.special.symbol.color = mint syntax;
 
-            title.color = syntax 30;
+            # <div foo="bar">
+            #  ^^^
+            tag.color = orange syntax;
 
-            type.color = syntax 31;
-            "type.builtin".color = syntax 31;
-            "type.class.definition".color = syntax 31;
-            "type.definition".color = syntax 31;
-            "type.interface".color = syntax 31;
-            "type.super".color = syntax 31;
+            # <!DOCTYPE html>
+            # ^^^^^^^^^^^^^^^
+            tag.doctype.color = orange syntax;
 
-            variable.color = syntax 32;
-            "variable.builtin".color = syntax 32;
-            "variable.member".color = syntax 32;
-            "variable.parameter".color = syntax 32;
-            "variable.special".color = syntax 32;
+            # This is regular text.
+            # ^^^^^^^^^^^^^^^^^^^^^
+            text.literal.color = gray 0.8;
 
-            variant.color = syntax 33;
+            # # Title
+            #   ^^^^^
+            title.color = mint syntax;
+
+            # MyType foo = new MyType();
+            # ^^^^^^
+            type.color = orange syntax;
+
+            # int foo = 42
+            # ^^^
+            type.builtin.color = orange syntax;
+
+            # int foo = 42;
+            #     ^^^
+            variable.color = yellow syntax;
+
+            # this.foo = 42;
+            # ^^^^
+            variable.special.color = orange syntax;
+
+            # void foo(int bar)
+            #              ^^^
+            variable.parameter.color = yellow syntax;
+
+            # enum Foo { Bar(int), Baz(String) };
+            #            ^^^       ^^^
+            variant.color = blue syntax;
           };
         };
     }

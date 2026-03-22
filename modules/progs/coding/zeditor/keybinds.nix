@@ -94,6 +94,9 @@
       backspace = "editor::Backspace";
       delete = "editor::Delete";
 
+      tab = "editor::Tab";
+
+      # enter = "editor::Newline";
       shift-enter = "editor::Newline";
 
       ctrl-enter = "editor::NewlineBelow";
@@ -123,6 +126,9 @@
 
       redo = "editor::Redo";
       ctrl-shift-z = "editor::Redo";
+
+      up = "editor::MoveUp";
+      down = "editor::MoveDown";
 
       ctrl-up = "editor::LineUp";
       ctrl-down = "editor::LineDown";
@@ -179,12 +185,9 @@
     };
   }
   {
-    context = "Editor && !(mode == single_line || renaming || showing_completions)";
+    context = "Editor && !renaming";
     bindings = {
-      tab = "editor::Tab";
       enter = "editor::Newline";
-      up = "editor::MoveUp";
-      down = "editor::MoveDown";
     };
   }
   {
@@ -200,12 +203,25 @@
     };
   }
   {
+    context = "Editor && (showing_completions || showing_code_actions)";
+    bindings = {
+      up = "editor::ContextMenuPrevious";
+      down = "editor::ContextMenuNext";
+      pageup = "editor::ContextMenuFirst";
+      pagedown = "editor::ContextMenuLast";
+    };
+  }
+  {
     context = "Editor && showing_completions";
     bindings = {
       enter = "editor::ConfirmCompletion";
       tab = "editor::ComposeCompletion";
-      up = "editor::ContextMenuPrevious";
-      down = "editor::ContextMenuNext";
+    };
+  }
+  {
+    context = "Editor && showing_code_actions";
+    bindings = {
+      enter = "editor::ConfirmCodeAction";
     };
   }
   {
