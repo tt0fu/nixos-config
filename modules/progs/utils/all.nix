@@ -8,7 +8,7 @@
       kdeconnect
       missioncenter
       nautilus
-      stderred
+      # stderred
       vlc
       yazi
     ];
