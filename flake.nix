@@ -56,5 +56,5 @@
     };
   };
 
-  outputs = inputs: ((import ./lib/builder.nix) inputs);
+  outputs = inputs: ((import ./lib/builder.nix).outputs inputs);
 }

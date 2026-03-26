@@ -1,4 +1,3 @@
-inputs:
 let
   loadModules =
     dir:
@@ -32,9 +31,11 @@ let
 
   allModules = loadModules ../modules;
 
+  applySelf = f: s: ({ pkgs, ... }@args: f (args // { self = s; }));
+
   normalizeModule = m: {
-    os = m.os or ({ ... }: { });
-    home = m.home or ({ ... }: { });
+    os = applySelf (m.os or ({ ... }: { })) m;
+    home = applySelf (m.home or ({ ... }: { })) m;
     deps = m.deps or (_: [ ]);
   };
 
@@ -67,56 +68,54 @@ let
   settings = import ../settings.nix;
 
   userSettings = settings.userSettings;
-
-  color = import ./color.nix { math = inputs.nix-math.lib.math; };
-
-  nixosConfigurations = builtins.mapAttrs (
-    name: curSystem:
-    let
-      systemSettings = curSystem.settings // {
-        hostname = name;
-      };
-
-      system = systemSettings.system;
-
-      style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
-
-      requested = curSystem.modules allModules;
-      expanded = resolveDeps requested;
-
-      specialArgs = {
-        inherit
-          inputs
-          systemSettings
-          userSettings
-          style
-          color
-          allModules
-          ;
-        usedModules = expanded;
-      };
-
-      modules = (collectOS expanded) ++ [
-        inputs.home-manager.nixosModules.default
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs = specialArgs;
-            users.${userSettings.username} =
-              { ... }:
-              {
-                imports = (collectHome expanded);
-              };
-          };
-        }
-      ];
-    in
-    inputs.nixpkgs.lib.nixosSystem {
-      inherit system specialArgs modules;
-    }
-  ) settings.systems;
 in
 {
-  inherit nixosConfigurations;
+  outputs = inputs: {
+    nixosConfigurations = builtins.mapAttrs (
+      name: curSystem:
+      let
+        systemSettings = curSystem.settings // {
+          hostname = name;
+        };
+
+        system = systemSettings.system;
+
+        style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
+
+        requested = curSystem.modules allModules;
+        expanded = resolveDeps requested;
+
+        specialArgs = {
+          inherit
+            inputs
+            systemSettings
+            userSettings
+            style
+            allModules
+            ;
+          color = import ./color.nix { math = inputs.nix-math.lib.math; };
+          usedModules = expanded;
+        };
+
+        modules = (collectOS expanded) ++ [
+          inputs.home-manager.nixosModules.default
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.${userSettings.username} =
+                { ... }:
+                {
+                  imports = (collectHome expanded);
+                };
+            };
+          }
+        ];
+      in
+      inputs.nixpkgs.lib.nixosSystem {
+        inherit system specialArgs modules;
+      }
+    ) settings.systems;
+  };
 }

@@ -1,9 +1,9 @@
 {
   home =
-    { pkgs, allModules, ... }:
+    { self, pkgs, ... }:
     {
       home.packages = [
-        (pkgs.callPackage allModules.progs."3d".metashape.package { })
+        (pkgs.callPackage self.package { })
       ];
     };
   package =
@@ -111,7 +111,7 @@
 
         runHook postInstall
       '';
-      
+
       meta = with lib; {
         description = "Professional photogrammetry software by Agisoft";
         homepage = "https://www.agisoft.com/";

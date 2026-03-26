@@ -86,7 +86,36 @@ Each module has the following structure:
   deps = modules: with modules; [
     <list of modules this module depends on>
   ];
-  <any additional fields that can be referenced with allModules or usedModules special arg>
+  <any additional fields that can be referenced with "allModules", "usedModules" or "self" special argument>
+}
+```
+
+A hypothetical example:
+
+```
+# modules/progs/example/foo.nix
+{
+  os =
+  { ... }:
+  {
+    services.foo.enable = true; # enables the foo service via a nixos option
+  };
+
+  home =
+  { self, ... }:
+  {
+    home.packages = [
+      self.foo-status-package # installs the "foo-status" package defined below through home-manager
+    ];
+  };
+
+  foo-status-package = pkgs.writeShellScriptBin "foo-status" '' # defines a derivation for a custom shell script
+    watch fooctl --status
+  '';
+
+  deps = modules: with modules; [
+    progs.example.bar # sets modules/progs/example/bar.nix as a dependency, which will enable the bar module if the foo module is enabled
+  ];
 }
 ```
 
@@ -94,6 +123,6 @@ The structure of the `deps` attribute is the same as the module list in `setting
 
 ## Usage
 
-- To rebuild, run `build.sh` with the command of nixos-rebuild. For example: `build.sh boot` or `build.sh repl`, etc. The default argument is `switch`.
-- To update and rebuild, run `update.sh` with the command of nixos-rebuild. The default argument is `boot`.
+- To rebuild, run `build.sh` with the command of nh os and any additional arguments. For example: `build.sh boot --install-bootloader` or `build.sh repl`, etc. The default command is `switch`.
+- To update and rebuild, run `update.sh` with the command of nh os and any additional arguments. The default command is `boot`.
 - To clean unused files, delete previous generations and optimize the nix store, run `clean.sh`.

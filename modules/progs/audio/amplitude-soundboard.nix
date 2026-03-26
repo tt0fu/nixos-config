@@ -1,9 +1,9 @@
 {
   home =
-    { pkgs, allModules, ... }:
+    { self, pkgs, ... }:
     {
       home.packages = [
-        (pkgs.callPackage allModules.progs.audio.amplitude-soundboard.package { })
+        (pkgs.callPackage self.package { })
       ];
       programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<amplitude_soundboard>" =
         "";
