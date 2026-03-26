@@ -55,4 +55,5 @@
       ];
       programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<dev.zed.Zed>" = "󰰶";
     };
+  deps = modules: with modules; [ progs.utils.nix-ld ];
 }
