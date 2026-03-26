@@ -86,7 +86,7 @@ Each module has the following structure:
   deps = modules: with modules; [
     <list of modules this module depends on>
   ];
-  <any additional fields that can be referenced with "allModules", "usedModules" or "self" special argument>
+  <any additional attributes that can be referenced with "allModules", "usedModules" or "self" special arguments>
 }
 ```
 
