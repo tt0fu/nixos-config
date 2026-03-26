@@ -11,7 +11,7 @@
     };
   home =
     {
-      inputs,
+      # inputs,
       systemSettings,
       style,
       pkgs,
@@ -30,7 +30,7 @@
         # portalPackage =
         #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         plugins = [
-          # pkgs.hyprlandPlugins.hypr-dynamic-cursors
+          pkgs.hyprlandPlugins.hypr-dynamic-cursors
           # inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors
         ];
         settings = {
@@ -150,12 +150,10 @@
           dwindle = {
             smart_split = true;
           };
-          # scrolling = {
-          #   column_width = 0.6;
-          #   fullscreen_on_one_column = true;
-          #   follow_focus = false;
-          #   focus_fit_method = 1;
-          # };
+          scrolling = {
+            column_width = 0.6;
+            fullscreen_on_one_column = true;
+          };
           master = {
             allow_small_split = true;
           };
@@ -163,9 +161,11 @@
             no_donation_nag = true;
             no_update_news = true;
           };
-          # plugin = {
-          #   dynamic-cursors = { };
-          # };
+          plugin = {
+            dynamic-cursors = { 
+              mode = "none";
+            };
+          };
         };
       };
       home.sessionVariables = {
