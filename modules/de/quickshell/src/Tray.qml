@@ -1,5 +1,3 @@
-import Quickshell
-import Quickshell.Hyprland
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
@@ -27,11 +25,10 @@ PaddedRect {
                 fillMode: Image.PreserveAspectFit
 
                 TrayMenu {
-                    id: trayWindow
+                    id: trayMenu
                     menuHandle: modelData.menu
                     anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + barLayout.x + windowRect.x
                     anchorY: root.implicitHeight
-                    visible: false
                 }
 
                 MouseArea {
@@ -40,14 +37,14 @@ PaddedRect {
                     onPressed: event => {
                         if (event.buttons & Qt.LeftButton) {
                             if (modelData.onlyMenu) {
-                                trayWindow.toggleVisibility();
+                                trayMenu.toggleVisibility();
                             } else {
                                 modelData.activate();
                             }
                         }
                         if (event.buttons & Qt.RightButton) {
                             if (modelData.hasMenu) {
-                                trayWindow.toggleVisibility();
+                                trayMenu.toggleVisibility();
                             } else {
                                 modelData.activate();
                             }

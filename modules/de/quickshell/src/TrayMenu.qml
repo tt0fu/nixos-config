@@ -1,8 +1,6 @@
 import Quickshell
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Widgets
 
 PopupWindow {
     id: menuWindow
@@ -14,11 +12,6 @@ PopupWindow {
     property real anchorX: 0
     property real anchorY: 0
 
-    QsMenuOpener {
-        id: menu
-        menu: menuHandle
-    }
-
     anchor.window: root
     anchor.rect.x: anchorX
     anchor.rect.y: anchorY
@@ -28,12 +21,25 @@ PopupWindow {
 
     color: "transparent"
 
+    // Loader {
+    //     id: trayMenuLoader
+    //     anchors.fill: parent
+    //     active: false
+    //     onActiveChanged: console.log("Reloaded")
+    //     sourceComponent: ;
+    // }
+
     Rectangle {
         anchors.fill: parent
         color: root.colBg
         border.color: root.colBorder
         border.width: root.borderWidth
         radius: root.borderRadius
+
+        QsMenuOpener {
+            id: menuOpener
+            menu: menuHandle
+        }
 
         ColumnLayout {
             id: menuLayout
@@ -43,7 +49,7 @@ PopupWindow {
 
             Repeater {
                 id: menuRepeater
-                model: menu.children
+                model: menuOpener.children
 
                 Item {
                     required property QsMenuEntry modelData
@@ -73,10 +79,12 @@ PopupWindow {
                         }
 
                         MyText {
+                            color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
                             text: modelData.text
                         }
 
                         MyText {
+                            color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
                             text: {
                                 if (modelData.buttonType === QsMenuButtonType.None) {
                                     return modelData.hasChildren ? "" : "";
@@ -121,6 +129,8 @@ PopupWindow {
 
                         onClicked: {
                             modelData.triggered();
+                            //     trayMenuLoader.active = !trayMenuLoader.active;
+                            //     trayMenuLoader.active = !trayMenuLoader.active;
                         }
                     }
                 }
