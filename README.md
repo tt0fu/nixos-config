@@ -6,7 +6,7 @@
 
 1. Install NixOS and add these lines to your `/etc/nixos/configuration.nix`
 
-```
+```nix
 ...
 networking.hostName = "<your hostname>";
 environment.systemPackages = with pkgs; [
@@ -22,20 +22,20 @@ programs.nh.enable = true;
 
 2. Rebuild the system:
 
-```
+```sh
 $ sudo nixos-rebuild switch
 ```
 
 3. Clone this repository and enter it:
 
-```
+```sh
 $ git clone https://github.com/tt0fu/nixos-config
 $ cd nixos-config
 ```
 
 4. Add your `hardware-configuration.nix` as a module in `./modules/systems/<your hostname>.nix`. Don't forget to wrap it:
 
-```
+```nix
 # modules/systems/<your hostname>.nix
 {
   os = <the contents of the original hardware-configuration.nix>
@@ -44,7 +44,7 @@ $ cd nixos-config
 
 So it will look something like this:
 
-```
+```nix
 # modules/systems/<your hostname>.nix
 {
   os =
@@ -69,7 +69,7 @@ So it will look something like this:
 
 6. Build the system and reboot:
 
-```
+```sh
 $ ./build.sh boot && reboot
 ```
 
@@ -79,7 +79,7 @@ After rebooting, you should now see the config successfully applied to your inst
 
 Each module has the following structure:
 
-```
+```nix
 {
   os = <nixos configuration expression>
   home = <home-manager configuration expression>
@@ -92,7 +92,7 @@ Each module has the following structure:
 
 A hypothetical example:
 
-```
+```nix
 # modules/progs/example/foo.nix
 {
   os =
