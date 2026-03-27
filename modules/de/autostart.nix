@@ -1,6 +1,7 @@
 {
   os =
     {
+      pkgs,
       userSettings,
       ...
     }:
@@ -18,7 +19,7 @@
           };
           default_session = {
             user = userSettings.username;
-            command = "agreety --cmd sh";
+            command = "${pkgs.greetd}/bin/agreety --cmd sh";
           };
         };
       };
