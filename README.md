@@ -106,6 +106,7 @@ A hypothetical example:
   {
     home.packages = [
       self.foo-status-package # installs the "foo-status" package defined below through home-manager
+      # can also be referenced as allModules.progs.example.foo.foo-status-package
     ];
   };
 
