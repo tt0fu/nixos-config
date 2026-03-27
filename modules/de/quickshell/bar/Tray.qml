@@ -24,11 +24,21 @@ PaddedRect {
                 sourceSize.height: root.iconSize
                 fillMode: Image.PreserveAspectFit
 
-                TrayMenu {
-                    id: trayMenu
-                    menuHandle: modelData.menu
-                    anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + barLayout.x + windowRect.x
-                    anchorY: root.implicitHeight
+                Loader {
+                    id: trayMenuLoader
+                    anchors.fill: parent
+                    active: true
+                    sourceComponent: TrayMenu {
+                        id: trayMenu
+                        menuHandle: modelData.menu
+                        anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + barLayout.x + windowRect.x
+                        anchorY: root.implicitHeight
+                    }
+
+                    function reloadTrayMenu() {
+                        active = !active;
+                        active = !active;
+                    }
                 }
 
                 MouseArea {
@@ -37,14 +47,14 @@ PaddedRect {
                     onPressed: event => {
                         if (event.buttons & Qt.LeftButton) {
                             if (modelData.onlyMenu) {
-                                trayMenu.toggleVisibility();
+                                trayMenuLoader.item.toggleVisibility();
                             } else {
                                 modelData.activate();
                             }
                         }
                         if (event.buttons & Qt.RightButton) {
                             if (modelData.hasMenu) {
-                                trayMenu.toggleVisibility();
+                                trayMenuLoader.item.toggleVisibility();
                             } else {
                                 modelData.activate();
                             }

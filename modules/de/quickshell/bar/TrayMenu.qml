@@ -21,15 +21,13 @@ PopupWindow {
 
     color: "transparent"
 
-    // Loader {
-    //     id: trayMenuLoader
-    //     anchors.fill: parent
-    //     active: false
-    //     onActiveChanged: console.log("Reloaded")
-    //     sourceComponent: ;
-    // }
+    Loader {
+        id: childMenuLoader
+        active: false
+    }
 
     Rectangle {
+        id: menuWindowBg
         anchors.fill: parent
         color: root.colBg
         border.color: root.colBorder
@@ -40,36 +38,37 @@ PopupWindow {
             id: menuOpener
             menu: menuHandle
         }
-
         ColumnLayout {
             id: menuLayout
             anchors.fill: parent
             anchors.margins: root.gap
             spacing: root.gap
 
-            Repeater {
-                id: menuRepeater
-                model: menuOpener.children
+            Component {
+                id: menuSeparator
+                Rectangle {
+                    Layout.fillWidth: true
+                    implicitHeight: root.borderWidth
+                    color: root.colFg
+                }
+            }
 
+            Component {
+                id: menuButton
                 Item {
-                    required property QsMenuEntry modelData
+                    id: menuButtonRoot
 
-                    implicitWidth: modelData.isSeparator ? menuLayout.implicitWidth : menuItemRow.implicitWidth + root.gap * 2
-                    implicitHeight: modelData.isSeparator ? root.borderWidth : menuItemRow.implicitHeight + root.gap * 2
+                    property int offset
 
-                    Rectangle {
-                        height: root.borderWidth
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: menuLayout.implicitWidth
-                        color: root.colFg
-                        visible: modelData.isSeparator
-                    }
+                    Layout.fillWidth: true
+
+                    implicitWidth: menuButtonRow.implicitWidth
+                    implicitHeight: menuButtonRow.implicitHeight
 
                     RowLayout {
-                        id: menuItemRow
-                        anchors.fill: parent
-                        anchors.margins: root.gap
-                        visible: !modelData.isSeparator
+                        id: menuButtonRow
+                        width: parent.width
+                        spacing: root.gap
 
                         Image {
                             source: modelData.icon
@@ -79,11 +78,16 @@ PopupWindow {
                         }
 
                         MyText {
+                            Layout.fillWidth: true
                             color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
                             text: modelData.text
                         }
 
                         MyText {
+                            id: menuIndicatorText
+                            Layout.minimumWidth: root.fontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
                             color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
                             text: {
                                 if (modelData.buttonType === QsMenuButtonType.None) {
@@ -96,7 +100,6 @@ PopupWindow {
                             }
                         }
                     }
-
                     MouseArea {
                         id: menuItemMouseArea
                         anchors.fill: parent
@@ -104,20 +107,15 @@ PopupWindow {
 
                         onEntered: {
                             if (modelData.hasChildren) {
-                                destroyChild();
-
-                                const component = Qt.createComponent("TrayMenu.qml");
-
-                                if (component.status === Component.Ready) {
-                                    childMenu = component.createObject(root, {
-                                        menuHandle: modelData,
-                                        parentMenu: menuWindow,
-                                        anchorX: menuWindow.anchor.rect.x + menuWindow.width,
-                                        anchorY: menuWindow.anchor.rect.y + parent.y
-                                    });
-
-                                    childMenu.visible = true;
-                                }
+                                childMenuLoader.setSource("TrayMenu.qml", {
+                                    menuHandle: modelData,
+                                    parentMenu: menuWindow,
+                                    anchorX: menuWindow.anchor.rect.x + menuWindow.width,
+                                    anchorY: menuWindow.anchor.rect.y + menuButtonRoot.mapToItem(menuWindowBg, 0, 0).y
+                                });
+                                childMenuLoader.active = true;
+                                childMenu = childMenuLoader.item;
+                                childMenu.visible = true;
                             }
                         }
 
@@ -129,10 +127,19 @@ PopupWindow {
 
                         onClicked: {
                             modelData.triggered();
-                            //     trayMenuLoader.active = !trayMenuLoader.active;
-                            //     trayMenuLoader.active = !trayMenuLoader.active;
+                            reloadTrayMenu();
                         }
                     }
+                }
+            }
+            Repeater {
+                model: menuOpener.children
+
+                Loader {
+                    id: menuButtonLoader
+                    required property QsMenuEntry modelData
+                    Layout.fillWidth: true
+                    sourceComponent: modelData.isSeparator ? menuSeparator : menuButton
                 }
             }
         }
@@ -173,7 +180,7 @@ PopupWindow {
     function destroyChild() {
         if (childMenu) {
             childMenu.destroyChild();
-            childMenu.destroy();
+            childMenuLoader.active = false;
             childMenu = null;
         }
     }

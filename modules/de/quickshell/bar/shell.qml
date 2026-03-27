@@ -66,10 +66,6 @@ ShellRoot {
                     Vpn {}
 
                     Tray {}
-
-                    // TrayDebug {}
-                    
-                    // TrayNew {}
                 }
 
                 Workspaces {
@@ -87,6 +83,8 @@ ShellRoot {
                     AudioSink {}
 
                     AudioSource {}
+                    
+                    Network {}
 
                     Power {}
 

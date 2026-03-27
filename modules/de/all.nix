@@ -16,7 +16,7 @@
       prompt
       qt
       quickshell.default
-      status-bar
+      # waybar
       wallpaper.default
       xdg
     ];
