@@ -46,6 +46,7 @@
           ]
           ++ (with progs; [
             coding.all
+            dj.all
             essential.all
             misc.all
             networking.all
