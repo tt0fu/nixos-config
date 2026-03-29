@@ -162,8 +162,19 @@
             no_update_news = true;
           };
           plugin = {
-            dynamic-cursors = { 
-              mode = "none";
+            dynamic-cursors = {
+              mode = "stretch";
+              stretch = {
+                limit = 15000;
+              };
+              shake = {
+                threshold = 7.5;
+                effects = true;
+                timeout = 1500;
+              };
+              hyprcursor = {
+                nearest = false;
+              };
             };
           };
         };
