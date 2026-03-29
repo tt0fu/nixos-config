@@ -1,5 +1,5 @@
 {
-  os =
+  home =
     { ... }:
     {
       services.syncthing = {
