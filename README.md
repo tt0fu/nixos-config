@@ -110,7 +110,8 @@ A hypothetical example:
     ];
   };
 
-  foo-status-package = pkgs.writeShellScriptBin "foo-status" '' # defines a derivation for a custom shell script
+  foo-status-package = pkgs.writeShellScriptBin "foo-status"  # defines a derivation for a custom shell script
+  ''
     watch fooctl --status
   '';
 
