@@ -5,11 +5,13 @@
       btop
       caligula
       feh
+      gnome-disks
       kdeconnect
       missioncenter
       nautilus
       nix-ld
       # stderred
+      syncthing
       vlc
       yazi
     ];
