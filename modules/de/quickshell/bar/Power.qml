@@ -12,5 +12,6 @@ PaddedRect {
         property string batteryIcon: ["", "", "", "", ""][Math.ceil(Math.floor(charge * 5 / 100), 4)]
 
         text: (UPower.onBattery ? batteryIcon : "") + " " + charge + "%"
+        color: Qt.hsva(charge / 300.0, 1, 1, 1)
     }
 }
