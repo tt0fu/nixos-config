@@ -29,6 +29,12 @@ PaddedRect {
                 border.color: isUrgent ? root.colUrgent : (isActive ? root.colActive : (isHover ? root.colHover : root.colInactive))
                 visible: isNonEmpty
 
+                Behavior on border.color {
+                    ColorAnimation {
+                        duration: root.animationDuration
+                    }
+                }
+                
                 MouseArea {
                     id: workspaceMouseArea
                     anchors.fill: parent

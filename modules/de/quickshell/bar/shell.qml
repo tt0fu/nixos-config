@@ -12,7 +12,6 @@ ShellRoot {
     PanelWindow {
         id: root
 
-        // Theme
         property color colBg: "#01000000"
         property color colFg: "white"
         property color colBorder: "white"
@@ -31,6 +30,8 @@ ShellRoot {
         property int fontSize: 15
 
         property int iconSize: 20
+
+        property int animationDuration: 100
 
         anchors.top: true
         anchors.left: true
@@ -83,7 +84,7 @@ ShellRoot {
                     AudioSink {}
 
                     AudioSource {}
-                    
+
                     Network {}
 
                     Power {}
