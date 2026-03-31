@@ -81,6 +81,12 @@ PopupWindow {
                             Layout.fillWidth: true
                             color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
                             text: modelData.text
+                            
+                            Behavior on color {
+                                ColorAnimation {
+                                    duration: root.animationDuration
+                                }
+                            }
                         }
 
                         MyText {

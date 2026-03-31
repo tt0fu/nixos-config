@@ -86,6 +86,22 @@ vec3 srgb_lsrgb(vec3 srgb) {
     return mix(xlo, xhi, step(vec3(0.04045), srgb));
 }
 
+vec3 oklab_srgb(vec3 oklab) {
+    return lsrgb_srgb(oklab_lsrgb(oklab));
+}
+
+vec3 srgb_oklab(vec3 srgb) {
+    return lsrgb_oklab(srgb_lsrgb(srgb));
+}
+
+vec3 lch_srgb(vec3 lch) {
+    return lsrgb_srgb(lch_lsrgb(lch));
+}
+
+vec3 srgb_lch(vec3 srgb) {
+    return lsrgb_lch(srgb_lsrgb(srgb));
+}
+
 vec3 hue_lsrgb(float hue) {
     return lch_lsrgb(vec3(LIGHTNESS, CHROMA, hue));
 }

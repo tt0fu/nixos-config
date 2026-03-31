@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Services.UPower
+import "Oklab.js" as Oklab
 
 PaddedRect {
     id: power
@@ -8,10 +9,9 @@ PaddedRect {
 
     child: CenterText {
         id: powerText
-        property int charge: UPower.displayDevice.percentage * 100
-        property string batteryIcon: ["", "", "", "", ""][Math.ceil(Math.floor(charge * 5 / 100), 4)]
+        property real charge: UPower.displayDevice.percentage
 
-        text: (UPower.onBattery ? batteryIcon : "") + " " + charge + "%"
-        color: Qt.hsva(charge / 300.0, 1, 1, 1)
+        text: (UPower.onBattery ? ["", "", "", "", ""][Math.ceil(Math.floor(charge * 5), 4)] : "") + " " + Math.round(charge * 100) + "%"
+        color: Oklab.red_to_green(charge)
     }
 }

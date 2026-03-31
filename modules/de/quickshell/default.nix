@@ -20,5 +20,6 @@
     };
     deps = modules: with modules; [
       progs.utils.nmgui
+      progs.utils.libnotify
     ];
 }

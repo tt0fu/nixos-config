@@ -67,6 +67,8 @@ ShellRoot {
                     Vpn {}
 
                     Tray {}
+
+                    // Test {}
                 }
 
                 Workspaces {
