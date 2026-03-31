@@ -18,4 +18,7 @@
         exec-once = [ "qs -c bar" ];
       };
     };
+    deps = modules: with modules; [
+      progs.utils.nmgui
+    ];
 }

@@ -10,6 +10,7 @@
       missioncenter
       nautilus
       nix-ld
+      nmgui
       # stderred
       syncthing
       vlc
