@@ -96,7 +96,7 @@
             studying.all
             utils.all
             video.all
-            # virtualization.all
+            virtualization.all
             vr.all
           ])
         );
