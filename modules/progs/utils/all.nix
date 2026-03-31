@@ -7,6 +7,7 @@
       feh
       gnome-disks
       kdeconnect
+      libnotify
       missioncenter
       nautilus
       nix-ld
