@@ -17,4 +17,33 @@ Rectangle {
         anchors.fill: parent
         data: child
     }
+    Behavior on x {
+        NumberAnimation {
+            duration: root.animationDuration
+            easing.type: Easing.InOutQuad
+        }
+    }
+    Behavior on y {
+        NumberAnimation {
+            duration: root.animationDuration
+            easing.type: Easing.InOutQuad
+        }
+    }
+    Behavior on implicitWidth {
+        NumberAnimation {
+            duration: root.animationDuration
+            easing.type: Easing.InOutQuad
+        }
+    }
+    Behavior on implicitHeight {
+        NumberAnimation {
+            duration: root.animationDuration
+            easing.type: Easing.InOutQuad
+        }
+    }
+    Behavior on border.color {
+        ColorAnimation {
+            duration: root.animationDuration
+        }
+    }
 }
