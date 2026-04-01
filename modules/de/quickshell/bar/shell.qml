@@ -73,6 +73,7 @@ ShellRoot {
 
                 Workspaces {
                     id: workspaces
+                    anchors.centerIn: parent
                 }
 
                 RowLayout {

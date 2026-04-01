@@ -5,7 +5,6 @@ import Quickshell.Hyprland
 
 PaddedRect {
     id: workspaces
-    anchors.centerIn: parent
 
     child: RowLayout {
         id: workspacesLayout
@@ -14,32 +13,33 @@ PaddedRect {
         spacing: root.gap
 
         Repeater {
+            id: workspacesRepeater
             model: 9
 
             PaddedRect {
-                id: workspace
-                required property int index;
-                property var currentWorkspace: Hyprland.workspaces.values.find(w => w.id === index + 1)
-                property var workspaceClients: isNonEmpty ? currentWorkspace.toplevels.values : []
-                property bool isNonEmpty: currentWorkspace ? true : false
-                property bool isActive: isNonEmpty ? currentWorkspace.active : false
-                property bool isUrgent: isNonEmpty ? currentWorkspace.urgent : false
-                property bool isHover: workspaceMouseArea.containsMouse
+                id: workspaceRect
+                required property int index
+                property HyprlandWorkspace workspace: Hyprland.workspaces.values.find(w => w.id === index + 1) ?? null
+                property bool isUrgent: workspace ? workspace.urgent : false
+                property var topLevels: workspace ? workspace.toplevels : []
 
-                border.color: isUrgent ? root.colUrgent : (isActive ? root.colActive : (isHover ? root.colHover : root.colInactive))
-                visible: isNonEmpty
+                border.color: isUrgent ? root.colUrgent : (workspaceMouseArea.containsMouse ? root.colHover : root.colInactive)
 
-                Behavior on border.color {
-                    ColorAnimation {
-                        duration: root.animationDuration
-                    }
-                }
-                
+                z: 0
+
                 MouseArea {
                     id: workspaceMouseArea
                     anchors.fill: parent
-                    onClicked: Hyprland.dispatch("workspace " + (index + 1))
                     hoverEnabled: true
+                    acceptedButtons: Qt.AllButtons
+                    onPressed: event => {
+                        if (event.buttons & Qt.LeftButton) {
+                            Hyprland.dispatch("workspace " + (index + 1))
+                        }
+                        if (event.buttons & Qt.RightButton) {
+                            Hyprland.dispatch("movetoworkspace " + (index + 1))
+                        }
+                    }
                 }
 
                 child: RowLayout {
@@ -55,7 +55,7 @@ PaddedRect {
                     }
 
                     Repeater {
-                        model: workspace.workspaceClients
+                        model: topLevels
 
                         Image {
                             required property HyprlandToplevel modelData
@@ -67,6 +67,41 @@ PaddedRect {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    Rectangle {
+        id: selectionRect
+        z: 1
+        color: "transparent"
+        border.color: Hyprland.focusedWorkspace.urgent ? root.colUrgent : root.colBorder
+        border.width: root.borderWidth
+        radius: root.borderRadius
+
+        property Item targetItem: workspacesRepeater.itemAt(Hyprland.focusedWorkspace.id - 1) ?? workspaces
+        property rect targetRect: targetItem.mapToItem(workspaces, 0, 0, targetItem.width, targetItem.height)
+
+        x: targetRect.x
+        y: targetRect.y
+        width: targetRect.width
+        height: targetRect.height
+
+        Behavior on border.color {
+            ColorAnimation {
+                duration: root.animationDuration
+            }
+        }
+        Behavior on x {
+            NumberAnimation {
+                duration: root.animationDuration
+                easing.type: Easing.InOutQuad
+            }
+        }
+        Behavior on y {
+            NumberAnimation {
+                duration: root.animationDuration
+                easing.type: Easing.InOutQuad
             }
         }
     }
