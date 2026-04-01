@@ -3,11 +3,9 @@
     { userSettings, ... }:
 
     {
-      virtualisation.docker = {
+      virtualisation.podman = {
         enable = true;
-        enableOnBoot = true;
       };
-      users.users.${userSettings.username}.extraGroups = [ "docker" ];
     };
   home =
     { pkgs, ... }:
