@@ -83,9 +83,7 @@ PopupWindow {
                             text: modelData.text
 
                             Behavior on color {
-                                ColorAnimation {
-                                    duration: root.animationDuration
-                                }
+                                MyColorAnimation {}
                             }
                         }
 

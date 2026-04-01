@@ -37,4 +37,8 @@ PaddedRect {
         id: statusDisplay
         text: statusText
     }
+    
+    Behavior on implicitWidth {
+        MyNumberAnimation {}
+    }
 }

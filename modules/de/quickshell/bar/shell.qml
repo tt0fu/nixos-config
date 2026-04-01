@@ -32,6 +32,7 @@ ShellRoot {
         property int iconSize: 20
 
         property int animationDuration: 100
+        property var easingType: Easing.InOutQuad
 
         anchors.top: true
         anchors.left: true
@@ -67,8 +68,6 @@ ShellRoot {
                     Vpn {}
 
                     Tray {}
-
-                    // Test {}
                 }
 
                 Workspaces {

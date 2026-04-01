@@ -20,4 +20,8 @@ PaddedRect {
         text: val.toPrecision(3)
         color: Oklab.red_to_green(val);
     }
+    
+    Behavior on implicitWidth {
+        MyNumberAnimation {}
+    }
 }

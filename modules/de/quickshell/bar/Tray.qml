@@ -67,4 +67,8 @@ PaddedRect {
             }
         }
     }
+    
+    Behavior on implicitWidth {
+        MyNumberAnimation {}
+    }
 }

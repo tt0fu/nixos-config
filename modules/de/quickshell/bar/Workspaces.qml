@@ -3,23 +3,43 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 
-PaddedRect {
+Item {
     id: workspaces
+    anchors.centerIn: parent
 
-    child: RowLayout {
+    property Item targetItem: workspacesRepeater.itemAt(Hyprland.workspaces.values.findIndex(w => w.focused)) ?? workspacesLayout
+
+    implicitWidth: workspacesLayout.implicitWidth * 2 - Math.min(workspacesRepeater.itemAt(0).implicitWidth, workspacesRepeater.itemAt(workspacesRepeater.count - 1).implicitWidth)
+    implicitHeight: workspacesLayout.implicitHeight
+
+    RowLayout {
         id: workspacesLayout
-        anchors.fill: parent
-        anchors.margins: root.gap
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: (workspacesLayout.width - targetItem.width) / 2 - targetItem.mapToItem(workspacesLayout, 0, 0).x
+
+        Behavior on anchors.horizontalCenterOffset {
+            MyNumberAnimation {}
+        }
+
         spacing: root.gap
 
         Repeater {
             id: workspacesRepeater
-            model: 9
+
+            // model: 9
+            model: Hyprland.workspaces
 
             PaddedRect {
                 id: workspaceRect
-                required property int index
-                property HyprlandWorkspace workspace: Hyprland.workspaces.values.find(w => w.id === index + 1) ?? null
+
+                // required property int index
+                // property HyprlandWorkspace workspace: Hyprland.workspaces.values.find(w => w.id === index + 1) ?? null
+                // property string name: index + 1
+
+                required property HyprlandWorkspace modelData
+                property HyprlandWorkspace workspace: modelData
+                property string name: workspace.id
+
                 property bool isUrgent: workspace ? workspace.urgent : false
                 property var topLevels: workspace ? workspace.toplevels : []
 
@@ -34,10 +54,10 @@ PaddedRect {
                     acceptedButtons: Qt.AllButtons
                     onPressed: event => {
                         if (event.buttons & Qt.LeftButton) {
-                            Hyprland.dispatch("workspace " + (index + 1))
+                            Hyprland.dispatch("workspace " + name);
                         }
                         if (event.buttons & Qt.RightButton) {
-                            Hyprland.dispatch("movetoworkspace " + (index + 1))
+                            Hyprland.dispatch("movetoworkspace " + name);
                         }
                     }
                 }
@@ -51,7 +71,7 @@ PaddedRect {
                     CenterText {
                         id: workspaceText
                         anchors.fill: null
-                        text: index + 1
+                        text: name
                     }
 
                     Repeater {
@@ -67,42 +87,39 @@ PaddedRect {
                         }
                     }
                 }
+                Behavior on implicitWidth {
+                    MyNumberAnimation {}
+                }
             }
         }
     }
 
-    Rectangle {
+    onTargetItemChanged: {
+        selectionRect.animateSize = true;
+        Qt.callLater(() => selectionRect.animateSize = false);
+    }
+
+    MyRect {
         id: selectionRect
+        anchors.centerIn: parent
         z: 1
-        color: "transparent"
         border.color: Hyprland.focusedWorkspace.urgent ? root.colUrgent : root.colBorder
-        border.width: root.borderWidth
-        radius: root.borderRadius
 
-        property Item targetItem: workspacesRepeater.itemAt(Hyprland.focusedWorkspace.id - 1) ?? workspaces
-        property rect targetRect: targetItem.mapToItem(workspaces, 0, 0, targetItem.width, targetItem.height)
+        width: targetItem.width
+        height: targetItem.height
 
-        x: targetRect.x
-        y: targetRect.y
-        width: targetRect.width
-        height: targetRect.height
+        property bool animateSize: false
 
         Behavior on border.color {
-            ColorAnimation {
-                duration: root.animationDuration
-            }
+            MyColorAnimation {}
         }
-        Behavior on x {
-            NumberAnimation {
-                duration: root.animationDuration
-                easing.type: Easing.InOutQuad
-            }
+        Behavior on width {
+            enabled: selectionRect.animateSize
+            MyNumberAnimation {}
         }
-        Behavior on y {
-            NumberAnimation {
-                duration: root.animationDuration
-                easing.type: Easing.InOutQuad
-            }
+        Behavior on height {
+            enabled: selectionRect.animateSize
+            MyNumberAnimation {}
         }
     }
 }

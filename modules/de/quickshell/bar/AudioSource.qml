@@ -42,4 +42,8 @@ PaddedRect {
 
         text: Pipewire.defaultAudioSource.audio.muted ? "󰍭" : "󰍬 " + Math.round(Pipewire.defaultAudioSource.audio.volume * 100) + "%"
     }
+
+    Behavior on implicitWidth {
+        MyNumberAnimation {}
+    }
 }

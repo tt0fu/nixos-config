@@ -48,4 +48,8 @@ PaddedRect {
         id: vpnText
         text: "󰖂 " + (vpn.enabled ? "" : "")
     }
+    
+    Behavior on implicitWidth {
+        MyNumberAnimation {}
+    }
 }

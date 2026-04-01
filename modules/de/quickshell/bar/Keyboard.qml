@@ -28,4 +28,8 @@ PaddedRect {
         id: keyboardText
         text: keyboard.layout
     }
+    
+    Behavior on implicitWidth {
+        MyNumberAnimation {}
+    }
 }
