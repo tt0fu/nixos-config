@@ -81,7 +81,7 @@ PopupWindow {
                             Layout.fillWidth: true
                             color: menuItemMouseArea.containsMouse ? root.colHover : root.colFg
                             text: modelData.text
-                            
+
                             Behavior on color {
                                 ColorAnimation {
                                     duration: root.animationDuration
@@ -191,7 +191,8 @@ PopupWindow {
         }
     }
 
-    function startSelfCloseTimer() {
+    function startSelfCloseTimer(interval = 500) {
+        selfCloseTimer.interval = interval;
         selfCloseTimer.start();
     }
 
@@ -207,6 +208,7 @@ PopupWindow {
             closeSelf();
         } else {
             visible = true;
+            startSelfCloseTimer(2000);
         }
     }
 }
