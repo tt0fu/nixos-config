@@ -39,8 +39,7 @@ PaddedRect {
 
     child: CenterText {
         id: audioSourceText
-        property int volume: Pipewire.defaultAudioSource.audio.volume
 
-        text: Pipewire.defaultAudioSource.audio.muted ? "󰍭" : "󰍬 " + Math.round(volume * 100) + "%"
+        text: Pipewire.defaultAudioSource.audio.muted ? "󰍭" : "󰍬 " + Math.round(Pipewire.defaultAudioSource.audio.volume * 100) + "%"
     }
 }
