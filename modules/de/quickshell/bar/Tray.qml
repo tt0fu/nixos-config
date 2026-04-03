@@ -32,8 +32,8 @@ PaddedRect {
                     sourceComponent: TrayMenu {
                         id: trayMenu
                         menuHandle: modelData.menu
-                        anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + barLayout.x + windowRect.x
-                        anchorY: root.implicitHeight
+                        anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + bar.x
+                        anchorY: bar.height
                     }
 
                     function reloadTrayMenu() {

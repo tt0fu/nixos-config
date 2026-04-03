@@ -1,12 +1,10 @@
+pragma ComponentBehavior: Bound
+
+import QtQuick
+import QtQuick.Effects
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
-import Quickshell.Io
-import Quickshell.Services.SystemTray
-import Quickshell.Services.Pipewire
-import Quickshell.Services.UPower
-import QtQuick
-import QtQuick.Layouts
 
 ShellRoot {
     PanelWindow {
@@ -25,6 +23,7 @@ ShellRoot {
         property int borderWidth: 2
         property int borderRadius: 15
         property int gap: 6
+        property real edgeWidth: 10
 
         property string fontFamily: "JetBrainsMono Nerd Font Propo"
         property int fontSize: 15
@@ -34,61 +33,128 @@ ShellRoot {
         property int animationDuration: 100
         property var easingType: Easing.InOutQuad
 
-        anchors.top: true
-        anchors.left: true
-        anchors.right: true
-        implicitHeight: barLayout.implicitHeight
+        implicitWidth: screen.width
+        implicitHeight: screen.height
+        exclusiveZone: bar.height
+
+        mask: Region {
+            item: bar
+        }
         color: "transparent"
 
-        MyRect {
-            id: windowRect
+        anchors.top: true
+
+        // BackgroundEffect.blurRegion: Region {
+        //     item: bar
+        // }
+
+        Rectangle {
             color: root.colBg
-            level: 0
             anchors.fill: parent
 
+            layer.enabled: true
+
+            layer.effect: MultiEffect {
+                maskEnabled: true
+                maskInverted: true
+
+                maskSource: mask
+
+                maskThresholdMin: 0.5
+                maskSpreadAtMin: 1
+            }
+
             Item {
-                id: barLayout
+                id: mask
+
+                layer.enabled: true
+                visible: false
+
                 anchors.fill: parent
-                anchors.margins: root.gap
-                implicitHeight: Math.max(leftRow.implicitHeight, workspaces.implicitHeight, rightRow.implicitHeight) + root.gap * 2
 
-                RowLayout {
-                    id: leftRow
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    spacing: root.gap
+                Rectangle {
+                    id: maskRect
+                    radius: root.borderRadius
 
-                    Keyboard {}
-
-                    Vpn {}
-
-                    Tray {}
-
-                    // Test {}
-                }
-
-                Workspaces {
-                    id: workspaces
-                    anchors.centerIn: parent
-                }
-
-                RowLayout {
-                    id: rightRow
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    spacing: root.gap
-
-                    AudioSink {}
-
-                    AudioSource {}
-
-                    Network {}
-
-                    Power {}
-
-                    Clock {}
+                    anchors.fill: parent
+                    anchors.margins: root.edgeWidth
+                    anchors.topMargin: bar.height
                 }
             }
         }
+
+        MyRect {
+            x: maskRect.x
+            y: maskRect.y
+            width: maskRect.width
+            height: maskRect.height
+            antialiasing: false
+        }
+
+        Item {
+            id: bar
+            anchors {
+                left: parent.left
+                right: parent.right
+                rightMargin: root.gap
+                leftMargin: root.gap
+            }
+            implicitHeight: Math.max(leftRow.implicitHeight, workspaces.implicitHeight, rightRow.implicitHeight) + root.gap * 2
+
+            RowLayout {
+                id: leftRow
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: root.gap
+
+                Keyboard {}
+
+                Vpn {}
+
+                Tray {}
+
+                // Test {}
+            }
+
+            Workspaces {
+                id: workspaces
+                anchors.centerIn: parent
+            }
+
+            RowLayout {
+                id: rightRow
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: root.gap
+
+                AudioSink {}
+
+                AudioSource {}
+
+                Network {}
+
+                Power {}
+
+                Clock {}
+            }
+        }
+    }
+
+    Scope {
+        Exclusion {
+            anchors.left: true
+        }
+        Exclusion {
+            anchors.right: true
+        }
+        Exclusion {
+            anchors.bottom: true
+        }
+    }
+
+    component Exclusion: PanelWindow {
+        implicitWidth: 0
+        implicitHeight: 0
+        exclusiveZone: root.edgeWidth
     }
 }
