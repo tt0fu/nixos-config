@@ -3,6 +3,7 @@ import Quickshell.Io
 
 PaddedRect {
     id: vpn
+    level: 1
 
     property bool enabled: false
 
@@ -48,7 +49,7 @@ PaddedRect {
         id: vpnText
         text: "󰖂 " + (vpn.enabled ? "" : "")
     }
-    
+
     Behavior on implicitWidth {
         MyNumberAnimation {}
     }

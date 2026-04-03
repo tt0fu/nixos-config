@@ -26,13 +26,11 @@ PopupWindow {
         active: false
     }
 
-    Rectangle {
+    MyRect {
         id: menuWindowBg
+        level: 0
         anchors.fill: parent
         color: root.colBg
-        border.color: root.colBorder
-        border.width: root.borderWidth
-        radius: root.borderRadius
 
         QsMenuOpener {
             id: menuOpener

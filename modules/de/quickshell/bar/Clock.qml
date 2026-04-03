@@ -4,6 +4,7 @@ import "Oklab.js" as Oklab
 
 PaddedRect {
     id: clock
+    level: 1
 
     SystemClock {
         id: systemClock

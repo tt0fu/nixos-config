@@ -3,6 +3,7 @@ import Quickshell.Io
 
 PaddedRect {
     id: network
+    level: 1
 
     property string statusText: "󱞐"
 
@@ -37,7 +38,7 @@ PaddedRect {
         id: statusDisplay
         text: statusText
     }
-    
+
     Behavior on implicitWidth {
         MyNumberAnimation {}
     }

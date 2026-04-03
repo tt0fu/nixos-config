@@ -4,6 +4,7 @@ import Quickshell.Io
 
 PaddedRect {
     id: audioSource
+    level: 1
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSource]

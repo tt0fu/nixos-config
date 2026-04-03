@@ -4,6 +4,7 @@ import QtQuick.Layouts
 
 PaddedRect {
     id: tray
+    level: 1
 
     visible: SystemTray.items.values.length !== 0
 
@@ -67,7 +68,7 @@ PaddedRect {
             }
         }
     }
-    
+
     Behavior on implicitWidth {
         MyNumberAnimation {}
     }

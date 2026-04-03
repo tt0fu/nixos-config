@@ -23,8 +23,8 @@ ShellRoot {
         property color colUrgent: "#ff6060"
 
         property int borderWidth: 2
-        property int borderRadius: 10
-        property int gap: 5
+        property int borderRadius: 15
+        property int gap: 6
 
         property string fontFamily: "JetBrainsMono Nerd Font Propo"
         property int fontSize: 15
@@ -40,13 +40,10 @@ ShellRoot {
         implicitHeight: barLayout.implicitHeight
         color: "transparent"
 
-        Rectangle {
+        MyRect {
             id: windowRect
             color: root.colBg
-            border.color: root.colBorder
-            border.width: root.borderWidth
-            radius: root.borderRadius
-
+            level: 0
             anchors.fill: parent
 
             Item {
@@ -57,10 +54,8 @@ ShellRoot {
 
                 RowLayout {
                     id: leftRow
-                    anchors {
-                        left: parent.left
-                        verticalCenter: parent.verticalCenter
-                    }
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
                     spacing: root.gap
 
                     Keyboard {}
@@ -68,6 +63,8 @@ ShellRoot {
                     Vpn {}
 
                     Tray {}
+
+                    // Test {}
                 }
 
                 Workspaces {
@@ -77,10 +74,8 @@ ShellRoot {
 
                 RowLayout {
                     id: rightRow
-                    anchors {
-                        right: parent.right
-                        verticalCenter: parent.verticalCenter
-                    }
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
                     spacing: root.gap
 
                     AudioSink {}

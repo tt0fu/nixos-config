@@ -16,12 +16,12 @@ Item {
         id: workspacesLayout
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: (workspacesLayout.width - targetItem.width) / 2 - targetItem.mapToItem(workspacesLayout, 0, 0).x
+        spacing: root.gap
 
         Behavior on anchors.horizontalCenterOffset {
             MyNumberAnimation {}
         }
 
-        spacing: root.gap
 
         Repeater {
             id: workspacesRepeater
@@ -31,6 +31,7 @@ Item {
 
             PaddedRect {
                 id: workspaceRect
+                level: 1
 
                 // required property int index
                 // property HyprlandWorkspace workspace: Hyprland.workspaces.values.find(w => w.id === index + 1) ?? null
@@ -101,6 +102,8 @@ Item {
 
     MyRect {
         id: selectionRect
+        level: 1
+
         anchors.centerIn: parent
         z: 1
         border.color: Hyprland.focusedWorkspace.urgent ? root.colUrgent : root.colBorder

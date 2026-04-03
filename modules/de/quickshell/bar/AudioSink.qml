@@ -4,6 +4,7 @@ import Quickshell.Io
 
 PaddedRect {
     id: audioSink
+    level: 1
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink]
@@ -43,7 +44,7 @@ PaddedRect {
 
         text: Pipewire.defaultAudioSink.audio.muted ? "" : ((volume * 3 >= 2 ? "" : (volume * 3 <= 1 ? "" : "")) + " " + Math.round(volume * 100) + "%")
     }
-    
+
     Behavior on implicitWidth {
         MyNumberAnimation {}
     }

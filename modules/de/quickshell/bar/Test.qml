@@ -3,9 +3,10 @@ import "Oklab.js" as Oklab
 
 PaddedRect {
     id: test
+    level: 1
 
     property real val: 0.0
-    
+
     MouseArea {
         id: testMouseArea
         anchors.fill: parent
@@ -18,9 +19,9 @@ PaddedRect {
     child: CenterText {
         id: testText
         text: val.toPrecision(3)
-        color: Oklab.red_to_green(val);
+        color: Oklab.red_to_green(val)
     }
-    
+
     Behavior on implicitWidth {
         MyNumberAnimation {}
     }

@@ -4,6 +4,8 @@ import Quickshell.Hyprland
 
 PaddedRect {
     id: keyboard
+    level: 1
+
     property string layout: "EN"
 
     Component.onCompleted: {
@@ -28,7 +30,7 @@ PaddedRect {
         id: keyboardText
         text: keyboard.layout
     }
-    
+
     Behavior on implicitWidth {
         MyNumberAnimation {}
     }
