@@ -43,6 +43,9 @@
             show_menus = true;
           };
           show_edit_predictions = false;
+          buffer_font_features = {
+            calt = false;
+          };
         };
         userKeymaps = import ./keybinds.nix;
         themes.Rainbow = import ./theme.nix color;
