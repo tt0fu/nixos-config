@@ -1,9 +1,10 @@
 {
   home =
-    { ... }:
+    { inputs, pkgs, ... }:
     {
       programs.quickshell = {
         enable = true;
+        package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
         activeConfig = "bar";
         configs = {
           bar = ./bar;
@@ -18,7 +19,8 @@
         exec-once = [ "qs -c bar" ];
       };
     };
-    deps = modules: with modules; [
+  deps =
+    modules: with modules; [
       progs.utils.nmgui
       progs.utils.libnotify
     ];

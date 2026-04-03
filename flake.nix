@@ -30,6 +30,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
