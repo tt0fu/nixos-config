@@ -111,7 +111,7 @@ function hueShift(color, shift) {
 }
 
 function red_to_green(value, L = 0.8, C = 0.3, alpha = 1.0) {
-  return lchColor(L, C, value / 4 + 0.1, alpha);
+  return lchColor(L, C, value * 0.35 + 0.1, alpha);
 }
 
 var Oklab = {
