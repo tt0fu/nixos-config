@@ -10,30 +10,15 @@ PaddedRect {
         objects: [Pipewire.defaultAudioSink]
     }
 
-    Process {
-        id: audioSinkMuteProc
-        command: ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"]
-        running: false
-    }
-    Process {
-        id: audioSinkIncreaseVolumeProc
-        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", "--limit", "1.5"]
-        running: false
-    }
-    Process {
-        id: audioSinkDecreaseVolumeProc
-        command: ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-"]
-        running: false
-    }
     MouseArea {
         anchors.fill: parent
-        onClicked: audioSinkMuteProc.running = true
+        onClicked: Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted
         onWheel: wheelEvent => {
             if (wheelEvent.angleDelta.y > 0) {
-                audioSinkIncreaseVolumeProc.running = true;
+                Pipewire.defaultAudioSink.audio.volume = Math.min(Pipewire.defaultAudioSink.audio.volume + 0.05, 1.5);
             }
             if (wheelEvent.angleDelta.y < 0) {
-                audioSinkDecreaseVolumeProc.running = true;
+                Pipewire.defaultAudioSink.audio.volume -= 0.05;
             }
         }
     }
