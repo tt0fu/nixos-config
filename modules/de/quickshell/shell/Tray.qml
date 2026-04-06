@@ -1,3 +1,5 @@
+import qs
+import "config"
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
@@ -11,8 +13,8 @@ PaddedRect {
     child: RowLayout {
         id: trayLayout
         anchors.fill: parent
-        anchors.margins: root.gap
-        spacing: root.gap
+        anchors.margins: Sizes.gap
+        spacing: Sizes.gap
 
         Repeater {
             model: SystemTray.items
@@ -21,8 +23,8 @@ PaddedRect {
                 required property SystemTrayItem modelData
 
                 source: modelData.icon
-                sourceSize.width: root.iconSize
-                sourceSize.height: root.iconSize
+                sourceSize.width: Sizes.iconSize
+                sourceSize.height: Sizes.iconSize
                 fillMode: Image.PreserveAspectFit
 
                 Loader {
@@ -32,8 +34,8 @@ PaddedRect {
                     sourceComponent: TrayMenu {
                         id: trayMenu
                         menuHandle: modelData.menu
-                        anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + bar.x
-                        anchorY: bar.height
+                        anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + mainBar.x
+                        anchorY: mainBar.height
                     }
 
                     function reloadTrayMenu() {

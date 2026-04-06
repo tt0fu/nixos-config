@@ -10,7 +10,7 @@
       hyprshot
       launcher
       # niri
-      notifications
+      # notifications
       pointer-cursor
       polkit
       prompt

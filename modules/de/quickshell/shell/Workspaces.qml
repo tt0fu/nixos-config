@@ -1,3 +1,5 @@
+import qs
+import "config"
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -15,13 +17,12 @@ Item {
     RowLayout {
         id: workspacesLayout
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: (workspacesLayout.width - targetItem.width) / 2 - targetItem.mapToItem(workspacesLayout, 0, 0).x
-        spacing: root.gap
+        anchors.horizontalCenterOffset: (workspacesLayout.width - workspaces.targetItem.width) / 2 - workspaces.targetItem.mapToItem(workspacesLayout, 0, 0).x
+        spacing: Sizes.gap
 
         Behavior on anchors.horizontalCenterOffset {
             MyNumberAnimation {}
         }
-
 
         Repeater {
             id: workspacesRepeater
@@ -44,7 +45,7 @@ Item {
                 property bool isUrgent: workspace ? workspace.urgent : false
                 property var topLevels: workspace ? workspace.toplevels : []
 
-                border.color: isUrgent ? root.colUrgent : (workspaceMouseArea.containsMouse ? root.colHover : root.colInactive)
+                border.color: isUrgent ? Colors.urgent : (workspaceMouseArea.containsMouse ? Colors.hover : Colors.inactive)
 
                 z: 0
 
@@ -55,10 +56,10 @@ Item {
                     acceptedButtons: Qt.AllButtons
                     onPressed: event => {
                         if (event.buttons & Qt.LeftButton) {
-                            Hyprland.dispatch("workspace " + name);
+                            Hyprland.dispatch("workspace " + workspaceRect.name);
                         }
                         if (event.buttons & Qt.RightButton) {
-                            Hyprland.dispatch("movetoworkspace " + name);
+                            Hyprland.dispatch("movetoworkspace " + workspaceRect.name);
                         }
                     }
                 }
@@ -66,25 +67,26 @@ Item {
                 child: RowLayout {
                     id: workspaceLayout
                     anchors.fill: parent
-                    anchors.margins: root.gap
-                    spacing: root.gap
+                    anchors.margins: Sizes.gap
+                    spacing: Sizes.gap
 
-                    CenterText {
+                    MyText {
                         id: workspaceText
-                        anchors.fill: null
-                        text: name
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        text: workspaceRect.name
                     }
 
                     Repeater {
-                        model: topLevels
+                        model: workspaceRect.topLevels
 
                         Image {
                             required property HyprlandToplevel modelData
                             property string path: Quickshell.iconPath(DesktopEntries.heuristicLookup(modelData.wayland?.appId ?? "")?.icon ?? "", true)
 
                             source: path === "" ? Qt.resolvedUrl("fallback-icon.svg") : path
-                            sourceSize.width: root.iconSize
-                            sourceSize.height: root.iconSize
+                            sourceSize.width: Sizes.iconSize
+                            sourceSize.height: Sizes.iconSize
                         }
                     }
                 }
@@ -106,10 +108,10 @@ Item {
 
         anchors.centerIn: parent
         z: 1
-        border.color: Hyprland.focusedWorkspace.urgent ? root.colUrgent : root.colBorder
+        border.color: Hyprland.focusedWorkspace.urgent ? Colors.urgent : Colors.border
 
-        width: targetItem.width
-        height: targetItem.height
+        width: workspaces.targetItem.width
+        height: workspaces.targetItem.height
 
         property bool animateSize: false
 

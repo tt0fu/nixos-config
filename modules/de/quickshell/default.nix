@@ -5,9 +5,9 @@
       programs.quickshell = {
         enable = true;
         package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        activeConfig = "bar";
+        activeConfig = "shell";
         configs = {
-          bar = ./bar;
+          shell = ./shell;
         };
       };
       wayland.windowManager.hyprland.settings = {
@@ -16,7 +16,7 @@
           "ignore_alpha 0, match:namespace quickshell"
           "blur_popups on, match:namespace quickshell"
         ];
-        exec-once = [ "qs -c bar" ];
+        exec-once = [ "qs -c shell" ];
       };
     };
   deps =

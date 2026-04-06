@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell.Services.Pipewire
-import Quickshell.Io
 
 PaddedRect {
     id: audioSink

@@ -11,7 +11,7 @@ PaddedRect {
         id: networkStatusProc
         command: ["sh", "-c", "nmcli -t -f TYPE,STATE dev | grep -q '^ethernet:connected' && echo \"\" || { s=$(nmcli -t -f IN-USE,SIGNAL dev wifi | awk -F: '$1==\"*\"{print $2}'); [ -n \"$s\" ] && echo \" $s%\" || echo \"󱞐\"; }"]
         stdout: SplitParser {
-            onRead: data => statusText = data
+            onRead: data => network.statusText = data
         }
         running: true
     }
@@ -36,7 +36,7 @@ PaddedRect {
 
     child: CenterText {
         id: statusDisplay
-        text: statusText
+        text: network.statusText
     }
 
     Behavior on implicitWidth {

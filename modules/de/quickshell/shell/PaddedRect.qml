@@ -1,3 +1,5 @@
+import qs
+import "config"
 import QtQuick
 import Quickshell.Widgets
 
@@ -6,8 +8,8 @@ MyRect {
 
     required property var child
 
-    implicitWidth: child.implicitWidth + root.gap * 2
-    implicitHeight: child.implicitHeight + root.gap * 2
+    implicitWidth: child.implicitWidth + Sizes.gap * 2
+    implicitHeight: child.implicitHeight + Sizes.gap * 2
 
     Item {
         anchors.fill: parent

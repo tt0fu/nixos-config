@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell
-import "Oklab.js" as Oklab
 
 PaddedRect {
     id: clock

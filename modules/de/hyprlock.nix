@@ -42,7 +42,7 @@
               font_family = style.font.name;
               inner_color = "rgba(0, 0, 0, 0)";
               outer_color = "rgb(255, 255, 255)";
-              outline_thickness = 1;
+              outline_thickness = style.border.thickness;
               placeholder_text = "<i>Password...</i>";
               check_color = "rgb(255, 255, 100)";
               fail_color = "rgb(255, 100, 100)";
