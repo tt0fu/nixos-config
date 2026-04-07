@@ -55,9 +55,9 @@ PopupWindow {
 
                     Layout.fillWidth: true
 
-                    implicitWidth: modelData.isSeparator? menuSeparator.implicitWidth : menuButton.implicitWidth
-                    implicitHeight: modelData.isSeparator? menuSeparator.implicitHeight : menuButton.implicitHeight
-                    
+                    implicitWidth: modelData.isSeparator ? menuSeparator.implicitWidth : menuButton.implicitWidth
+                    implicitHeight: modelData.isSeparator ? menuSeparator.implicitHeight : menuButton.implicitHeight
+
                     Item {
                         id: menuButton
                         visible: !menuEntry.modelData.isSeparator
