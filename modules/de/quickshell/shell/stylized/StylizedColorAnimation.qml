@@ -1,8 +1,8 @@
 import qs
-import "config"
+import "../config"
 import QtQuick
 
-NumberAnimation {
+ColorAnimation {
     duration: Animations.duration
     easing.type: Animations.easingType
 }

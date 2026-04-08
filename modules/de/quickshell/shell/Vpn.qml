@@ -1,7 +1,8 @@
+import "stylized"
 import QtQuick
 import Quickshell.Io
 
-PaddedRect {
+StylizedPaddedRectangle {
     id: vpn
     level: 1
 
@@ -45,12 +46,12 @@ PaddedRect {
         }
     }
 
-    child: CenterText {
-        id: vpnText
+    child: StylizedCenterText {
+        anchors.fill: parent
         text: "󰖂 " + (vpn.enabled ? "" : "")
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }

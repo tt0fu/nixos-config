@@ -1,8 +1,9 @@
+import "stylized"
 import QtQuick
 import Quickshell.Io
 import Quickshell.Hyprland
 
-PaddedRect {
+StylizedPaddedRectangle {
     id: keyboard
     level: 1
 
@@ -26,12 +27,13 @@ PaddedRect {
         onClicked: keyboardSwitchProc.running = true
     }
 
-    child: CenterText {
+    child: StylizedCenterText {
+        anchors.fill: parent
         id: keyboardText
         text: keyboard.layout
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }

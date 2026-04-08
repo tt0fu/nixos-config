@@ -1,5 +1,6 @@
 import qs
 import "config"
+import "stylized"
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -14,14 +15,13 @@ Item {
     implicitWidth: workspacesLayout.implicitWidth * 2 - Math.min(workspacesRepeater.itemAt(0).implicitWidth, workspacesRepeater.itemAt(workspacesRepeater.count - 1).implicitWidth)
     implicitHeight: workspacesLayout.implicitHeight
 
-    RowLayout {
+    StylizedRowLayout {
         id: workspacesLayout
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: (workspacesLayout.width - workspaces.targetItem.width) / 2 - workspaces.targetItem.mapToItem(workspacesLayout, 0, 0).x
-        spacing: Sizes.gap
 
         Behavior on anchors.horizontalCenterOffset {
-            MyNumberAnimation {}
+            StylizedNumberAnimation {}
         }
 
         Repeater {
@@ -30,7 +30,7 @@ Item {
             // model: 9
             model: Hyprland.workspaces
 
-            PaddedRect {
+            StylizedPaddedRectangle {
                 id: workspaceRect
                 level: 1
 
@@ -64,13 +64,12 @@ Item {
                     }
                 }
 
-                child: RowLayout {
+                child: StylizedRowLayout {
                     id: workspaceLayout
                     anchors.fill: parent
                     anchors.margins: Sizes.gap
-                    spacing: Sizes.gap
 
-                    MyText {
+                    StylizedCenterText {
                         id: workspaceText
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
@@ -91,7 +90,7 @@ Item {
                     }
                 }
                 Behavior on implicitWidth {
-                    MyNumberAnimation {}
+                    StylizedNumberAnimation {}
                 }
             }
         }
@@ -102,7 +101,7 @@ Item {
         Qt.callLater(() => selectionRect.animateSize = false);
     }
 
-    MyRect {
+    StylizedRectangle {
         id: selectionRect
         level: 1
 
@@ -115,16 +114,13 @@ Item {
 
         property bool animateSize: false
 
-        Behavior on border.color {
-            MyColorAnimation {}
-        }
         Behavior on width {
             enabled: selectionRect.animateSize
-            MyNumberAnimation {}
+            StylizedNumberAnimation {}
         }
         Behavior on height {
             enabled: selectionRect.animateSize
-            MyNumberAnimation {}
+            StylizedNumberAnimation {}
         }
     }
 }

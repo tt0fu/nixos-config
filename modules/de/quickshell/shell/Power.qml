@@ -1,14 +1,16 @@
+import "stylized"
 import QtQuick
 import Quickshell.Services.UPower
 import "Oklab.js" as Oklab
 
-PaddedRect {
+StylizedPaddedRectangle {
     id: power
     level: 1
 
     visible: UPower.displayDevice.isLaptopBattery
 
-    child: CenterText {
+    child: StylizedCenterText {
+        anchors.fill: parent
         id: powerText
         property real charge: UPower.displayDevice.percentage
 
@@ -17,6 +19,6 @@ PaddedRect {
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }

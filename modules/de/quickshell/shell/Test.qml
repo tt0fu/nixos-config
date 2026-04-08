@@ -1,7 +1,9 @@
 import QtQuick
+import "stylized"
+import "config"
 import "Oklab.js" as Oklab
 
-PaddedRect {
+StylizedPaddedRectangle {
     id: test
     level: 1
 
@@ -12,17 +14,17 @@ PaddedRect {
         anchors.fill: parent
         hoverEnabled: true
         onWheel: wheelEvent => {
-            val = Math.min(1, Math.max(0, val + wheelEvent.angleDelta.y / 10000.0));
+            val = Math.min(1, Math.max(0, val + wheelEvent.angleDelta.y / 5000.0));
         }
     }
 
-    child: CenterText {
-        id: testText
+    child: StylizedCenterText {
+        anchors.fill: parent
         text: val.toPrecision(3)
         color: Oklab.red_to_green(val)
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }

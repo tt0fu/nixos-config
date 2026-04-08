@@ -1,10 +1,10 @@
 import qs
 import "config"
+import "stylized"
 import QtQuick
 import QtQuick.Layouts
 
 Item {
-    id: mainBar
     anchors {
         left: parent.left
         right: parent.right
@@ -13,11 +13,10 @@ Item {
     }
     implicitHeight: Math.max(leftRow.implicitHeight, workspaces.implicitHeight, rightRow.implicitHeight) + Sizes.gap * 2
 
-    RowLayout {
+    StylizedRowLayout {
         id: leftRow
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-        spacing: Sizes.gap
 
         Keyboard {}
 
@@ -33,11 +32,10 @@ Item {
         anchors.centerIn: parent
     }
 
-    RowLayout {
+    StylizedRowLayout {
         id: rightRow
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        spacing: Sizes.gap
 
         AudioSink {}
 

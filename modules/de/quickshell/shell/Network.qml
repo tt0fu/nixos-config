@@ -1,7 +1,9 @@
+import "stylized"
 import QtQuick
 import Quickshell.Io
+import Quickshell.Networking
 
-PaddedRect {
+StylizedPaddedRectangle {
     id: network
     level: 1
 
@@ -34,12 +36,12 @@ PaddedRect {
         onClicked: nmguiProc.running = true
     }
 
-    child: CenterText {
-        id: statusDisplay
+    child: StylizedCenterText {
+        anchors.fill: parent
         text: network.statusText
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }

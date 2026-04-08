@@ -1,5 +1,5 @@
 import qs
-import "config"
+import "../config"
 import QtQuick
 
 Text {
@@ -10,6 +10,6 @@ Text {
     }
     text: "text"
     Behavior on color {
-        MyColorAnimation {}
+        StylizedColorAnimation {}
     }
 }

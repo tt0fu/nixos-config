@@ -16,10 +16,10 @@ MyRect {
         data: child
     }
     Behavior on x {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
     Behavior on y {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
     Behavior on border.color {
         MyColorAnimation {}

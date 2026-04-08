@@ -1,8 +1,8 @@
+import "stylized"
 import QtQuick
 import Quickshell.Services.Pipewire
 
-PaddedRect {
-    id: audioSink
+StylizedPaddedRectangle {
     level: 1
 
     PwObjectTracker {
@@ -22,14 +22,14 @@ PaddedRect {
         }
     }
 
-    child: CenterText {
-        id: audioSinkText
+    child: StylizedCenterText {
+        anchors.fill: parent
         property real volume: Pipewire.defaultAudioSink.audio.volume
 
         text: Pipewire.defaultAudioSink.audio.muted ? "" : ((volume * 3 >= 2 ? "" : (volume * 3 <= 1 ? "" : "")) + " " + Math.round(volume * 100) + "%")
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }

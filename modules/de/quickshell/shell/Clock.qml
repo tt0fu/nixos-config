@@ -1,7 +1,8 @@
+import "stylized"
 import QtQuick
 import Quickshell
 
-PaddedRect {
+StylizedPaddedRectangle {
     id: clock
     level: 1
 
@@ -10,12 +11,13 @@ PaddedRect {
         precision: SystemClock.Seconds
     }
 
-    child: CenterText {
+    child: StylizedCenterText {
+        anchors.fill: parent
         id: clockText
         text: Qt.formatDateTime(systemClock.date, "HH:mm:ss")
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }

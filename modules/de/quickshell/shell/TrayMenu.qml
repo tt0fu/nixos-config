@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import qs
+import "stylized"
 import "config"
 import Quickshell
 import QtQuick
@@ -9,11 +10,14 @@ PopupWindow {
     id: menuWindow
 
     required property QsMenuHandle menuHandle
+
     property TrayMenu parentMenu: null
     property TrayMenu childMenu: null
 
     property real anchorX: 0
     property real anchorY: 0
+
+    signal reload
 
     anchor.window: root
     anchor.rect.x: anchorX
@@ -29,7 +33,14 @@ PopupWindow {
         active: false
     }
 
-    MyRect {
+    Connections {
+        target: childMenuLoader.item
+        function onReload() {
+            menuWindow.reload();
+        }
+    }
+
+    StylizedRectangle {
         id: menuWindowBg
         level: 0
         anchors.fill: parent
@@ -39,110 +50,94 @@ PopupWindow {
             id: menuOpener
             menu: menuWindow.menuHandle
         }
-        ColumnLayout {
+        StylizedColumnLayout {
             id: menuLayout
             anchors.fill: parent
             anchors.margins: Sizes.gap
-            spacing: Sizes.gap
 
             Repeater {
                 model: menuOpener.children
                 Item {
                     id: menuEntry
                     required property QsMenuEntry modelData
-
-                    property int offset
-
+                    implicitWidth: menuEntryLayout.implicitWidth
+                    implicitHeight: menuEntryLayout.implicitHeight
                     Layout.fillWidth: true
+                    StylizedRowLayout {
+                        anchors.fill: parent
+                        id: menuEntryLayout
+                        Layout.fillWidth: true
 
-                    implicitWidth: modelData.isSeparator ? menuSeparator.implicitWidth : menuButton.implicitWidth
-                    implicitHeight: modelData.isSeparator ? menuSeparator.implicitHeight : menuButton.implicitHeight
+                        Image {
+                            source: menuEntry.modelData.icon
+                            sourceSize.width: Sizes.iconSize
+                            sourceSize.height: Sizes.iconSize
+                            visible: !menuEntry.modelData.isSeparator && menuEntry.modelData.icon !== ""
+                        }
 
-                    Item {
-                        id: menuButton
-                        visible: !menuEntry.modelData.isSeparator
-                        implicitWidth: menuButtonRow.implicitWidth
-                        implicitHeight: menuButtonRow.implicitHeight
+                        StylizedText {
+                            Layout.fillWidth: true
+                            color: menuItemMouseArea.containsMouse ? Colors.hover : Colors.foreground
+                            text: menuEntry.modelData.text
+                            visible: !menuEntry.modelData.isSeparator
+                        }
 
-                        RowLayout {
-                            id: menuButtonRow
-                            width: parent.width
-                            spacing: Sizes.gap
-
-                            property var foo: null
-
-                            Image {
-                                source: menuEntry.modelData.icon
-                                sourceSize.width: Sizes.iconSize
-                                sourceSize.height: Sizes.iconSize
-                                visible: menuEntry.modelData.icon !== ""
-                            }
-
-                            MyText {
-                                Layout.fillWidth: true
-                                color: menuItemMouseArea.containsMouse ? Colors.hover : Colors.foreground
-                                text: menuEntry.modelData.text
-
-                                Behavior on color {
-                                    MyColorAnimation {}
+                        StylizedCenterText {
+                            id: menuIndicatorText
+                            visible: !menuEntry.modelData.isSeparator
+                            Layout.minimumWidth: Fonts.size
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            color: menuItemMouseArea.containsMouse ? Colors.hover : Colors.foreground
+                            text: {
+                                if (menuEntry.modelData.buttonType === QsMenuButtonType.None) {
+                                    return menuEntry.modelData.hasChildren ? "" : "";
                                 }
-                            }
-
-                            MyText {
-                                id: menuIndicatorText
-                                Layout.minimumWidth: Fonts.size
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                color: menuItemMouseArea.containsMouse ? Colors.hover : Colors.foreground
-                                text: {
-                                    if (menuEntry.modelData.buttonType === QsMenuButtonType.None) {
-                                        return menuEntry.modelData.hasChildren ? "" : "";
-                                    }
-                                    if (menuEntry.modelData.buttonType === QsMenuButtonType.CheckBox) {
-                                        return menuEntry.modelData.checkState === Qt.Checked ? "" : "";
-                                    }
-                                    return menuEntry.modelData.checkState === Qt.Checked ? "" : "";
+                                if (menuEntry.modelData.buttonType === QsMenuButtonType.CheckBox) {
+                                    return menuEntry.modelData.checkState === Qt.Checked ? "" : "";
                                 }
+                                return menuEntry.modelData.checkState === Qt.Checked ? "" : "";
                             }
                         }
-                        MouseArea {
-                            id: menuItemMouseArea
-                            anchors.fill: parent
-                            hoverEnabled: true
 
-                            onEntered: {
-                                if (menuEntry.modelData.hasChildren) {
-                                    childMenuLoader.setSource("TrayMenu.qml", {
-                                        menuHandle: menuEntry.modelData,
-                                        parentMenu: menuWindow,
-                                        anchorX: menuWindow.anchor.rect.x + menuWindow.width,
-                                        anchorY: menuWindow.anchor.rect.y + menuEntry.mapToItem(menuWindowBg, 0, 0).y
-                                    });
-                                    childMenuLoader.active = true;
-                                    menuWindow.childMenu = childMenuLoader.item;
-                                    menuWindow.childMenu.visible = true;
-                                }
-                            }
-
-                            onExited: {
-                                if (menuWindow.childMenu) {
-                                    menuWindow.childMenu.startSelfCloseTimer();
-                                }
-                            }
-
-                            onClicked: {
-                                menuEntry.modelData.triggered();
-                                reloadTrayMenu();
-                            }
+                        Rectangle {
+                            id: menuSeparator
+                            Layout.fillWidth: true
+                            visible: menuEntry.modelData.isSeparator
+                            implicitHeight: Sizes.borderWidth
+                            color: Colors.foreground
                         }
                     }
-
-                    Rectangle {
-                        id: menuSeparator
-                        visible: menuEntry.modelData.isSeparator
+                    MouseArea {
+                        id: menuItemMouseArea
+                        visible: !menuEntry.modelData.isSeparator
                         anchors.fill: parent
-                        implicitHeight: Sizes.borderWidth
-                        color: Colors.foreground
+                        hoverEnabled: true
+
+                        onEntered: {
+                            if (menuEntry.modelData.hasChildren) {
+                                childMenuLoader.setSource("TrayMenu.qml", {
+                                    menuHandle: menuEntry.modelData,
+                                    parentMenu: menuWindow,
+                                    anchorX: menuWindow.anchor.rect.x + menuWindow.width,
+                                    anchorY: menuWindow.anchor.rect.y + menuEntry.mapToItem(menuWindowBg, 0, 0).y
+                                });
+                                childMenuLoader.active = true;
+                                menuWindow.childMenu = childMenuLoader.item;
+                                menuWindow.childMenu.visible = true;
+                            }
+                        }
+
+                        onExited: {
+                            if (menuWindow.childMenu) {
+                                menuWindow.childMenu.startSelfCloseTimer();
+                            }
+                        }
+
+                        onClicked: {
+                            menuEntry.modelData.triggered();
+                            menuWindow.reload();
+                        }
                     }
                 }
             }

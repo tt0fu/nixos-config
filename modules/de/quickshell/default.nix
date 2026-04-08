@@ -17,6 +17,7 @@
           "blur_popups on, match:namespace quickshell"
         ];
         exec-once = [ "qs -c shell" ];
+        bind = ["SUPER, A, global, quickshell:toggleLauncher"];
       };
     };
   deps =

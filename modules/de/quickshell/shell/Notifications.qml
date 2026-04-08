@@ -1,16 +1,17 @@
+pragma ComponentBehavior: Bound
 import qs
 import "config"
+import "stylized"
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.Notifications
 
-ColumnLayout {
+StylizedColumnLayout {
     id: notifications
     anchors.fill: parent
     anchors.margins: Sizes.gap
-    spacing: Sizes.gap
 
     NotificationServer {
         id: notifServer
@@ -32,7 +33,7 @@ ColumnLayout {
 
     Repeater {
         model: notifServer.trackedNotifications
-        PaddedRect {
+        StylizedPaddedRectangle {
             id: notification
             level: 1
             required property Notification modelData
@@ -61,19 +62,17 @@ ColumnLayout {
                         Layout.maximumHeight: Sizes.iconSize
                         visible: notification.modelData.appIcon !== ""
                     }
-                    MyText {
+                    StylizedText {
                         text: notification.modelData.appName
                         wrapMode: Text.Wrap
-                        Layout.maximumWidth: 300
-                    }
-                    Item {
                         Layout.fillWidth: true
                     }
                     Item {
                         Layout.alignment: Qt.AlignTop
                         implicitWidth: Fonts.size + Sizes.gap
                         implicitHeight: Fonts.size + Sizes.gap
-                        CenterText {
+                        StylizedCenterText {
+                            anchors.fill: parent
                             text: ""
                             font.pixelSize: Fonts.size
                             color: notificationDismissMouseArea.containsMouse ? Colors.hover : Colors.border
@@ -96,44 +95,43 @@ ColumnLayout {
                         Layout.maximumHeight: Sizes.iconSize
                         visible: notification.modelData.image !== ""
                     }
-                    MyText {
+                    StylizedText {
                         text: notification.modelData.summary
                         wrapMode: Text.Wrap
-                        Layout.maximumWidth: 300
+                        Layout.fillWidth: true
                     }
                 }
 
-                MyText {
+                StylizedText {
                     text: notification.modelData.body
                     wrapMode: Text.Wrap
                     visible: notification.modelData.body !== ""
-                    Layout.maximumWidth: 350
+                    Layout.fillWidth: true
                 }
 
-                RowLayout {
-                    spacing: Sizes.gap
+                StylizedRowLayout {
+                    Layout.fillWidth: true
                     visible: notification.modelData.actions.length > 0
 
                     Repeater {
                         model: notification.modelData.actions
-                        PaddedRect {
+                        StylizedPaddedRectangle {
                             id: notificationAction
                             Layout.fillWidth: true
-                            Layout.maximumWidth: 400
                             level: 2
                             required property NotificationAction modelData
                             child: RowLayout {
                                 anchors.fill: parent
                                 spacing: Sizes.gap
                                 Image {
-                                    source: notificationAction.modelData.hasActionIcons ? modelData.identifier : ""
+                                    source: notification.modelData.hasActionIcons ? notificationAction.modelData.identifier : ""
                                     sourceSize.width: Sizes.iconSize
                                     sourceSize.height: Sizes.iconSize
                                     Layout.maximumWidth: Sizes.iconSize
                                     Layout.maximumHeight: Sizes.iconSize
-                                    visible: notificationAction.modelData.hasActionIcons
+                                    visible: notification.modelData.hasActionIcons
                                 }
-                                MyText {
+                                StylizedText {
                                     Layout.fillWidth: true
                                     text: notificationAction.modelData.text
                                     color: notificationActionMouseArea.containsMouse ? Colors.hover : Colors.foreground
@@ -152,43 +150,35 @@ ColumnLayout {
                         }
                     }
                 }
-                PaddedRect {
-                    Layout.fillWidth: true
-                    Layout.maximumWidth: 400
-                    visible: notification.modelData.hasInlineReply
+                StylizedPaddedRectangle {
                     level: 2
-                    child: TextField {
-                        id: notificationInlineReplyTextField
+                    visible: notification.modelData.hasInlineReply
+                    Layout.fillWidth: true
+                    child: StylizedRowLayout {
+                        anchors.margins: Sizes.gap
                         anchors.fill: parent
-                        background: null
-                        color: Colors.foreground
-                        placeholderTextColor: Colors.muted
-                        font {
-                            family: Fonts.family
-                            pixelSize: Fonts.size
-                        }
-                        Layout.fillWidth: true
-                        placeholderText: notification.modelData.inlineReplyPlaceholder
-                        verticalAlignment: Text.AlignVCenter
-                        wrapMode: Text.Wrap
-                    }
-                    Item {
-                        anchors {
-                            right: parent.right
-                            rightMargin: Sizes.gap
-                            verticalCenter: parent.verticalCenter
-                        }
-                        implicitWidth: Fonts.size + Sizes.gap
-                        implicitHeight: Fonts.size + Sizes.gap
-                        CenterText {
-                            text: ""
-                            color: notificationInlineReplyMouseArea.containsMouse ? Colors.hover : Colors.foreground
-                        }
-                        MouseArea {
-                            id: notificationInlineReplyMouseArea
-                            anchors.fill: parent
+                        StylizedTextField {
+                            id: notificationInlineReplyTextField
+                            Layout.fillWidth: true
+                            placeholderText: notification.modelData.inlineReplyPlaceholder
                             hoverEnabled: true
-                            onClicked: notification.modelData.sendInlineReply(notificationInlineReplyTextField.text)
+                            onHoveredChanged: GlobalState.notificationTextFieldHovered = hovered
+                        }
+
+                        Item {
+                            implicitWidth: Fonts.size + Sizes.gap
+                            implicitHeight: Fonts.size + Sizes.gap
+                            StylizedCenterText {
+                                anchors.fill: parent
+                                text: ""
+                                color: notificationInlineReplyMouseArea.containsMouse ? Colors.hover : Colors.foreground
+                            }
+                            MouseArea {
+                                id: notificationInlineReplyMouseArea
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                onClicked: notification.modelData.sendInlineReply(notificationInlineReplyTextField.text)
+                            }
                         }
                     }
                 }
@@ -196,11 +186,12 @@ ColumnLayout {
         }
     }
 
-    PaddedRect {
+    StylizedPaddedRectangle {
         level: 1
         Layout.fillWidth: true
         visible: notifServer.trackedNotifications.values.length > 0
-        child: CenterText {
+        child: StylizedCenterText {
+            anchors.fill: parent
             text: "Dismiss all"
             color: dismissAllMouseArea.containsMouse ? Colors.hover : Colors.foreground
         }

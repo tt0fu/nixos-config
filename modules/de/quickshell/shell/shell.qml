@@ -1,8 +1,7 @@
 import qs
 import "config"
+import "stylized"
 import QtQuick
-import QtQuick.Effects
-import QtQuick.Layouts
 import QtQuick.Shapes
 import Quickshell
 import Quickshell.Wayland
@@ -21,7 +20,7 @@ ShellRoot {
         implicitHeight: screen.height
         anchors.top: true
         exclusiveZone: topEdge
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+        WlrLayershell.keyboardFocus: GlobalState.appLauncherOpened ? WlrKeyboardFocus.Exclusive : (GlobalState.notificationTextFieldHovered ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None)
 
         mask: Region {
             item: viewRect
@@ -30,10 +29,10 @@ ShellRoot {
             //     item: leftRect
             //     intersection: Intersection.Subtract
             // }
-            // Region {
-            //     item: bottomRect
-            //     intersection: Intersection.Subtract
-            // }
+            Region {
+                item: bottomRect
+                intersection: Intersection.Subtract
+            }
             Region {
                 item: bottomRightRect
                 intersection: Intersection.Subtract
@@ -95,26 +94,27 @@ ShellRoot {
         //         text: "left panel"
         //     }
         // }
-        // Rectangle {
-        //     id: bottomRect
-        //     color: "transparent"
-        //     anchors.horizontalCenter: viewRect.horizontalCenter
-        //     y: bottomMouse.containsMouse ? parent.height - height : viewRect.y + viewRect.height
-        //     width: 1000
-        //     height: 300
-        //     radius: Sizes.borderRadius
-        //     Behavior on y {
-        //         MyNumberAnimation {}
-        //     }
-        //     MouseArea {
-        //         id: bottomMouse
-        //         anchors.fill: parent
-        //         hoverEnabled: true
-        //     }
-        //     CenterText {
-        //         text: "bottom panel"
-        //     }
-        // }
+        Rectangle {
+            id: bottomRect
+            color: "transparent"
+            anchors {
+                horizontalCenter: viewRect.horizontalCenter
+            }
+            y: GlobalState.appLauncherOpened ? parent.height - height : viewRect.y + viewRect.height
+            width: launcher.implicitWidth + Sizes.gap * 2
+            height: launcher.implicitHeight + Sizes.gap * 2
+            radius: Sizes.borderRadius
+            Behavior on y {
+                StylizedNumberAnimation {}
+            }
+            Launcher {
+                id: launcher
+                anchors {
+                    topMargin: GlobalState.appLauncherOpened ? Sizes.gap : parent.parent.height - viewRect.y - viewRect.height
+                    fill: parent
+                }
+            }
+        }
         Rectangle {
             id: bottomRightRect
             anchors {
@@ -126,10 +126,10 @@ ShellRoot {
             width: Math.max(notifications.implicitWidth + Sizes.gap * 2, parent.width - viewRect.x - viewRect.width + topRightRadius + topLeftRadius)
             height: Math.max(notifications.implicitHeight + Sizes.gap * 2, parent.height - viewRect.y - viewRect.height)
             Behavior on width {
-                MyNumberAnimation {}
+                StylizedNumberAnimation {}
             }
             Behavior on height {
-                MyNumberAnimation {}
+                StylizedNumberAnimation {}
             }
             Notifications {
                 id: notifications
@@ -234,7 +234,7 @@ ShellRoot {
                     radiusY: viewRect.topLeftRadius
                     direction: PathArc.Counterclockwise
                 }
-                
+
                 // PathLine {
                 //     x: viewRect.x
                 //     y: leftRect.y - leftRect.topLeftRadius
@@ -308,66 +308,66 @@ ShellRoot {
                     direction: PathArc.Counterclockwise
                 }
 
-                // PathLine {
-                //     x: bottomRect.x - bottomRect.bottomLeftRadius
-                //     y: viewRect.y + viewRect.height
-                // }
-                // property var bottomLeftTangent: commonTangents({
-                //     x: bottomRect.x - bottomRect.bottomLeftRadius,
-                //     y: viewRect.y + viewRect.height - bottomRect.bottomLeftRadius,
-                //     r: bottomRect.bottomLeftRadius
-                // }, {
-                //     x: bottomRect.x + bottomRect.topLeftRadius,
-                //     y: bottomRect.y + bottomRect.topLeftRadius,
-                //     r: bottomRect.topLeftRadius
-                // })[0]
-                // PathArc {
-                //     x: borderShapePath.bottomLeftTangent.p1.x
-                //     y: borderShapePath.bottomLeftTangent.p1.y
-                //     radiusX: bottomRect.bottomLeftRadius
-                //     radiusY: bottomRect.bottomLeftRadius
-                //     direction: PathArc.Counterclockwise
-                // }
-                // PathLine {
-                //     x: borderShapePath.bottomLeftTangent.p2.x
-                //     y: borderShapePath.bottomLeftTangent.p2.y
-                // }
-                // PathArc {
-                //     x: bottomRect.x + bottomRect.topLeftRadius
-                //     y: bottomRect.y
-                //     radiusX: bottomRect.topLeftRadius
-                //     radiusY: bottomRect.topLeftRadius
-                // }
-                // PathLine {
-                //     x: bottomRect.x + bottomRect.width - bottomRect.topRightRadius
-                //     y: bottomRect.y
-                // }
-                // property var bottomRightTangent: commonTangents({
-                //     x: bottomRect.x + bottomRect.width - bottomRect.topRightRadius,
-                //     y: bottomRect.y + bottomRect.topRightRadius,
-                //     r: bottomRect.topRightRadius
-                // }, {
-                //     x: bottomRect.x + bottomRect.width + bottomRect.bottomRightRadius,
-                //     y: viewRect.y + viewRect.height - bottomRect.bottomRightRadius,
-                //     r: bottomRect.bottomRightRadius
-                // })[1]
-                // PathArc {
-                //     x: borderShapePath.bottomRightTangent.p1.x
-                //     y: borderShapePath.bottomRightTangent.p1.y
-                //     radiusX: bottomRect.topRightRadius
-                //     radiusY: bottomRect.topRightRadius
-                // }
-                // PathLine {
-                //     x: borderShapePath.bottomRightTangent.p2.x
-                //     y: borderShapePath.bottomRightTangent.p2.y
-                // }
-                // PathArc {
-                //     x: bottomRect.x + bottomRect.width + bottomRect.bottomRightRadius
-                //     y: viewRect.y + viewRect.height
-                //     radiusX: bottomRect.bottomRightRadius
-                //     radiusY: bottomRect.bottomRightRadius
-                //     direction: PathArc.Counterclockwise
-                // }
+                PathLine {
+                    x: bottomRect.x - bottomRect.bottomLeftRadius
+                    y: viewRect.y + viewRect.height
+                }
+                property var bottomLeftTangent: commonTangents({
+                    x: bottomRect.x - bottomRect.bottomLeftRadius,
+                    y: viewRect.y + viewRect.height - bottomRect.bottomLeftRadius,
+                    r: bottomRect.bottomLeftRadius
+                }, {
+                    x: bottomRect.x + bottomRect.topLeftRadius,
+                    y: bottomRect.y + bottomRect.topLeftRadius,
+                    r: bottomRect.topLeftRadius
+                })[0]
+                PathArc {
+                    x: borderShapePath.bottomLeftTangent.p1.x
+                    y: borderShapePath.bottomLeftTangent.p1.y
+                    radiusX: bottomRect.bottomLeftRadius
+                    radiusY: bottomRect.bottomLeftRadius
+                    direction: PathArc.Counterclockwise
+                }
+                PathLine {
+                    x: borderShapePath.bottomLeftTangent.p2.x
+                    y: borderShapePath.bottomLeftTangent.p2.y
+                }
+                PathArc {
+                    x: bottomRect.x + bottomRect.topLeftRadius
+                    y: bottomRect.y
+                    radiusX: bottomRect.topLeftRadius
+                    radiusY: bottomRect.topLeftRadius
+                }
+                PathLine {
+                    x: bottomRect.x + bottomRect.width - bottomRect.topRightRadius
+                    y: bottomRect.y
+                }
+                property var bottomRightTangent: commonTangents({
+                    x: bottomRect.x + bottomRect.width - bottomRect.topRightRadius,
+                    y: bottomRect.y + bottomRect.topRightRadius,
+                    r: bottomRect.topRightRadius
+                }, {
+                    x: bottomRect.x + bottomRect.width + bottomRect.bottomRightRadius,
+                    y: viewRect.y + viewRect.height - bottomRect.bottomRightRadius,
+                    r: bottomRect.bottomRightRadius
+                })[1]
+                PathArc {
+                    x: borderShapePath.bottomRightTangent.p1.x
+                    y: borderShapePath.bottomRightTangent.p1.y
+                    radiusX: bottomRect.topRightRadius
+                    radiusY: bottomRect.topRightRadius
+                }
+                PathLine {
+                    x: borderShapePath.bottomRightTangent.p2.x
+                    y: borderShapePath.bottomRightTangent.p2.y
+                }
+                PathArc {
+                    x: bottomRect.x + bottomRect.width + bottomRect.bottomRightRadius
+                    y: viewRect.y + viewRect.height
+                    radiusX: bottomRect.bottomRightRadius
+                    radiusY: bottomRect.bottomRightRadius
+                    direction: PathArc.Counterclockwise
+                }
 
                 PathLine {
                     x: bottomRightRect.x - bottomRightRect.bottomLeftRadius

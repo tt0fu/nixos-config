@@ -1,25 +1,25 @@
 import qs
+import "stylized"
 import "config"
 import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
 
-PaddedRect {
+StylizedPaddedRectangle {
     id: tray
     level: 1
 
     visible: SystemTray.items.values.length !== 0
 
-    child: RowLayout {
+    child: StylizedRowLayout {
         id: trayLayout
         anchors.fill: parent
         anchors.margins: Sizes.gap
-        spacing: Sizes.gap
 
         Repeater {
             model: SystemTray.items
             Image {
-                id: trayIcon
+                id: trayItem
                 required property SystemTrayItem modelData
 
                 source: modelData.icon
@@ -33,14 +33,13 @@ PaddedRect {
                     active: true
                     sourceComponent: TrayMenu {
                         id: trayMenu
-                        menuHandle: modelData.menu
-                        anchorX: trayIcon.x + trayLayout.x + tray.x + leftRow.x + mainBar.x
+                        menuHandle: trayItem.modelData.menu
+                        anchorX: trayItem.x + trayLayout.x + tray.x + leftRow.x + mainBar.x
                         anchorY: mainBar.height
-                    }
-
-                    function reloadTrayMenu() {
-                        active = !active;
-                        active = !active;
+                        onReload: {
+                            active = !active;
+                            active = !active;
+                        }
                     }
                 }
 
@@ -72,6 +71,6 @@ PaddedRect {
     }
 
     Behavior on implicitWidth {
-        MyNumberAnimation {}
+        StylizedNumberAnimation {}
     }
 }
