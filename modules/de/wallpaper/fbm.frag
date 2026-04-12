@@ -9,7 +9,7 @@
 #define BORDER_WIDTH 0.03
 #define RIPPLE_COUNT 15.0
 #define RIPPLE_WIDTH (0.25 / RIPPLE_COUNT)
-#define GLOW_WIDTH (0.01 / RIPPLE_COUNT)
+#define GLOW_WIDTH (0.1 / RIPPLE_COUNT)
 
 #define TWO_PI 6.28318530718
 
@@ -102,10 +102,6 @@ vec3 srgb_lch(vec3 srgb) {
     return lsrgb_lch(srgb_lsrgb(srgb));
 }
 
-vec3 hue_lsrgb(float hue) {
-    return lch_lsrgb(vec3(LIGHTNESS, CHROMA, hue));
-}
-
 // noise
 
 float rand(vec2 n) {
@@ -158,5 +154,5 @@ float fade(float x) {
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float p = pattern(fragCoord * SCALE / iResolution.y);
     float hue = (p + iTime * RAINBOW_TIME_SCALE) * RAINBOW_REPEATS;
-    fragColor = vec4(lsrgb_srgb(hue_lsrgb(hue)) * fade(p), 1.0);
+    fragColor = vec4(lsrgb_srgb(lch_lsrgb(vec3(fade(p) * LIGHTNESS, CHROMA, hue))), 1.0);
 }
