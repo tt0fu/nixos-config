@@ -14,14 +14,14 @@ StylizedPaddedRectangle {
         anchors.fill: parent
         hoverEnabled: true
         onWheel: wheelEvent => {
-            val = Math.min(1, Math.max(0, val + wheelEvent.angleDelta.y / 5000.0));
+            val = Math.min(1, Math.max(0, test.val + wheelEvent.angleDelta.y / 5000.0));
         }
     }
 
     child: StylizedCenterText {
         anchors.fill: parent
-        text: val.toPrecision(3)
-        color: Oklab.red_to_green(val)
+        text: test.val.toPrecision(3)
+        color: Oklab.red_to_green(test.val)
     }
 
     Behavior on implicitWidth {
