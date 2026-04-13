@@ -13,7 +13,12 @@ StylizedColumnLayout {
         appid: "quickshell"
         name: "toggleLauncher"
         description: "Toggle app launcher"
-        onPressed: GlobalState.appLauncherOpened = !GlobalState.appLauncherOpened
+        onPressed: {
+            GlobalState.appLauncherOpened = !GlobalState.appLauncherOpened;
+            if (GlobalState.appLauncherOpened) {
+                launcherTextField.text = "";
+            }
+        }
     }
 
     property list<DesktopEntry> foundEntries: DesktopEntries.applications.values.filter(e => e.name.toLowerCase().includes(launcherTextField.text.toLowerCase()))
