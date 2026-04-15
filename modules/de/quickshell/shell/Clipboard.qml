@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import "config"
 import "stylized"
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Hyprland
 import Quickshell
@@ -10,6 +11,7 @@ import Quickshell.Io
 StylizedColumnLayout {
     id: clipboard
     anchors.margins: Sizes.gap
+    spacing: Sizes.gap
 
     GlobalShortcut {
         appid: "quickshell"
@@ -19,6 +21,7 @@ StylizedColumnLayout {
             if (!GlobalState.clipboardOpened) {
                 clipboard.updateItems();
                 clipboardTextField.text = "";
+                itemsList.currentIndex = -1;
             }
             GlobalState.clipboardOpened = !GlobalState.clipboardOpened;
         }
@@ -47,13 +50,9 @@ StylizedColumnLayout {
     }
 
     property list<var> items: []
-
     property list<var> foundItems: items
-
-    property int maxItemCount: 10
-    property int offset: 0
-    property int target: 0
-    property list<var> displayedItems: foundItems.slice(offset, offset + maxItemCount)
+    property int maxListHeight: 500
+    property int maxListWidth: 500
 
     function updateItems() {
         notificationsFetchProc.running = true;
@@ -61,8 +60,8 @@ StylizedColumnLayout {
 
     function updateFoundItems() {
         foundItems = items.filter(i => i.content.toLowerCase().includes(clipboardTextField.text.toLowerCase()));
-        target = 0;
-        offset = 0;
+        itemsList.currentIndex = foundItems.length > 0 ? 0 : -1;
+        itemsList.positionViewAtIndex(0, ListView.Beginning);
     }
 
     function copyEntry(id) {
@@ -72,23 +71,27 @@ StylizedColumnLayout {
 
     Keys.onEscapePressed: GlobalState.clipboardOpened = false
     Keys.onDownPressed: {
-        target++;
-        if (target >= displayedItems.length) {
-            target--;
-            offset = Math.min(offset + 1, foundItems.length - maxItemCount);
+        if (itemsList.count > 0) {
+            itemsList.incrementCurrentIndex();
+            itemsList.positionViewAtIndex(itemsList.currentIndex, ListView.Contain);
         }
     }
     Keys.onUpPressed: {
-        target--;
-        if (target < 0) {
-            target++;
-            offset = Math.max(offset - 1, 0);
+        if (itemsList.count > 0) {
+            itemsList.decrementCurrentIndex();
+            itemsList.positionViewAtIndex(itemsList.currentIndex, ListView.Contain);
+        }
+    }
+    Keys.onEnterPressed: {
+        if (itemsList.currentIndex >= 0 && itemsList.currentIndex < itemsList.count) {
+            clipboard.copyEntry(itemsList.model[itemsList.currentIndex].id);
+            GlobalState.clipboardOpened = false;
         }
     }
 
     StylizedPaddedRectangle {
         Layout.fillWidth: true
-        Layout.maximumWidth: 400
+        Layout.preferredWidth: maxListWidth
         level: 1
         child: StylizedTextField {
             id: clipboardTextField
@@ -97,58 +100,74 @@ StylizedColumnLayout {
             placeholderText: "Search in clipboard history"
             onTextChanged: clipboard.updateFoundItems()
             onAccepted: {
-                clipboard.copyEntry(clipboard.displayedItems[clipboard.target].id);
+                if (itemsList.currentIndex >= 0 && itemsList.currentIndex < itemsList.count)
+                    clipboard.copyEntry(itemsList.model[itemsList.currentIndex].id);
                 GlobalState.clipboardOpened = false;
             }
         }
     }
 
     StylizedPaddedRectangle {
-        id: entriesArea
+        id: itemsArea
         visible: clipboard.foundItems.length > 0
         Layout.fillWidth: true
-        Layout.maximumWidth: 400
+        Layout.preferredWidth: maxListWidth
+        Layout.preferredHeight: Math.min(maxListHeight, itemsList.contentHeight + Sizes.gap * 2)
         level: 1
-        child: StylizedColumnLayout {
+
+        child: ScrollView {
             anchors.fill: parent
             anchors.margins: Sizes.gap
-            Repeater {
-                id: displayedItemsRepeater
-                model: clipboard.displayedItems
-                StylizedPaddedRectangle {
-                    id: clipboardEntry
+            clip: true
+            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+            ListView {
+                id: itemsList
+                width: parent.availableWidth
+                model: clipboard.foundItems
+                currentIndex: -1
+                clip: true
+                spacing: Sizes.gap
+
+                delegate: StylizedPaddedRectangle {
+                    id: delegateItem
                     required property int index
                     required property var modelData
-                    property var entry: modelData
+                    width: ListView.view.width
                     level: 2
-                    Layout.fillWidth: true
-                    border.color: index === target ? Colors.border : (clipboardEntryMouseArea.containsMouse ? Colors.hover : Colors.muted)
-                    child: StylizedRowLayout {
-                        anchors.fill: parent
-                        anchors.margins: Sizes.gap
-                        Layout.fillWidth: true
-                        StylizedText {
-                            text: clipboardEntry.entry.content
-                            wrapMode: Text.Wrap
-                            Layout.fillWidth: true
-                        }
+                    border.color: {
+                        if (index === itemsList.currentIndex)
+                            return Colors.border;
+                        if (delegateMouseArea.containsMouse)
+                            return Colors.hover;
+                        return Colors.muted;
                     }
+
+                    child: StylizedText {
+                        anchors {
+                            fill: parent
+                            margins: Sizes.gap
+                        }
+                        text: modelData.content
+                        wrapMode: Text.Wrap
+                    }
+
                     MouseArea {
-                        id: clipboardEntryMouseArea
+                        id: delegateMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
                         onClicked: {
+                            itemsList.currentIndex = index;
                             GlobalState.clipboardOpened = false;
-                            clipboard.copyEntry(clipboardEntry.entry.id);
+                            clipboard.copyEntry(modelData.id);
                         }
                     }
                 }
             }
         }
-        Behavior on implicitWidth {
-            StylizedNumberAnimation {}
-        }
-        Behavior on implicitHeight {
+
+        Behavior on Layout.preferredHeight {
             StylizedNumberAnimation {}
         }
     }
