@@ -11,7 +11,6 @@ import Quickshell.Io
 StylizedColumnLayout {
     id: clipboard
     anchors.margins: Sizes.gap
-    spacing: Sizes.gap
 
     GlobalShortcut {
         appid: "quickshell"

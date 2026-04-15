@@ -1,7 +1,9 @@
+pragma ComponentBehavior: Bound
 import "config"
 import "stylized"
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell.Hyprland
 import Quickshell
 
@@ -20,44 +22,50 @@ StylizedColumnLayout {
             GlobalState.appLauncherOpened = !GlobalState.appLauncherOpened;
         }
     }
-    
-    property list<DesktopEntry> foundEntries: DesktopEntries.applications.values.filter(e => e.name.toLowerCase().includes(launcherTextField.text.toLowerCase()))
 
-    property int maxEntryCount: 10
-    property int offset: 0
-    property int target: 0
-    property list<DesktopEntry> displayedEntries: foundEntries.slice(offset, offset + maxEntryCount)
+    property list<DesktopEntry> foundEntries: DesktopEntries.applications.values
+    property int maxListHeight: 500
+    property int maxListWidth: 500
+
+    function updateFoundEntries() {
+        foundEntries = DesktopEntries.applications.values.filter(e => e.name.toLowerCase().includes(launcherTextField.text.toLowerCase()));
+        entriesList.currentIndex = foundEntries.length > 0 ? 0 : -1;
+        entriesList.positionViewAtIndex(0, ListView.Beginning);
+    }
+
+    function launchCurrent() {
+        if (entriesList.currentIndex >= 0 && entriesList.currentIndex < entriesList.count) {
+            entriesList.model[entriesList.currentIndex].execute();
+            GlobalState.appLauncherOpened = false;
+        }
+    }
 
     Keys.onEscapePressed: GlobalState.appLauncherOpened = false
     Keys.onDownPressed: {
-        target++;
-        if (target >= displayedEntries.length) {
-            target--;
-            offset = Math.min(offset + 1, foundEntries.length - maxEntryCount);
+        if (entriesList.count > 0) {
+            entriesList.incrementCurrentIndex();
+            entriesList.positionViewAtIndex(entriesList.currentIndex, ListView.Contain);
         }
     }
     Keys.onUpPressed: {
-        target--;
-        if (target < 0) {
-            target++;
-            offset = Math.max(offset - 1, 0);
+        if (entriesList.count > 0) {
+            entriesList.decrementCurrentIndex();
+            entriesList.positionViewAtIndex(entriesList.currentIndex, ListView.Contain);
         }
     }
+    Keys.onEnterPressed: launchCurrent()
 
     StylizedPaddedRectangle {
         Layout.fillWidth: true
-        Layout.maximumWidth: 400
+        Layout.preferredWidth: launcher.maxListWidth
         level: 1
         child: StylizedTextField {
             id: launcherTextField
             focus: GlobalState.appLauncherOpened
             anchors.fill: parent
             placeholderText: "Search for desktop items"
-            onTextChanged: launcher.target = 0
-            onAccepted: {
-                launcher.displayedEntries[launcher.target].execute();
-                GlobalState.appLauncherOpened = false;
-            }
+            onTextChanged: launcher.updateFoundEntries()
+            onAccepted: launcher.launchCurrent()
         }
     }
 
@@ -65,32 +73,49 @@ StylizedColumnLayout {
         id: entriesArea
         visible: launcher.foundEntries.length > 0
         Layout.fillWidth: true
+        Layout.preferredWidth: launcher.maxListWidth
+        Layout.preferredHeight: Math.min(launcher.maxListHeight, entriesList.contentHeight + Sizes.gap * 2)
         level: 1
-        child: StylizedColumnLayout {
+        child: ScrollView {
             anchors.fill: parent
             anchors.margins: Sizes.gap
-            Repeater {
-                id: displayedEntriesRepeater
-                model: launcher.displayedEntries.length
-                StylizedPaddedRectangle {
+            clip: true
+            ScrollBar.vertical.policy: ScrollBar.AsNeeded
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+            ListView {
+                id: entriesList
+                width: parent.availableWidth
+                model: launcher.foundEntries
+                currentIndex: -1
+                clip: true
+                spacing: Sizes.gap
+
+                delegate: StylizedPaddedRectangle {
                     id: launcherEntry
                     required property int index
-                    property DesktopEntry entry: launcher.displayedEntries[index]
+                    required property DesktopEntry modelData
+                    width: ListView.view.width
                     level: 2
-                    Layout.fillWidth: true
-                    border.color: index === target ? Colors.border : (launcherEntryMouseArea.containsMouse ? Colors.hover : Colors.muted)
+                    border.color: {
+                        if (index === entriesList.currentIndex)
+                            return Colors.border;
+                        if (launcherEntryMouseArea.containsMouse)
+                            return Colors.hover;
+                        return Colors.muted;
+                    }
                     child: StylizedRowLayout {
                         anchors.fill: parent
                         anchors.margins: Sizes.gap
                         Layout.fillWidth: true
                         Image {
-                            source: Quickshell.iconPath(launcherEntry.entry.icon, true)
+                            source: Quickshell.iconPath(launcherEntry.modelData.icon, true)
                             sourceSize.width: Sizes.iconSize
                             sourceSize.height: Sizes.iconSize
                             visible: source !== ""
                         }
                         StylizedText {
-                            text: launcherEntry.entry.name
+                            text: launcherEntry.modelData.name
                             Layout.fillWidth: true
                         }
                     }
@@ -100,7 +125,7 @@ StylizedColumnLayout {
                         hoverEnabled: true
                         onClicked: {
                             GlobalState.appLauncherOpened = false;
-                            launcherEntry.entry.execute();
+                            launcherEntry.modelData.execute();
                         }
                     }
                 }
