@@ -14,26 +14,26 @@ StylizedColumnLayout {
         name: "toggleLauncher"
         description: "Toggle app launcher"
         onPressed: {
-            GlobalState.appLauncherOpened = !GlobalState.appLauncherOpened;
-            if (GlobalState.appLauncherOpened) {
+            if (!GlobalState.appLauncherOpened) {
                 launcherTextField.text = "";
             }
+            GlobalState.appLauncherOpened = !GlobalState.appLauncherOpened;
         }
     }
-
+    
     property list<DesktopEntry> foundEntries: DesktopEntries.applications.values.filter(e => e.name.toLowerCase().includes(launcherTextField.text.toLowerCase()))
 
-    property int maxItemCount: 10
+    property int maxEntryCount: 10
     property int offset: 0
     property int target: 0
-    property list<DesktopEntry> displayedEntries: foundEntries.slice(offset, offset + maxItemCount)
+    property list<DesktopEntry> displayedEntries: foundEntries.slice(offset, offset + maxEntryCount)
 
     Keys.onEscapePressed: GlobalState.appLauncherOpened = false
     Keys.onDownPressed: {
         target++;
         if (target >= displayedEntries.length) {
             target--;
-            offset = Math.min(offset + 1, foundEntries.length - maxItemCount);
+            offset = Math.min(offset + 1, foundEntries.length - maxEntryCount);
         }
     }
     Keys.onUpPressed: {
@@ -100,7 +100,7 @@ StylizedColumnLayout {
                         hoverEnabled: true
                         onClicked: {
                             GlobalState.appLauncherOpened = false;
-                            launcherEntry.modelData.execute();
+                            launcherEntry.entry.execute();
                         }
                     }
                 }

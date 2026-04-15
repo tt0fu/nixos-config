@@ -17,12 +17,16 @@
           "blur_popups on, match:namespace quickshell"
         ];
         exec-once = [ "qs -c shell" ];
-        bind = ["SUPER, A, global, quickshell:toggleLauncher"];
+        bind = [
+          "SUPER, A, global, quickshell:toggleLauncher"
+          "SUPER, V, global, quickshell:toggleClipboard"
+        ];
       };
     };
   deps =
     modules: with modules; [
       progs.utils.nmgui
       progs.utils.libnotify
+      progs.utils.cliphist
     ];
 }

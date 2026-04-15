@@ -4,6 +4,7 @@
       baobab
       btop
       caligula
+      cliphist
       feh
       gnome-disks
       kdeconnect

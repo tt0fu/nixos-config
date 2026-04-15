@@ -32,7 +32,7 @@ StylizedColumnLayout {
     }
 
     Repeater {
-        model: notifServer.trackedNotifications
+        model: notifServer.trackedNotifications.values.slice(-5)
         StylizedPaddedRectangle {
             id: notification
             level: 1

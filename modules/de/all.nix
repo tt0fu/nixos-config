@@ -2,7 +2,7 @@
   deps =
     modules: with modules.de; [
       autostart
-      clipboard
+      # clipboard
       font
       gtk
       hyprland
