@@ -9,5 +9,6 @@
         enable = true;
         allowImages = true;
       };
+      wayland.windowManager.hyprland.settings.exec-once = [ "cliphist wipe" ];
     };
 }
