@@ -7,7 +7,6 @@
       gtk
       hyprland
       hyprlock
-      hyprshot
       launcher
       # niri
       # notifications
@@ -15,6 +14,7 @@
       polkit
       prompt
       qt
+      screenshot
       quickshell.default
       # waybar
       wallpaper.default
