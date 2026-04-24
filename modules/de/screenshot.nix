@@ -12,6 +12,8 @@
         grimblast
       ];
       wayland.windowManager.hyprland.settings.bind = [
+        " , Print, exec, grimblast -nf copysave area \"$HOME/Pictures/Screenshots/$(date +\"%Y-%m-%d_%H-%M-%S\").png\""
+        "SHIFT, Print, exec, grimblast -nf copysave screen \"$HOME/Pictures/Screenshots/$(date +\"%Y-%m-%d_%H-%M-%S\").png\""
         "SUPER, S, exec, grimblast -nf copysave area \"$HOME/Pictures/Screenshots/$(date +\"%Y-%m-%d_%H-%M-%S\").png\""
         "SUPER SHIFT, S, exec, grimblast -nf copysave screen \"$HOME/Pictures/Screenshots/$(date +\"%Y-%m-%d_%H-%M-%S\").png\""
       ];
