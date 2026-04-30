@@ -13,6 +13,7 @@
       nautilus
       nix-ld
       nmgui
+      printing
       # stderred
       syncthing
       vlc
