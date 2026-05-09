@@ -58,8 +58,8 @@
             "SUPER SHIFT, TAB, cyclenext, prev"
             "SUPER SHIFT, TAB, bringactivetotop"
 
-            "SUPER CTRL SHIFT, S, exec, shutdown now"
-            "SUPER CTRL SHIFT, R, exec, reboot"
+            "SUPER CTRL SHIFT, P, exec, shutdown now"
+            "SUPER CTRL SHIFT, L, exec, reboot"
             "SUPER CTRL SHIFT, ESCAPE, exit"
 
             "SUPER, Up, movefocus, u"
@@ -68,6 +68,8 @@
             "SUPER, Right, movefocus, r"
             "SUPER, mouse_down, movefocus, l"
             "SUPER, mouse_up, movefocus, r"
+            ", mouse:276, movefocus, l"
+            ", mouse:275, movefocus, r"
 
             # "SUPER, Left, layoutmsg, move -col"
             # "SUPER, Right, layoutmsg, move +col"
@@ -78,6 +80,11 @@
             "SUPER SHIFT, Down, movewindow, d"
             "SUPER SHIFT, Left, movewindow, l"
             "SUPER SHIFT, Right, movewindow, r"
+
+            "SUPER CTRL, Up, resizeactive, 0% 10%"
+            "SUPER CTRL, Down, resizeactive, 0% -10%"
+            "SUPER CTRL, Left, resizeactive, -10% 0%"
+            "SUPER CTRL, Right, resizeactive, 10% 0%"
 
             # "SUPER SHIFT, Up, layoutmsg, movewindowto u"
             # "SUPER SHIFT, Down, layoutmsg, movewindowto d"
@@ -120,7 +127,7 @@
             scroll_event_delay = 100;
           };
           general = {
-            layout = "master";
+            layout = "scrolling";
             border_size = style.border.thickness;
             gaps_in = style.spacing / 2;
             gaps_out = style.spacing;
@@ -152,7 +159,7 @@
             smart_split = true;
           };
           scrolling = {
-            column_width = 0.6;
+            column_width = 0.5;
             fullscreen_on_one_column = true;
           };
           master = {
