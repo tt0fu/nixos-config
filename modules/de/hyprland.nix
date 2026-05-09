@@ -3,6 +3,7 @@
     { ... }:
     {
       hardware.graphics.enable = true;
+      programs.hyprland.enable = true;
       nix.settings = {
         substituters = [ "https://hyprland.cachix.org" ];
         trusted-substituters = [ "https://hyprland.cachix.org" ];
