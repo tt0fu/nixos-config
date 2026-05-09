@@ -8,6 +8,11 @@
 
       open = "workspace::Open";
       ctrl-o = "workspace::Open";
+      
+      shift-open = "workspace::OpenFiles";
+      ctrl-shift-o = "workspace::OpenFiles";
+
+      alt-open = "projects::OpenRecent";
       ctrl-alt-o = "projects::OpenRecent";
     };
 
