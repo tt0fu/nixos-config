@@ -69,11 +69,10 @@ color: {
 
           "elevated_surface.background" = substituteBg;
           "surface.background" = substituteBg;
-          "element.background" = substituteBg;
           "drop_target.background" = substituteBg;
           "panel.overlay_background" = substituteBg;
-          "editor.subheader.background" = substituteBg;
 
+          "element.background" = substituteBg;
           "element.hover" = hover;
           "element.active" = transparent;
           "element.selected" = selected;
@@ -84,21 +83,29 @@ color: {
           "ghost_element.active" = transparent;
           "ghost_element.selected" = selected;
           "ghost_element.disabled" = disabled;
+
           text = white;
           "text.muted" = muted;
           "text.placeholder" = inactive;
           "text.disabled" = disabled;
           "text.accent" = white;
+
           icon = white;
           "icon.muted" = muted;
-          "icon.disabled" = disabled;
           "icon.placeholder" = inactive;
+          "icon.disabled" = disabled;
           "icon.accent" = white;
+
           "toolbar.background" = transparent;
+
           "tab_bar.background" = transparent;
+
           "tab.inactive_background" = transparent;
           "tab.active_background" = whiteTransparent 0.125;
+
           "search.match_background" = whiteTransparent 0.2;
+          "search.active_match_background" = active;
+
           "panel.background" = transparent;
           "panel.focused_border" = white;
           "panel.indent_guide" = inactive;
@@ -107,18 +114,22 @@ color: {
 
           "pane.focused_border" = white;
           "pane_group.border" = white;
+
           "scrollbar.thumb.background" = whiteTransparent 0.05;
           "scrollbar.thumb.hover_background" = whiteTransparent 0.125;
           "scrollbar.thumb.border" = white;
           "scrollbar.track.background" = transparent;
           "scrollbar.track.border" = transparent;
+
           "editor.foreground" = white;
           "editor.background" = transparent;
           "editor.gutter.background" = transparent;
           "editor.active_line.background" = transparent;
           "editor.highlighted_line.background" = whiteTransparent 0.125;
+          "editor.subheader.background" = substituteBg;
           "editor.line_number" = whiteTransparent 0.125;
           "editor.active_line_number" = white;
+          "editor.hover_line_number" = hover;
           "editor.invisible" = whiteTransparent 0.125;
           "editor.wrap_guide" = inactive;
           "editor.active_wrap_guide" = active;
@@ -182,13 +193,13 @@ color: {
           "modified.background" = yellow background;
           predictive = gray 0.5;
           "predictive.border" = gray 0.8;
-          "predictive.background" = gray 0.2;
+          "predictive.background" = gray 0.4;
           renamed = blue regular;
           "renamed.border" = blue accent;
           "renamed.background" = blue background;
-          info = mint regular;
-          "info.border" = mint accent;
-          "info.background" = mint background;
+          info = gray 0.7;
+          "info.border" = gray 0.9;
+          "info.background" = gray 0.2;
           warning = orange regular;
           "warning.border" = orange accent;
           "warning.background" = orange background;
