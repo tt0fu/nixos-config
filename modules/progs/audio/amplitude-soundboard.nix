@@ -5,8 +5,6 @@
       home.packages = [
         (pkgs.callPackage self.package { })
       ];
-      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<amplitude_soundboard>" =
-        "";
     };
   package =
     {

@@ -15,6 +15,5 @@
       wayland.windowManager.hyprland.settings.exec-once = [
         "steam -silent"
       ];
-      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<steam>" = "";
     };
 }

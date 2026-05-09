@@ -22,6 +22,5 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, Q, exec, kitty"
       ];
-      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<kitty>" = "";
     };
 }

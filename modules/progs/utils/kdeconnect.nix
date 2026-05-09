@@ -19,7 +19,5 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, C, exec, kdeconnect-app"
       ];
-      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<org.kde.kdeconnect.app>" =
-        "";
     };
 }

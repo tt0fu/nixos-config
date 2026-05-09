@@ -53,7 +53,5 @@
       wayland.windowManager.hyprland.settings.bind = [
         "SUPER, Z, exec, zen-twilight"
       ];
-      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<zen.*>" = "󰺕";
-      # programs.niri.settings.binds."Mod+Z".action.spawn = [ "zen" ];
     };
 }

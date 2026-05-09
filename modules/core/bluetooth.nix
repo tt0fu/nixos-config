@@ -13,10 +13,4 @@
       };
       services.blueman.enable = true;
     };
-  home =
-    { ... }:
-    {
-      programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite."class<.blueman-manager-wrapped>" =
-        "󰂯";
-    };
 }
