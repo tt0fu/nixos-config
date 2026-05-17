@@ -9,7 +9,7 @@
         };
       };
       wayland.windowManager.hyprland.settings.exec-once = [
-        "keepassxc --minimized"
+        "sleep 60; keepassxc --minimized"
       ];
     };
 }
