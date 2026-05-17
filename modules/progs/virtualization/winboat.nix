@@ -1,14 +1,4 @@
 {
-  os =
-    { userSettings, ... }:
-
-    {
-      virtualisation.docker = {
-        enable = true;
-        enableOnBoot = true;
-      };
-      users.users.${userSettings.username}.extraGroups = [ "docker" ];
-    };
   home =
     { pkgs, ... }:
     {
@@ -17,4 +7,8 @@
         freerdp
       ];
     };
+  deps =
+    modules: with modules; [
+      progs.virtualization.docker
+    ];
 }
