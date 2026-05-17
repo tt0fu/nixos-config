@@ -8,7 +8,7 @@
       feh
       gnome-disks
       kdeconnect
-      keepassxc
+      keepassxc.default
       libnotify
       missioncenter
       nautilus
