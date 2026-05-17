@@ -10,6 +10,7 @@
             alsa-lib
             wayland
             libxkbcommon
+            icu
           ]);
       };
     };
