@@ -4,6 +4,7 @@
       amplitude-soundboard
       audacity
       carla
+      gridboard
       qpwgraph
     ];
 }

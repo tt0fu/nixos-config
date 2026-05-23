@@ -59,6 +59,11 @@
       url = "github:freenet/freenet-core";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    gridboard = {
+      url = "github:tt0fu/gridboard";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: ((import ./lib/builder.nix).outputs inputs);
