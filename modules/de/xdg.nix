@@ -8,7 +8,7 @@
       ];
     };
   home =
-    { pkgs, ... }:
+    { inputs, pkgs, ... }:
     {
       home.packages = with pkgs; [
         glib
@@ -20,6 +20,7 @@
         portal = {
           enable = true;
           extraPortals = with pkgs; [
+            # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
             xdg-desktop-portal-hyprland
             xdg-desktop-portal-gtk
             xdg-desktop-portal-gnome

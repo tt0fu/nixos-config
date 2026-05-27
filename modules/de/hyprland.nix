@@ -12,7 +12,8 @@
     };
   home =
     {
-      # inputs,
+      inputs,
+      lib,
       systemSettings,
       style,
       pkgs,
@@ -29,162 +30,346 @@
         enable = true;
         # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
         # portalPackage =
-        #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         plugins = [
-          pkgs.hyprlandPlugins.hypr-dynamic-cursors
+          # pkgs.hyprlandPlugins.hypr-dynamic-cursors
           # inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors
         ];
         settings = {
-          input = [
-            {
+          config = {
+            general = {
+              layout = "scrolling";
+              border_size = style.border.thickness;
+              gaps_in = style.spacing / 2;
+              gaps_out = style.spacing;
+              resize_on_border = true;
+              "col.inactive_border" = "0xff808080";
+              "col.active_border" = "0xffffffff";
+            };
+            decoration = {
+              rounding = style.border.radius;
+              blur = {
+                size = 10;
+                passes = 2;
+                noise = 0.1;
+                contrast = 1.0;
+                brightness = 0.3;
+                vibrancy = 0.0;
+                popups = true;
+                popups_ignorealpha = 0.2;
+              };
+              shadow.enabled = false;
+            };
+            input = {
               kb_layout = "us, ru";
               kb_options = "grp:alt_shift_toggle";
-              touchpad.natural_scroll = true;
-              # follow_mouse = 0;
-            }
-          ];
-          monitor = with systemSettings.monitor; [
-            "${name}, ${toString width}x${toString height}@${toString framerate}, ${toString x}x${toString y}, ${toString scale}"
-          ];
+            };
+            binds = {
+              scroll_event_delay = 100;
+            };
+            misc = {
+              disable_hyprland_logo = true;
+              disable_splash_rendering = true;
+              font_family = style.font.name;
+              # enable_anr_dialog = false;
+              anr_missed_pings = 10;
+              middle_click_paste = false;
+            };
+            dwindle = {
+              smart_split = true;
+            };
+            scrolling = {
+              column_width = 0.5;
+              fullscreen_on_one_column = true;
+            };
+            master = {
+              allow_small_split = true;
+            };
+            ecosystem = {
+              no_donation_nag = true;
+              no_update_news = true;
+            };
+          };
+          monitor = with systemSettings.monitor; {
+            output = name;
+            mode = "${toString width}x${toString height}@${toString framerate}";
+            position = "${toString x}x${toString y}";
+            inherit scale;
+          };
           bind = [
-            "SUPER, ESCAPE, killactive"
-            "SUPER SHIFT, ESCAPE, forcekillactive"
-            "SUPER, mouse:274, killactive" # closewindow undercursor
-            "SUPER SHIFT, mouse:274, killactive" # killwindow undercursor
-            "SUPER, SPACE, togglefloating"
-            "SUPER, RETURN, fullscreen"
-            "SUPER, TAB, cyclenext"
-            "SUPER, TAB, bringactivetotop"
-            "SUPER SHIFT, TAB, cyclenext, prev"
-            "SUPER SHIFT, TAB, bringactivetotop"
-
-            "SUPER CTRL SHIFT, P, exec, shutdown now"
-            "SUPER CTRL SHIFT, L, exec, reboot"
-            "SUPER CTRL SHIFT, ESCAPE, exit"
-
-            "SUPER, Up, movefocus, u"
-            "SUPER, Down, movefocus, d"
-            "SUPER, Left, movefocus, l"
-            "SUPER, Right, movefocus, r"
-            "SUPER, mouse_down, movefocus, l"
-            "SUPER, mouse_up, movefocus, r"
-            ", mouse:276, movefocus, l"
-            ", mouse:275, movefocus, r"
-
-            # "SUPER, Left, layoutmsg, move -col"
-            # "SUPER, Right, layoutmsg, move +col"
-            # "SUPER, mouse_down, layoutmsg, move -col"
-            # "SUPER, mouse_up, layoutmsg, move +col"
-
-            "SUPER SHIFT, Up, movewindow, u"
-            "SUPER SHIFT, Down, movewindow, d"
-            "SUPER SHIFT, Left, movewindow, l"
-            "SUPER SHIFT, Right, movewindow, r"
-
-            "SUPER CTRL, Up, resizeactive, 0% 10%"
-            "SUPER CTRL, Down, resizeactive, 0% -10%"
-            "SUPER CTRL, Left, resizeactive, -10% 0%"
-            "SUPER CTRL, Right, resizeactive, 10% 0%"
-
-            # "SUPER SHIFT, Up, layoutmsg, movewindowto u"
-            # "SUPER SHIFT, Down, layoutmsg, movewindowto d"
-            # "SUPER SHIFT, Left, layoutmsg, movewindowto l"
-            # "SUPER SHIFT, Right, layoutmsg, movewindowto r"
-            # "SUPER SHIFT, mouse_down, layoutmsg, movewindowto l"
-            # "SUPER SHIFT, mouse_up, layoutmsg, movewindowto r"
-
-            ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-            ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5"
-            ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-            ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-            ",XF86AudioPlay, exec, playerctl play-pause" # play
-            ",XF86AudioStop, exec, playerctl stop"
-            ",XF86AudioPrev, exec, playerctl previous"
-            ",XF86AudioNext, exec, playerctl next"
-            ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-            ",XF86MonBrightnessUp, exec, brightnessctl s +10%"
+            {
+              _args = [
+                "SUPER + ESCAPE"
+                (lib.generators.mkLuaInline "hl.dsp.window.close()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + ESCAPE"
+                (lib.generators.mkLuaInline "hl.dsp.window.kill()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + mouse:274"
+                (lib.generators.mkLuaInline "hl.dsp.window.close()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + mouse:274"
+                (lib.generators.mkLuaInline "hl.dsp.window.kill()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SPACE"
+                (lib.generators.mkLuaInline "hl.dsp.window.float()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + RETURN"
+                (lib.generators.mkLuaInline "hl.dsp.window.fullscreen()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + TAB"
+                (lib.generators.mkLuaInline "hl.dsp.window.cycle_next()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + TAB"
+                (lib.generators.mkLuaInline "hl.dsp.window.cycle_next({ next = false })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + CTRL + SHIFT + P"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"shutdown now\")")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + CTRL + SHIFT + L"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"reboot\")")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + CTRL + SHIFT + ESCAPE"
+                (lib.generators.mkLuaInline "hl.dsp.exit()")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + Up"
+                (lib.generators.mkLuaInline "hl.dsp.focus({ direction = \"up\" })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + Down"
+                (lib.generators.mkLuaInline "hl.dsp.focus({ direction = \"down\" })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + Left"
+                (lib.generators.mkLuaInline "hl.dsp.layout(\"focus l\")")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + Right"
+                (lib.generators.mkLuaInline "hl.dsp.layout(\"focus r\")")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + mouse_down"
+                (lib.generators.mkLuaInline "hl.dsp.layout(\"focus l\")")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + mouse_up"
+                (lib.generators.mkLuaInline "hl.dsp.layout(\"focus r\")")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + mouse:276"
+                (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = \"e-1\" })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + mouse:275"
+                (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = \"e+1\" })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + Up"
+                (lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"up\" })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + Down"
+                (lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"down\" })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + Left"
+                (lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"left\" })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + Right"
+                (lib.generators.mkLuaInline "hl.dsp.window.move({ direction = \"right\" })")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioLowerVolume"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioRaiseVolume"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioMute"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioMicMute"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioPlay"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"playerctl play-pause\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioStop"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"playerctl stop\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioPrev"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"playerctl previous\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86AudioNext"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"playerctl next\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86MonBrightnessDown"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl s 10%-\")")
+              ];
+            }
+            {
+              _args = [
+                "XF86MonBrightnessUp"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl s +10%\")")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + mouse:272"
+                (lib.generators.mkLuaInline "hl.dsp.window.drag()")
+                { mouse = true; }
+              ];
+            }
+            {
+              _args = [
+                "SUPER + mouse:273"
+                (lib.generators.mkLuaInline "hl.dsp.window.resize()")
+                { mouse = true; }
+              ];
+            }
           ]
           ++ (builtins.concatLists (
             builtins.genList (i: [
-              "SUPER, code:1${toString i}, workspace, ${toString (i + 1)}"
-              "SUPER SHIFT, code:1${toString i}, movetoworkspace, ${toString (i + 1)}"
+              {
+                _args = [
+                  "SUPER + ${toString (i + 1)}"
+                  (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = ${toString (i + 1)} })")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + SHIFT + ${toString (i + 1)}"
+                  (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = ${toString (i + 1)} })")
+                ];
+              }
             ]) 9
           ));
-          bindm = [
-            "SUPER, mouse:272, movewindow"
-            "SUPER, mouse:273, resizewindow"
-          ];
           gesture = [
-            "3, up, dispatcher, movefocus, d"
-            "3, down, dispatcher, movefocus, u"
-            "3, left, dispatcher, movefocus, r"
-            "3, right, dispatcher, movefocus, l"
-            # "3, left, dispatcher, layoutmsg, move +col"
-            # "3, right, dispatcher, layoutmsg, move -col"
-            "4, horizontal, workspace"
+            {
+              fingers = 3;
+              direction = "horizontal";
+              action = "scroll_move";
+            }
+            {
+              fingers = 4;
+              direction = "horizontal";
+              action = "workspace";
+            }
           ];
-          binds = {
-            scroll_event_delay = 100;
-          };
-          general = {
-            layout = "scrolling";
-            border_size = style.border.thickness;
-            gaps_in = style.spacing / 2;
-            gaps_out = style.spacing;
-            resize_on_border = true;
-            "col.inactive_border" = "0xff808080";
-            "col.active_border" = "0xffffffff";
-          };
-          decoration = {
-            rounding = style.border.radius;
-            blur = {
-              size = 10;
-              passes = 2;
-              noise = 0.1;
-              contrast = 1.0;
-              brightness = 0.3;
-            };
-            shadow.enabled = false;
-          };
-          animation = [ "global, 1, 1, default" ];
-          misc = {
-            disable_hyprland_logo = true;
-            disable_splash_rendering = true;
-            font_family = style.font.name;
-            # enable_anr_dialog = false;
-            anr_missed_pings = 10;
-            middle_click_paste = false;
-          };
-          dwindle = {
-            smart_split = true;
-          };
-          scrolling = {
-            column_width = 0.5;
-            fullscreen_on_one_column = true;
-          };
-          master = {
-            allow_small_split = true;
-          };
-          ecosystem = {
-            no_donation_nag = true;
-            no_update_news = true;
-          };
-          plugin = {
-            dynamic-cursors = {
-              mode = "stretch";
-              stretch = {
-                limit = 15000;
-              };
-              shake = {
-                threshold = 7.5;
-                effects = true;
-                timeout = 1500;
-              };
-              hyprcursor = {
-                nearest = false;
-              };
-            };
-          };
+          animation = [
+            {
+              leaf = "global";
+              enabled = true;
+              speed = 1;
+              bezier = "easeInOutQuad";
+            }
+          ];
+          curve = [
+            {
+              _args = [
+                "easeInOutQuad"
+                (lib.generators.mkLuaInline ''{ type = "bezier", points = { {0.45, 0}, {0.55, 1} } }'')
+              ];
+            }
+          ];
+          # plugin = {
+          #   dynamic-cursors = {
+          #     mode = "stretch";
+          #     stretch = {
+          #       limit = 15000;
+          #     };
+          #     shake = {
+          #       threshold = 7.5;
+          #       effects = true;
+          #       timeout = 1500;
+          #     };
+          #     hyprcursor = {
+          #       nearest = false;
+          #     };
+          #   };
+          # };
         };
       };
       home.sessionVariables = {

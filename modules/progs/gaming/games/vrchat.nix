@@ -1,11 +1,24 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = [ pkgs.vrcx ];
-      wayland.windowManager.hyprland.settings.exec-once = [
-        "vrcx --startup"
-      ];
+      wayland.windowManager.hyprland.settings = {
+        on = [
+          {
+            _args = [
+              "hyprland.start"
+              (lib.generators.mkLuaInline ''function() hl.exec_cmd("vrcx --startup") end'')
+            ];
+          }
+        ];
+        window_rule = {
+          match = {
+            class = "steam_app_438100";
+          };
+          tile = true;
+        };
+      };
       xdg.desktopEntries = {
         vrchat = {
           name = "VRChat";
@@ -20,6 +33,5 @@
           ];
         };
       };
-      wayland.windowManager.hyprland.settings.windowrule = "match:class steam_app_438100, tile on";
     };
 }

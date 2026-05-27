@@ -1,6 +1,6 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = with pkgs; [
         wl-clipboard
@@ -9,6 +9,13 @@
         enable = true;
         allowImages = true;
       };
-      wayland.windowManager.hyprland.settings.exec-once = [ "cliphist wipe" ];
+      wayland.windowManager.hyprland.settings.on = [
+        {
+          _args = [
+            "hyprland.shutdown"
+            (lib.generators.mkLuaInline ''function() hl.exec_cmd("cliphist wipe") end'')
+          ];
+        }
+      ];
     };
 }

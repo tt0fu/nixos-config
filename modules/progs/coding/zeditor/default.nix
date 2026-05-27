@@ -1,6 +1,7 @@
 {
   home =
     {
+      lib,
       style,
       color,
       ...
@@ -54,7 +55,12 @@
         "text/*" = "dev.zed.Zed.desktop";
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, W, exec, zeditor"
+        {
+          _args = [
+            "SUPER + W"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"zeditor\")")
+          ];
+        }
       ];
     };
   deps = modules: with modules; [ progs.utils.nix-ld ];

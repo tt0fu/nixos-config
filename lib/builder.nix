@@ -80,6 +80,8 @@ in
 
         system = systemSettings.system;
 
+        pkgs-stable = import inputs.nixpkgs-stable { inherit system; };
+
         style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
 
         requested = curSystem.modules allModules;
@@ -88,6 +90,7 @@ in
         specialArgs = {
           inherit
             inputs
+            pkgs-stable
             systemSettings
             userSettings
             style

@@ -1,6 +1,6 @@
 {
   home =
-    { inputs, ... }:
+    { lib, inputs, ... }:
     {
       imports = [
         inputs.nixcord.homeModules.nixcord
@@ -234,7 +234,12 @@
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, D, exec, discord"
+        {
+          _args = [
+            "SUPER + D"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"discord\")")
+          ];
+        }
       ];
     };
 }

@@ -56,10 +56,10 @@ Item {
                     acceptedButtons: Qt.AllButtons
                     onPressed: event => {
                         if (event.buttons & Qt.LeftButton) {
-                            Hyprland.dispatch("workspace " + workspaceRect.name);
+                            Hyprland.dispatch("hl.dsp.focus({ workspace = " + workspaceRect.name + " }) ");
                         }
                         if (event.buttons & Qt.RightButton) {
-                            Hyprland.dispatch("movetoworkspace " + workspaceRect.name);
+                            Hyprland.dispatch("hl.dsp.window.move({ workspace = " + workspaceRect.name + " }) ");
                         }
                     }
                 }

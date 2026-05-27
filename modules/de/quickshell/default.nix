@@ -1,6 +1,11 @@
 {
   home =
-    { inputs, pkgs, ... }:
+    {
+      inputs,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       programs.quickshell = {
         enable = true;
@@ -11,15 +16,37 @@
         };
       };
       wayland.windowManager.hyprland.settings = {
-        layerrule = [
-          "blur on, match:namespace quickshell"
-          "ignore_alpha 0, match:namespace quickshell"
-          "blur_popups on, match:namespace quickshell"
+        layer_rule = [
+          {
+            match = {
+              namespace = "quickshell";
+            };
+            blur = true;
+            blur_popups = true;
+            ignore_alpha = 0.0;
+          }
         ];
-        exec-once = [ "qs -c shell" ];
         bind = [
-          "SUPER, A, global, quickshell:toggleLauncher"
-          "SUPER, V, global, quickshell:toggleClipboard"
+          {
+            _args = [
+              "SUPER + A"
+              (lib.generators.mkLuaInline "hl.dsp.global(\"quickshell:toggleLauncher\")")
+            ];
+          }
+          {
+            _args = [
+              "SUPER + V"
+              (lib.generators.mkLuaInline "hl.dsp.global(\"quickshell:toggleClipboard\")")
+            ];
+          }
+        ];
+        on = [
+          {
+            _args = [
+              "hyprland.start"
+              (lib.generators.mkLuaInline ''function() hl.exec_cmd("setpriv --ambient-caps -all quickshell -c shell") end'')
+            ];
+          }
         ];
       };
     };

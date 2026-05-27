@@ -2,7 +2,7 @@
   home =
     {
       pkgs,
-      systemSettings,
+      lib,
       ...
     }:
 
@@ -10,17 +10,13 @@
       home.packages = with pkgs; [
         shaderbg
       ];
-      wayland.windowManager.hyprland.settings.exec-once = [
-        ''shaderbg "*" ${./fbm.frag}''
+      wayland.windowManager.hyprland.settings.on = [
+        {
+          _args = [
+            "hyprland.start"
+            (lib.generators.mkLuaInline ''function() hl.exec_cmd("shaderbg \"*\" ${./fbm.frag}") end'')
+          ];
+        }
       ];
-      # programs.niri.settings.spawn-at-startup = [
-      #   {
-      #     argv = [
-      #       "shaderbg"
-      #       "*"
-      #       "${./fbm.frag}"
-      #     ];
-      #   }
-      # ];
     };
 }

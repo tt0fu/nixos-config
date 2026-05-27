@@ -1,6 +1,6 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = with pkgs; [
         wl-clipboard
@@ -11,8 +11,22 @@
       };
       wayland.windowManager.hyprland = {
         settings = {
-          bind = [ "SUPER, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" ];
-          exec-once = [ "cliphist wipe" ];
+          bind = [
+            {
+              _args = [
+                "SUPER + V"
+                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"cliphist list | rofi -dmenu | cliphist decode | wl-copy\")")
+              ];
+            }
+          ];
+          on = [
+            {
+              _args = [
+                "hyprland.start"
+                (lib.generators.mkLuaInline ''function() hl.exec_cmd(\"cliphist wipe\") end'')
+              ];
+            }
+          ];
         };
       };
       # programs.niri.settings.binds."Mod+V".action.spawn = [

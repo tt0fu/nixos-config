@@ -1,6 +1,11 @@
 {
   home =
-    { inputs, pkgs, ... }:
+    {
+      lib,
+      inputs,
+      pkgs,
+      ...
+    }:
     {
       imports = [
         inputs.zen-browser.homeModules.twilight # beta / twilight / twilight-official
@@ -51,7 +56,12 @@
         };
 
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, Z, exec, zen-twilight"
+        {
+          _args = [
+            "SUPER + Z"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"zen-twilight\")")
+          ];
+        }
       ];
     };
 }

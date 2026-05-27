@@ -1,6 +1,6 @@
 {
   home =
-    { userSettings, ... }:
+    { lib, userSettings, ... }:
     {
       programs.thunderbird = {
         enable = true;
@@ -9,7 +9,12 @@
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, X, exec, thunderbird"
+        {
+          _args = [
+            "SUPER + X"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"thunderbird\")")
+          ];
+        }
       ];
     };
 }

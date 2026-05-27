@@ -1,6 +1,6 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = [ pkgs.zip ];
       programs.yazi = {
@@ -49,7 +49,12 @@
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER SHIFT, E, exec, kitty --class yazi yazi"
+        {
+          _args = [
+            "SUPER + SHIFT + E"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"kitty --class yazi yazi\")")
+          ];
+        }
       ];
     };
 }

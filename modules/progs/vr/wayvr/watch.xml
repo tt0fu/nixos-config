@@ -135,11 +135,19 @@
               </Button>
             </div>
             <div gap="8">
-              <Button macro="button_style" _press="::ShellExec hyprctl dispatch exec '[float; size 800 500] kitty --class motoc -- motoc calibrate --src WiVRn\ right\ controller --dst LHR-B8E3267C'" tooltip_str="Recalibrate playspace" tooltip_side="left">
+              <Button 
+                  macro="button_style" 
+                  _press="::ShellExec DISPLAY= WAYLAND_DISPLAY=wayland-$(cat $XDG_RUNTIME_DIR/wayvr.disp) kitty --class motoc -- motoc calibrate --src 'WiVRn right controller' --dst LHR-B8E3267C" 
+                  tooltip_str="Recalibrate playspace" 
+                  tooltip_side="left">
                 <sprite width="40" height="40" color="~color_text" src="watch/track2.svg" />
               </Button>
-              <Button macro="button_style" _press="::PlayspaceFixFloor" tooltip="WATCH.FIX_FLOOR" tooltip_side="left">
-                <sprite width="40" height="40" color="~color_text" src="watch/fix-floor.svg" />
+              <Button 
+                  macro="button_style" 
+                  _press="::ShellExec DISPLAY= WAYLAND_DISPLAY=wayland-$(cat $XDG_RUNTIME_DIR/wayvr.disp) gridboard" 
+                  tooltip_str="Spawn soundboard" 
+                  tooltip_side="left">
+                <sprite width="40" height="40" color="~color_text" src="icons/bell.svg" />
               </Button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 {
   home =
-    { style, ... }:
+    { lib, style, ... }:
     {
       services.dunst = {
         enable = true;
@@ -28,15 +28,13 @@
           };
         };
       };
-      wayland.windowManager.hyprland.settings = {
-        exec-once = [
-          "dunst"
-        ];
-        layerrule = [
-          "blur on, match:namespace notifications"
-          "ignore_alpha 0, match:namespace notifications"
-          "blur_popups on, match:namespace notifications"
-        ];
-      };
+      wayland.windowManager.hyprland.settings.on = [
+        {
+          _args = [
+            "hyprland.start"
+            (lib.generators.mkLuaInline ''function() hl.exec_cmd(\"dunst\") end'')
+          ];
+        }
+      ];
     };
 }

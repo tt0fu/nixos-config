@@ -1,10 +1,15 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = [ pkgs.mission-center ];
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, M, exec, missioncenter"
+        {
+          _args = [
+            "SUPER + M"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"missioncenter\")")
+          ];
+        }
       ];
     };
 }

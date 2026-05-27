@@ -1,6 +1,6 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home = {
         packages = [ pkgs.keepassxc ];
@@ -8,8 +8,13 @@
           source = ./keepassxc.ini;
         };
       };
-      wayland.windowManager.hyprland.settings.exec-once = [
-        "sleep 60; keepassxc --minimized"
+      wayland.windowManager.hyprland.settings.on = [
+        {
+          _args = [
+            "hyprland.start"
+            (lib.generators.mkLuaInline ''function() hl.exec_cmd("sleep 30; keepassxc --minimized") end'')
+          ];
+        }
       ];
     };
 }

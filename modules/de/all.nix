@@ -16,7 +16,6 @@
       qt
       screenshot
       quickshell.default
-      # waybar
       wallpaper.default
       xdg
     ];

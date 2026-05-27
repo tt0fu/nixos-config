@@ -1,10 +1,15 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = [ pkgs.element-desktop ];
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, F, exec, element-desktop"
+        {
+          _args = [
+            "SUPER + F"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"element-desktop\")")
+          ];
+        }
       ];
     };
 }

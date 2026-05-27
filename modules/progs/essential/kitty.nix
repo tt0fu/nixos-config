@@ -1,6 +1,6 @@
 {
   home =
-    { style, ... }:
+    { lib, style, ... }:
     {
       programs.kitty = {
         enable = true;
@@ -20,7 +20,12 @@
         };
       };
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, Q, exec, kitty"
+        {
+          _args = [
+            "SUPER + Q"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"kitty\")")
+          ];
+        }
       ];
     };
 }

@@ -1,7 +1,7 @@
 {
   deps =
     modules: with modules.progs.audio; [
-      amplitude-soundboard
+      # amplitude-soundboard
       audacity
       carla
       gridboard

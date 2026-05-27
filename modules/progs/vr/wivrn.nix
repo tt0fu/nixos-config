@@ -52,10 +52,12 @@
         file.".config/wivrn/config.json".text = pkgs.lib.generators.toJSON { } {
           application = lib.getExe (
             pkgs.writeShellScriptBin "wivrn-launch-script" ''
-              sleep 5
-              (${pkgs.motoc}/bin/motoc continue && ${pkgs.libnotify}/bin/notify-send "motoc calibration loaded") || ${pkgs.libnotify}/bin/notify-send -u critical "Failed to load motoc calibration!"
               sleep 1
-              ${pkgs.wayvr}/bin/wayvr
+              (${lib.getExe pkgs.motoc} continue && ${lib.getExe pkgs.libnotify} "motoc calibration loaded") || ${lib.getExe pkgs.libnotify} -u critical "Failed to load motoc calibration!"
+              sleep 1
+              ${lib.getExe pkgs.wayvr} &
+              sleep 1
+              DISPLAY= WAYLAND_DISPLAY=wayland-''$(cat ''$XDG_RUNTIME_DIR/wayvr.disp) ${lib.getExe inputs.gridboard.packages.${pkgs.stdenv.system}.default}
             ''
           );
           bitrate = 200000000;
@@ -75,8 +77,13 @@
         };
         sessionVariables.PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES = "1";
       };
-      wayland.windowManager.hyprland.settings.exec-once = [
-        "wivrn-server -f ~/.config/wivrn/config.json"
+      wayland.windowManager.hyprland.settings.on = [
+        {
+          _args = [
+            "hyprland.start"
+            (lib.generators.mkLuaInline ''function() hl.exec_cmd("wivrn-server -f ~/.config/wivrn/config.json") end'')
+          ];
+        }
       ];
     };
 }

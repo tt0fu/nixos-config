@@ -6,6 +6,7 @@
     };
   home =
     {
+      lib,
       style,
       ...
     }:
@@ -79,14 +80,28 @@
               color = "rgb(255, 255, 255)";
               font_size = style.font.size * 2;
               font_family = style.font.name;
-              onclick = "hyprctl dispatch exit";
+              onclick = "hyprctl dispatch 'hl.dsp.exit()'";
             }
           ];
         };
       };
       wayland.windowManager.hyprland.settings = {
-        bind = [ "SUPER, L, exec, hyprlock" ];
-        exec-once = [ "sleep 0.5; hyprlock" ];
+        bind = [
+          {
+            _args = [
+              "SUPER + L"
+              (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"hyprlock\")")
+            ];
+          }
+        ];
+        on = [
+          {
+            _args = [
+              "hyprland.start"
+              (lib.generators.mkLuaInline ''function() hl.exec_cmd("sleep 0.5; hyprlock") end'')
+            ];
+          }
+        ];
       };
       # programs.niri.settings.binds."Mod+L".action.spawn = [ "hyprlock" ];
     };

@@ -13,11 +13,16 @@
       };
     };
   home =
-    { ... }:
+    { lib, ... }:
     {
       services.kdeconnect.enable = true;
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER, C, exec, kdeconnect-app"
+        {
+          _args = [
+            "SUPER + C"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"kdeconnect-app\")")
+          ];
+        }
       ];
     };
 }

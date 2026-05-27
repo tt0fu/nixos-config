@@ -1,10 +1,15 @@
 {
   home =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = [ pkgs.btop ];
       wayland.windowManager.hyprland.settings.bind = [
-        "SUPER SHIFT, M, exec, kitty --class btop btop"
+        {
+          _args = [
+            "SUPER + SHIFT + M"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"kitty --class btop btop\")")
+          ];
+        }
       ];
     };
 }
