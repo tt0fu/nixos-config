@@ -2,7 +2,8 @@
   deps =
     modules: with modules.progs.social; [
       discord
-      element
+      matrix
+      signal
       telegram
       zoom
     ];

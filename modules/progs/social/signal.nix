@@ -2,7 +2,7 @@
   home =
     { pkgs, lib, ... }:
     {
-      home.packages = [ pkgs.element-desktop ];
+      home.packages = [ pkgs.signal-desktop ];
       wayland.windowManager.hyprland.settings.bind = [
         {
           _args = [
