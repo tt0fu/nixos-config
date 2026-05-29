@@ -7,9 +7,9 @@
       cliphist
       feh
       gnome-disks
-      kdeconnect
       keepassxc.default
       libnotify
+      localsend
       missioncenter
       nautilus
       nix-ld
