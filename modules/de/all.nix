@@ -7,7 +7,7 @@
       gtk
       hyprland
       hyprlock
-      launcher
+      # launcher
       # niri
       # notifications
       pointer-cursor

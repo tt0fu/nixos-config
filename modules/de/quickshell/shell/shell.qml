@@ -97,6 +97,7 @@ ShellRoot {
             anchors {
                 right: parent.right
                 bottom: parent.bottom
+                bottomMargin: GlobalState.notificationsShown ? 0 : -height + (parent.height - viewRect.y - viewRect.height)
             }
             color: "transparent"
             radius: Sizes.borderRadius
@@ -108,8 +109,15 @@ ShellRoot {
             Behavior on height {
                 StylizedNumberAnimation {}
             }
+            Behavior on anchors.bottomMargin {
+                StylizedNumberAnimation {}
+            }
             Notifications {
                 id: notifications
+                anchors {
+                    topMargin: GlobalState.notificationsShown ? Sizes.gap : parent.parent.height - viewRect.y - viewRect.height
+                    fill: parent
+                }
             }
         }
         // Rectangle {

@@ -39,6 +39,12 @@
               (lib.generators.mkLuaInline "hl.dsp.global(\"quickshell:toggleClipboard\")")
             ];
           }
+          {
+            _args = [
+              "SUPER + N"
+              (lib.generators.mkLuaInline "hl.dsp.global(\"quickshell:toggleNotifications\")")
+            ];
+          }
         ];
         on = [
           {

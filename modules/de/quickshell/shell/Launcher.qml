@@ -4,8 +4,9 @@ import "stylized"
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import Quickshell.Hyprland
 import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Io
 
 StylizedColumnLayout {
     id: launcher
@@ -36,21 +37,21 @@ StylizedColumnLayout {
     function launchCurrent() {
         if (entriesList.currentIndex >= 0 && entriesList.currentIndex < entriesList.count) {
             entriesList.model[entriesList.currentIndex].execute();
-            GlobalState.appLauncherOpened = false;
+        } else {
+            Hyprland.dispatch("hl.dsp.exec_cmd(\"" + launcherTextField.text.replace(/"/g, "\\\"") + "\")");
         }
+        GlobalState.appLauncherOpened = false;
     }
 
     Keys.onEscapePressed: GlobalState.appLauncherOpened = false
     Keys.onDownPressed: {
         if (entriesList.count > 0) {
             entriesList.incrementCurrentIndex();
-            entriesList.positionViewAtIndex(entriesList.currentIndex, ListView.Contain);
         }
     }
     Keys.onUpPressed: {
         if (entriesList.count > 0) {
             entriesList.decrementCurrentIndex();
-            entriesList.positionViewAtIndex(entriesList.currentIndex, ListView.Contain);
         }
     }
     Keys.onEnterPressed: launchCurrent()
@@ -63,7 +64,7 @@ StylizedColumnLayout {
             id: launcherTextField
             focus: GlobalState.appLauncherOpened
             anchors.fill: parent
-            placeholderText: "Search for desktop items"
+            placeholderText: "Search for desktop items or run a command"
             onTextChanged: launcher.updateFoundEntries()
             onAccepted: launcher.launchCurrent()
         }
@@ -87,7 +88,7 @@ StylizedColumnLayout {
                 id: entriesList
                 width: parent.availableWidth
                 model: launcher.foundEntries
-                currentIndex: -1
+                currentIndex: 0
                 clip: true
                 spacing: Sizes.gap
 
@@ -98,8 +99,6 @@ StylizedColumnLayout {
                     width: ListView.view.width
                     level: 2
                     border.color: {
-                        if (index === entriesList.currentIndex)
-                            return Colors.border;
                         if (launcherEntryMouseArea.containsMouse)
                             return Colors.hover;
                         return Colors.muted;
@@ -127,6 +126,17 @@ StylizedColumnLayout {
                             GlobalState.appLauncherOpened = false;
                             launcherEntry.modelData.execute();
                         }
+                    }
+                }
+                highlight: StylizedRectangle {
+                    level: 2
+                    y: entriesList.currentItem.y
+                    z: 2
+                    Behavior on y {
+                        StylizedNumberAnimation {}
+                    }
+                    Behavior on height {
+                        StylizedNumberAnimation {}
                     }
                 }
             }

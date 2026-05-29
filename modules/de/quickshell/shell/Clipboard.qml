@@ -72,13 +72,11 @@ StylizedColumnLayout {
     Keys.onDownPressed: {
         if (itemsList.count > 0) {
             itemsList.incrementCurrentIndex();
-            itemsList.positionViewAtIndex(itemsList.currentIndex, ListView.Contain);
         }
     }
     Keys.onUpPressed: {
         if (itemsList.count > 0) {
             itemsList.decrementCurrentIndex();
-            itemsList.positionViewAtIndex(itemsList.currentIndex, ListView.Contain);
         }
     }
     Keys.onEnterPressed: {
@@ -125,7 +123,7 @@ StylizedColumnLayout {
                 id: itemsList
                 width: parent.availableWidth
                 model: clipboard.foundItems
-                currentIndex: -1
+                currentIndex: 0
                 clip: true
                 spacing: Sizes.gap
 
@@ -136,8 +134,6 @@ StylizedColumnLayout {
                     width: ListView.view.width
                     level: 2
                     border.color: {
-                        if (index === itemsList.currentIndex)
-                            return Colors.border;
                         if (delegateMouseArea.containsMouse)
                             return Colors.hover;
                         return Colors.muted;
@@ -161,6 +157,17 @@ StylizedColumnLayout {
                             GlobalState.clipboardOpened = false;
                             clipboard.copyEntry(modelData.id);
                         }
+                    }
+                }
+                highlight: StylizedRectangle {
+                    level: 2
+                    y: itemsList.currentItem.y
+                    z: 2
+                    Behavior on y {
+                        StylizedNumberAnimation {}
+                    }
+                    Behavior on height {
+                        StylizedNumberAnimation {}
                     }
                 }
             }
