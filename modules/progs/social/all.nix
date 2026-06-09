@@ -4,6 +4,7 @@
       discord
       matrix
       signal
+      stoat
       telegram
       zoom
     ];
