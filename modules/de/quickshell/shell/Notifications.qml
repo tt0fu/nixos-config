@@ -25,7 +25,7 @@ StylizedColumnLayout {
 
     Timer {
         id: selfCloseTimer
-        interval: 5000
+        interval: 30000
         repeat: false
         onTriggered: GlobalState.notificationsShown = false
     }
