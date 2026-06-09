@@ -55,9 +55,7 @@
               sleep 1
               (${lib.getExe pkgs.motoc} continue && ${lib.getExe pkgs.libnotify} "motoc calibration loaded") || ${lib.getExe pkgs.libnotify} -u critical "Failed to load motoc calibration!"
               sleep 1
-              ${lib.getExe pkgs.wayvr} &
-              sleep 1
-              DISPLAY= WAYLAND_DISPLAY=wayland-''$(cat ''$XDG_RUNTIME_DIR/wayvr.disp) ${lib.getExe inputs.gridboard.packages.${pkgs.stdenv.system}.default}
+              ${lib.getExe pkgs.wayvr}
             ''
           );
           bitrate = 200000000;
