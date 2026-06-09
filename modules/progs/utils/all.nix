@@ -6,7 +6,7 @@
       caligula
       cliphist
       feh
-      gnome-disks
+      gparted
       keepassxc.default
       libnotify
       localsend
