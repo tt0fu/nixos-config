@@ -54,7 +54,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     wivrn = {
-      url = "github:WiVRn/WiVRn/v26.2.3";
+      url = "github:WiVRn/WiVRn/v26.6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
