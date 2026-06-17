@@ -98,6 +98,7 @@
             video.all
             virtualization.all
             vr.all
+            vtubing.all
           ])
         );
     };
