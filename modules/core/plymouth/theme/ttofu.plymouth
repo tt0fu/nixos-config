@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=ttofu
+Description=display boot animation
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/ttofu
+ScriptFile=/usr/share/plymouth/themes/ttofu/ttofu.script

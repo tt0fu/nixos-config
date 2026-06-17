@@ -9,7 +9,7 @@
       mounting
       networking
       nix
-      plymouth
+      plymouth.default
       power-management
       shebang-support
       sound
