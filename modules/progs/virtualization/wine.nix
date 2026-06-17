@@ -3,9 +3,8 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        wineWow64Packages.waylandFull
+        wineWow64Packages.full
         winetricks
-        # sambaFull
       ];
     };
 }
