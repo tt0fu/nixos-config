@@ -5,6 +5,7 @@
       blender
       godot
       # metashape
+      orca-slicer
       unity
       vrc
     ];
