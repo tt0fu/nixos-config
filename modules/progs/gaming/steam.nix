@@ -10,7 +10,7 @@
       };
     };
   home =
-    { pkgs, lib, ... }:
+    { lib, ... }:
     {
       # home.packages = [ pkgs.steam ];
       wayland.windowManager.hyprland.settings.on = [
