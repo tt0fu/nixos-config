@@ -35,7 +35,10 @@
           ensure_final_newline_on_save = false;
           project_panel.auto_fold_dirs = false;
           preview_tabs.enabled = false;
-          agent.enabled = true;
+          agent = {
+            enabled = true;
+            sidebar_side = "right";
+          };
           disable_ai = false;
           collaboration_panel = {
             button = false;
