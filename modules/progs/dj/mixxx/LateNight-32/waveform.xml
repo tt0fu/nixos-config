@@ -5,175 +5,15 @@
   <SetVariable name="CoverName">BeatEditCover</SetVariable>
   <SetVariable name="CoverConfigKey"><Variable name="Group"/>,bpmlock</SetVariable>
 
-  <SetVariable name="KnobBg">regular</SetVariable>
-  <SetVariable name="KnobIndicator">regular</SetVariable>
-  <SetVariable name="ArcRadius">
-    <Variable name="ArcRadiusBig"/>
-  </SetVariable>
-  <SetVariable name="ArcThickness">
-    <Variable name="ArcThicknessBig"/>
-  </SetVariable>
-
   <WidgetGroup>
     <ObjectName>Waveform</ObjectName>
     <Layout>horizontal</Layout>
     <SizePolicy>me,me</SizePolicy>
     <Children>
       <WidgetGroup>
-        <RequiresStem>true</RequiresStem>
-        <ObjectName>StemControls</ObjectName>
-        <Layout>vertical</Layout>
-        <Size>240f,0me</Size>
-        <Children>
-          <WidgetGroup>
-            <Size>0me,1me</Size>
-            <Connection>
-              <ConfigKey persist="true">[Waveform],stem_split_tracks</ConfigKey>
-              <Transform><Not/></Transform>
-              <BindProperty>visible</BindProperty>
-            </Connection>
-          </WidgetGroup>
-
-          <WidgetGroup>
-            <!-- StemControlsInner -->
-            <Layout>horizontal</Layout>
-            <SizePolicy>f,me</SizePolicy>
-            <Children>
-
-              <WidgetGroup>
-                <Size>1f,0min</Size>
-              </WidgetGroup>
-
-              <WidgetGroup>
-                <!-- StemControls 4ch -->
-                <Layout>vertical</Layout>
-                <Children>
-                  <WidgetGroup>
-                    <!-- StemCh1 controls  -->
-                    <Layout>horizontal</Layout>
-                    <Children>
-                      <WidgetGroup>
-                        <Size>1min,2me</Size>
-                      </WidgetGroup>
-                      <Template src="skins:LateNight/stem_channel.xml">
-                        <SetVariable name="StemNum">1</SetVariable>
-                      </Template>
-                      <WidgetGroup>
-                        <Size>1min,3f</Size>
-                      </WidgetGroup>
-                    </Children>
-                  </WidgetGroup>
-                  <WidgetGroup>
-                    <!-- StemCh2 controls  -->
-                    <Layout>horizontal</Layout>
-                    <Children>
-                      <WidgetGroup>
-                        <Size>1min,2me</Size>
-                      </WidgetGroup>
-                      <Template src="skins:LateNight/stem_channel.xml">
-                        <SetVariable name="StemNum">2</SetVariable>
-                      </Template>
-                      <WidgetGroup>
-                        <Size>1min,3f</Size>
-                      </WidgetGroup>
-                    </Children>
-                  </WidgetGroup>
-                  <WidgetGroup>
-                    <!-- StemCh3 controls  -->
-                    <Layout>horizontal</Layout>
-                    <Children>
-                      <WidgetGroup>
-                        <Size>1min,2me</Size>
-                      </WidgetGroup>
-                      <Template src="skins:LateNight/stem_channel.xml">
-                        <SetVariable name="StemNum">3</SetVariable>
-                      </Template>
-                      <WidgetGroup>
-                        <Size>1min,3f</Size>
-                      </WidgetGroup>
-                    </Children>
-                  </WidgetGroup>
-                  <WidgetGroup>
-                    <!-- StemCh4 controls  -->
-                    <Layout>horizontal</Layout>
-                    <Children>
-                      <WidgetGroup>
-                        <Size>1min,2me</Size>
-                      </WidgetGroup>
-                      <Template src="skins:LateNight/stem_channel.xml">
-                        <SetVariable name="StemNum">4</SetVariable>
-                      </Template>
-                      <WidgetGroup>
-                        <Size>1min,3f</Size>
-                      </WidgetGroup>
-                    </Children>
-                  </WidgetGroup>
-                </Children>
-              </WidgetGroup>
-              <!-- /StemControls 4ch -->
-
-            </Children>
-            <Connection>
-              <ConfigKey persist="true">[Channel<Variable name="ChanNum"/>],stem_count</ConfigKey>
-              <BindProperty>visible</BindProperty>
-            </Connection>
-          </WidgetGroup>
-          <!-- /StemControlsInner -->
-
-          <WidgetGroup>
-            <!-- NoStemLabel -->
-            <Layout>horizontal</Layout>
-            <SizePolicy>me,f</SizePolicy>
-            <Children>
-              <WidgetGroup>
-                <Size>1me,3f</Size>
-              </WidgetGroup>
-              <Label>
-                <SizePolicy>min,me</SizePolicy>
-                <ObjectName>NoStemLabel</ObjectName>
-                <Text>Track has no STEMs</Text>
-              </Label>
-              <WidgetGroup>
-                <Size>1me,3f</Size>
-              </WidgetGroup>
-              <!-- WaveformMinSizeConstrain -->
-              <WidgetGroup>
-                <Size>0f,110f</Size>
-                <Connection>
-                  <ConfigKey persist="true">[Skin],keep_consistent_waveform_heights</ConfigKey>
-                  <BindProperty>visible</BindProperty>
-                </Connection>
-              </WidgetGroup>
-              <!-- /WaveformMinSizeConstrain -->
-            </Children>
-            <Connection>
-              <ConfigKey persist="true">[Channel<Variable name="ChanNum"/>],stem_count</ConfigKey>
-              <Transform><Not/></Transform>
-              <BindProperty>visible</BindProperty>
-            </Connection>
-          </WidgetGroup>
-          <!-- /NoStemLabel -->
-
-          <WidgetGroup>
-            <Size>1me,1me</Size>
-            <Connection>
-              <ConfigKey persist="true">[Waveform],stem_split_tracks</ConfigKey>
-              <Transform><Not/></Transform>
-              <BindProperty>visible</BindProperty>
-            </Connection>
-          </WidgetGroup>
-        </Children>
-        <Connection>
-          <ConfigKey persist="true">[Skin],show_stem_controls</ConfigKey>
-          <BindProperty>visible</BindProperty>
-        </Connection>
-      </WidgetGroup><!-- StemControls -->
-
-
-      <WidgetGroup>
         <ObjectName>WaveformBox<Variable name="ChanNum"/></ObjectName>
         <Layout>horizontal</Layout>
-        <Size>me,30min</Size>
+        <SizePolicy>me,me</SizePolicy>
         <Children>
           <Visual>
             <TooltipId>waveform_display</TooltipId>
@@ -206,8 +46,6 @@
               <Align>bottom|right</Align>
               <Color>#FF0000</Color>
               <TextColor>#FFFFFF</TextColor>
-              <EndIcon>skins:LateNight/classic/style/mark_jump_%1.svg</EndIcon>
-              <DisabledOpacity>0.25</DisabledOpacity>
               <Text> %1 </Text>
             </DefaultMark>
             <!-- Cue -->
@@ -334,12 +172,11 @@
                 <Layout>vertical</Layout>
                 <Size>26f,52f</Size>
                 <Children>
-                  <Template src="skins:LateNight/controls/button_1state_right_optional.xml">
-                    <SetVariable name="TooltipId">beats_translate_earlier_move_half_beat</SetVariable>
+                  <Template src="skins:LateNight/controls/button_1state_optional.xml">
+                    <SetVariable name="TooltipId">beats_translate_earlier</SetVariable>
                     <SetVariable name="ObjectName">BeatsEarlier</SetVariable>
                     <SetVariable name="Size">26f,26f</SetVariable>
                     <SetVariable name="ConfigKey"><Variable name="Group"/>,beats_translate_earlier</SetVariable>
-                    <SetVariable name="ConfigKeyRight"><Variable name="Group"/>,beats_translate_half</SetVariable>
                   </Template>
                   <Template src="skins:LateNight/controls/button_1state_optional.xml">
                     <SetVariable name="TooltipId">beats_adjust_faster</SetVariable>
@@ -354,13 +191,12 @@
                 <Layout>vertical</Layout>
                 <Size>26f,52f</Size>
                 <Children>
-                  <Template src="skins:LateNight/controls/button_1state_right_optional.xml">
-                    <SetVariable name="TooltipId">beats_translate_later_move_half_beat</SetVariable>
+                  <Template src="skins:LateNight/controls/button_1state_optional.xml">
+                    <SetVariable name="TooltipId">beats_translate_later</SetVariable>
                     <SetVariable name="ObjectName">BeatsLater</SetVariable>
                     <SetVariable name="Size">26f,26f</SetVariable>
                     <SetVariable name="BtnSize">grid</SetVariable>
                     <SetVariable name="ConfigKey"><Variable name="Group"/>,beats_translate_later</SetVariable>
-                    <SetVariable name="ConfigKeyRight"><Variable name="Group"/>,beats_translate_half</SetVariable>
                   </Template>
                   <Template src="skins:LateNight/controls/button_1state_optional.xml">
                     <SetVariable name="TooltipId">beats_adjust_slower</SetVariable>

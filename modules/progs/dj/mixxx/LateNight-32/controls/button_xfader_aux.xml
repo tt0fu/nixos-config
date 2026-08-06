@@ -12,9 +12,9 @@
 -->
 <Template>
   <WidgetGroup>
-    <ObjectName>CrossfaderButtonContainer_Deck</ObjectName>
+    <ObjectName>CrossfaderButtonContainer_Aux</ObjectName>
     <Layout>horizontal</Layout>
-    <SizePolicy>min,min</SizePolicy>
+    <SizePolicy>max,min</SizePolicy>
     <Children>
 
       <WidgetGroup>
@@ -51,18 +51,18 @@
               <PushButton>
                 <ObjectName>CrossfaderButton</ObjectName>
                 <TooltipId>orientation</TooltipId>
-                <Size>11f,15f</Size>
+                <Size>11f,13f</Size>
                 <NumberStates>2</NumberStates>
                 <RightClickIsPushButton>false</RightClickIsPushButton>
                 <State>
                   <Number>0</Number>
-                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_left_off.svg</Pressed>
-                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_left_off.svg</Unpressed>
+                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_left_off.svg</Pressed>
+                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_left_off.svg</Unpressed>
                 </State>
                 <State>
                   <Number>1</Number>
-                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_left_<Variable name="xfaderLeft"/>.svg</Pressed>
-                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_left_<Variable name="xfaderLeft"/>.svg</Unpressed>
+                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_left.svg</Pressed>
+                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_left.svg</Unpressed>
                 </State>
                 <Connection>
                   <ConfigKey><Variable name="Group"/>,orientation</ConfigKey>
@@ -76,23 +76,24 @@
               <PushButton>
                 <ObjectName>CrossfaderButton</ObjectName>
                 <TooltipId>orientation</TooltipId>
-                <Size>11f,15f</Size>
+                <Size>11f,13f</Size>
                 <NumberStates>2</NumberStates>
                 <RightClickIsPushButton>false</RightClickIsPushButton>
                 <State>
                   <Number>0</Number>
-                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_mid_off.svg</Pressed>
-                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_mid_off.svg</Unpressed>
+                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_mid_off.svg</Pressed>
+                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_mid_off.svg</Unpressed>
                 </State>
                 <State>
                   <Number>1</Number>
-                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_mid_warning.svg</Pressed>
-                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_mid_warning.svg</Unpressed>
+                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_mid.svg</Pressed>
+                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_mid.svg</Unpressed>
                 </State>
                 <Connection>
                   <ConfigKey><Variable name="Group"/>,orientation</ConfigKey>
                   <Transform>
-                    <IsEqual>1</IsEqual>
+                    <Add>-1</Add>
+                    <IsEqual>0</IsEqual>
                   </Transform>
                   <ButtonState>LeftButton</ButtonState>
                 </Connection>
@@ -101,23 +102,24 @@
               <PushButton>
                 <ObjectName>CrossfaderButton</ObjectName>
                 <TooltipId>orientation</TooltipId>
-                <Size>11f,15f</Size>
+                <Size>11f,13f</Size>
                 <NumberStates>2</NumberStates>
                 <RightClickIsPushButton>false</RightClickIsPushButton>
                 <State>
                   <Number>0</Number>
-                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_right_off.svg</Pressed>
-                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_right_off.svg</Unpressed>
+                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_right_off.svg</Pressed>
+                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_right_off.svg</Unpressed>
                 </State>
                 <State>
                   <Number>1</Number>
-                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_right_<Variable name="xfaderRight"/>.svg</Pressed>
-                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_deck_right_<Variable name="xfaderRight"/>.svg</Unpressed>
+                  <Pressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_right.svg</Pressed>
+                  <Unpressed scalemode="STRETCH_ASPECT">skins:LateNight/<Variable name="BtnScheme"/>/buttons/btn__xfader_aux_right.svg</Unpressed>
                 </State>
                 <Connection>
                   <ConfigKey><Variable name="Group"/>,orientation</ConfigKey>
                   <Transform>
-                    <IsEqual>2</IsEqual>
+                    <Add>-2</Add>
+                    <IsEqual>0</IsEqual>
                   </Transform>
                   <ButtonState>LeftButton</ButtonState>
                 </Connection>
@@ -129,5 +131,5 @@
       </WidgetGroup><!-- stacked wrapper -->
 
     </Children>
-  </WidgetGroup><!-- CrossfaderButtonContainer_Deck -->
+  </WidgetGroup>
 </Template>

@@ -27,12 +27,7 @@
                 <Alignment>center</Alignment>
               </Label>
 
-              <Template src="skins:LateNight/controls/button_xfader_deck.xml">
-                <SetVariable name="DeckGroup">Aux</SetVariable>
-                <SetVariable name="xfaderLeft">default</SetVariable>
-                <SetVariable name="xfaderMid">default</SetVariable>
-                <SetVariable name="xfaderRight">default</SetVariable>
-              </Template>
+              <Template src="skins:LateNight/controls/button_xfader_aux.xml"/>
 
               <WidgetGroup>
                 <ObjectName>AuxPlayBox</ObjectName>
