@@ -10,8 +10,8 @@
           ".mixxx/skins/Deere-24" = {
             source = config.lib.file.mkOutOfStoreSymlink ./Deere-24;
           };
-          ".mixxx/skins/LateNight-32" = {
-            source = config.lib.file.mkOutOfStoreSymlink ./LateNight-32;
+          ".mixxx/skins/LateNight32" = {
+            source = config.lib.file.mkOutOfStoreSymlink ./LateNight32;
           };
         };
       };

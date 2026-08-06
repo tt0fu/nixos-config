@@ -1,0 +1,287 @@
+<!--
+  The hotcue button grid for a deck.
+  Variables:
+    HotcueBtnWidth / HotcueBtnHeight: button size (26x26 full-size, 19x26 compact)
+  Renders four 2-row grids (4/8/16/32 hotcues); only the one matching
+  [Skin],num_hotcues is visible:
+    0 = 4, 1 = 8, 2 = 16, 3 = 32.
+-->
+<Template>
+
+  <!-- 4 hotcues: 2 rows of 2 -->
+  <WidgetGroup>
+    <Layout>vertical</Layout>
+    <Children>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">1</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">2</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">3</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">4</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+    </Children>
+    <Connection>
+      <ConfigKey>[Skin],num_hotcues</ConfigKey>
+      <BindProperty>visible</BindProperty>
+      <Transform>
+        <IsEqual>0</IsEqual>
+      </Transform>
+    </Connection>
+  </WidgetGroup>
+
+  <!-- 8 hotcues: 2 rows of 4 -->
+  <WidgetGroup>
+    <Layout>vertical</Layout>
+    <Children>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">1</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">2</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">3</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">4</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">5</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">6</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">7</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">8</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+    </Children>
+    <Connection>
+      <ConfigKey>[Skin],num_hotcues</ConfigKey>
+      <BindProperty>visible</BindProperty>
+      <Transform>
+        <IsEqual>1</IsEqual>
+      </Transform>
+    </Connection>
+  </WidgetGroup>
+
+  <!-- 16 hotcues: 2 rows of 8 -->
+  <WidgetGroup>
+    <Layout>vertical</Layout>
+    <Children>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">1</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">2</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">3</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">4</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">5</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">6</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">7</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">8</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">9</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">10</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">11</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">12</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">13</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">14</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">15</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">16</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+    </Children>
+    <Connection>
+      <ConfigKey>[Skin],num_hotcues</ConfigKey>
+      <BindProperty>visible</BindProperty>
+      <Transform>
+        <IsEqual>2</IsEqual>
+      </Transform>
+    </Connection>
+  </WidgetGroup>
+
+  <!-- 32 hotcues: 2 rows of 16 -->
+  <WidgetGroup>
+    <Layout>vertical</Layout>
+    <Children>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">1</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">2</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">3</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">4</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">5</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">6</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">7</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">8</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">9</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">10</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">11</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">12</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">13</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">14</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">15</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">16</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+      <WidgetGroup>
+        <Layout>horizontal</Layout>
+        <Children>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">17</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">18</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">19</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">20</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">21</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">22</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">23</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">24</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">25</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">26</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">27</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">28</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">29</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">30</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">31</SetVariable>
+          </Template>
+          <Template src="skin:controls/button_hotcue.xml">
+            <SetVariable name="number">32</SetVariable>
+          </Template>
+        </Children>
+      </WidgetGroup>
+    </Children>
+    <Connection>
+      <ConfigKey>[Skin],num_hotcues</ConfigKey>
+      <BindProperty>visible</BindProperty>
+      <Transform>
+        <IsEqual>3</IsEqual>
+      </Transform>
+    </Connection>
+  </WidgetGroup>
+
+</Template>
