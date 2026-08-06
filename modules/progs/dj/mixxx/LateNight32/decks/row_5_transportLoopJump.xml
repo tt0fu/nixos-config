@@ -109,7 +109,7 @@
             <Layout>vertical</Layout>
             <SizePolicy>max,min</SizePolicy>
             <Children>
-              <!-- full-size hotcue buttons (hotcue_size == 0) -->
+              <!-- full-size hotcue buttons (hotcue_width == 0) -->
               <WidgetGroup>
                 <Layout>vertical</Layout>
                 <Children>
@@ -119,14 +119,14 @@
                   </Template>
                 </Children>
                 <Connection>
-                  <ConfigKey>[Skin],hotcue_size</ConfigKey>
+                  <ConfigKey>[Skin],hotcue_width</ConfigKey>
                   <BindProperty>visible</BindProperty>
                   <Transform>
                     <IsEqual>0</IsEqual>
                   </Transform>
                 </Connection>
               </WidgetGroup>
-              <!-- compact hotcue buttons (hotcue_size == 1): narrower, same height -->
+              <!-- thin hotcue buttons (hotcue_width == 1) -->
               <WidgetGroup>
                 <ObjectName>HotcuesCompact</ObjectName>
                 <Layout>vertical</Layout>
@@ -137,7 +137,7 @@
                   </Template>
                 </Children>
                 <Connection>
-                  <ConfigKey>[Skin],hotcue_size</ConfigKey>
+                  <ConfigKey>[Skin],hotcue_width</ConfigKey>
                   <BindProperty>visible</BindProperty>
                   <Transform>
                     <IsEqual>1</IsEqual>

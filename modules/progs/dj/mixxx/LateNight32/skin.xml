@@ -30,9 +30,9 @@
 <skin>
   <manifest>
     <title>LateNight32</title>
-    <author>owilliams, ronso0 (modded for up to 32 hotcues)</author>
+    <author>owilliams, ronso0 (modded by ttofu)</author>
     <version>2.4.0.32</version>
-    <description>A wide nighttime skin with stacked waveforms, 4 decks in 3 configurations and up to 16 samplers. Modded to support 4/8/16/32 hotcues with large or compact buttons.</description>
+    <description>A wide nighttime skin with stacked waveforms, 4 decks in 3 configurations and up to 16 samplers. Modded to support 4/8/16/32 hotcues with normal or thin buttons.</description>
     <language>en</language>
     <license>Creative Commons Attribution, Share-Alike 3.0 Unported</license>
     <attributes>
@@ -47,9 +47,9 @@
       <attribute persist="true" config_key="[Skin],show_4decks">0</attribute>
       <attribute persist="true" config_key="[Skin],show_hotcues">1</attribute>
       <!-- 0=4 1=8 2=16 3=32 hotcues -->
-      <attribute persist="true" config_key="[Skin],num_hotcues">1</attribute>
-      <!-- 0=large (26px) 1=compact (19px) hotcue buttons -->
-      <attribute persist="true" config_key="[Skin],hotcue_size">0</attribute>
+      <attribute persist="true" config_key="[Skin],num_hotcues">3</attribute>
+      <!-- 0=normal (26px) 1=thin (19px) hotcue buttons -->
+      <attribute persist="true" config_key="[Skin],hotcue_width">0</attribute>
       <attribute persist="true" config_key="[Skin],show_intro_outro_cues">1</attribute>
       <attribute persist="true" config_key="[Skin],show_loop_controls">1</attribute>
       <attribute persist="true" config_key="[Skin],show_beatjump_controls">1</attribute>
