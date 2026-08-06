@@ -14,10 +14,10 @@
         <Children>
 
           <!-- no mixer -->
-          <WidgetStack currentpage="[LateNight32],deck_size_without_mixer" persist="true">
+          <WidgetStack currentpage="[LateNight],deck_size_without_mixer" persist="true">
             <Children>
               <!-- minimal deck selected -->
-              <WidgetGroup trigger="[LateNight32],show_mini_deck">
+              <WidgetGroup trigger="[LateNight],show_mini_deck">
                 <Layout>horizontal</Layout>
                 <Children>
                   <SingletonContainer>
@@ -26,7 +26,7 @@
                 </Children>
               </WidgetGroup>
               <!-- Compact deck selected -->
-              <WidgetGroup trigger="[LateNight32],show_compact_deck">
+              <WidgetGroup trigger="[LateNight],show_compact_deck">
                 <Layout>horizontal</Layout>
                 <Children>
                 <SingletonContainer>
@@ -35,7 +35,7 @@
                 </Children>
               </WidgetGroup>
               <!-- Full deck selected -->
-              <WidgetGroup trigger="[LateNight32],show_full_deck">
+              <WidgetGroup trigger="[LateNight],show_full_deck">
                 <Layout>horizontal</Layout>
                 <Children>
                   <SingletonContainer>

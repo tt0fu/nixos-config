@@ -37,26 +37,26 @@
     <SizePolicy>me,max</SizePolicy>
     <Children>
 
-      <WidgetStack currentpage="[LateNight32],sampler_rows" persist="true">
+      <WidgetStack currentpage="[LateNight],sampler_rows" persist="true">
         <Children>
 
           <!--4 Samplers -->
-          <Template trigger="[LateNight32],show_4samplers"  on_hide_select="1" src="skin:samplers/samplers_4decks.xml">
+          <Template trigger="[LateNight],show_4samplers"  on_hide_select="1" src="skins:LateNight/samplers/samplers_4decks.xml">
             <SetVariable name="Count">1-4</SetVariable>
           </Template>
 
           <!--8 Samplers -->
-          <WidgetGroup trigger="[LateNight32],show_8samplers" on_hide_select="0">
+          <WidgetGroup trigger="[LateNight],show_8samplers" on_hide_select="0">
             <Layout>vertical</Layout>
             <Children>
-              <SingletonContainer trigger="[LateNight32],show_8samplers">
+              <SingletonContainer trigger="[LateNight],show_8samplers">
                 <ObjectName>Samplers_1-8</ObjectName>
               </SingletonContainer>
             </Children>
           </WidgetGroup>
 
           <!--16 Samplers -->
-          <WidgetGroup trigger="[LateNight32],show_16samplers" on_hide_select="1">
+          <WidgetGroup trigger="[LateNight],show_16samplers" on_hide_select="1">
             <Layout>vertical</Layout>
             <Children>
               <SingletonContainer>

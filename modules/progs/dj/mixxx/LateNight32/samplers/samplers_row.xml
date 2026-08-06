@@ -3,7 +3,7 @@
   <SingletonDefinition>
     <ObjectName>Samplers_Expander_<Variable name="Count"/>_Singleton</ObjectName>
     <Children>
-      <Template src="skin:samplers/sampler_expand_button.xml"/>
+      <Template src="skins:LateNight/samplers/sampler_expand_button.xml"/>
     </Children>
   </SingletonDefinition>
 
@@ -26,19 +26,19 @@
             <SizePolicy>min,min</SizePolicy>
             <Children>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler1"/></SetVariable>
               </Template>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler2"/></SetVariable>
               </Template>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler3"/></SetVariable>
               </Template>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler4"/></SetVariable>
               </Template>
 
@@ -46,25 +46,25 @@
                 <ObjectName>Samplers_Expander_<Variable name="Count"/>_Singleton</ObjectName>
               </SingletonContainer>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler5"/></SetVariable>
               </Template>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler6"/></SetVariable>
               </Template>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler7"/></SetVariable>
               </Template>
 
-              <Template src="skin:samplers/sampler_mini.xml">
+              <Template src="skins:LateNight/samplers/sampler_mini.xml">
                 <SetVariable name="SamplerNum"><Variable name="Sampler8"/></SetVariable>
               </Template>
 
             </Children>
             <Connection>
-              <ConfigKey persist="true">[LateNight32],expand_samplers_<Variable name="Count"/></ConfigKey>
+              <ConfigKey persist="true">[LateNight],expand_samplers_<Variable name="Count"/></ConfigKey>
               <BindProperty>visible</BindProperty>
               <Transform><Not/></Transform>
             </Connection>
@@ -141,7 +141,7 @@
 
             </Children>
             <Connection>
-              <ConfigKey persist="true">[LateNight32],expand_samplers_<Variable name="Count"/></ConfigKey>
+              <ConfigKey persist="true">[LateNight],expand_samplers_<Variable name="Count"/></ConfigKey>
               <BindProperty>visible</BindProperty>
             </Connection>
           </WidgetGroup>
