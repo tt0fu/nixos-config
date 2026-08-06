@@ -1,6 +1,6 @@
 {
   home =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       home = {
         packages = [
@@ -8,12 +8,10 @@
         ];
         file = {
           ".mixxx/skins/Deere-24" = {
-            source = ./Deere-24;
-            recursive = true;
+            source = config.lib.file.mkOutOfStoreSymlink ./Deere-24;
           };
           ".mixxx/skins/LateNight-32" = {
-            source = ./LateNight-32;
-            recursive = true;
+            source = config.lib.file.mkOutOfStoreSymlink ./LateNight-32;
           };
         };
       };
