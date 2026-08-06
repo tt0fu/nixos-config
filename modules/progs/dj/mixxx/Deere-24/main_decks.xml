@@ -1,0 +1,30 @@
+<!DOCTYPE template>
+<!--
+  Description:
+    Main deck container.
+-->
+<Template>
+  <WidgetGroup>
+    <Layout>horizontal</Layout>
+    <SizePolicy>me,min</SizePolicy>
+    <Children>
+      <WidgetGroup>
+        <Layout>vertical</Layout>
+        <SizePolicy>me,min</SizePolicy>
+        <Children>
+          <Template src="skin:left_gutter.xml"/>
+          <Template src="skin:effect_rack_left.xml"/>
+        </Children>
+      </WidgetGroup>
+      <Template src="skin:mixer.xml"/>
+      <WidgetGroup>
+        <Layout>vertical</Layout>
+        <SizePolicy>me,min</SizePolicy>
+        <Children>
+          <Template src="skin:right_gutter.xml"/>
+          <Template src="skin:effect_rack_right.xml"/>
+        </Children>
+      </WidgetGroup>
+    </Children>
+  </WidgetGroup>
+</Template>

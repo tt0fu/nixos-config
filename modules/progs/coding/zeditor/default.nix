@@ -2,6 +2,7 @@
   home =
     {
       lib,
+      pkgs,
       style,
       color,
       ...
@@ -51,6 +52,7 @@
         userKeymaps = import ./keybinds.nix;
         themes.Rainbow = import ./theme.nix color;
       };
+      home.packages = [ pkgs.bubblewrap ];
       xdg.mimeApps.defaultApplications = {
         "text/*" = "dev.zed.Zed.desktop";
       };
