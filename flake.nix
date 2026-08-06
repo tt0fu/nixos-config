@@ -54,7 +54,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     wivrn = {
-      url = "github:WiVRn/WiVRn/v26.6";
+      url = "github:WiVRn/WiVRn/poc/layer-alpha-blend";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

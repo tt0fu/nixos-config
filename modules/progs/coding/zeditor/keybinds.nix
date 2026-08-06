@@ -8,7 +8,7 @@
 
       open = "workspace::Open";
       ctrl-o = "workspace::Open";
-      
+
       shift-open = "workspace::OpenFiles";
       ctrl-shift-o = "workspace::OpenFiles";
 
@@ -190,9 +190,17 @@
     };
   }
   {
-    context = "Editor && !renaming";
+    context = "Editor && mode == full";
     bindings = {
       enter = "editor::Newline";
+    };
+  }
+  {
+    context = "Editor && mode == auto_height";
+    bindings = {
+      ctrl-enter = "editor::Newline";
+      shift-enter = "editor::Newline";
+      ctrl-shift-enter = "editor::NewlineBelow";
     };
   }
   {
@@ -229,6 +237,78 @@
       enter = "editor::ConfirmCodeAction";
     };
   }
+  {
+    context = "BufferSearchBar";
+    bindings = {
+      escape = "buffer_search::Dismiss";
+      tab = "buffer_search::FocusEditor";
+      enter = "search::SelectNextMatch";
+      shift-enter = "search::SelectPreviousMatch";
+      ctrl-shift-enter = "editor::ToggleFoldAll";
+      alt-enter = "search::SelectAllMatches";
+      find = "search::FocusSearch";
+      ctrl-f = "search::FocusSearch";
+      ctrl-h = "search::ToggleReplace";
+      ctrl-l = "search::ToggleSelection";
+      ctrl-alt-f = "text_finder::Toggle";
+    };
+  }
+  {
+    context = "BufferSearchBar && in_replace > Editor";
+    bindings = {
+      enter = "search::ReplaceNext";
+      ctrl-enter = "search::ReplaceAll";
+    };
+  }
+  {
+    context = "BufferSearchBar && !in_replace > Editor";
+    use_key_equivalents = true;
+    bindings = {
+      ctrl-enter = "editor::Newline";
+      shift-enter = "search::SelectPreviousMatch";
+    };
+  }
+  {
+    context = "BufferSearchBar && !in_replace > Editor";
+    bindings = {
+      up = "search::PreviousHistoryQuery";
+      down = "search::NextHistoryQuery";
+    };
+  }
+  {
+    context = "ProjectSearchBar";
+    bindings = {
+      escape = "project_search::ToggleFocus";
+      shift-find = "search::FocusSearch";
+      ctrl-shift-enter = "project_search::ToggleAllSearchResults";
+      ctrl-shift-f = "search::FocusSearch";
+      ctrl-shift-h = "search::ToggleReplace";
+      alt-ctrl-g = "search::ToggleRegex";
+      alt-ctrl-x = "search::ToggleRegex";
+      ctrl-alt-f = "project_search::OpenTextFinder";
+    };
+  }
+  {
+    context = "ProjectSearchBar > Editor";
+    bindings = {
+      up = "search::PreviousHistoryQuery";
+      down = "search::NextHistoryQuery";
+    };
+  }
+  {
+    context = "ProjectSearchBar && in_replace > Editor";
+    bindings = {
+      enter = "search::ReplaceNext";
+      ctrl-alt-enter = "search::ReplaceAll";
+    };
+  }
+  {
+    context = "ProjectSearchBar && !in_replace > Editor";
+    bindings = {
+      ctrl-enter = "editor::Newline";
+    };
+  }
+
   {
     context = "Terminal";
     bindings = {

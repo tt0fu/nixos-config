@@ -1,11 +1,9 @@
 {
   home =
-    { pkgs, lib, ... }:
+    { pkgs, ... }:
     {
       home.packages = [
-        (pkgs.stoat-desktop.override {
-          electron_38 = pkgs.electron;
-        })
+        pkgs.stoat-desktop
       ];
       # wayland.windowManager.hyprland.settings.bind = [
       #   {

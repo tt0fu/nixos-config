@@ -2,17 +2,19 @@
   os =
     { ... }:
     {
-      qt = {
-        enable = true;
-        platformTheme = "kde";
-        style = "adwaita-dark";
-      };
+      # qt = {
+      #   enable = true;
+      #   platformTheme = "gnome";
+      #   style = "adwaita-dark";
+      # };
     };
   home =
     { ... }:
     {
-      home.sessionVariables = {
-        QT_QPA_PLATFORMTHEME = "qt6ct";
+      qt = {
+        enable = true;
+        platformTheme.name = "adwaita";
+        style.name = "adwaita-dark";
       };
     };
 }

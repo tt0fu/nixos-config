@@ -34,8 +34,8 @@
           ensure_final_newline_on_save = false;
           project_panel.auto_fold_dirs = false;
           preview_tabs.enabled = false;
-          agent.enabled = false;
-          disable_ai = true;
+          agent.enabled = true;
+          disable_ai = false;
           collaboration_panel = {
             button = false;
           };

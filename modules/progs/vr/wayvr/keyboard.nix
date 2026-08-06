@@ -164,8 +164,8 @@
       "~"
       "COPY"
       "PASTE"
-      "~"
       "KILL"
+      "KEYMAP_CYCLE"
     ]
     [
       "Oem3"
@@ -289,7 +289,6 @@
     KILL = [
       "LSuper DOWN"
       "Escape"
-      "LCtrl UP"
       "LSuper UP"
     ];
     COPY = [

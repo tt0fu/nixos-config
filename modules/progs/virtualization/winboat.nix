@@ -3,7 +3,9 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        winboat
+        (winboat.override {
+          electron_40 = pkgs.electron;
+        })
         freerdp
       ];
     };
