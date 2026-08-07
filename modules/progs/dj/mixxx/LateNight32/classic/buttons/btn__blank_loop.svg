@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="48"
+   version="1.1"
+   viewBox="0 0 20 24"
+   id="svg5"
+   sodipodi:docname="btn__blank_loop.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="7.1"
+     inkscape:cx="20"
+     inkscape:cy="24.014085"
+     inkscape:window-width="1081"
+     inkscape:window-height="1005"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <path
+     d="M 5.4762745,4.1110431 H 17.916514 V 18.813232 l -2.261856,-1.14e-4 -13.571172,1.14e-4 V 4.1110432 l 2.2618572,1.131e-4 z M 4.3453432,2.9803656 H 0.95254924 V 19.944011 H 6.607206 v 2.261808 l 7.91652,-3.392587 1.130923,1.06e-4 9e-6,1.130673 h 3.392793 V 2.9803656 H 13.392795 V 1.2838134 l -7.9165147,2.8272836 -1.13093,1.132e-4 z"
+     color="#000001"
+     fill="none"
+     stroke="#000001"
+     stroke-width="1.80946"
+     style="paint-order:fill markers stroke"
+     id="path1" />
+  <path
+     d="M 19.047439,19.944243 V 2.9801543 h -5.65465 V 1.2838019 L 5.4762803,4.111097 H 17.916505 v 14.702354 l -2.261856,-1.13e-4 v 1.130905 z"
+     color="#000001"
+     fill="#d2d2d1"
+     id="path2"
+     style="stroke-width:1.13092" />
+  <path
+     d="M 0.9525606,2.9801543 V 19.944243 h 5.6546496 v 2.26186 L 14.523719,18.813451 H 2.083495 V 4.1110971 l 2.2618553,1.132e-4 v -1.131056 z"
+     color="#000001"
+     fill="#d2d2d1"
+     id="path3"
+     style="stroke-width:1.13092" />
+</svg>

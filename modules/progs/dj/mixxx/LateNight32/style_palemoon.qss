@@ -1919,15 +1919,40 @@ WPushButton#PlayDeck[value="0"] {
     image: url(skins:LateNight/palemoon/buttons/btn__reverse_active.svg) no-repeat center center;
   }
 
-/* Hotcue numbers are rendered as text (see button_hotcue.xml). */
+/* Hotcue numbers are rendered as text (see button_hotcue.xml).
+   Text color and state indicators match the original PaleMoon button
+   fronts: unset = grey number, set = black number (or ivory on dark
+   hotcue colors), looping hotcue = loop icon overlay (see the
+   btn__blank*.svg files, they have no numbers, just the icons). */
 WPushButton#HotcueButton {
-  color: #d2d2d1;
+  color: #918273;
   font-size: 10px;
   font-weight: 800;
+  letter-spacing: -1px;
+  image: url(skin:palemoon/buttons/btn__blank.svg) no-repeat center center;
+}
+WPushButton#HotcueButton[displayValue="1"],
+WPushButton#HotcueButton[displayValue="2"] {
+  color: #000;
+  image: url(skin:palemoon/buttons/btn__blank_active.svg) no-repeat center center;
+}
+WPushButton#HotcueButton[displayValue="1"][dark="true"],
+WPushButton#HotcueButton[displayValue="2"][dark="true"] {
+  color: #e0d9d1;
+  image: url(skin:palemoon/buttons/btn__blank_active_dark.svg) no-repeat center center;
 }
 /* smaller number text on compact hotcues */
 #HotcuesCompact WPushButton#HotcueButton {
   font-size: 9px;
+}
+/* Loop icon overlay for looping hotcues */
+WPushButton#HotcueButton[type="loop"][displayValue="1"][dark="false"],
+WPushButton#HotcueButton[type="loop"][displayValue="2"][dark="false"] {
+  image: url(skin:palemoon/buttons/btn__blank_loop.svg) no-repeat center center;
+}
+WPushButton#HotcueButton[type="loop"][displayValue="1"][dark="true"],
+WPushButton#HotcueButton[type="loop"][displayValue="2"][dark="true"] {
+  image: url(skin:palemoon/buttons/btn__blank_loop_dark.svg) no-repeat center center;
 }
 
 #SpecialCueButton_intro_start WPushButton[displayValue="0"] {

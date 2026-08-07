@@ -1674,15 +1674,23 @@ WPushButton#BpmLockToggle[value="1"] {
   image: url(skins:LateNight/classic/buttons/btn__reverse.svg) no-repeat center center;
 }
 
-/* Hotcue numbers are rendered as text (see button_hotcue.xml). */
+/* Hotcue numbers are rendered as text (see button_hotcue.xml).
+   State indicators are overlaid on the button via the images below,
+   see the btn__blank*.svg files (no numbers, just the icons). */
 WPushButton#HotcueButton {
   color: #d2d2d1;
   font-size: 10px;
   font-weight: 800;
+  letter-spacing: -1px;
+  image: url(skin:classic/buttons/btn__blank.svg) no-repeat center center;
 }
 /* smaller number text on compact hotcues */
 #HotcuesCompact WPushButton#HotcueButton {
   font-size: 9px;
+}
+/* Loop icon overlay for looping hotcues */
+WPushButton#HotcueButton[type="loop"] {
+  image: url(skin:classic/buttons/btn__blank_loop.svg) no-repeat center center;
 }
 
 #SpecialCueButton_intro_start WPushButton {
