@@ -12,7 +12,7 @@ Item {
 
     property Item targetItem: workspacesRepeater.itemAt(Hyprland.workspaces.values.findIndex(w => w.focused)) ?? workspacesLayout
 
-    implicitWidth: workspacesLayout.implicitWidth * 2 - Math.min(workspacesRepeater.itemAt(0).implicitWidth, workspacesRepeater.itemAt(workspacesRepeater.count - 1).implicitWidth)
+    implicitWidth: workspacesLayout.implicitWidth * 2 - Math.min(workspacesRepeater.itemAt(0)?.implicitWidth ?? 0, workspacesRepeater.itemAt(workspacesRepeater.count - 1)?.implicitWidth ?? 0)
     implicitHeight: workspacesLayout.implicitHeight
 
     StylizedRowLayout {

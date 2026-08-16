@@ -9,6 +9,8 @@ StylizedPaddedRectangle {
         objects: [Pipewire.defaultAudioSource]
     }
 
+    visible: Pipewire.defaultAudioSource.audio
+
     MouseArea {
         anchors.fill: parent
         onClicked: Pipewire.defaultAudioSource.audio.muted = !Pipewire.defaultAudioSource.audio.muted

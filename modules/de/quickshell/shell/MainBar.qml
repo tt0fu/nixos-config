@@ -20,8 +20,6 @@ Item {
 
         Keyboard {}
 
-        Vpn {}
-
         Tray {}
 
         // Test {}

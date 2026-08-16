@@ -130,7 +130,8 @@ StylizedColumnLayout {
                 }
                 highlight: StylizedRectangle {
                     level: 2
-                    y: entriesList.currentItem.y
+                    visible: entriesList.currentItem
+                    y: entriesList.currentItem?.y ?? 0
                     z: 2
                     Behavior on y {
                         StylizedNumberAnimation {}
