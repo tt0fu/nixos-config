@@ -45,12 +45,18 @@
               (lib.generators.mkLuaInline "hl.dsp.global(\"quickshell:toggleNotifications\")")
             ];
           }
+          {
+            _args = [
+              "SUPER + L"
+              (lib.generators.mkLuaInline "hl.dsp.global(\"quickshell:lock\")")
+            ];
+          }
         ];
         on = [
           {
             _args = [
               "hyprland.start"
-              (lib.generators.mkLuaInline ''function() hl.exec_cmd("setpriv --ambient-caps -all quickshell -c shell") end'')
+              (lib.generators.mkLuaInline ''function() hl.exec_cmd("setpriv --ambient-caps -all quickshell -c shell", { tag = "do_not_close" }) end'')
             ];
           }
         ];
