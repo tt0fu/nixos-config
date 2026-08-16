@@ -3,7 +3,7 @@
     modules: with modules.progs.networking; [
       # cloudflare-warp
       freenet
-      # throne
+      throne
       # tor
       winbox
       wireguard
