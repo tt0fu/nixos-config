@@ -5,6 +5,7 @@
       audacity
       carla
       gridboard
+      pulsemeeter
       qpwgraph
     ];
 }

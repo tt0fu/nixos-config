@@ -100,7 +100,17 @@
             {
               _args = [
                 "SUPER + ESCAPE"
-                (lib.generators.mkLuaInline "hl.dsp.window.close()")
+                (lib.generators.mkLuaInline ''
+                  function()
+                    local window = hl.get_active_window()
+                    for _, tag in ipairs(window.tags) do
+                      if tag == "do_not_close*" then
+                        return
+                      end
+                    end
+                    hl.dispatch(hl.dsp.window.close(window)) 
+                  end
+                '')
               ];
             }
             {
