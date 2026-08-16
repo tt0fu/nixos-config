@@ -8,4 +8,5 @@ Singleton {
     property bool notificationsShown: true
     property bool appLauncherOpened: false
     property bool clipboardOpened: false
+    property bool locked: true
 }
