@@ -6,7 +6,7 @@
       font
       gtk
       hyprland
-      hyprlock
+      # hyprlock
       # launcher
       # niri
       # notifications
