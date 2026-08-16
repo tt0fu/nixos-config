@@ -1,8 +1,9 @@
 {
   deps =
     modules: with modules.progs.vr; [
-      wayvr.default
+      nixpkgs-xr
       sidequest
+      wayvr.default
       wivrn
     ];
 }

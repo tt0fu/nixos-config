@@ -1,21 +1,14 @@
 {
   home =
-    { self, pkgs, ... }:
+    {
+      self,
+      pkgs,
+      ...
+    }:
     {
       home = {
         packages = [
-          # (pkgs.wayvr.overrideAttrs rec {
-          #   src = pkgs.fetchFromGitHub {
-          #     owner = "wlx-team";
-          #     repo = "wayvr";
-          #     rev = "a800aae385740aeb4f4638db6a94d299fbacce21";
-          #     hash = "sha256-upDoCtL68bu0QUa/sufWyPSMMFmBxf0L0xd5Uy3Xn/0=";
-          #   };
-          #   cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-          #     inherit src;
-          #     hash = "sha256-/lo1JTI8oK03UlSG+AEIFyq8LqOyCqQHTfMCwBYs7wI=";
-          #   };
-          # })
+          # pkgs.wayvr
           (pkgs.callPackage self.package { })
         ];
         file =
