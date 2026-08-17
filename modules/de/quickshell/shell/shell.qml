@@ -12,18 +12,48 @@ import Quickshell.Hyprland
 ShellRoot {
     id: shellRoot
 
+    property bool fakeLockActive: !GlobalState.locked
+
     function lockScreen() {
-        GlobalState.locked = true;
+        if (GlobalState.locked) {
+            return;
+        }
         GlobalState.appLauncherOpened = false;
         GlobalState.clipboardOpened = false;
         GlobalState.notificationsShown = false;
         lockContext.currentText = "";
-        lock.locked = true;
+        GlobalState.locked = true;
     }
 
     function unlockScreen() {
-        GlobalState.locked = false;
-        lock.locked = false;
+        if (!GlobalState.locked) {
+            return;
+        }
+        fakeLockActive = true;
+        completeUnlockTimer.start();
+    }
+
+    function onShellSlideFinished() {
+        if (!GlobalState.locked) {
+            return;
+        }
+        lock.locked = true;
+        fakeLockDeactivationTimer.start();
+    }
+
+    Timer {
+        id: fakeLockDeactivationTimer
+        interval: 5
+        onTriggered: shellRoot.fakeLockActive = false
+    }
+
+    Timer {
+        id: completeUnlockTimer
+        interval: 5
+        onTriggered: {
+            lock.locked = false;
+            GlobalState.locked = false;
+        }
     }
 
     PanelWindow {
@@ -80,7 +110,13 @@ ShellRoot {
             height: mainWindow.height
             y: GlobalState.locked ? mainWindow.height : 0
             Behavior on y {
-                LongStylizedNumberAnimation {}
+                LongStylizedNumberAnimation {
+                    onRunningChanged: {
+                        if (!running) {
+                            shellRoot.onShellSlideFinished();
+                        }
+                    }
+                }
             }
 
             Rectangle {
@@ -544,8 +580,9 @@ ShellRoot {
                 id: mainBar
             }
 
-            Rectangle { // A fake lock ui
-                visible: true //  TODO should only be visible before and after the real wayland lock isn't active
+            Rectangle {
+                id: fakeLock
+                visible: shellRoot.fakeLockActive
                 width: mainWindow.width
                 height: mainWindow.height
                 color: Colors.background
@@ -555,11 +592,6 @@ ShellRoot {
                     context: lockContext
                 }
             }
-        }
-
-        ShortcutInhibitor {
-            window: mainWindow
-            enabled: GlobalState.locked
         }
     }
 
@@ -578,7 +610,7 @@ ShellRoot {
     WlSessionLock {
         id: lock
 
-        locked: false // TODO activate only after the fake lock is done sliding down
+        locked: GlobalState.locked
 
         WlSessionLockSurface {
             color: Colors.background

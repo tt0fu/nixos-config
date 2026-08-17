@@ -3,6 +3,6 @@ import "../config"
 import QtQuick
 
 NumberAnimation {
-    duration: Animations.duration * 10
+    duration: Animations.duration * 3
     easing.type: Animations.easingType
 }
