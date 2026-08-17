@@ -74,6 +74,8 @@
               # enable_anr_dialog = false;
               anr_missed_pings = 10;
               middle_click_paste = false;
+              session_lock_xray = true;
+              session_lock_blur = true;
             };
             dwindle = {
               smart_split = true;
@@ -103,6 +105,9 @@
                 (lib.generators.mkLuaInline ''
                   function()
                     local window = hl.get_active_window()
+                    if window == nil then
+                      return
+                    end
                     for _, tag in ipairs(window.tags) do
                       if tag == "do_not_close*" then
                         return

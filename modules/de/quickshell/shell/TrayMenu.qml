@@ -19,7 +19,7 @@ PopupWindow {
 
     signal reload
 
-    anchor.window: root
+    anchor.window: mainWindow
     anchor.rect.x: anchorX
     anchor.rect.y: anchorY
 
