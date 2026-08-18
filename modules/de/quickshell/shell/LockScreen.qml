@@ -110,7 +110,7 @@ Item {
             color: rebootMouseArea.containsMouse ? Colors.hover : Colors.foreground
             Process {
                 id: rebootProc
-                command: ["shutdown", "now"]
+                command: ["reboot"]
                 running: false
             }
             MouseArea {

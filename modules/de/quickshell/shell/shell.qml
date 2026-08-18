@@ -12,7 +12,7 @@ import Quickshell.Hyprland
 ShellRoot {
     id: shellRoot
 
-    property bool fakeLockActive: !GlobalState.locked
+    property bool fakeLockActive: true
 
     function lockScreen() {
         if (GlobalState.locked) {
@@ -55,6 +55,34 @@ ShellRoot {
             GlobalState.locked = false;
         }
     }
+
+    LockContext {
+        id: lockContext
+        onUnlocked: shellRoot.unlockScreen()
+    }
+
+    GlobalShortcut {
+        appid: "quickshell"
+        name: "lock"
+        description: "Lock the screen"
+        onPressed: shellRoot.lockScreen()
+    }
+
+    WlSessionLock {
+        id: lock
+
+        locked: false
+
+        WlSessionLockSurface {
+            color: Colors.background
+            LockScreen {
+                context: lockContext
+                anchors.fill: parent
+            }
+        }
+    }
+
+    Component.onCompleted: lockScreen()
 
     PanelWindow {
         id: mainWindow
@@ -591,32 +619,6 @@ ShellRoot {
                     anchors.fill: parent
                     context: lockContext
                 }
-            }
-        }
-    }
-
-    LockContext {
-        id: lockContext
-        onUnlocked: shellRoot.unlockScreen()
-    }
-
-    GlobalShortcut {
-        appid: "quickshell"
-        name: "lock"
-        description: "Lock the screen"
-        onPressed: shellRoot.lockScreen()
-    }
-
-    WlSessionLock {
-        id: lock
-
-        locked: GlobalState.locked
-
-        WlSessionLockSurface {
-            color: Colors.background
-            LockScreen {
-                context: lockContext
-                anchors.fill: parent
             }
         }
     }
