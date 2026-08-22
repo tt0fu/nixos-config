@@ -30,9 +30,16 @@
     };
     space_drag = {
       right = "/user/hand/right/input/thumbstick/click";
+      double_click = false;
+    };
+    space_rotate = {
+      left = "/user/hand/left/input/thumbstick/click";
+      double_click = false;
     };
     space_reset = {
+      right = "/user/hand/right/input/thumbstick/click";
       left = "/user/hand/left/input/thumbstick/click";
+      double_click = true;
     };
     click_modifier_right = {
       left = "/user/hand/left/input/y/touch";
