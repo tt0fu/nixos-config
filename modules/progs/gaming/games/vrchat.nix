@@ -17,7 +17,7 @@
             class = "steam_app_438100";
           };
           tile = true;
-          workspace = 9;
+          workspace = "9 silent";
         };
       };
       xdg.desktopEntries = {
