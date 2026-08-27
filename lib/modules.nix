@@ -43,7 +43,7 @@ let
           builtins.concatMap expandModule (
             map (n: module.${n}) (builtins.filter (n: n != directoryMarker) (builtins.attrNames module))
           )
-      else if !module.enabled or true then
+      else if !module.enable or true then
         [ ]
       else
         [ module ]

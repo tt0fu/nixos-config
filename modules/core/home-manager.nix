@@ -1,5 +1,5 @@
 {
-  enabled = false;
+  enable = false;
   inputs = {
     home-manager = {
       url = "github:nix-community/home-manager";

@@ -1,5 +1,5 @@
 {
-  enabled = false;
+  enable = false;
   home =
     { pkgs, lib, ... }:
     {

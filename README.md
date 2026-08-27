@@ -81,7 +81,7 @@ Each module has the following structure:
 
 ```nix
 {
-  enabled = <set to false to disable all module contributions>;
+  enable = <set to false to disable all module contributions>;
   inputs = <flake input expression>;
   os = <nixos configuration expression>;
   home = <home-manager configuration expression>;
