@@ -10,6 +10,8 @@
     {
       programs.zed-editor = {
         enable = true;
+        defaultEditor = true;
+        mutableUserSettings = false;
         userSettings = {
           telemetry.metrics = false;
           vim_mode = false;
@@ -33,15 +35,25 @@
           format_on_save = "off";
           remove_trailing_whitespace_on_save = false;
           ensure_final_newline_on_save = false;
-          project_panel.auto_fold_dirs = false;
+          project_panel = {
+            dock = "left";
+            auto_fold_dirs = false;
+          };
+          outline_panel = {
+            dock = "left";
+          };
           preview_tabs.enabled = false;
           agent = {
             enabled = true;
             sidebar_side = "right";
+            dock = "right";
           };
           disable_ai = false;
           collaboration_panel = {
             button = false;
+          };
+          git_panel = {
+            dock = "left";
           };
           title_bar = {
             show_sign_in = false;
@@ -52,6 +64,7 @@
             calt = false;
           };
         };
+        mutableUserKeymaps = false;
         userKeymaps = import ./keybinds.nix;
         themes.Rainbow = import ./theme.nix color;
       };
