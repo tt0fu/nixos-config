@@ -63,6 +63,7 @@
             input = {
               kb_layout = "us, ru";
               kb_options = "grp:alt_shift_toggle";
+              touchpad.natural_scroll = true;
             };
             binds = {
               scroll_event_delay = 100;
