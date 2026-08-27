@@ -2,7 +2,7 @@
   description = "ttofu's nixos config";
 
   inputs = {
-    # Do not edit the inputs between the generated inputs markers. They will get rewritten upon rebuilding.
+    # Do not edit the inputs between the markers. They will get rewritten upon rebuilding.
     # GENERATED INPUTS START
     freenet = {
       inputs = {
