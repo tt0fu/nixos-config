@@ -1,69 +1,12 @@
 let
-  loadModules =
-    dir:
-    let
-      entries = builtins.readDir dir;
-    in
-    builtins.listToAttrs (
-      builtins.concatMap (
-        name:
-        let
-          type = entries.${name};
-        in
-        if type == "directory" then
-          [
-            {
-              name = name;
-              value = loadModules (dir + "/${name}");
-            }
-          ]
-        else if type == "regular" && builtins.match ".*\\.nix" name != null then
-          [
-            {
-              name = builtins.elemAt (builtins.match "(.*)\\.nix" name) 0;
-              value = import (dir + "/${name}");
-            }
-          ]
-        else
-          [ ]
-      ) (builtins.attrNames entries)
-    );
+  inherit (import ./modules.nix)
+    loadModules
+    resolveDeps
+    collectOS
+    collectHome
+    ;
 
   allModules = loadModules ../modules;
-
-  applySelf = f: s: ({ pkgs, ... }@args: f (args // { self = s; }));
-
-  normalizeModule = m: {
-    os = applySelf (m.os or ({ ... }: { })) m;
-    home = applySelf (m.home or ({ ... }: { })) m;
-    deps = m.deps or (_: [ ]);
-  };
-
-  resolveDeps =
-    modules:
-    rec {
-      go =
-        acc: pending:
-        if pending == [ ] then
-          acc
-        else
-          let
-            m = builtins.head pending;
-            rest = builtins.tail pending;
-
-            deps = (normalizeModule m).deps allModules;
-
-            newDeps = builtins.filter (d: !(builtins.elem d acc)) deps;
-          in
-          go (acc ++ newDeps) (rest ++ newDeps);
-    }
-    .go
-      modules
-      modules;
-
-  collectOS = mods: map (m: (normalizeModule m).os) mods;
-
-  collectHome = mods: map (m: (normalizeModule m).home) mods;
 
   settings = import ../settings.nix;
 
@@ -85,7 +28,7 @@ in
         style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
 
         requested = curSystem.modules allModules;
-        expanded = resolveDeps requested;
+        expanded = resolveDeps allModules requested;
 
         specialArgs = {
           inherit
@@ -96,7 +39,7 @@ in
             style
             allModules
             ;
-          color = import ./color.nix { math = inputs.nix-math.lib.math; };
+          
           usedModules = expanded;
         };
 

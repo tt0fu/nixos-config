@@ -1,4 +1,10 @@
 {
+  inputs = {
+    freenet = {
+      url = "github:freenet/freenet-core";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
   os =
     { ... }:
     {
@@ -8,7 +14,7 @@
     { pkgs, inputs, ... }:
     {
       home.packages = [
-        inputs.freenet.packages.${pkgs.stdenv.system}.default
+        inputs.freenet.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
       # systemd.user.services.freenet-autoupdate = {
       #   Service = {

@@ -21,9 +21,12 @@
         username = userSettings.username;
         homeDirectory = "/home/" + userSettings.username;
         file = {
-          ".config/nixpkgs" = {
-            source = ./nixpkgs;
-            recursive = true;
+          ".config/nixpkgs/config.nix" = {
+            text = ''
+              {
+                allowUnfree = true;
+              }
+            '';
           };
         };
       };

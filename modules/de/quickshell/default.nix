@@ -1,4 +1,10 @@
 {
+  inputs = {
+    quickshell = {
+      url = "github:quickshell-mirror/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
   home =
     {
       inputs,
@@ -9,7 +15,7 @@
     {
       programs.quickshell = {
         enable = true;
-        package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        # package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
         activeConfig = "shell";
         configs = {
           shell = ./shell;

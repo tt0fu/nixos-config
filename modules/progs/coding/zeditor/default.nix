@@ -1,10 +1,11 @@
 {
   home =
     {
+      inputs,
       lib,
       pkgs,
+      allModules,
       style,
-      color,
       ...
     }:
     {
@@ -66,7 +67,7 @@
         };
         mutableUserKeymaps = false;
         userKeymaps = import ./keybinds.nix;
-        themes.Rainbow = import ./theme.nix color;
+        themes.Rainbow = import ./theme.nix (allModules.lib.color.color { inherit inputs; });
       };
       home.packages = [ pkgs.bubblewrap ];
       xdg.mimeApps.defaultApplications = {

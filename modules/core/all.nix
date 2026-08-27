@@ -9,6 +9,7 @@
       mounting
       networking
       nix
+      nixpkgs
       plymouth.default
       power-management
       shebang-support

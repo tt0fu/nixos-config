@@ -1,7 +1,5 @@
-command=$1;
+set -euo pipefail
 
-if [ "$1" == "" ]; then
-    command="boot"
-fi
+./generate-inputs.sh
 
-nix flake update && ./build.sh $command "${@:2}"
+nix flake update && ./build.sh "${1-boot}" "${@:2}"

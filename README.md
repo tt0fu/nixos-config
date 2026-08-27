@@ -81,8 +81,9 @@ Each module has the following structure:
 
 ```nix
 {
-  os = <nixos configuration expression>
-  home = <home-manager configuration expression>
+  inputs = <flake input expression>;
+  os = <nixos configuration expression>;
+  home = <home-manager configuration expression>;
   deps = modules: with modules; [
     <list of modules this module depends on>
   ];
@@ -90,15 +91,27 @@ Each module has the following structure:
 }
 ```
 
+The generated inputs from the modules live between `# GENERATED INPUTS START` and `# GENERATED INPUTS END` markers in `flake.nix` and should not be edited by hand.
+
 A hypothetical example:
 
 ```nix
-# modules/progs/example/foo.nix
+# modules/example/foo.nix
 {
+  inputs = { # defines a flake input which will be copied to flake.nix during build time
+    foo = {
+      url = "github:foo-org/foo";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
   os =
-  { ... }:
+  { inputs, pkgs, ... }:
   {
-    services.foo.enable = true; # enables the foo service via a nixos option
+    services.foo = {
+      enable = true; # enables the foo service via a nixos option
+      package = inputs.foo.packages.${pkgs.stdenv.hostPlatform.system}.default # references a flake input
+    }
   };
 
   home =
@@ -116,7 +129,7 @@ A hypothetical example:
   '';
 
   deps = modules: with modules; [
-    progs.example.bar # sets modules/progs/example/bar.nix as a dependency, which will enable the bar module if the foo module is enabled
+    example.bar # sets modules/example/bar.nix as a dependency, which will enable the bar module if the foo module is enabled
   ];
 }
 ```

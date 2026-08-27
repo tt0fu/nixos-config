@@ -1,4 +1,10 @@
 {
+  inputs = {
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
   home =
     { lib, inputs, ... }:
     {

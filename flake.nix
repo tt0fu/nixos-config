@@ -2,6 +2,65 @@
   description = "ttofu's nixos config";
 
   inputs = {
+    # Do not edit the inputs between the generated inputs markers. They will get rewritten upon rebuilding.
+    # GENERATED INPUTS START
+    freenet = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:freenet/freenet-core";
+    };
+    gridboard = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:tt0fu/gridboard";
+    };
+    home-manager = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:nix-community/home-manager";
+    };
+    hypr-dynamic-cursors = {
+      inputs = {
+        hyprland = {
+          follows = "hyprland";
+        };
+      };
+      url = "github:VirtCode/hypr-dynamic-cursors";
+    };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+    hyprland-plugins = {
+      inputs = {
+        hyprland = {
+          follows = "hyprland";
+        };
+      };
+      url = "github:hyprwm/hyprland-plugins";
+    };
+    nix-math = {
+      url = "github:xddxdd/nix-math";
+    };
+    nixcord = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:kaylorben/nixcord";
+    };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
     nixpkgs = {
       url = "nixpkgs/nixos-unstable";
     };
@@ -9,68 +68,41 @@
       url = "nixpkgs/nixos-25.11";
     };
     nixpkgs-xr = {
-      url = "github:nix-community/nixpkgs-xr";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-math.url = "github:xddxdd/nix-math";
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland";
-    };
-    # niri = {
-    #   url = "github:sodiboo/niri-flake";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
       };
+      url = "github:nix-community/nixpkgs-xr";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs";
+    quickshell = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:quickshell-mirror/quickshell";
     };
     wivrn = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
       url = "github:WiVRn/WiVRn/poc/layer-alpha-blend";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    freenet = {
-      url = "github:freenet/freenet-core";
-      inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser = {
+      inputs = {
+        home-manager = {
+          follows = "home-manager";
+        };
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:0xc000022070/zen-browser-flake";
     };
-
-    gridboard = {
-      url = "github:tt0fu/gridboard";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # GENERATED INPUTS END
   };
 
   outputs = inputs: ((import ./lib/builder.nix).outputs inputs);

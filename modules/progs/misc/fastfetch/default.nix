@@ -1,6 +1,6 @@
 {
   home =
-    { color, ... }:
+    { inputs, allModules, ... }:
     {
       programs.fastfetch = {
         enable = true;
@@ -10,6 +10,7 @@
             type = "file";
             color =
               let
+                color = allModules.lib.color.color { inherit inputs; };
                 palette = map color.toHex (color.palette 6 0.8 0.1);
               in
               builtins.listToAttrs (

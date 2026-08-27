@@ -1,6 +1,6 @@
 {
   home =
-    { color, ... }:
+    { inputs, allModules, ... }:
     {
       programs = {
         bash.enable = true;
@@ -11,6 +11,7 @@
             "$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json";
             palette =
               let
+                color = allModules.lib.color.color { inherit inputs; };
                 count = 8;
                 palette = map color.toHex (color.palette count 0.9 0.1);
               in
