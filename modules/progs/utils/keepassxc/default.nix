@@ -1,6 +1,11 @@
 {
   home =
-    { pkgs, lib, ... }:
+    {
+      pkgs,
+      lib,
+      userSettings,
+      ...
+    }:
     {
       home = {
         packages = [ pkgs.keepassxc ];
@@ -12,7 +17,12 @@
         {
           _args = [
             "hyprland.start"
-            (lib.generators.mkLuaInline ''function() hl.exec_cmd("sleep 30; keepassxc --minimized") end'')
+            (lib.generators.mkLuaInline (
+              let
+                keyfile = "/home/${userSettings.username}/DriveSynced/Passwords.kdbx";
+              in
+              ''function() hl.exec_cmd("until [ -e '${keyfile}' ]; do sleep 5; done; keepassxc --minimized --keyfile '${keyfile}'") end''
+            ))
           ];
         }
       ];
