@@ -55,6 +55,8 @@
           };
           git_panel = {
             dock = "left";
+            tree_view = true;
+            group_by = "none";
           };
           title_bar = {
             show_sign_in = false;

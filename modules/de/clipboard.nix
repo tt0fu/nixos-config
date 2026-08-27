@@ -1,4 +1,5 @@
 {
+  enabled = false;
   home =
     { pkgs, lib, ... }:
     {

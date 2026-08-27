@@ -81,6 +81,7 @@ Each module has the following structure:
 
 ```nix
 {
+  enabled = <set to false to disable all module contributions>;
   inputs = <flake input expression>;
   os = <nixos configuration expression>;
   home = <home-manager configuration expression>;
@@ -134,7 +135,15 @@ A hypothetical example:
 }
 ```
 
-The structure of the `deps` attribute is the same as the module list in `settings.nix`. Adding a module with dependencies will add all of it's dependencies.
+## Module lists
+
+Module lists (in `settings.nix` and in the `deps` attribute of any module) may reference individual modules or whole directories. Referencing a directory expands it with the following rules:
+
+- If the directory contains a `default.nix`, only that `default.nix` module is
+  added - the directory decides its own inclusion logic.
+- If the directory doesn't contain a `default.nix`, every `.nix` file and subdirectory in it is added, applying the same rules recursively.
+
+Example: `modules/progs/coding` has no `default.nix`, so `progs.coding` adds all of its modules (including the `languages` subdirectory), while `modules/progs/coding/zeditor` has a `default.nix`, so `progs.coding.zeditor` adds only `zeditor/default.nix`.
 
 ## Usage
 

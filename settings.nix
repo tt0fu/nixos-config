@@ -41,19 +41,19 @@
           with modules;
           [
             systems.ttofu-laptop
-            core.all
-            de.all
+            core
+            de
           ]
           ++ (with progs; [
-            coding.all
-            dj.all
-            essential.all
-            misc.all
-            networking.all
-            office.all
-            social.all
-            studying.all
-            utils.all
+            coding
+            dj
+            essential
+            misc
+            networking
+            office
+            social
+            studying
+            utils
           ])
         );
     };
@@ -78,27 +78,27 @@
           with modules;
           [
             systems.ttofu-pc
-            core.all
-            de.all
-            progs."2d".all
-            progs."3d".all
+            core
+            de
+            progs."2d"
+            progs."3d"
           ]
           ++ (with progs; [
-            audio.all
-            coding.all
-            dj.all
-            essential.all
-            gaming.all
-            misc.all
-            networking.all
-            office.all
-            social.all
-            studying.all
-            utils.all
-            video.all
-            virtualization.all
-            vr.all
-            vtubing.all
+            audio
+            coding
+            dj
+            essential
+            gaming
+            misc
+            networking
+            office
+            social
+            studying
+            utils
+            video
+            virtualization
+            vr
+            vtubing
           ])
         );
     };

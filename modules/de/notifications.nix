@@ -1,4 +1,5 @@
 {
+  enabled = false;
   home =
     { lib, style, ... }:
     {

@@ -1,6 +1,7 @@
 let
   inherit (import ./modules.nix)
     loadModules
+    expandModules
     resolveDeps
     collectOS
     collectHome
@@ -26,7 +27,7 @@ inputs: {
 
       style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
 
-      usedModules = resolveDeps allModules (curSystem.modules allModules);
+      usedModules = resolveDeps allModules (expandModules (curSystem.modules allModules));
 
       specialArgs = {
         inherit
