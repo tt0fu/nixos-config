@@ -105,5 +105,5 @@
     # GENERATED INPUTS END
   };
 
-  outputs = inputs: ((import ./lib/builder.nix).outputs inputs);
+  outputs = inputs: (import ./lib/builder.nix) inputs;
 }

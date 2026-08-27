@@ -12,56 +12,52 @@ let
 
   userSettings = settings.userSettings;
 in
-{
-  outputs = inputs: {
-    nixosConfigurations = builtins.mapAttrs (
-      name: curSystem:
-      let
-        systemSettings = curSystem.settings // {
-          hostname = name;
-        };
+inputs: {
+  nixosConfigurations = builtins.mapAttrs (
+    name: curSystem:
+    let
+      systemSettings = curSystem.settings // {
+        hostname = name;
+      };
 
-        system = systemSettings.system;
+      system = systemSettings.system;
 
-        pkgs-stable = import inputs.nixpkgs-stable { inherit system; };
+      pkgs-stable = import inputs.nixpkgs-stable { inherit system; };
 
-        style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
+      style = inputs.nixpkgs.lib.recursiveUpdate settings.baseStyle (curSystem.styleOverrides or { });
 
-        requested = curSystem.modules allModules;
-        expanded = resolveDeps allModules requested;
+      usedModules = resolveDeps allModules (curSystem.modules allModules);
 
-        specialArgs = {
-          inherit
-            inputs
-            pkgs-stable
-            systemSettings
-            userSettings
-            style
-            allModules
-            ;
-          
-          usedModules = expanded;
-        };
+      specialArgs = {
+        inherit
+          inputs
+          pkgs-stable
+          systemSettings
+          userSettings
+          style
+          allModules
+          usedModules
+          ;
+      };
 
-        modules = (collectOS expanded) ++ [
-          inputs.home-manager.nixosModules.default
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = specialArgs;
-              users.${userSettings.username} =
-                { ... }:
-                {
-                  imports = (collectHome expanded);
-                };
-            };
-          }
-        ];
-      in
-      inputs.nixpkgs.lib.nixosSystem {
-        inherit system specialArgs modules;
-      }
-    ) settings.systems;
-  };
+      modules = (collectOS usedModules) ++ [
+        inputs.home-manager.nixosModules.default
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = specialArgs;
+            users.${userSettings.username} =
+              { ... }:
+              {
+                imports = (collectHome usedModules);
+              };
+          };
+        }
+      ];
+    in
+    inputs.nixpkgs.lib.nixosSystem {
+      inherit system specialArgs modules;
+    }
+  ) settings.systems;
 }
