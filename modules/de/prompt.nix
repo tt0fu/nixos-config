@@ -44,7 +44,7 @@
                     foreground = "p:black";
                     powerline_symbol = "";
                     style = "powerline";
-                    template = " {{if .Env.IN_NIX_SHELL}}nix-shell{{else}}{{.Name}}{{end}} ";
+                    template = " {{if .Env.IN_NIX_SHELL}}{{.Env.IN_NIX_SHELL}} nix shell{{else}}{{.Name}}{{end}} ";
                     type = "shell";
                   }
                   {
