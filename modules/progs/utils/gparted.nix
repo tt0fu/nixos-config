@@ -1,7 +1,7 @@
 {
-  home =
+  os =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.gparted ];
+      environment.systemPackages = [ pkgs.gparted ];
     };
 }
