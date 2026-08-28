@@ -2,7 +2,10 @@
   description = "ttofu's nixos config";
 
   inputs = {
-    # Do not edit the inputs between the markers. They will get rewritten upon rebuilding.
+    nixos-builder.url = "github:tt0fu/nixos-builder";
+    
+    # Do not edit the inputs between the markers. They will get rewritten by
+    # `nix run .#generate-inputs` (run automatically by build.sh / update.sh).
     # GENERATED INPUTS START
     freenet = {
       inputs = {
@@ -105,5 +108,14 @@
     # GENERATED INPUTS END
   };
 
-  outputs = inputs: (import ./lib/builder.nix) inputs;
+  outputs =
+    inputs:
+    (inputs.nixos-builder.lib.outputs {
+      inherit inputs;
+      settingsPath = ./settings.nix;
+      modulesPath = ./modules;
+      extraNixpkgs = {
+        pkgs-stable = inputs.nixpkgs-stable;
+      };
+    });
 }

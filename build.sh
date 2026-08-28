@@ -1,6 +1,6 @@
 set -euo pipefail
 
-./generate-inputs.sh
+nix run .#generate-inputs
 
 git add --all
 
