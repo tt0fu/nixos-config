@@ -180,7 +180,7 @@
               _args = [
                 "SUPER + CTRL + SHIFT + P"
                 (lib.generators.mkLuaInline ''
-                  hl.dispatch(hl.dsp.exec_cmd("hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown now'")) 
+                  hl.dsp.exec_cmd("hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown now'")
                 '')
               ];
             }
@@ -188,7 +188,7 @@
               _args = [
                 "SUPER + CTRL + SHIFT + L"
                 (lib.generators.mkLuaInline ''
-                  hl.dispatch(hl.dsp.exec_cmd("hyprshutdown -t 'Rebooting...' --post-cmd 'reboot'")) 
+                  hl.dsp.exec_cmd("hyprshutdown -t 'Rebooting...' --post-cmd 'reboot'")
                 '')
               ];
             }
