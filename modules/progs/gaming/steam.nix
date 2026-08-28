@@ -17,7 +17,7 @@
         {
           _args = [
             "hyprland.start"
-            (lib.generators.mkLuaInline ''function() hl.exec_cmd("setpriv --ambient-caps -all steam -silent") end'')
+            (lib.generators.mkLuaInline ''function() hl.exec_cmd("steam -silent") end'')
           ];
         }
       ];
