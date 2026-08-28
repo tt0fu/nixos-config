@@ -39,6 +39,7 @@
         hyprshot
         brightnessctl
         playerctl
+        hyprshutdown
       ];
       wayland.windowManager.hyprland = {
         enable = true;
@@ -178,13 +179,17 @@
             {
               _args = [
                 "SUPER + CTRL + SHIFT + P"
-                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"shutdown now\")")
+                (lib.generators.mkLuaInline ''
+                  hl.dispatch(hl.dsp.exec_cmd("hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown now'")) 
+                '')
               ];
             }
             {
               _args = [
                 "SUPER + CTRL + SHIFT + L"
-                (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"reboot\")")
+                (lib.generators.mkLuaInline ''
+                  hl.dispatch(hl.dsp.exec_cmd("hyprshutdown -t 'Rebooting...' --post-cmd 'reboot'")) 
+                '')
               ];
             }
             {

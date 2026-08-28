@@ -56,7 +56,9 @@
               cooldown-ms = 150;
             };
 
-            "Mod+Ctrl+Shift+S".action = spawn "shutdown" "now";
+            "Mod+Ctrl+Shift+S".action =
+              spawn "hyprshutdown" "-t" "Shutting down..." "--post-cmd"
+                "shutdown now";
             "Mod+Ctrl+Shift+R".action = spawn "reboot";
             "Mod+Ctrl+Shift+Escape".action = quit { skip-confirmation = true; };
 

@@ -65,7 +65,7 @@
               color = "rgb(255, 255, 255)";
               font_size = style.font.size * 2;
               font_family = style.font.name;
-              onclick = "shutdown now";
+              onclick = "hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown now";
             }
             {
               position = "0, -100";
@@ -73,7 +73,7 @@
               color = "rgb(255, 255, 255)";
               font_size = style.font.size * 2;
               font_family = style.font.name;
-              onclick = "reboot";
+              onclick = "hyprshutdown -t 'Rebooting...' --post-cmd 'reboot'";
             }
             {
               position = "100, -100";

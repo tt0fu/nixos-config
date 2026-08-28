@@ -94,7 +94,7 @@ Item {
             color: shutdownMouseArea.containsMouse ? Colors.hover : Colors.foreground
             Process {
                 id: shutdownProc
-                command: ["shutdown", "now"]
+                command: ["hyprshutdown", "-t", "Shutting down...", "--post-cmd", "shutdown now"]
                 running: false
             }
             MouseArea {
@@ -110,7 +110,7 @@ Item {
             color: rebootMouseArea.containsMouse ? Colors.hover : Colors.foreground
             Process {
                 id: rebootProc
-                command: ["reboot"]
+                command: ["hyprshutdown", "-t", "Rebooting...", "--post-cmd", "reboot"]
                 running: false
             }
             MouseArea {
@@ -128,7 +128,7 @@ Item {
                 id: exitMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: Hyprland.dispatch("hl.dsp.exit()");
+                onClicked: Hyprland.dispatch("hl.dsp.exit()")
             }
         }
     }
