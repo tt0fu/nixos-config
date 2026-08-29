@@ -73,17 +73,7 @@
               codec = "av1";
               encoder = "vaapi";
             };
-            openvr-compat-path =
-              let
-                pkg = pkgs.xrizer.overrideAttrs (
-                  finalAttrs: previousAttrs: {
-                    postInstall = previousAttrs.postInstall + ''
-                      touch $out/lib/xrizer/bin/version.txt
-                    '';
-                  }
-                );
-              in
-              "${pkg}/lib/xrizer";
+            openvr-compat-path = "${pkgs.xrizer}/lib/xrizer";
             scale = 1;
             use-steamvr-lh = true;
           };
