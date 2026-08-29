@@ -1,14 +1,36 @@
 {
+  os = { ... }: {
+    networking.firewall = {
+      allowedTCPPorts = [
+        9000
+        9001
+        9696
+      ];
+      allowedUDPPorts = [
+        9000
+        9001
+        9696
+      ];
+    };
+  };
   home =
     { pkgs, lib, ... }:
     {
-      home.packages = [ pkgs.vrcx ];
+      home.packages = with pkgs; [
+        vrcx
+      ];
       wayland.windowManager.hyprland.settings = {
         on = [
           {
             _args = [
               "hyprland.start"
               (lib.generators.mkLuaInline ''function() hl.exec_cmd("vrcx --startup") end'')
+            ];
+          }
+          {
+            _args = [
+              "hyprland.start"
+              (lib.generators.mkLuaInline ''function() hl.exec_cmd("steam steam://rungameid/4296960") end'')
             ];
           }
         ];
