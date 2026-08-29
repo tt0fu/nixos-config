@@ -101,7 +101,10 @@ Item {
                 id: shutdownMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: shutdownProc.running = true
+                onClicked: {
+                    root.context.unlocked();
+                    shutdownProc.running = true;
+                }
             }
         }
         StylizedCenterText {
@@ -117,7 +120,10 @@ Item {
                 id: rebootMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: rebootProc.running = true
+                onClicked: {
+                    root.context.unlocked();
+                    rebootProc.running = true;
+                }
             }
         }
         StylizedCenterText {
