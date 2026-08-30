@@ -66,6 +66,8 @@
           buffer_font_features = {
             calt = false;
           };
+          default_open_behavior = "new_window";
+          cli_default_open_behavior = "new_window";
         };
         mutableUserKeymaps = false;
         userKeymaps = import ./keybinds.nix;
