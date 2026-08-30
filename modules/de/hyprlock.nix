@@ -106,4 +106,5 @@
       };
       # programs.niri.settings.binds."Mod+L".action.spawn = [ "hyprlock" ];
     };
+    deps = modules: with modules; [ de.hyprshutdown ];
 }

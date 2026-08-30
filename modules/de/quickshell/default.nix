@@ -70,6 +70,7 @@
     };
   deps =
     modules: with modules; [
+      de.hyprshutdown
       progs.utils.nmgui
       progs.utils.libnotify
       progs.utils.cliphist

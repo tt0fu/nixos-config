@@ -39,7 +39,6 @@
         hyprshot
         brightnessctl
         playerctl
-        hyprshutdown
       ];
       wayland.windowManager.hyprland = {
         enable = true;
@@ -411,4 +410,5 @@
         NIXOS_OZONE_WL = "1";
       };
     };
+  deps = modules: with modules; [ de.hyprshutdown ];
 }
