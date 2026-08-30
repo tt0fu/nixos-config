@@ -1,7 +1,7 @@
 {
   inputs = {
     wivrn = {
-      url = "github:WiVRn/WiVRn/poc/layer-alpha-blend";
+      url = "github:WiVRn/WiVRn/v26.6.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -61,9 +61,7 @@
           json = {
             application = (
               pkgs.writeShellScriptBin "wivrn-launch-script" ''
-                sleep 1
-                (${lib.getExe pkgs.motoc} continue && ${lib.getExe pkgs.libnotify} "motoc calibration loaded") || ${lib.getExe pkgs.libnotify} -u critical "Failed to load motoc calibration!"
-                sleep 1
+                ${lib.getExe pkgs.motoc} continue && ${lib.getExe pkgs.libnotify} "motoc calibration loaded"
                 wayvr
               ''
             );

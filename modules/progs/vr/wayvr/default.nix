@@ -8,8 +8,8 @@
     {
       home = {
         packages = [
-          # pkgs.wayvr
-          (pkgs.callPackage self.package { })
+          pkgs.wayvr
+          # (pkgs.callPackage self.package { })
         ];
         file =
           let
