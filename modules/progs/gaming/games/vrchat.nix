@@ -1,18 +1,4 @@
 {
-  os = { ... }: {
-    networking.firewall = {
-      allowedTCPPorts = [
-        9000
-        9001
-        9696
-      ];
-      allowedUDPPorts = [
-        9000
-        9001
-        9696
-      ];
-    };
-  };
   home =
     { pkgs, lib, ... }:
     {
@@ -30,7 +16,7 @@
           {
             _args = [
               "hyprland.start"
-              (lib.generators.mkLuaInline ''function() hl.exec_cmd("steam steam://rungameid/4296960") end'')
+              (lib.generators.mkLuaInline ''function() hl.exec_cmd("sleep 30; steam steam://rungameid/4296960") end'')
             ];
           }
         ];
@@ -40,20 +26,6 @@
           };
           tile = true;
           workspace = "9 silent";
-        };
-      };
-      xdg.desktopEntries = {
-        vrchat = {
-          name = "VRChat";
-          comment = "Play this game on Steam";
-          genericName = "Social VR game";
-          exec = "steam steam://rungameid/438100";
-          icon = "steam_icon_438100";
-          terminal = false;
-          type = "Application";
-          categories = [
-            "Game"
-          ];
         };
       };
     };
