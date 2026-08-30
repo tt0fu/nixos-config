@@ -174,6 +174,24 @@
         "type": "github"
       }
     },
+    "flake-utils_4": {
+      "inputs": {
+        "systems": "systems_5"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "freenet": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -907,6 +925,27 @@
         "type": "github"
       }
     },
+    "pulsemeeter": {
+      "inputs": {
+        "flake-utils": "flake-utils_4",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787964848,
+        "narHash": "sha256-jrRwAUXhTaf+oiOS0u+hWYwhtzyV7oKnKylZm2PQ1Ps=",
+        "owner": "theRealCarneiro",
+        "repo": "pulsemeeter",
+        "rev": "8e0792d0c808b5ab12d9a7116cc11d158217bc61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "theRealCarneiro",
+        "repo": "pulsemeeter",
+        "type": "github"
+      }
+    },
     "quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -942,6 +981,7 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-xr": "nixpkgs-xr",
+        "pulsemeeter": "pulsemeeter",
         "quickshell": "quickshell",
         "wivrn": "wivrn",
         "zen-browser": "zen-browser"
@@ -1007,6 +1047,21 @@
         "type": "github"
       }
     },
+    "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
@@ -1057,16 +1112,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1785988387,
-        "narHash": "sha256-R13hxABqRyG5LNbmOrgG0O5p3uOHqMtUvD+i/VNGaaw=",
+        "lastModified": 1784025962,
+        "narHash": "sha256-5e0XeP5DCdVrSQeDgNuCZP5McRbwybnpKuJw9cxHNPI=",
         "owner": "WiVRn",
         "repo": "WiVRn",
-        "rev": "1fa6547d8bb4401c6517d435bb1928e80742e534",
+        "rev": "8e03a05a8cec73faa4169142408e7e06a1969889",
         "type": "github"
       },
       "original": {
         "owner": "WiVRn",
-        "ref": "poc/layer-alpha-blend",
+        "ref": "v26.6.2",
         "repo": "WiVRn",
         "type": "github"
       }

@@ -78,6 +78,14 @@
       };
       url = "github:nix-community/nixpkgs-xr";
     };
+    pulsemeeter = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:theRealCarneiro/pulsemeeter";
+    };
     quickshell = {
       inputs = {
         nixpkgs = {
@@ -92,7 +100,7 @@
           follows = "nixpkgs";
         };
       };
-      url = "github:WiVRn/WiVRn/poc/layer-alpha-blend";
+      url = "github:WiVRn/WiVRn/v26.6.2";
     };
     zen-browser = {
       inputs = {
