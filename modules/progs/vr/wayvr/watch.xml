@@ -117,15 +117,15 @@
       </div>
 
       <!-- All other elements inside the container -->
-      <div flex_direction="column" gap="8" min_width="300">
-        <rectangle macro="decorative_rect" flex_direction="row" gap="8" justify_content="space_evenly">
+      <div flex_direction="column" gap="8">
+        <rectangle macro="decorative_rect" flex_direction="column" gap="8" justify_content="space_evenly">
           <!-- Clock, date and various timezones -->
           <div id="clock_root">
             <Clock />
           </div>
 
           <!-- Four buttons -->
-          <div flex_direction="column" gap="8">
+          <div flex_direction="row" gap="10">
             <div gap="8">
               <Button id="btn_keyboard" macro="button_style" _press="::OverlayToggle kbd" tooltip="EDIT_MODE.KEYBOARD" tooltip_side="left">
                 <sprite src_builtin="watch/keyboard.svg" width="40" height="40" />
@@ -133,8 +133,6 @@
               <Button id="btn_edit_mode" macro="button_style" _press="::EditToggle" tooltip="WATCH.EDIT_MODE" tooltip_side="left">
                 <sprite color="~color_text" width="40" height="40" src="watch/edit.svg" />
               </Button>
-            </div>
-            <div gap="8">
               <Button 
                   macro="button_style" 
                   _press="::ShellExec DISPLAY= WAYLAND_DISPLAY=wayland-$(cat $XDG_RUNTIME_DIR/wayvr.disp) kitty --class motoc -- motoc calibrate --src 'WiVRn right controller' --dst LHR-B8E3267C" 
