@@ -45,6 +45,14 @@
               run = "cd /media";
               desc = "Go /media";
             }
+            {
+              on = [
+                "g"
+                "l"
+              ];
+              run = "cd ~/.local";
+              desc = "Go /media";
+            }
           ];
         };
       };
