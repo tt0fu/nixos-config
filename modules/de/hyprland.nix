@@ -76,7 +76,6 @@
             };
             input = {
               kb_layout = "us, ru";
-              kb_options = "grp:alt_shift_toggle";
               touchpad.natural_scroll = true;
             };
             binds = {
@@ -114,6 +113,18 @@
             inherit scale;
           };
           bind = [
+            {
+              _args = [
+                "SUPER + Caps_Lock"
+                (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl switchxkblayout main next")'')
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + Caps_Lock"
+                (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("hyprctl switchxkblayout main prev")'')
+              ];
+            }
             {
               _args = [
                 "SUPER + ESCAPE"
