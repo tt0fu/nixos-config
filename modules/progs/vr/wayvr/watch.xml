@@ -114,6 +114,12 @@
         <LeftHand idx="1" />
         <RightHand idx="2" />
         <Tracker idx="3" />
+        <Tracker idx="4" />
+        <Tracker idx="5" />
+        <Tracker idx="6" />
+        <Tracker idx="7" />
+        <Tracker idx="8" />
+        <Tracker idx="9" />
       </div>
 
       <!-- All other elements inside the container -->

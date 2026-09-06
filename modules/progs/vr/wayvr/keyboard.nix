@@ -164,8 +164,8 @@
       "~"
       "COPY"
       "PASTE"
+      "CLOSE"
       "KILL"
-      "KEYMAP_CYCLE"
     ]
     [
       "Oem3"
@@ -263,9 +263,9 @@
       "LSuper"
       "LAlt"
       "Space"
-      "Meta"
+      "RAlt"
       "RSuper"
-      "Menu"
+      "KEYMAP_CYCLE"
       "RCtrl"
       "~"
       "Left"
@@ -277,18 +277,17 @@
       "~"
     ]
   ];
-  alt_modifier = "None";
-  exec_commands = {
-    STT = [
-      "whisper_stt"
-      "--lang"
-      "en"
-    ];
-  };
   macros = {
-    KILL = [
+    CLOSE = [
       "LSuper DOWN"
       "Escape"
+      "LSuper UP"
+    ];
+    KILL = [
+      "LSuper DOWN"
+      "LShift DOWN"
+      "Escape"
+      "LShift UP"
       "LSuper UP"
     ];
     COPY = [
