@@ -76,6 +76,7 @@
             };
             input = {
               kb_layout = "us, ru";
+              kb_options = "grp:alt_shift_toggle";
               touchpad.natural_scroll = true;
             };
             binds = {
@@ -397,6 +398,14 @@
                 "easeInOutQuad"
                 (lib.generators.mkLuaInline ''{ type = "bezier", points = { {0.45, 0}, {0.55, 1} } }'')
               ];
+            }
+          ];
+          window_rule = [
+            {
+              match = {
+                focus = false;
+              };
+              render_unfocused = true;
             }
           ];
           # plugin = {
