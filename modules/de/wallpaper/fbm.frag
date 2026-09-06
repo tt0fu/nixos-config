@@ -124,19 +124,12 @@ const mat2 mtx = mat2(0.80, 0.60, -0.60, 0.80);
 float fbm(vec2 p)
 {
     float f = 0.0;
-
     f += 0.500000 * noise(p + MOVE_AMPLITUDE * cos(iTime * MOVE_TIME_SCALE));
-    // p = mtx * p * 2.02;
-    // f += 0.031250 * noise(p);
     p = mtx * p * 2.01;
     f += 0.250000 * noise(p + MOVE_AMPLITUDE * sin(iTime * MOVE_TIME_SCALE));
     p = mtx * p * 2.03;
     f += 0.125000 * noise(p);
-    // p = mtx * p * 2.01;
-    // f += 0.062500 * noise(p);
-    // p = mtx * p * 2.04;
-    // f += 0.015625 * noise(p + sin(iTime * MOVE_TIME_SCALE));
-    return f / 0.875; //0.96875;
+    return f / 0.875;
 }
 
 float pattern(in vec2 p)
