@@ -1,7 +1,7 @@
 {
   home =
     {
-      self,
+      # self,
       pkgs,
       ...
     }:
