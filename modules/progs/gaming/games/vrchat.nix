@@ -20,13 +20,15 @@
             ];
           }
         ];
-        window_rule = {
-          match = {
-            class = "steam_app_438100";
-          };
-          tile = true;
-          workspace = "9 silent";
-        };
+        window_rule = [
+          {
+            match = {
+              class = "steam_app_438100";
+            };
+            tile = true;
+            workspace = "9 silent";
+          }
+        ];
       };
     };
 }
