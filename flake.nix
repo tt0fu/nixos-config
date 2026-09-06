@@ -59,7 +59,7 @@
           follows = "nixpkgs";
         };
       };
-      url = "github:kaylorben/nixcord";
+      url = "github:4evy/nixcord";
     };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
@@ -100,7 +100,7 @@
           follows = "nixpkgs";
         };
       };
-      url = "github:WiVRn/WiVRn/v26.6.2";
+      url = "github:WiVRn/WiVRn/poc/layer-alpha-blend";
     };
     zen-browser = {
       inputs = {
