@@ -75,6 +75,7 @@
       };
       home.packages = [ pkgs.bubblewrap ];
       xdg.mimeApps.defaultApplications = {
+        "text/plain" = "dev.zed.Zed.desktop";
         "text/*" = "dev.zed.Zed.desktop";
       };
       wayland.windowManager.hyprland.settings.bind = [
