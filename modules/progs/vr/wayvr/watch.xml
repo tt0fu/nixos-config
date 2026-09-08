@@ -139,21 +139,21 @@
             <sprite src_builtin="@/watch/keyboard.svg" width="40" height="40" />
           </Button>
           <Button id="btn_edit_mode" macro="button_style" _press="::EditToggle" tooltip="WATCH.EDIT_MODE" tooltip_side="left">
-            <sprite color="~color_text" width="40" height="40" src="@/watch/edit.svg" />
+            <sprite width="40" height="40" src_builtin="@/watch/edit.svg" />
           </Button>
           <Button 
               macro="button_style" 
               _press="::ShellExec DISPLAY= WAYLAND_DISPLAY=wayland-$(cat $XDG_RUNTIME_DIR/wayvr.disp) kitty --class motoc -- motoc calibrate --src 'WiVRn right controller' --dst LHR-B8E3267C" 
               tooltip_str="Recalibrate playspace" 
               tooltip_side="left">
-            <sprite width="40" height="40" color="~color_text" src="@/watch/track2.svg" />
+            <sprite width="40" height="40" src_builtin="@/watch/track2.svg" />
           </Button>
           <Button 
               macro="button_style" 
               _press="::ShellExec DISPLAY= WAYLAND_DISPLAY=wayland-$(cat $XDG_RUNTIME_DIR/wayvr.disp) gridboard" 
               tooltip_str="Spawn soundboard" 
               tooltip_side="left">
-            <sprite width="40" height="40" color="~color_text" src="@/icons/bell.svg" />
+            <sprite width="40" height="40" src_builtin="@/icons/mic.svg" />
           </Button>
         </div>
       </rectangle>
@@ -162,7 +162,7 @@
       <div flex_direction="row" flex_wrap="wrap" gap="8" max_width="400" justify_content="center" align_items="center">
         <div gap="4">
           <Button id="btn_dashboard" macro="button_style" _press="::DashToggle" tooltip="WATCH.DASHBOARD" tooltip_side="top">
-            <sprite color="~color_text" width="40" height="40" src="@/watch/wayvr_dashboard_mono.svg" />
+            <sprite width="40" height="40" src_builtin="@/watch/wayvr_dashboard_mono.svg" />
           </Button>
         </div>
         <VerticalSeparator />

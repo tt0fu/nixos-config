@@ -124,11 +124,11 @@
       1.25
       1.25
       1.25
-      6.25
+      5.5
       1.25
       1.25
       1.25
-      1.25
+      2.0
       0.5
       1
       1
@@ -263,10 +263,10 @@
       "LSuper"
       "LAlt"
       "Space"
-      "RAlt"
+      "Meta"
       "RSuper"
-      "KEYMAP_CYCLE"
       "RCtrl"
+      "KEYMAP_CYCLE"
       "~"
       "Left"
       "Down"
@@ -274,9 +274,16 @@
       "~"
       "KP_0"
       "KP_Decimal"
-      "~"
+      "Load"
     ]
   ];
+  exec_commands = {
+    Load = [
+      "killall"
+      "-USR1"
+      "wayvr"
+    ];
+  };
   macros = {
     CLOSE = [
       "LSuper DOWN"
