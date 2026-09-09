@@ -86,13 +86,13 @@ color: {
 
           text = white;
           "text.muted" = muted;
-          "text.placeholder" = inactive;
+          "text.placeholder" = gray 0.4;
           "text.disabled" = disabled;
           "text.accent" = white;
 
           icon = white;
           "icon.muted" = muted;
-          "icon.placeholder" = inactive;
+          "icon.placeholder" = gray 0.4;
           "icon.disabled" = disabled;
           "icon.accent" = white;
 
