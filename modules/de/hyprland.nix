@@ -63,7 +63,7 @@
             decoration = {
               rounding = style.border.radius;
               blur = {
-                size = 10;
+                size = 8;
                 passes = 2;
                 noise = 0.1;
                 contrast = 1.0;
