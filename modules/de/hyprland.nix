@@ -206,7 +206,9 @@
             {
               _args = [
                 "SUPER + CTRL + SHIFT + ESCAPE"
-                (lib.generators.mkLuaInline "hl.dsp.exit()")
+                (lib.generators.mkLuaInline ''
+                  hl.dsp.exec_cmd("hyprshutdown -t 'Exiting...'")
+                '')
               ];
             }
             {

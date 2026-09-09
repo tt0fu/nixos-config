@@ -130,11 +130,19 @@ Item {
             text: "󰈆"
             font.pixelSize: Fonts.size * 3
             color: exitMouseArea.containsMouse ? Colors.hover : Colors.foreground
+            Process {
+                id: exitProc
+                command: ["hyprshutdown", "-t", "Exiting..."]
+                running: false
+            }
             MouseArea {
                 id: exitMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: Hyprland.dispatch("hl.dsp.exit()")
+                onClicked: {
+                    root.context.unlocked();
+                    exitProc.running = true;
+                }
             }
         }
     }

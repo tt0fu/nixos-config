@@ -81,7 +81,7 @@
               color = "rgb(255, 255, 255)";
               font_size = style.font.size * 2;
               font_family = style.font.name;
-              onclick = "hyprctl dispatch 'hl.dsp.exit()'";
+              onclick = "hyprshutdown -t 'Exiting...'";
             }
           ];
         };
