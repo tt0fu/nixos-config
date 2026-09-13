@@ -8,13 +8,6 @@
         enableBashIntegration = true;
         settings = {
           opener = {
-            play = [
-              {
-                run = "vlc \"$@\"";
-                orphan = true;
-                for = "unix";
-              }
-            ];
             open = [
               {
                 run = "xdg-open \"$@\"";
@@ -29,13 +22,6 @@
               on = "t";
               run = "shell --orphan --confirm kitty";
               desc = "Open terminal at current dir";
-            }
-            {
-              on = "z";
-              run = ''
-                shell 'printf "Archive name:"; read name; zip -r "$name.zip" %s' --block --confirm
-              '';
-              desc = "zip selection";
             }
             {
               on = [
