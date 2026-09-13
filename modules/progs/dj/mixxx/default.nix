@@ -8,7 +8,7 @@
         ];
         file = {
           ".mixxx/skins/LateNight32" = {
-            source = config.lib.file.mkOutOfStoreSymlink ./LateNight32;
+            source = ./LateNight32;
           };
         };
       };
