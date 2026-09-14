@@ -1,4 +1,5 @@
 {
+  enable = false;
   os =
     { userSettings, ... }:
 
