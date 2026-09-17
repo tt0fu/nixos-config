@@ -1,5 +1,4 @@
 {
-  enable = false;
   home =
     { self, pkgs, ... }:
     {
