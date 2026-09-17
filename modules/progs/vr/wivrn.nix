@@ -9,59 +9,28 @@
     {
       inputs,
       pkgs,
-      lib,
       ...
     }:
     {
-      # services.avahi = {
-      #   enable = true;
-      #   publish = {
-      #     enable = true;
-      #     userServices = true;
-      #   };
-      # };
-
-      # networking.firewall = {
-      #   allowedTCPPorts = [ 9757 ];
-      #   allowedUDPPorts = [ 9757 ];
-      # };
-
-      # environment = {
-      #   pathsToLink = [ "/share/openxr" ];
-      # };
-
       environment.systemPackages = [ pkgs.motoc ];
       services.wivrn = {
         enable = true;
-        package =
-          let
-            # src = pkgs.wivrn;
-            src = inputs.wivrn.packages.${pkgs.stdenv.hostPlatform.system}.default;
-          in
-          (src.overrideAttrs (prevAttrs: {
-            preFixup = prevAttrs.preFixup + ''
-              wrapProgram "$out/bin/wivrn-server" \
-                --prefix LD_LIBRARY_PATH : ${
-                  lib.makeLibraryPath [
-                    pkgs.sdl2-compat
-                    pkgs.udev
-                  ]
-                }
-            '';
-          }));
+
+        # package = pkgs.wivrn;
+        package = inputs.wivrn.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
         steam = {
           enable = true;
           importOXRRuntimes = true;
         };
         openFirewall = true;
         autoStart = true;
-        highPriority = true;
         config = {
           enable = true;
           json = {
             application = (
               pkgs.writeShellScriptBin "wivrn-launch-script" ''
-                ${lib.getExe pkgs.motoc} continue && ${lib.getExe pkgs.libnotify} "motoc calibration loaded"
+                motoc continue && notify-send "motoc calibration loaded"
                 wayvr
               ''
             );
