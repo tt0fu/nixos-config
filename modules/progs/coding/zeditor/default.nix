@@ -12,7 +12,7 @@
       programs.zed-editor = {
         enable = true;
         defaultEditor = true;
-        mutableUserSettings = false;
+        # mutableUserSettings = false;
         userSettings = {
           telemetry.metrics = false;
           vim_mode = false;
