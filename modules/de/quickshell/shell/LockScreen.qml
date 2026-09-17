@@ -92,18 +92,13 @@ Item {
             text: "⏻"
             font.pixelSize: Fonts.size * 3
             color: shutdownMouseArea.containsMouse ? Colors.hover : Colors.foreground
-            Process {
-                id: shutdownProc
-                command: ["hyprshutdown", "-t", "Shutting down...", "--post-cmd", "shutdown now"]
-                running: false
-            }
             MouseArea {
                 id: shutdownMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
                     root.context.unlocked();
-                    shutdownProc.running = true;
+                    Hyprland.dispatch("hl.dsp.exec_cmd(\"hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown now' || shutdown now\")");
                 }
             }
         }
@@ -111,18 +106,13 @@ Item {
             text: ""
             font.pixelSize: Fonts.size * 3
             color: rebootMouseArea.containsMouse ? Colors.hover : Colors.foreground
-            Process {
-                id: rebootProc
-                command: ["hyprshutdown", "-t", "Rebooting...", "--post-cmd", "reboot"]
-                running: false
-            }
             MouseArea {
                 id: rebootMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
                     root.context.unlocked();
-                    rebootProc.running = true;
+                    Hyprland.dispatch("hl.dsp.exec_cmd(\"hyprshutdown -t 'Rebooting...' --post-cmd 'reboot' || reboot\")");
                 }
             }
         }
@@ -130,18 +120,13 @@ Item {
             text: "󰈆"
             font.pixelSize: Fonts.size * 3
             color: exitMouseArea.containsMouse ? Colors.hover : Colors.foreground
-            Process {
-                id: exitProc
-                command: ["hyprshutdown", "-t", "Exiting..."]
-                running: false
-            }
             MouseArea {
                 id: exitMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
                     root.context.unlocked();
-                    exitProc.running = true;
+                    Hyprland.dispatch("hl.dsp.exec_cmd(\"hyprshutdown -t 'Exiting...'\ || hyprctl dispatch hl.dsp.exit()\")");
                 }
             }
         }

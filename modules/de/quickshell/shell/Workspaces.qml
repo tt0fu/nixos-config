@@ -10,7 +10,7 @@ Item {
     id: workspaces
     anchors.centerIn: parent
 
-    property Item targetItem: workspacesRepeater.itemAt(Hyprland.workspaces.values.findIndex(w => w.focused)) ?? workspacesLayout
+    property Item targetItem: workspacesRepeater.itemAt(Hyprland.workspaces.values.findIndex(w => w === Hyprland.focusedWorkspace)) ?? workspacesLayout
 
     implicitWidth: workspacesLayout.implicitWidth * 2 - Math.min(workspacesRepeater.itemAt(0)?.implicitWidth ?? 0, workspacesRepeater.itemAt(workspacesRepeater.count - 1)?.implicitWidth ?? 0)
     implicitHeight: workspacesLayout.implicitHeight
@@ -39,11 +39,9 @@ Item {
                 // property string name: index + 1
 
                 required property HyprlandWorkspace modelData
-                property HyprlandWorkspace workspace: modelData
-                property string name: workspace.id
 
-                property bool isUrgent: workspace ? workspace.urgent : false
-                property var topLevels: workspace ? workspace.toplevels : []
+                property bool isUrgent: modelData ? modelData.urgent : false
+                property var topLevels: modelData ? modelData.toplevels : []
 
                 border.color: isUrgent ? Colors.urgent : (workspaceMouseArea.containsMouse ? Colors.hover : Colors.inactive)
 
@@ -56,10 +54,10 @@ Item {
                     acceptedButtons: Qt.AllButtons
                     onPressed: event => {
                         if (event.buttons & Qt.LeftButton) {
-                            Hyprland.dispatch("hl.dsp.focus({ workspace = " + workspaceRect.name + " })");
+                            workspaceRect.modelData.activate();
                         }
                         if (event.buttons & Qt.RightButton) {
-                            Hyprland.dispatch("hl.dsp.window.move({ workspace = " + workspaceRect.name + " })");
+                            Hyprland.dispatch("hl.dsp.window.move({ workspace = " + workspaceRect.modelData.name + " })");
                         }
                     }
                 }
@@ -73,7 +71,7 @@ Item {
                         id: workspaceText
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        text: workspaceRect.name
+                        text: workspaceRect.modelData.name
                     }
 
                     Repeater {

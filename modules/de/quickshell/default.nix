@@ -62,7 +62,7 @@
           {
             _args = [
               "hyprland.start"
-              (lib.generators.mkLuaInline ''function() hl.exec_cmd("quickshell -c shell", { tag = "do_not_close" }) end'')
+              (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("quickshell -c shell", { tag = "do_not_close" })) end'')
             ];
           }
         ];
