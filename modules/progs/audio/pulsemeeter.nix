@@ -18,7 +18,7 @@
         {
           _args = [
             "hyprland.start"
-            (lib.generators.mkLuaInline ''function() hl.exec_cmd("pulsemeeter", { tag = "do_not_close", workspace = "8 silent" }) end'')
+            (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("pulsemeeter", { tag = "do_not_close", workspace = "8 silent" })) end'')
           ];
         }
       ];

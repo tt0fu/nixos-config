@@ -14,7 +14,7 @@
   #       {
   #         _args = [
   #           "hyprland.start"
-  #           (lib.generators.mkLuaInline ''function() hl.exec_cmd("AmneziaVPN -a") end'')
+  #           (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("AmneziaVPN -a")) end'')
   #         ];
   #       }
   #     ];

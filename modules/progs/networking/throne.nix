@@ -16,7 +16,7 @@
   #       {
   #         _args = [
   #           "hyprland.start"
-  #           (lib.generators.mkLuaInline ''function() hl.exec_cmd("Throne") end'')
+  #           (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("Throne")) end'')
   #         ];
   #       }
   #     ];
