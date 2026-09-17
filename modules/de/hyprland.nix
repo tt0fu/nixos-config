@@ -14,10 +14,15 @@
     };
   };
   os =
-    { ... }:
+    { inputs, pkgs, ... }:
     {
       hardware.graphics.enable = true;
-      programs.hyprland.enable = true;
+      programs.hyprland = {
+        enable = true;
+        # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        # portalPackage =
+        #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      };
       nix.settings = {
         substituters = [ "https://hyprland.cachix.org" ];
         trusted-substituters = [ "https://hyprland.cachix.org" ];
@@ -44,7 +49,7 @@
         enable = true;
         # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
         # portalPackage =
-        # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+        #   inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         plugins = [
           # pkgs.hyprlandPlugins.hypr-dynamic-cursors
           # inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.hypr-dynamic-cursors
@@ -63,9 +68,10 @@
             decoration = {
               rounding = style.border.radius;
               blur = {
+                # variant = "haze";
                 size = 8;
                 passes = 2;
-                noise = 0.1;
+                noise = 0.0;
                 contrast = 1.0;
                 brightness = 0.3;
                 vibrancy = 0.0;
@@ -129,20 +135,7 @@
             {
               _args = [
                 "SUPER + ESCAPE"
-                (lib.generators.mkLuaInline ''
-                  function()
-                    local window = hl.get_active_window()
-                    if window == nil then
-                      return
-                    end
-                    for _, tag in ipairs(window.tags) do
-                      if tag == "do_not_close*" then
-                        return
-                      end
-                    end
-                    hl.dispatch(hl.dsp.window.close(window)) 
-                  end
-                '')
+                (lib.generators.mkLuaInline "hl.dsp.window.close()")
               ];
             }
             {
@@ -430,6 +423,15 @@
       };
       home.sessionVariables = {
         NIXOS_OZONE_WL = "1";
+      };
+      programs.hyprtoolkit = {
+        enable = true;
+        settings = {
+          background = "0x01000000";
+          accent = "0xFFFFFFFF";
+          accent_secondary = "0xFFFFFFFF";
+          font_family = style.font.name;
+        };
       };
     };
   deps = modules: with modules; [ de.hyprshutdown ];
