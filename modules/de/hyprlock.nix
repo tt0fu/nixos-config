@@ -99,12 +99,12 @@
           {
             _args = [
               "hyprland.start"
-              (lib.generators.mkLuaInline ''function() hl.exec_cmd("sleep 0.5; hyprlock") end'')
+              (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("sleep 0.5; hyprlock")) end'')
             ];
           }
         ];
       };
       # programs.niri.settings.binds."Mod+L".action.spawn = [ "hyprlock" ];
     };
-    deps = modules: with modules; [ de.hyprshutdown ];
+  deps = modules: with modules; [ de.hyprshutdown ];
 }
