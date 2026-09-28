@@ -43,6 +43,7 @@
             systems.ttofu-laptop
             core
             de
+            progs."2d"
           ]
           ++ (with progs; [
             coding
@@ -54,6 +55,7 @@
             social
             studying
             utils
+            video.obs-studio
           ])
         );
     };
