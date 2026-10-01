@@ -14,6 +14,6 @@
     };
   deps =
     modules: with modules; [
-      progs.virtualization.podman
+      progs.virtualization.docker
     ];
 }
