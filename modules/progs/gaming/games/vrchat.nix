@@ -3,6 +3,8 @@
     { pkgs, lib, ... }:
     {
       home.packages = with pkgs; [
+        ffmpeg
+        yt-dlp
         vrcx
       ];
       wayland.windowManager.hyprland.settings = {
