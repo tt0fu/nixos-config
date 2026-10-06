@@ -30,11 +30,11 @@
 
     stdenv.mkDerivation rec {
       pname = "rbxport";
-      version = "1.0.0-rc.13";
+      version = "1.0.0-rc.14";
 
       src = fetchurl {
         url = "https://download.rbxport.com/${pname}-${version}-linux-x86_64.deb";
-        hash = "sha256-pPUYukKpBLbPWwtcokRjrTHc4jnFArMBwQh+YeptvRk=";
+        hash = "sha256-uISeDHQiMtwhUBbtU1f8mtLufkb+C/AU1aw4iqnwcwM=";
       };
 
       nativeBuildInputs = [
