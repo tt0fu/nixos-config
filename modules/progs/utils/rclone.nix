@@ -10,8 +10,9 @@
             scope = "drive.file";
             team_drive = "";
           };
-          mounts."Synced" = {
+          mounts.Synced = {
             enable = true;
+            autoMount = true;
             mountPoint = "/home/${userSettings.username}/DriveSynced";
           };
           secrets = {
