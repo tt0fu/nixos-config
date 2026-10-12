@@ -1,13 +1,24 @@
 [
   {
+    profile = "/interaction_profiles/ext/eye_gaze_interaction";
+    pose = {
+      handsfree = "/user/eyes_ext/input/gaze_ext/pose";
+    };
+  }
+  {
+    profile = "/interaction_profiles/ext/hand_interaction_ext";
+    click = {
+      handsfree = "/user/hand/right/input/pinch_ext/value";
+    };
+    grab = {
+      handsfree = "/user/hand/left/input/pinch_ext/value";
+    };
+  }
+  {
     profile = "/interaction_profiles/oculus/touch_controller";
     pose = {
       left = "/user/hand/left/input/aim/pose";
       right = "/user/hand/right/input/aim/pose";
-    };
-    haptic = {
-      left = "/user/hand/left/output/haptic";
-      right = "/user/hand/right/output/haptic";
     };
     click = {
       left = "/user/hand/left/input/trigger/value";
@@ -17,27 +28,28 @@
       left = "/user/hand/left/input/squeeze/value";
       right = "/user/hand/right/input/squeeze/value";
     };
-    scroll = {
-      left = "/user/hand/left/input/thumbstick/y";
-      right = "/user/hand/right/input/thumbstick/y";
-    };
-    scroll_horizontal = {
-      left = "/user/hand/left/input/thumbstick/x";
-      right = "/user/hand/right/input/thumbstick/x";
+    alt_click = {
     };
     show_hide = {
       left = "/user/hand/left/input/menu/click";
     };
+    toggle_dashboard = {
+    };
     space_drag = {
       right = "/user/hand/right/input/thumbstick/click";
-      double_click = false;
     };
     space_rotate = {
-      right = "/user/hand/right/input/thumbstick/click";
-      double_click = true;
+      left = "/user/hand/left/input/thumbstick/click";
     };
     space_reset = {
-      left = "/user/hand/left/input/thumbstick/click";
+      left_chord = [
+        "/user/hand/left/input/thumbstick/click"
+        "/user/hand/left/input/squeeze/value"
+      ];
+      right_chord = [
+        "/user/hand/right/input/thumbstick/click"
+        "/user/hand/right/input/squeeze/value"
+      ];
     };
     click_modifier_right = {
       left = "/user/hand/left/input/y/touch";
@@ -50,6 +62,418 @@
     move_mouse = {
       left = "/user/hand/left/input/trigger/touch";
       right = "/user/hand/right/input/trigger/touch";
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/valve/index_controller";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/force";
+      right = "/user/hand/right/input/squeeze/force";
+    };
+    alt_click = {
+      right = "/user/hand/right/input/trackpad/force";
+    };
+    show_hide = {
+      left = "/user/hand/left/input/b/click";
+      double_click = true;
+    };
+    toggle_dashboard = {
+      right = "/user/hand/right/input/system/click";
+      double_click = false;
+    };
+    space_drag = {
+      left = "/user/hand/left/input/trackpad/force";
+    };
+    space_reset = {
+      left = "/user/hand/left/input/trackpad/force";
+      double_click = true;
+    };
+    click_modifier_right = {
+      left = "/user/hand/left/input/b/touch";
+      right = "/user/hand/right/input/b/touch";
+    };
+    click_modifier_middle = {
+      left = "/user/hand/left/input/a/touch";
+      right = "/user/hand/right/input/a/touch";
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/touch";
+      right = "/user/hand/right/input/trigger/touch";
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/valve/frame_controller_valve";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/value";
+      right = "/user/hand/right/input/squeeze/value";
+    };
+    alt_click = {
+    };
+    show_hide = {
+      left_chord = [
+        "/user/hand/left/input/view/click"
+        "/user/hand/left/input/bumper/click"
+      ];
+    };
+    toggle_dashboard = {
+      left_chord = [
+        "/user/hand/right/input/menu/click"
+        "/user/hand/right/input/bumper/click"
+      ];
+    };
+    space_drag = {
+      left_chord = [
+        "/user/hand/left/input/view/click"
+        "/user/hand/left/input/squeeze/value"
+      ];
+    };
+    space_rotate = {
+      right_chord = [
+        "/user/hand/right/input/menu/click"
+        "/user/hand/right/input/squeeze/value"
+      ];
+    };
+    space_reset = {
+      right_chord = [
+        "/user/hand/right/input/menu/click"
+        "/user/hand/right/input/squeeze/value"
+      ];
+      double_click = true;
+    };
+    click_modifier_right = {
+      left = "/user/hand/left/input/dpad_right/touch";
+      right = "/user/hand/right/input/x/touch";
+    };
+    click_modifier_middle = {
+      left = "/user/hand/left/input/dpad_left/touch";
+      right = "/user/hand/right/input/b/touch";
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/touch";
+      right = "/user/hand/right/input/trigger/touch";
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/htc/vive_controller";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/click";
+      right = "/user/hand/right/input/squeeze/click";
+    };
+    show_hide = {
+      left = "/user/hand/left/input/system/click";
+    };
+    toggle_dashboard = {
+      right = "/user/hand/right/input/system/click";
+    };
+    space_drag = {
+      right = "/user/hand/right/input/menu/click";
+    };
+    space_reset = {
+      right = "/user/hand/right/input/menu/click";
+      double_click = true;
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+      threshold_left = [
+        0.1
+        0.2
+      ];
+      threshold_right = [
+        0.1
+        0.2
+      ];
+    };
+    scroll = {
+      left = "/user/hand/left/input/trackpad";
+      right = "/user/hand/right/input/trackpad";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/microsoft/motion_controller";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/click";
+      right = "/user/hand/right/input/squeeze/click";
+    };
+    show_hide = {
+      left = "/user/hand/left/input/menu/click";
+    };
+    space_drag = {
+      right = "/user/hand/right/input/menu/click";
+      double_click = true;
+    };
+    click_modifier_right = {
+      left = "/user/hand/left/input/trackpad/touch";
+      right = "/user/hand/right/input/trackpad/touch";
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+      threshold_left = [
+        0.1
+        0.2
+      ];
+      threshold_right = [
+        0.1
+        0.2
+      ];
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/hp/mixed_reality_controller";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/value";
+      right = "/user/hand/right/input/squeeze/value";
+    };
+    show_hide = {
+      left = "/user/hand/left/input/menu/click";
+    };
+    space_drag = {
+      right = "/user/hand/left/input/menu/click";
+      double_click = true;
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+      threshold_left = [
+        0.1
+        0.2
+      ];
+      threshold_right = [
+        0.1
+        0.2
+      ];
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/khr/generic_controller";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/value";
+      right = "/user/hand/right/input/squeeze/value";
+    };
+    show_hide = {
+      left = "/user/hand/left/input/secondary/click";
+      double_click = true;
+    };
+    click_modifier_right = {
+      left = "/user/hand/left/input/secondary/click";
+      right = "/user/hand/right/input/secondary/click";
+    };
+    click_modifier_middle = {
+      left = "/user/hand/left/input/primary/click";
+      right = "/user/hand/right/input/primary/click";
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+      threshold_left = [
+        0.1
+        0.2
+      ];
+      threshold_right = [
+        0.1
+        0.2
+      ];
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/samsung/odyssey_controller";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/click";
+      right = "/user/hand/right/input/squeeze/click";
+    };
+    show_hide = {
+      left = "/user/hand/left/input/menu/click";
+    };
+    space_drag = {
+      right = "/user/hand/right/input/menu/click";
+      double_click = true;
+    };
+    click_modifier_right = {
+      left = "/user/hand/left/input/trackpad/touch";
+      right = "/user/hand/right/input/trackpad/touch";
+    };
+    click_modifier_middle = {
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+      threshold_left = [
+        0.1
+        0.2
+      ];
+      threshold_right = [
+        0.1
+        0.2
+      ];
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
+    };
+  }
+  {
+    profile = "/interaction_profiles/mnd/contactglove2_with_magnetra2_mnd";
+    pose = {
+      left = "/user/hand/left/input/aim/pose";
+      right = "/user/hand/right/input/aim/pose";
+    };
+    click = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    grab = {
+      left = "/user/hand/left/input/squeeze/value";
+      right = "/user/hand/right/input/squeeze/value";
+    };
+    show_hide = {
+      left = "/user/hand/left/input/system/click";
+    };
+    toggle_dashboard = {
+      right = "/user/hand/right/input/system/click";
+    };
+    space_drag = {
+      left = "/user/hand/left/input/pairing_mnd/click";
+    };
+    space_rotate = {
+      right = "/user/hand/right/input/pairing_mnd/click";
+    };
+    space_reset = {
+      left = "/user/hand/left/input/pairing_mnd/click";
+      right = "/user/hand/right/input/pairing_mnd/click";
+      double_click = true;
+    };
+    click_modifier_right = {
+      left = "/user/hand/left/input/y/click";
+      right = "/user/hand/right/input/y/click";
+    };
+    click_modifier_middle = {
+      left = "/user/hand/left/input/x/click";
+      right = "/user/hand/right/input/x/click";
+    };
+    move_mouse = {
+      left = "/user/hand/left/input/trigger/value";
+      right = "/user/hand/right/input/trigger/value";
+    };
+    scroll = {
+      left = "/user/hand/left/input/thumbstick";
+      right = "/user/hand/right/input/thumbstick";
+    };
+    haptic = {
+      left = "/user/hand/left/output/haptic";
+      right = "/user/hand/right/output/haptic";
     };
   }
 ]

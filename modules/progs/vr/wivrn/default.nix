@@ -1,23 +1,23 @@
 {
-  inputs = {
-    wivrn = {
-      url = "github:WiVRn/WiVRn/poc/layer-alpha-blend";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
   os =
     {
-      inputs,
       pkgs,
       ...
     }:
+    let
+      wivrn = pkgs.wivrn.overrideAttrs (old: {
+        src = pkgs.applyPatches {
+          src = old.src;
+          patches = [ ./alpha-blend.patch ];
+        };
+      });
+    in
     {
       environment.systemPackages = [ pkgs.motoc ];
       services.wivrn = {
         enable = true;
 
-        # package = pkgs.wivrn;
-        package = inputs.wivrn.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        package = wivrn;
 
         steam = {
           enable = true;

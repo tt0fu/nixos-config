@@ -1,9 +1,21 @@
 {
+  inputs = {
+    rbxport = {
+      url = "github:tt0fu/rbxport/feat-nix-packaging";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
   home =
-    { self, pkgs, ... }:
+    {
+      # self,
+      inputs,
+      pkgs,
+      ...
+    }:
     {
       home.packages = [
-        (pkgs.callPackage self.package { })
+        inputs.rbxport.packages.${pkgs.stdenv.hostPlatform.system}.default
+        # (pkgs.callPackage self.package { })
       ];
     };
   package =

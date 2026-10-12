@@ -94,13 +94,13 @@
       };
       url = "github:quickshell-mirror/quickshell";
     };
-    wivrn = {
+    rbxport = {
       inputs = {
         nixpkgs = {
           follows = "nixpkgs";
         };
       };
-      url = "github:WiVRn/WiVRn/poc/layer-alpha-blend";
+      url = "github:tt0fu/rbxport/feat-nix-packaging";
     };
     zen-browser = {
       inputs = {

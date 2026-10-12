@@ -15,12 +15,12 @@
               (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("vrcx --startup")) end'')
             ];
           }
-          {
-            _args = [
-              "hyprland.start"
-              (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("sleep 30; steam steam://rungameid/4296960")) end'')
-            ];
-          }
+          # {
+          #   _args = [
+          #     "hyprland.start"
+          #     (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("sleep 30; steam steam://rungameid/4296960")) end'')
+          #   ];
+          # }
         ];
         window_rule = [
           {
