@@ -92,7 +92,7 @@
             essential
             gaming
             misc
-            networking
+            # networking
             office
             social
             studying
