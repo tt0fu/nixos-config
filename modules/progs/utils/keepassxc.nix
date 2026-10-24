@@ -23,6 +23,8 @@
 
             [FdoSecrets]
             Enabled=true
+            ConfirmAccessItem=false
+            ShowNotification=true
 
             [GUI]
             ApplicationTheme=dark
