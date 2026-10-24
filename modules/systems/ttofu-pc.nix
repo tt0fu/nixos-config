@@ -39,6 +39,7 @@
         };
         kernelModules = [ "kvm-amd" ];
         extraModulePackages = [ ];
+        binfmt.emulatedSystems = [ "aarch64-linux" ];
       };
 
       fileSystems = {
