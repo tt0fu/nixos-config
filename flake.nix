@@ -7,13 +7,13 @@
     # Do not edit the inputs between the markers. They will get rewritten by
     # `nix run .#generate-inputs` (run automatically by build.sh / update.sh).
     # GENERATED INPUTS START
-    freenet = {
+    fluxer = {
       inputs = {
         nixpkgs = {
           follows = "nixpkgs";
         };
       };
-      url = "github:freenet/freenet-core";
+      url = "github:Hy4ri/fluxer-flake";
     };
     gridboard = {
       inputs = {
@@ -100,7 +100,7 @@
           follows = "nixpkgs";
         };
       };
-      url = "github:tt0fu/rbxport/feat-nix-packaging";
+      url = "github:tt0fu/rbxport/nix-source-package";
     };
     zen-browser = {
       inputs = {
