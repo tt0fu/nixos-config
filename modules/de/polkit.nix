@@ -1,4 +1,9 @@
 {
+  os =
+    { ... }:
+    {
+      security.polkit.enablePkexecWrapper = true;
+    };
   home =
     { ... }:
     {
