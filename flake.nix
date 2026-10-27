@@ -50,6 +50,14 @@
       };
       url = "github:hyprwm/hyprland-plugins";
     };
+    metashape = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+      url = "github:lalzhanov/metashape-nix";
+    };
     nix-math = {
       url = "github:xddxdd/nix-math";
     };
