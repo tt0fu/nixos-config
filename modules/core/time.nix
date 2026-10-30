@@ -5,7 +5,6 @@
     {
       time = {
         timeZone = systemSettings.timeZone;
-        hardwareClockInLocalTime = true;
       };
       services.timesyncd = {
         enable = true;
