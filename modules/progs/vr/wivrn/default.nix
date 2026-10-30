@@ -8,7 +8,10 @@
       wivrn = pkgs.wivrn.overrideAttrs (old: {
         src = pkgs.applyPatches {
           src = old.src;
-          patches = [ ./alpha-blend.patch ];
+          patches = [
+            ./alpha-blend.patch
+            ./fix-systemd-unit-crash.patch
+          ];
         };
       });
     in

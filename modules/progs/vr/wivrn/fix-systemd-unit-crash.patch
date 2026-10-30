@@ -1,0 +1,15 @@
+diff -ruN a/server/start_systemd_unit.cpp b/server/start_systemd_unit.cpp
+--- a/server/start_systemd_unit.cpp	2026-10-25 02:17:20.865266032 +0300
++++ b/server/start_systemd_unit.cpp	2026-10-25 02:17:30.416780342 +0300
+@@ -162,7 +162,10 @@
+         void * self_)
+ {
+ 	auto self = (systemd_units_manager *)(self_);
+-	std::string_view state = unit_unit_get_active_state(unit);
++	const char * active_state = unit_unit_get_active_state(unit);
++	if (active_state == nullptr)
++		return;
++	std::string_view state = active_state;
+ 	bool empty = self->units.empty();
+ 	if (state == "inactive" or state == "failed")
+ 		std::erase_if(self->units, [&](auto & o) { return o.get() == unit; });
