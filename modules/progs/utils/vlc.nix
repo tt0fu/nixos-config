@@ -56,6 +56,7 @@
             "audio/vnd.dts"
             "audio/vnd.dts.hd"
             "audio/vnd.rn-realaudio"
+            "audio/vnd.wave"
             "audio/vorbis"
             "audio/wav"
             "audio/webm"
