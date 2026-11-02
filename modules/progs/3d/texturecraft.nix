@@ -16,6 +16,7 @@
       nix-update-script,
       vulkan-loader,
       libGL,
+      dbus,
       wayland,
       libxkbcommon,
       libX11,
@@ -25,32 +26,23 @@
       libXrandr,
     }:
     let
-      buildDate = "2026-11-01";
-
-      runtimeLibs = lib.makeLibraryPath [
-        vulkan-loader
-        libGL
-        wayland
-        libxkbcommon
-        libX11
-        libxcb
-        libXcursor
-        libXi
-        libXrandr
-      ];
-    in
-    rustPlatform.buildRustPackage (finalAttrs: {
-      pname = "texturecraft";
       version = "0.2.0";
+      buildDate = "2026-11-02";
+      rev = "1d689c8e0f5065c9e9962a490be92cc494a12553";
+      hash = "sha256-nrX4IYYYKq/p6WJ9eihZWCHtKdgs4YOUMHgWpkS4PA4=";
+      cargoHash = "sha256-AWZJzry+5cSx/oPpJaVn5LWcqCU6m4n0jzKUURD7D+E=";
+    in
+    rustPlatform.buildRustPackage {
+      pname = "texturecraft";
+      inherit version;
 
       src = fetchFromGitHub {
         owner = "storytold";
         repo = "texturecraft";
-        rev = "e01dac2c35c44e201cf9dc43965887e29f1b15d6"; # v0.2.0
-        hash = "sha256-9twziHLPD76jxFdv39nMEljtSxJEZVZMePZEhFDb4Gc=";
+        inherit rev hash;
       };
 
-      cargoHash = "sha256-Pxuzs3Y1Jot2EnSmTFK8UaJqmbfwknVLyt9K3CzTPL0=";
+      inherit cargoHash;
       useFetchCargoVendor = true;
 
       cargoBuildFlags = [
@@ -63,7 +55,7 @@
       doCheck = false;
 
       env = {
-        TEXTURECRAFT_BUILD_SHA = finalAttrs.src.rev;
+        TEXTURECRAFT_BUILD_SHA = rev;
         TEXTURECRAFT_BUILD_DATE = buildDate;
       };
 
@@ -76,7 +68,7 @@
           $out/share/applications/$APP_ID.desktop
         install -Dm644 packaging/linux/$APP_ID.mime.xml \
           $out/share/mime/packages/$APP_ID.xml
-        sed -e "s/@VERSION@/${finalAttrs.version}/g" -e "s/@DATE@/${buildDate}/g" \
+        sed -e "s/@VERSION@/${version}/g" -e "s/@DATE@/${buildDate}/g" \
           packaging/linux/$APP_ID.metainfo.xml.in \
           > $APP_ID.metainfo.xml
         install -Dm644 $APP_ID.metainfo.xml $out/share/metainfo/$APP_ID.metainfo.xml
@@ -91,7 +83,20 @@
 
         for prog in texturecraft texturecraft-cli; do
           wrapProgram $out/bin/$prog \
-            --prefix LD_LIBRARY_PATH : ${runtimeLibs}:/run/opengl-driver/lib
+            --prefix LD_LIBRARY_PATH : ${
+              lib.makeLibraryPath [
+                vulkan-loader
+                libGL
+                dbus
+                wayland
+                libxkbcommon
+                libX11
+                libxcb
+                libXcursor
+                libXi
+                libXrandr
+              ]
+            }:/run/opengl-driver/lib
         done
       '';
 
@@ -106,7 +111,7 @@
           converter, baker, renderer and MCP server.
         '';
         homepage = "https://github.com/storytold/texturecraft";
-        changelog = "https://github.com/storytold/texturecraft/releases/tag/v${finalAttrs.version}";
+        changelog = "https://github.com/storytold/texturecraft/releases/tag/v${version}";
         license = with lib.licenses; [
           mit
           asl20
@@ -115,5 +120,5 @@
         platforms = lib.platforms.linux;
         mainProgram = "texturecraft";
       };
-    });
+    };
 }
