@@ -93,7 +93,7 @@
               disable_splash_rendering = true;
               font_family = style.font.name;
               # enable_anr_dialog = false;
-              anr_missed_pings = 10;
+              anr_missed_pings = 20;
               middle_click_paste = false;
               session_lock_xray = true;
               session_lock_blur = true;
