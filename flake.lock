@@ -958,16 +958,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1793554421,
+        "lastModified": 1793571247,
         "narHash": "sha256-h+UPjpt+xmP+KuZc+XxdGoTwKI5LNkR5f+JCgiP63Pc=",
-        "owner": "tt0fu",
+        "owner": "theRealCarneiro",
         "repo": "pulsemeeter",
-        "rev": "8ca84039ca309c1c0247343923041f45c3b5d207",
+        "rev": "ae23c7914a5eec2b962c00e0c3b80c3ff11828af",
         "type": "github"
       },
       "original": {
-        "owner": "tt0fu",
-        "ref": "nix-flake-update",
+        "owner": "theRealCarneiro",
         "repo": "pulsemeeter",
         "type": "github"
       }

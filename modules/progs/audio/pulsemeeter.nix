@@ -7,15 +7,15 @@
   };
   home =
     {
-      # inputs,
+      inputs,
       pkgs,
       lib,
       ...
     }:
     {
       home.packages = [
-        pkgs.pulsemeeter
-        # inputs.pulsemeeter.packages.${pkgs.stdenv.hostPlatform.system}.default
+        # pkgs.pulsemeeter
+        inputs.pulsemeeter.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
       wayland.windowManager.hyprland.settings.on = [
         {
