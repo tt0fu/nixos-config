@@ -10,7 +10,6 @@
           src = old.src;
           patches = [
             ./alpha-blend.patch
-            ./fix-systemd-unit-crash.patch
           ];
         };
       });
