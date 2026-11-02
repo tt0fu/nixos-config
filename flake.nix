@@ -92,7 +92,7 @@
           follows = "nixpkgs";
         };
       };
-      url = "github:theRealCarneiro/pulsemeeter";
+      url = "github:tt0fu/pulsemeeter/nix-flake-update";
     };
     quickshell = {
       inputs = {
