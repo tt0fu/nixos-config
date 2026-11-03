@@ -28,8 +28,8 @@
     let
       version = "0.2.0";
       buildDate = "2026-11-02";
-      rev = "1d689c8e0f5065c9e9962a490be92cc494a12553";
-      hash = "sha256-nrX4IYYYKq/p6WJ9eihZWCHtKdgs4YOUMHgWpkS4PA4=";
+      rev = "79a5c50ef685996c0e74a38da1b80fe524c4aea9";
+      hash = "sha256-NJymjwr3342aU9u7gD1yiMAd1GaBO48hSz2HlkBlxpc=";
       cargoHash = "sha256-AWZJzry+5cSx/oPpJaVn5LWcqCU6m4n0jzKUURD7D+E=";
     in
     rustPlatform.buildRustPackage {
