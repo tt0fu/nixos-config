@@ -7,7 +7,7 @@
         enable = true;
         tunMode = true;
         configFile = "/home/${userSettings.username}/.config/mihomo/config.yaml";
-        webui = pkgs.metacubexd;
+        webui = pkgs.zashboard;
       };
 
       services.resolved = {
