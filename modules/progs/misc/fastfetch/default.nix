@@ -42,6 +42,6 @@
           ];
         };
       };
-      programs.bash.bashrcExtra = "fastfetch";
+      programs.bash.initExtra = "fastfetch";
     };
 }
