@@ -35,9 +35,9 @@
             enabled = true;
           };
           base_keymap = "None";
-          buffer_font_family = "JetBrainsMono Nerd Font Propo";
+          buffer_font_family = style.font.name;
           buffer_font_features.calt = false;
-          buffer_font_size = 15;
+          buffer_font_size = style.font.size;
           buffer_line_height = "standard";
           cli_default_open_behavior = "new_window";
           collaboration_panel.button = false;
@@ -70,7 +70,7 @@
           };
           terminal = {
             cursor_shape = "bar";
-            font_family = "JetBrainsMono Nerd Font Propo";
+            font_family = style.font.name;
             line_height = "standard";
           };
           theme = "Rainbow Dark";
@@ -78,7 +78,7 @@
             show_menus = true;
             show_sign_in = false;
           };
-          ui_font_size = 15;
+          ui_font_size = style.font.size;
           vim_mode = false;
           session.restore_unsaved_buffers = false;
         };
