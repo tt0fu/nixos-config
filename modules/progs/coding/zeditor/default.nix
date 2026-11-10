@@ -15,7 +15,11 @@
         installRemoteServer = true;
         # mutableUserSettings = false;
         userSettings = {
-          telemetry.metrics = false;
+          telemetry = {
+            metrics = false;
+            diagnostics = false;
+          };
+          session.restore_unsaved_buffers = false;
           vim_mode = false;
           ui_font_size = style.font.size;
           buffer_font_size = style.font.size;
