@@ -13,66 +13,74 @@
         enable = true;
         defaultEditor = true;
         installRemoteServer = true;
-        # mutableUserSettings = false;
+        mutableUserSettings = false;
         userSettings = {
+          agent_servers.pi-acp = {
+            favorite_config_option_values = {
+              thought_level = [
+                "high"
+              ];
+              model = [
+                "coreinfra/deepseek-flash"
+              ];
+            };
+            default_config_options = {
+              model = "coreinfra/deepseek-flash";
+            };
+            type = "registry";
+          };
+          agent = {
+            threads_sidebar.position = "right";
+            dock = "right";
+            enabled = true;
+          };
+          base_keymap = "None";
+          buffer_font_family = "JetBrainsMono Nerd Font Propo";
+          buffer_font_features.calt = false;
+          buffer_font_size = 15;
+          buffer_line_height = "standard";
+          cli_default_open_behavior = "new_window";
+          collaboration_panel.button = false;
+          default_open_behavior = "new_window";
+          diagnostics.inline.enabled = true;
+          disable_ai = false;
+          ensure_final_newline_on_save = false;
+          format_on_save = "off";
+          git_panel = {
+            dock = "left";
+            group_by = "none";
+            tree_view = true;
+          };
+          minimap = {
+            display_in = "all_editors";
+            show = "always";
+            thumb_border = "none";
+          };
+          outline_panel.dock = "left";
+          preview_tabs.enabled = false;
+          project_panel = {
+            auto_fold_dirs = false;
+            dock = "left";
+          };
+          remove_trailing_whitespace_on_save = false;
+          show_edit_predictions = false;
           telemetry = {
             metrics = false;
             diagnostics = false;
           };
-          session.restore_unsaved_buffers = false;
-          vim_mode = false;
-          ui_font_size = style.font.size;
-          buffer_font_size = style.font.size;
-          buffer_font_family = style.font.name;
-          buffer_line_height = "standard";
           terminal = {
-            font_family = style.font.name;
-            line_height = "standard";
             cursor_shape = "bar";
+            font_family = "JetBrainsMono Nerd Font Propo";
+            line_height = "standard";
           };
-          diagnostics.inline.enabled = true;
-          minimap = {
-            show = "always";
-            display_in = "all_editors";
-            thumb_border = "none";
-          };
-          base_keymap = "None";
           theme = "Rainbow Dark";
-          format_on_save = "off";
-          remove_trailing_whitespace_on_save = false;
-          ensure_final_newline_on_save = false;
-          project_panel = {
-            dock = "left";
-            auto_fold_dirs = false;
-          };
-          outline_panel = {
-            dock = "left";
-          };
-          preview_tabs.enabled = false;
-          agent = {
-            enabled = true;
-            sidebar_side = "right";
-            dock = "right";
-          };
-          disable_ai = false;
-          collaboration_panel = {
-            button = false;
-          };
-          git_panel = {
-            dock = "left";
-            tree_view = true;
-            group_by = "none";
-          };
           title_bar = {
-            show_sign_in = false;
             show_menus = true;
+            show_sign_in = false;
           };
-          show_edit_predictions = false;
-          buffer_font_features = {
-            calt = false;
-          };
-          default_open_behavior = "new_window";
-          cli_default_open_behavior = "new_window";
+          ui_font_size = 15;
+          vim_mode = false;
+          session.restore_unsaved_buffers = false;
         };
         mutableUserKeymaps = false;
         userKeymaps = import ./keybinds.nix;
