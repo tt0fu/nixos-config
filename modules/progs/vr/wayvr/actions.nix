@@ -39,17 +39,11 @@
       right = "/user/hand/right/input/thumbstick/click";
     };
     space_rotate = {
-      left = "/user/hand/left/input/thumbstick/click";
+      right = "/user/hand/right/input/thumbstick/click";
+      double_click = true;
     };
     space_reset = {
-      left_chord = [
-        "/user/hand/left/input/thumbstick/click"
-        "/user/hand/left/input/squeeze/value"
-      ];
-      right_chord = [
-        "/user/hand/right/input/thumbstick/click"
-        "/user/hand/right/input/squeeze/value"
-      ];
+      left = "/user/hand/left/input/thumbstick/click";
     };
     click_modifier_right = {
       left = "/user/hand/left/input/y/touch";
