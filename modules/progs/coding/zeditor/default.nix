@@ -12,6 +12,7 @@
       programs.zed-editor = {
         enable = true;
         defaultEditor = true;
+        installRemoteServer = true;
         # mutableUserSettings = false;
         userSettings = {
           telemetry.metrics = false;
