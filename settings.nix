@@ -92,7 +92,7 @@
             essential
             gaming
             misc
-            # networking
+            networking.l2tp
             office
             social
             studying
