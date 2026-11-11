@@ -80,13 +80,18 @@
                     foreground = "p:black";
                     powerline_symbol = "";
                     properties = {
-                      "branch_icon" = " ";
                       "fetch_status" = true;
                       "fetch_upstream_icon" = true;
                     };
                     style = "powerline";
-                    template = " {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}</>{{ end }} ";
                     type = "git";
+                  }
+                  {
+                    background = "p:5";
+                    foreground = "p:black";
+                    powerline_symbol = "";
+                    style = "powerline";
+                    type = "svn";
                   }
                   {
                     background = "p:6";
