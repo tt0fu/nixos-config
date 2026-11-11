@@ -6,8 +6,9 @@
       services.openssh = {
         enable = true;
         settings = {
-          PermitRootLogin = "prohibit-password";
-          PasswordAuthentication = false;
+          AuthenticationMethods = "publickey,password";
+          PasswordAuthentication = true;
+          PubkeyAuthentication = true;
         };
       };
       networking.firewall.allowedTCPPorts = [ 22 ];
