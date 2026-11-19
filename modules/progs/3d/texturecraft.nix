@@ -10,115 +10,108 @@
   package =
     {
       lib,
-      fetchFromGitHub,
+      stdenv,
       rustPlatform,
-      makeWrapper,
-      nix-update-script,
+      versionCheckHook,
+      fetchFromGitHub,
+      pkg-config,
       vulkan-loader,
-      libGL,
-      dbus,
-      wayland,
       libxkbcommon,
-      libX11,
+      libx11,
       libxcb,
-      libXcursor,
-      libXi,
-      libXrandr,
+      libxcursor,
+      libxi,
+      libxrandr,
+      wayland,
+      dbus,
+      craft-fonts,
+
+      nix-update-script,
     }:
+
     let
-      version = "0.2.0";
-      buildDate = "2026-11-02";
-      rev = "79a5c50ef685996c0e74a38da1b80fe524c4aea9";
-      hash = "sha256-NJymjwr3342aU9u7gD1yiMAd1GaBO48hSz2HlkBlxpc=";
-      cargoHash = "sha256-AWZJzry+5cSx/oPpJaVn5LWcqCU6m4n0jzKUURD7D+E=";
+      runtimeDeps = [
+        libxkbcommon
+        libx11
+        libxcb
+        libxcursor
+        libxi
+        wayland
+        vulkan-loader
+        libxrandr
+        dbus
+      ];
     in
-    rustPlatform.buildRustPackage {
+    rustPlatform.buildRustPackage (finalAttrs: {
       pname = "texturecraft";
-      inherit version;
+      version = "0.6.1";
+
+      __structuredAttrs = true;
+
+      env = {
+        CRAFT_FONTS_DIR = craft-fonts;
+        CRAFT_FONTS_REQUIRED = "1";
+      };
 
       src = fetchFromGitHub {
         owner = "storytold";
         repo = "texturecraft";
-        inherit rev hash;
+        tag = "v${finalAttrs.version}";
+        hash = "sha256-XuT3TLSGO4DvChp4NB71pKdpJbul9W6kUhNy752dM1A=";
       };
 
-      inherit cargoHash;
-      useFetchCargoVendor = true;
+      cargoHash = "sha256-wexsot0eXfFZ2BbgZ+BywpxVKcL6e1NPjc9Tnk7iDHY=";
 
       cargoBuildFlags = [
-        "-p"
-        "texturecraft"
-        "-p"
-        "texturecraft-cli"
+        "--package=texturecraft"
+        "--package=texturecraft-cli"
       ];
 
-      doCheck = false;
+      # The `texturecraft` crate runs live GPU tests; software rendering in CI is too slow.
+      cargoTestFlags = [
+        "--package=texturecraft-cli"
+      ];
 
-      env = {
-        TEXTURECRAFT_BUILD_SHA = rev;
-        TEXTURECRAFT_BUILD_DATE = buildDate;
-      };
+      # texturecraft-automation tests talk to loopback TCP control channels.
+      __darwinAllowLocalNetworking = true;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [
+        pkg-config
+      ];
 
-      postInstall = ''
-        APP_ID=ai.storyteller.texturecraft
-
-        install -Dm644 packaging/linux/$APP_ID.desktop \
-          $out/share/applications/$APP_ID.desktop
-        install -Dm644 packaging/linux/$APP_ID.mime.xml \
-          $out/share/mime/packages/$APP_ID.xml
-        sed -e "s/@VERSION@/${version}/g" -e "s/@DATE@/${buildDate}/g" \
-          packaging/linux/$APP_ID.metainfo.xml.in \
-          > $APP_ID.metainfo.xml
-        install -Dm644 $APP_ID.metainfo.xml $out/share/metainfo/$APP_ID.metainfo.xml
-
-        cp -r assets/app-icon/hicolor $out/share/icons/
-        install -Dm644 assets/app-icon/hicolor/256x256/apps/$APP_ID.png \
-          $out/share/pixmaps/$APP_ID.png
-
-        mkdir -p $out/share/doc/texturecraft
-        cp README.md LICENSE-MIT LICENSE-APACHE NOTICE ATTRIBUTION.md \
-          $out/share/doc/texturecraft/
-
-        for prog in texturecraft texturecraft-cli; do
-          wrapProgram $out/bin/$prog \
-            --prefix LD_LIBRARY_PATH : ${
-              lib.makeLibraryPath [
-                vulkan-loader
-                libGL
-                dbus
-                wayland
-                libxkbcommon
-                libX11
-                libxcb
-                libXcursor
-                libXi
-                libXrandr
-              ]
-            }:/run/opengl-driver/lib
-        done
+      postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
+        install -Dm644 packaging/linux/ai.storyteller.texturecraft.desktop \
+          $out/share/applications/ai.storyteller.texturecraft.desktop
+        install -Dm644 packaging/linux/ai.storyteller.texturecraft.mime.xml \
+          $out/share/mime/packages/ai.storyteller.texturecraft.xml
+        mkdir -p $out/share/icons
+        cp -R assets/app-icon/hicolor $out/share/icons/
       '';
+
+      postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+        patchelf --add-rpath ${lib.makeLibraryPath runtimeDeps} $out/bin/texturecraft
+      '';
+
+      nativeInstallCheckInputs = [ versionCheckHook ];
+      doInstallCheck = true;
 
       passthru.updateScript = nix-update-script { };
 
       meta = {
-        description = "Native 3D texture painter that paints PBR materials straight onto meshes";
-        longDescription = ''
-          TextureCraft paints PBR texture sets directly on glTF, FBX, COLLADA, USD, Alembic, OBJ,
-          PLY and STL meshes with layers, masks, fills and smart materials, bakes mesh maps on the
-          GPU and exports textures for game engines. Ships texturecraft-cli, the headless
-          converter, baker, renderer and MCP server.
-        '';
+        description = "Open-source 3D texture painting workflow for PBR materials on meshes";
         homepage = "https://github.com/storytold/texturecraft";
-        changelog = "https://github.com/storytold/texturecraft/releases/tag/v${version}";
-        license = with lib.licenses; [
-          mit
-          asl20
-        ];
-        sourceProvenance = [ lib.sourceTypes.fromSource ];
-        platforms = lib.platforms.linux;
+        changelog = "https://github.com/storytold/texturecraft/releases/tag/${finalAttrs.src.tag}";
+        license =
+          with lib.licenses;
+          AND [
+            (OR [
+              mit
+              asl20
+            ])
+            ofl
+          ];
+        maintainers = with lib.maintainers; [ cleboost ];
         mainProgram = "texturecraft";
       };
-    };
+    });
 }
