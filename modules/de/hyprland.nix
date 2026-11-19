@@ -60,7 +60,12 @@
               layout = "scrolling";
               border_size = style.border.thickness;
               gaps_in = style.spacing / 2;
-              gaps_out = style.spacing;
+              gaps_out = {
+                top = style.spacing;
+                right = style.spacing / 2;
+                bottom = style.spacing;
+                left = style.spacing / 2;
+              };
               resize_on_border = true;
               "col.inactive_border" = "0xff808080";
               "col.active_border" = "0xffffffff";
