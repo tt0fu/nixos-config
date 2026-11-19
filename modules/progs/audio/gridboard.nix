@@ -1,7 +1,7 @@
 {
   inputs = {
     gridboard = {
-      url = "github:tt0fu/gridboard";
+      url = "github:tt0fu/gridboard/new_ui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

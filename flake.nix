@@ -21,7 +21,7 @@
           follows = "nixpkgs";
         };
       };
-      url = "github:tt0fu/gridboard";
+      url = "github:tt0fu/gridboard/new_ui";
     };
     home-manager = {
       inputs = {
