@@ -102,6 +102,7 @@
               middle_click_paste = false;
               session_lock_xray = true;
               session_lock_blur = true;
+              lockdead_screen_delay = 5000;
             };
             dwindle = {
               smart_split = true;
@@ -189,7 +190,7 @@
               _args = [
                 "SUPER + CTRL + SHIFT + P"
                 (lib.generators.mkLuaInline ''
-                  hl.dsp.exec_cmd("hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown now'")
+                  hl.dsp.exec_cmd("hyprshutdown-inhibit -t 'Shutting down...' --post-cmd 'shutdown now'")
                 '')
               ];
             }
@@ -197,7 +198,7 @@
               _args = [
                 "SUPER + CTRL + SHIFT + L"
                 (lib.generators.mkLuaInline ''
-                  hl.dsp.exec_cmd("hyprshutdown -t 'Rebooting...' --post-cmd 'reboot'")
+                  hl.dsp.exec_cmd("hyprshutdown-inhibit -t 'Rebooting...' --post-cmd 'reboot'")
                 '')
               ];
             }
@@ -205,7 +206,7 @@
               _args = [
                 "SUPER + CTRL + SHIFT + ESCAPE"
                 (lib.generators.mkLuaInline ''
-                  hl.dsp.exec_cmd("hyprshutdown -t 'Exiting...'")
+                  hl.dsp.exec_cmd("hyprshutdown-inhibit -t 'Exiting...'")
                 '')
               ];
             }

@@ -82,6 +82,9 @@ ShellRoot {
         }
     }
 
+    // The compositor is started with --locked-cmd, so the session is already
+    // locked (input is swallowed) while the shell is still instantiating; this
+    // slide-in + lock request is only the visual transition.
     Component.onCompleted: lockScreen()
 
     PanelWindow {

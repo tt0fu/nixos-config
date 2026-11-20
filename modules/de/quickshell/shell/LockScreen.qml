@@ -1,8 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell
-import Quickshell.Hyprland
-import Quickshell.Io
 import "config"
 import "stylized"
 
@@ -88,6 +86,7 @@ Item {
             topMargin: Sizes.gap * 5
         }
         spacing: Sizes.gap * 10
+        visible: root.context.actionMessage === ""
         StylizedCenterText {
             text: "⏻"
             font.pixelSize: Fonts.size * 3
@@ -96,10 +95,7 @@ Item {
                 id: shutdownMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: {
-                    root.context.unlocked();
-                    Hyprland.dispatch("hl.dsp.exec_cmd(\"hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown now' || shutdown now\")");
-                }
+                onClicked: root.context.systemAction("poweroff")
             }
         }
         StylizedCenterText {
@@ -110,10 +106,7 @@ Item {
                 id: rebootMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: {
-                    root.context.unlocked();
-                    Hyprland.dispatch("hl.dsp.exec_cmd(\"hyprshutdown -t 'Rebooting...' --post-cmd 'reboot' || reboot\")");
-                }
+                onClicked: root.context.systemAction("reboot")
             }
         }
         StylizedCenterText {
@@ -124,11 +117,21 @@ Item {
                 id: exitMouseArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: {
-                    root.context.unlocked();
-                    Hyprland.dispatch("hl.dsp.exec_cmd(\"hyprshutdown -t 'Exiting...'\ || hyprctl dispatch hl.dsp.exit()\")");
-                }
+                onClicked: root.context.systemAction("exit")
             }
         }
+    }
+
+    StylizedCenterText {
+        id: actionText
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: passwordBox.bottom
+            topMargin: Sizes.gap * 5
+        }
+        visible: root.context.actionMessage !== ""
+        text: root.context.actionMessage
+        font.pixelSize: Math.round(Fonts.size * 2)
+        color: Colors.foreground
     }
 }

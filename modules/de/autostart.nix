@@ -15,7 +15,7 @@
           };
           initial_session = {
             user = userSettings.username;
-            command = "start-hyprland > /dev/null && exit";
+            command = "start-hyprland -- --locked-cmd 'true' > /dev/null && exit";
           };
           default_session = {
             user = userSettings.username;
