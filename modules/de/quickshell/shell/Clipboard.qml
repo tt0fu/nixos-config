@@ -126,6 +126,10 @@ StylizedColumnLayout {
                 currentIndex: 0
                 clip: true
                 spacing: Sizes.gap
+                highlightResizeDuration: Animations.duration
+                highlightMoveDuration: Animations.duration
+                highlightResizeVelocity: -1
+                highlightMoveVelocity: -1
 
                 delegate: StylizedPaddedRectangle {
                     id: delegateItem
@@ -161,14 +165,7 @@ StylizedColumnLayout {
                 }
                 highlight: StylizedRectangle {
                     level: 2
-                    y: itemsList.currentItem.y
                     z: 2
-                    Behavior on y {
-                        StylizedNumberAnimation {}
-                    }
-                    Behavior on height {
-                        StylizedNumberAnimation {}
-                    }
                 }
             }
         }

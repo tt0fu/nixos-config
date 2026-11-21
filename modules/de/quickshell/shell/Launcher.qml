@@ -91,6 +91,10 @@ StylizedColumnLayout {
                 currentIndex: 0
                 clip: true
                 spacing: Sizes.gap
+                highlightResizeDuration: Animations.duration
+                highlightMoveDuration: Animations.duration
+                highlightResizeVelocity: -1
+                highlightMoveVelocity: -1
 
                 delegate: StylizedPaddedRectangle {
                     id: launcherEntry
@@ -130,15 +134,7 @@ StylizedColumnLayout {
                 }
                 highlight: StylizedRectangle {
                     level: 2
-                    visible: entriesList.currentItem
-                    y: entriesList.currentItem?.y ?? 0
                     z: 2
-                    Behavior on y {
-                        StylizedNumberAnimation {}
-                    }
-                    Behavior on height {
-                        StylizedNumberAnimation {}
-                    }
                 }
             }
         }
