@@ -11,6 +11,23 @@ StylizedPaddedRectangle {
 
     visible: SystemTray.items.values.length !== 0
 
+    function closeMenu() {
+        GlobalState.trayMenuOpened = false;
+    }
+
+    function toggleMenu(item, visualItem) {
+        if (GlobalState.trayMenuOpened && GlobalState.trayMenuOwner === item) {
+            closeMenu();
+            return;
+        }
+
+        const anchor = visualItem.mapToItem(null, 0, 0).x;
+        GlobalState.trayMenuHandle = item.menu;
+        GlobalState.trayMenuOwner = item;
+        GlobalState.trayMenuAnchorX = anchor;
+        GlobalState.trayMenuOpened = true;
+    }
+
     child: StylizedRowLayout {
         id: trayLayout
         anchors.fill: parent
@@ -27,41 +44,28 @@ StylizedPaddedRectangle {
                 sourceSize.height: Sizes.iconSize
                 fillMode: Image.PreserveAspectFit
 
-                Loader {
-                    id: trayMenuLoader
-                    anchors.fill: parent
-                    active: true
-                    sourceComponent: TrayMenu {
-                        id: trayMenu
-                        menuHandle: trayItem.modelData.menu
-                        anchorX: trayItem.x + trayLayout.x + tray.x + leftRow.x + mainBar.x
-                        anchorY: mainBar.height
-                        onReload: {
-                            active = !active;
-                            active = !active;
-                        }
-                    }
-                }
-
                 MouseArea {
                     anchors.fill: parent
                     acceptedButtons: Qt.AllButtons
                     onPressed: event => {
                         if (event.buttons & Qt.LeftButton) {
                             if (modelData.onlyMenu) {
-                                trayMenuLoader.item.toggleVisibility();
+                                tray.toggleMenu(modelData, trayItem);
                             } else {
+                                tray.closeMenu();
                                 modelData.activate();
                             }
                         }
                         if (event.buttons & Qt.RightButton) {
                             if (modelData.hasMenu) {
-                                trayMenuLoader.item.toggleVisibility();
+                                tray.toggleMenu(modelData, trayItem);
                             } else {
+                                tray.closeMenu();
                                 modelData.activate();
                             }
                         }
                         if (event.buttons & Qt.MiddleButton) {
+                            tray.closeMenu();
                             modelData.secondaryActivate();
                         }
                     }

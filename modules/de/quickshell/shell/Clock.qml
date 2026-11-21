@@ -1,3 +1,4 @@
+import qs
 import "stylized"
 import QtQuick
 import Quickshell
@@ -15,6 +16,13 @@ StylizedPaddedRectangle {
         anchors.fill: parent
         id: clockText
         text: Qt.formatDateTime(systemClock.date, "HH:mm:ss")
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        onEntered: GlobalState.clockDateShown = true
+        onExited: GlobalState.clockDateShown = false
     }
 
     Behavior on implicitWidth {

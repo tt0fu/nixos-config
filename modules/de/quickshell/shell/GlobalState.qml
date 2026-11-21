@@ -9,4 +9,11 @@ Singleton {
     property bool appLauncherOpened: false
     property bool clipboardOpened: false
     property bool locked: false
+
+    property bool trayMenuOpened: false
+    property var trayMenuHandle: null
+    property var trayMenuOwner: null
+    property real trayMenuAnchorX: 0
+
+    property bool clockDateShown: false
 }

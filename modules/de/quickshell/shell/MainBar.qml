@@ -5,6 +5,8 @@ import QtQuick
 import QtQuick.Layouts
 
 Item {
+    id: mainBar
+
     anchors {
         left: parent.left
         right: parent.right

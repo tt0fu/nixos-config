@@ -25,9 +25,20 @@ StylizedColumnLayout {
 
     Timer {
         id: selfCloseTimer
-        interval: 30000
+        interval: 5000
         repeat: false
         onTriggered: GlobalState.notificationsShown = false
+    }
+
+    Timer {
+        id: dismissAllTimer
+        interval: Animations.duration + 100
+        repeat: false
+        onTriggered: {
+            while (notifServer.trackedNotifications.values.length > 0) {
+                notifServer.trackedNotifications.values[0].dismiss();
+            }
+        }
     }
 
     NotificationServer {
@@ -58,6 +69,8 @@ StylizedColumnLayout {
         Layout.fillWidth: true
         Layout.preferredWidth: notifications.maxListWidth
         Layout.maximumWidth: notifications.maxListWidth
+        Layout.fillHeight: true
+        Layout.minimumHeight: 0
         Layout.maximumHeight: notifications.maxListHeight
         level: 1
         child: ScrollView {
@@ -227,12 +240,6 @@ StylizedColumnLayout {
                 }
             }
         }
-        Behavior on width {
-            StylizedNumberAnimation {}
-        }
-        Behavior on height {
-            StylizedNumberAnimation {}
-        }
     }
 
     StylizedRowLayout {
@@ -252,9 +259,8 @@ StylizedColumnLayout {
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
-                    while (notifServer.trackedNotifications.values.length > 0) {
-                        notifServer.trackedNotifications.values[0].dismiss();
-                    }
+                    GlobalState.notificationsShown = false;
+                    dismissAllTimer.restart();
                 }
             }
         }
