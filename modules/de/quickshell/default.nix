@@ -20,6 +20,10 @@
         configs = {
           shell = ./shell;
         };
+        systemd = {
+          enable = true;
+          target = "hyprland-session.target";
+        };
       };
       wayland.windowManager.hyprland.settings = {
         layer_rule = [
@@ -55,14 +59,6 @@
             _args = [
               "SUPER + L"
               (lib.generators.mkLuaInline "hl.dsp.global(\"quickshell:lock\")")
-            ];
-          }
-        ];
-        on = [
-          {
-            _args = [
-              "hyprland.start"
-              (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("quickshell -c shell", { tag = "do_not_close" })) end'')
             ];
           }
         ];

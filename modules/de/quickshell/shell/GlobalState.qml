@@ -16,4 +16,7 @@ Singleton {
     property real trayMenuAnchorX: 0
 
     property bool clockDateShown: false
+
+    property bool audioAdvancedOpened: false
+    property real audioAdvancedAnchorX: 0
 }

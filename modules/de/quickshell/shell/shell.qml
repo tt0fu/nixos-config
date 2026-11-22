@@ -24,6 +24,7 @@ ShellRoot {
         GlobalState.notificationsShown = false;
         GlobalState.trayMenuOpened = false;
         GlobalState.clockDateShown = false;
+        GlobalState.audioAdvancedOpened = false;
         lockContext.currentText = "";
         GlobalState.locked = true;
     }
@@ -99,7 +100,7 @@ ShellRoot {
         property real rightEdge: 15
         property real bottomEdge: 15
 
-        property var zoneHosts: [clipboardZone, launcherZone, notificationsZone, trayMenuZone, clockDateZone]
+        property var zoneHosts: [clipboardZone, launcherZone, notificationsZone, trayMenuZone, clockDateZone, audioAdvancedZone]
         property var zoneNotches: {
             const allOwners = Zones.owners;
             const vx0 = viewRect.x;
@@ -199,6 +200,10 @@ ShellRoot {
                 item: clockDateZone
                 intersection: Intersection.Subtract
             }
+            Region {
+                item: audioAdvancedZone
+                intersection: Intersection.Subtract
+            }
         }
 
         Item {
@@ -287,7 +292,7 @@ ShellRoot {
                 zone: "top-right"
                 open: GlobalState.clockDateShown
                 viewX: viewRect.x
-                viewY: viewRect.y
+                viewY: viewRect.y - Sizes.gap
                 viewWidth: viewRect.width
                 viewHeight: viewRect.height
                 screenWidth: mainWindow.width
@@ -306,7 +311,7 @@ ShellRoot {
                 hasAnchorX: true
                 anchorX: GlobalState.trayMenuAnchorX
                 viewX: viewRect.x
-                viewY: viewRect.y
+                viewY: viewRect.y - Sizes.gap
                 viewWidth: viewRect.width
                 viewHeight: viewRect.height
                 screenWidth: mainWindow.width
@@ -318,6 +323,26 @@ ShellRoot {
                     anchors.fill: parent
                     menuHandle: GlobalState.trayMenuHandle
                     onCloseRequested: GlobalState.trayMenuOpened = false
+                }
+            }
+
+            ZoneHost {
+                id: audioAdvancedZone
+                zone: "top"
+                open: GlobalState.audioAdvancedOpened
+                hasAnchorX: true
+                anchorRight: true
+                anchorX: GlobalState.audioAdvancedAnchorX
+                viewX: viewRect.x
+                viewY: viewRect.y - Sizes.gap
+                viewWidth: viewRect.width
+                viewHeight: viewRect.height
+                screenWidth: mainWindow.width
+                screenHeight: mainWindow.height
+                onEvicted: GlobalState.audioAdvancedOpened = false
+
+                AdvancedAudio {
+                    anchors.fill: parent
                 }
             }
 

@@ -10,6 +10,6 @@ StylizedText {
 
     SystemClock {
         id: systemClock
-        precision: SystemClock.minutes
+        precision: SystemClock.Hours
     }
 }

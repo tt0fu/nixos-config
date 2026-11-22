@@ -18,6 +18,7 @@ Item {
 
     property bool hasAnchorX: false
     property real anchorX: 0
+    property bool anchorRight: false
 
     readonly property real viewRight: viewX + viewWidth
     readonly property real viewBottom: viewY + viewHeight
@@ -64,8 +65,10 @@ Item {
         if (zone === "right" || zone === "top-right" || zone === "bottom-right")
             return open ? screenWidth - width : screenWidth;
         if (zone === "top" || zone === "bottom") {
-            if (hasAnchorX)
-                return Math.max(viewX, Math.min(anchorX, viewRight - width));
+            if (hasAnchorX) {
+                const anchoredX = anchorRight ? anchorX - width : anchorX;
+                return Math.max(viewX, Math.min(anchoredX, viewRight - width));
+            }
             const centered = viewX + (viewWidth - width) / 2;
             return Math.max(viewX, Math.min(centered, viewRight - width));
         }
