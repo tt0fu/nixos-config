@@ -45,7 +45,6 @@ StylizedPaddedRectangle {
 
         StylizedText {
             Layout.fillWidth: true
-            font.pixelSize: Fonts.size + 3
             text: device.node.description || device.node.name
             wrapMode: Text.Wrap
         }
@@ -69,16 +68,11 @@ StylizedPaddedRectangle {
                 text: Math.round(volumeSlider.shownValue * 100) + "%"
             }
 
-            Item {
-                implicitWidth: Sizes.iconSize
-                implicitHeight: Sizes.iconSize
-
-                StylizedCenterText {
-                    anchors.fill: parent
-                    text: device.muteIcon
-                    color: muteMouseArea.containsMouse ? Colors.hover : Colors.foreground
-                }
-
+            StylizedCenterText {
+                Layout.preferredWidth: Sizes.iconSize
+                Layout.preferredHeight: Sizes.iconSize
+                text: device.muteIcon
+                color: muteMouseArea.containsMouse ? Colors.hover : Colors.foreground
                 MouseArea {
                     id: muteMouseArea
                     anchors.fill: parent
@@ -87,17 +81,12 @@ StylizedPaddedRectangle {
                 }
             }
 
-            Item {
-                implicitWidth: Sizes.iconSize
-                implicitHeight: Sizes.iconSize
+            StylizedCenterText {
+                Layout.preferredWidth: Sizes.iconSize
+                Layout.preferredHeight: Sizes.iconSize
                 visible: device.canBeDefault
-
-                StylizedCenterText {
-                    anchors.fill: parent
-                    text: device.isDefault ? AudioIcon.check : AudioIcon.cross
-                    color: defaultMouseArea.containsMouse ? Colors.hover : (device.isDefault ? Colors.foreground : Colors.muted)
-                }
-
+                text: device.isDefault ? AudioIcon.check : AudioIcon.cross
+                color: defaultMouseArea.containsMouse ? Colors.hover : (device.isDefault ? Colors.foreground : Colors.muted)
                 MouseArea {
                     id: defaultMouseArea
                     anchors.fill: parent

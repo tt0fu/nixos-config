@@ -9,6 +9,7 @@ const sourceUnmuted = "\udb80\udf6c";
 
 const check = "\uf00c";
 const cross = "\uf00d";
+const pin = "\udb81\udc03";
 
 function sink(volume, muted) {
     if (muted)

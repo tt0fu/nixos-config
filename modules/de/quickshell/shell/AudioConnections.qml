@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import qs
 import "stylized"
 import QtQuick
 import QtQuick.Layouts
@@ -12,6 +13,7 @@ StylizedColumnLayout {
     property bool sourceSide: false
 
     readonly property var linkGroups: Pipewire.linkGroups.values.filter(group => group.source && group.target && (group.source.id === connections.node.id || group.target.id === connections.node.id))
+    readonly property var missingPins: AudioPins.pinsFor(connections.node).filter(pin => !AudioPins.linkGroupFor(pin.source, pin.target))
 
     Repeater {
         model: connections.linkGroups
@@ -22,6 +24,18 @@ StylizedColumnLayout {
             Layout.fillWidth: true
             node: connections.node
             linkGroup: modelData
+        }
+    }
+
+    Repeater {
+        model: connections.missingPins
+
+        AudioConnection {
+            required property var modelData
+
+            Layout.fillWidth: true
+            node: connections.node
+            pin: modelData
         }
     }
 

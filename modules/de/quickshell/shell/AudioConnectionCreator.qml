@@ -5,7 +5,6 @@ import "config"
 import "stylized"
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Io
 import Quickshell.Services.Pipewire
 
 StylizedPaddedRectangle {
@@ -16,94 +15,16 @@ StylizedPaddedRectangle {
 
     level: 2
 
-    property int pendingId: -1
-
     readonly property var candidates: AudioNode.candidates(creator.node, creator.sourceSide)
 
-    function createConnection(nodeId) {
-        creator.pendingId = nodeId;
-        dumpProcess.running = true;
-    }
-
-    function createLinks(dumpText) {
-        const pendingId = creator.pendingId;
-        creator.pendingId = -1;
-        if (pendingId < 0 || !Pipewire.nodes.values.some(other => other.id === pendingId))
+    function addConnection(otherNode) {
+        if (!otherNode)
             return;
-
-        let objects = null;
-        try {
-            objects = JSON.parse(dumpText);
-        } catch (error) {
-            return;
-        }
-
-        const sourceNodeId = creator.sourceSide ? creator.node.id : pendingId;
-        const targetNodeId = creator.sourceSide ? pendingId : creator.node.id;
-        const sourcePorts = creator.portsOf(objects, sourceNodeId, "out");
-        const targetPorts = creator.portsOf(objects, targetNodeId, "in");
-
-        const commands = [];
-        for (const sourcePort of sourcePorts) {
-            let targetPort = targetPorts.find(port => port.channel !== "" && port.channel === sourcePort.channel);
-            if (!targetPort)
-                targetPort = targetPorts.find(port => port.id === sourcePort.id);
-            if (targetPort)
-                commands.push("pw-cli create-link " + sourceNodeId + " " + sourcePort.id + " " + targetNodeId + " " + targetPort.id + " '{ object.linger = true }'");
-        }
-        if (commands.length === 0)
-            return;
-
-        linkProcess.command = ["sh", "-c", commands.join("; ")];
-        linkProcess.running = true;
+        if (creator.sourceSide)
+            AudioLinks.connect(creator.node.id, otherNode.id);
+        else
+            AudioLinks.connect(otherNode.id, creator.node.id);
         selector.expanded = false;
-    }
-
-    function portDirection(info) {
-        const properties = info.props || {};
-        const direction = properties["port.direction"] || info.direction || "";
-        if (direction === "in" || direction === "input")
-            return "in";
-        if (direction === "out" || direction === "output")
-            return "out";
-        return "";
-    }
-
-    function portsOf(objects, nodeId, direction) {
-        const ports = [];
-        for (const object of objects) {
-            if (object.type !== "PipeWire:Interface:Port")
-                continue;
-            const info = object.info;
-            if (!info || !info.props)
-                continue;
-            const properties = info.props;
-            if (properties["node.id"] !== nodeId || properties["port.monitor"])
-                continue;
-            if (creator.portDirection(info) !== direction)
-                continue;
-            ports.push({
-                id: properties["port.id"],
-                channel: properties["audio.channel"] || ""
-            });
-        }
-        return ports;
-    }
-
-    Process {
-        id: dumpProcess
-        command: ["pw-dump"]
-        running: false
-
-        stdout: StdioCollector {
-            id: dumpCollector
-            onStreamFinished: creator.createLinks(dumpCollector.text)
-        }
-    }
-
-    Process {
-        id: linkProcess
-        running: false
     }
 
     child: StylizedColumnLayout {
@@ -153,7 +74,7 @@ StylizedPaddedRectangle {
                         id: candidateMouseArea
                         anchors.fill: parent
                         hoverEnabled: true
-                        onClicked: creator.createConnection(candidate.modelData.id)
+                        onClicked: creator.addConnection(candidate.modelData)
                     }
                 }
             }

@@ -21,6 +21,8 @@ StylizedRowLayout {
 
     anchors.margins: Sizes.gap
 
+    Component.onCompleted: AudioPins.maintain()
+
     ScrollView {
         id: sourceScroll
 

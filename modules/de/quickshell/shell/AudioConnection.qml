@@ -12,26 +12,80 @@ import Quickshell.Services.Pipewire
 StylizedPaddedRectangle {
     id: connection
 
-    required property PwLinkGroup linkGroup
     required property PwNode node
+
+    property var linkGroup: null
+    property var pin: null
 
     level: 2
 
-    visible: connection.linkGroup !== null
+    visible: connection.linkGroup !== null || connection.pin !== null
 
-    readonly property bool isSource: connection.linkGroup ? connection.linkGroup.source === connection.node : false
-    readonly property var otherNode: connection.linkGroup ? (connection.isSource ? connection.linkGroup.target : connection.linkGroup.source) : null
-    readonly property string otherName: connection.otherNode ? (connection.otherNode.description || connection.otherNode.name) : ""
+    opacity: connection.live ? 1 : 0.6
+    border.color: connection.live ? Colors.border : Colors.muted
+
+    readonly property bool live: connection.linkGroup !== null
+    readonly property var sourceRef: connection.live ? AudioPins.refOf(connection.linkGroup.source) : (connection.pin ? connection.pin.source : null)
+    readonly property var targetRef: connection.live ? AudioPins.refOf(connection.linkGroup.target) : (connection.pin ? connection.pin.target : null)
+    readonly property bool isSource: connection.live ? connection.linkGroup.source === connection.node : (connection.pin ? AudioPins.sameNode(connection.pin.source, connection.node) : false)
+    readonly property bool pinned: AudioPins.isPinned(connection.sourceRef, connection.targetRef)
+
+    readonly property string otherName: {
+        if (connection.live)
+            return connection.isSource ? (connection.linkGroup.target.description || connection.linkGroup.target.name) : (connection.linkGroup.source.description || connection.linkGroup.source.name);
+        if (!connection.pin)
+            return "";
+        if (connection.isSource)
+            return connection.pin.target.description || connection.pin.target.name;
+        return connection.pin.source.description || connection.pin.source.name;
+    }
 
     readonly property var links: {
-        const group = connection.linkGroup;
-        if (!group || !group.source || !group.target)
+        if (!connection.live || !connection.linkGroup.source || !connection.linkGroup.target)
             return [];
-        return Pipewire.links.values.filter(link => link.source && link.target && link.source.id === group.source.id && link.target.id === group.target.id);
+        const source = connection.linkGroup.source;
+        const target = connection.linkGroup.target;
+        return Pipewire.links.values.filter(link => link.source && link.target && link.source.id === source.id && link.target.id === target.id);
     }
-    readonly property string stateText: connection.formatStates(connection.links.map(link => PwLinkState.toString(link.state)))
+    readonly property string stateText: connection.live ? connection.formatStates(connection.links.map(link => PwLinkState.toString(link.state))) : "unlinked"
 
     readonly property var propertyRows: {
+        if (!connection.live) {
+            const pin = connection.pin;
+            if (!pin)
+                return [];
+            return [
+                {
+                    label: "state",
+                    value: "unlinked"
+                },
+                {
+                    label: "source.name",
+                    value: pin.source.name
+                },
+                {
+                    label: "source.media.class",
+                    value: pin.source.mediaClass
+                },
+                {
+                    label: "source.description",
+                    value: pin.source.description
+                },
+                {
+                    label: "target.name",
+                    value: pin.target.name
+                },
+                {
+                    label: "target.media.class",
+                    value: pin.target.mediaClass
+                },
+                {
+                    label: "target.description",
+                    value: pin.target.description
+                }
+            ].filter(row => row.value !== "");
+        }
+
         const group = connection.linkGroup;
         if (!group || !group.source || !group.target)
             return [];
@@ -111,7 +165,18 @@ StylizedPaddedRectangle {
         return unique.length > 0 ? unique.join(", ") : "unknown";
     }
 
+    function togglePin() {
+        if (connection.live)
+            AudioPins.toggle(connection.linkGroup.source, connection.linkGroup.target);
+        else
+            AudioPins.remove(connection.pin);
+    }
+
     function deleteConnection() {
+        if (connection.live)
+            AudioPins.removeByRefs(connection.sourceRef, connection.targetRef);
+        else
+            AudioPins.remove(connection.pin);
         const ids = connection.links.map(link => link.id);
         if (ids.length === 0)
             return;
@@ -134,7 +199,27 @@ StylizedPaddedRectangle {
             StylizedText {
                 Layout.fillWidth: true
                 text: connection.otherName
+                color: connection.live ? Colors.foreground : Colors.muted
                 wrapMode: Text.Wrap
+            }
+
+            Item {
+                Layout.alignment: Qt.AlignTop
+                implicitWidth: Sizes.iconSize
+                implicitHeight: Sizes.iconSize
+
+                StylizedCenterText {
+                    anchors.fill: parent
+                    text: AudioIcon.pin
+                    color: pinMouseArea.containsMouse ? Colors.hover : (connection.pinned ? Colors.foreground : Colors.muted)
+                }
+
+                MouseArea {
+                    id: pinMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: connection.togglePin()
+                }
             }
 
             Item {
