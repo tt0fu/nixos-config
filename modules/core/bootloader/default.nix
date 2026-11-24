@@ -5,12 +5,12 @@
     {
       boot.loader = {
         efi.canTouchEfiVariables = true;
-        systemd-boot.configurationLimit = 5;
         grub = {
           enable = true;
           device = "nodev";
           efiSupport = true;
           useOSProber = true;
+          configurationLimit = 5;
           backgroundColor = "#000000";
           theme = pkgs.minimal-grub-theme;
           splashImage = ./grub-bg.png;
