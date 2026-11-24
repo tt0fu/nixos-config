@@ -31,6 +31,14 @@
       '';
     in
     {
+      wayland.windowManager.hyprland.settings.layer_rule = [
+        {
+          match = {
+            namespace = "hyprshutdown";
+          };
+          blur = true;
+        }
+      ];
       home = {
         packages = with pkgs; [
           hyprshutdown

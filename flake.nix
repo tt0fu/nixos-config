@@ -75,14 +75,6 @@
       };
       url = "github:theRealCarneiro/pulsemeeter";
     };
-    quickshell = {
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-      url = "github:quickshell-mirror/quickshell";
-    };
     rbxport = {
       inputs = {
         nixpkgs = {
