@@ -17,7 +17,7 @@ StylizedPaddedRectangle {
     property var linkGroup: null
     property var pin: null
 
-    level: 2
+    level: 3
 
     visible: connection.linkGroup !== null || connection.pin !== null
 

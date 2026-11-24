@@ -15,7 +15,7 @@ StylizedPaddedRectangle {
 
     property bool sourceSide: false
 
-    level: 1
+    level: 2
 
     readonly property var nodeAudio: device.node.audio
     readonly property bool canBeDefault: device.nodeAudio !== null && !device.node.isStream
