@@ -7,22 +7,31 @@ StylizedPaddedRectangle {
     id: network
     level: 1
 
-    property string statusText: "󱞐"
+    readonly property var devices: Networking.devices.values
 
-    Process {
-        id: networkStatusProc
-        command: ["sh", "-c", "nmcli -t -f TYPE,STATE dev | grep -q '^ethernet:connected' && echo \"\" || { s=$(nmcli -t -f IN-USE,SIGNAL dev wifi | awk -F: '$1==\"*\"{print $2}'); [ -n \"$s\" ] && echo \" $s%\" || echo \"󱞐\"; }"]
-        stdout: SplitParser {
-            onRead: data => network.statusText = data
-        }
-        running: true
+    readonly property var wiredDevice: {
+        for (const device of devices)
+            if (device.type === DeviceType.Wired && device.connected)
+                return device;
+        return null;
     }
 
-    Timer {
-        interval: 2000
-        running: true
-        repeat: true
-        onTriggered: networkStatusProc.running = true
+    readonly property var wifiNetwork: {
+        const device = devices.find(d => d.type === DeviceType.Wifi);
+        if (!device)
+            return null;
+        for (const net of device.networks.values)
+            if (net.connected)
+                return net;
+        return null;
+    }
+
+    property string statusText: {
+        if (wiredDevice)
+            return "\uef44";
+        if (wifiNetwork)
+            return "\uf1eb " + Math.round(wifiNetwork.signalStrength * 100) + "%";
+        return "\u{F1790}";
     }
 
     Process {
