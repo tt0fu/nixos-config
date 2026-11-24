@@ -7,6 +7,7 @@
   };
   home =
     {
+      config,
       inputs,
       lib,
       pkgs,
@@ -20,11 +21,11 @@
         configs = {
           shell = ./shell;
         };
-        systemd = {
-          enable = true;
-          target = "hyprland-session.target";
-        };
+        systemd.enable = true;
       };
+      systemd.user.services.quickshell.Unit.PartOf = lib.mkIf config.programs.quickshell.systemd.enable [
+        config.wayland.systemd.target
+      ];
       wayland.windowManager.hyprland.settings = {
         layer_rule = [
           {

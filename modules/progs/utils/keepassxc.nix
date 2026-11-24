@@ -1,8 +1,8 @@
 {
   home =
     {
+      config,
       pkgs,
-      lib,
       userSettings,
       ...
     }:
@@ -46,18 +46,33 @@
           '';
         };
       };
-      wayland.windowManager.hyprland.settings.on = [
+
+      systemd.user.services.keepassxc =
+        let
+          database = "/home/${userSettings.username}/DriveSynced/Passwords.kdbx";
+          rcloneMountUnit = "rclone-mount:Synced@google-drive.service";
+          sessionTarget = config.wayland.systemd.target;
+        in
         {
-          _args = [
-            "hyprland.start"
-            (lib.generators.mkLuaInline (
-              let
-                database = "/home/${userSettings.username}/DriveSynced/Passwords.kdbx";
-              in
-              ''function() hl.dispatch(hl.dsp.exec_cmd("until [ -e '${database}' ]; do sleep 5; done; keepassxc --minimized ${database}")) end''
-            ))
-          ];
-        }
-      ];
+          Unit = {
+            Description = "KeePassXC password manager";
+            Wants = [ rcloneMountUnit ];
+            BindsTo = [ rcloneMountUnit ];
+            After = [
+              rcloneMountUnit
+              sessionTarget
+            ];
+            PartOf = [ sessionTarget ];
+          };
+          Service = {
+            ExecStartPre = "${pkgs.coreutils}/bin/timeout 120 ${pkgs.bash}/bin/bash -c 'until [ -e ${database} ]; do sleep 2; done'";
+            ExecStart = "${pkgs.keepassxc}/bin/keepassxc --minimized ${database}";
+            TimeoutStartSec = 150;
+            Restart = "on-failure";
+            RestartSec = 2;
+          };
+          Install.WantedBy = [ sessionTarget ];
+        };
     };
+  deps = modules: with modules; [ progs.utils.rclone ];
 }
