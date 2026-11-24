@@ -1,18 +1,18 @@
 {
-  inputs = {
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland";
-    };
-  };
+  # inputs = {
+  #   hyprland = {
+  #     url = "github:hyprwm/Hyprland";
+  #     inputs.nixpkgs.follows = "nixpkgs";
+  #   };
+  #   hyprland-plugins = {
+  #     url = "github:hyprwm/hyprland-plugins";
+  #     inputs.hyprland.follows = "hyprland";
+  #   };
+  #   hypr-dynamic-cursors = {
+  #     url = "github:VirtCode/hypr-dynamic-cursors";
+  #     inputs.hyprland.follows = "hyprland";
+  #   };
+  # };
   os =
     {
       inputs,
@@ -37,11 +37,11 @@
           };
         };
       };
-      nix.settings = {
-        substituters = [ "https://hyprland.cachix.org" ];
-        trusted-substituters = [ "https://hyprland.cachix.org" ];
-        trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-      };
+      # nix.settings = {
+      #   substituters = [ "https://hyprland.cachix.org" ];
+      #   trusted-substituters = [ "https://hyprland.cachix.org" ];
+      #   trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+      # };
     };
   home =
     {

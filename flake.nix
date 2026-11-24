@@ -31,25 +31,6 @@
       };
       url = "github:nix-community/home-manager";
     };
-    hypr-dynamic-cursors = {
-      inputs = {
-        hyprland = {
-          follows = "hyprland";
-        };
-      };
-      url = "github:VirtCode/hypr-dynamic-cursors";
-    };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
-    hyprland-plugins = {
-      inputs = {
-        hyprland = {
-          follows = "hyprland";
-        };
-      };
-      url = "github:hyprwm/hyprland-plugins";
-    };
     metashape = {
       inputs = {
         nixpkgs = {
