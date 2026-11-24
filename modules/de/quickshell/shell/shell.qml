@@ -368,15 +368,6 @@ ShellRoot {
                         path: borderShape.filled
                     }
                 }
-
-                ShapePath {
-                    fillColor: "transparent"
-                    strokeWidth: Sizes.borderWidth
-
-                    PathSvg {
-                        path: borderShape.outline
-                    }
-                }
             }
 
             MainBar {
@@ -393,6 +384,40 @@ ShellRoot {
                 LockScreen {
                     anchors.fill: parent
                     context: lockContext
+                }
+            }
+        }
+    }
+
+    PanelWindow {
+        id: borderWindow
+
+        color: "transparent"
+        implicitWidth: screen.width
+        implicitHeight: screen.height
+        anchors.top: true
+        exclusiveZone: -1
+        mask: Region { }
+        WlrLayershell.namespace: "quickshell-border"
+        WlrLayershell.layer: WlrLayer.Top
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+
+        Shape {
+            anchors.fill: parent
+            preferredRendererType: Shape.CurveRenderer
+
+            ShapePath {
+                fillColor: "transparent"
+                strokeColor: Colors.border
+                strokeWidth: Sizes.borderWidth
+
+                PathSvg {
+                    path: BorderPath.build(mainWindow.zoneNotches, {
+                        x: viewRect.x,
+                        y: viewRect.y + shellContent.y,
+                        width: viewRect.width,
+                        height: viewRect.height
+                    }, Sizes.radiusFor(-1))
                 }
             }
         }

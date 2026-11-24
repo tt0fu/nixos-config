@@ -1,16 +1,8 @@
 {
-  inputs = {
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
   home =
     {
       config,
-      inputs,
       lib,
-      pkgs,
       style,
       ...
     }:
@@ -49,6 +41,7 @@
             blur = true;
             blur_popups = true;
             ignore_alpha = 0.0;
+            order = 10;
           }
         ];
         bind = [
