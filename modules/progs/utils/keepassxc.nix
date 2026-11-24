@@ -62,7 +62,10 @@
               rcloneMountUnit
               sessionTarget
             ];
-            PartOf = [ sessionTarget ];
+            PartOf = [
+              sessionTarget
+              "wayland-wm@Hyprland.service"
+            ];
           };
           Service = {
             ExecStartPre = "${pkgs.coreutils}/bin/timeout 120 ${pkgs.bash}/bin/bash -c 'until [ -e ${database} ]; do sleep 2; done'";

@@ -24,7 +24,8 @@
         systemd.enable = true;
       };
       systemd.user.services.quickshell.Unit.PartOf = lib.mkIf config.programs.quickshell.systemd.enable [
-        config.wayland.systemd.target
+        "graphical-session.target"
+        "wayland-wm@Hyprland.service"
       ];
       wayland.windowManager.hyprland.settings = {
         layer_rule = [

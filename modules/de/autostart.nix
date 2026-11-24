@@ -1,6 +1,8 @@
 {
   os =
     {
+      config,
+      lib,
       pkgs,
       userSettings,
       ...
@@ -15,7 +17,7 @@
           };
           initial_session = {
             user = userSettings.username;
-            command = "start-hyprland -- --locked-cmd 'true' > /dev/null && exit";
+            command = "${lib.getExe pkgs.uwsm} start -F -D Hyprland -- ${lib.getExe config.programs.hyprland.package} > /dev/null";
           };
           default_session = {
             user = userSettings.username;
