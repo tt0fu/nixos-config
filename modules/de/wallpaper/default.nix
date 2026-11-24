@@ -1,22 +1,25 @@
 {
   home =
-    {
-      pkgs,
-      lib,
-      ...
-    }:
-
+    { pkgs, ... }:
     {
       home.packages = with pkgs; [
         shaderbg
       ];
-      wayland.windowManager.hyprland.settings.on = [
-        {
-          _args = [
-            "hyprland.start"
-            (lib.generators.mkLuaInline ''function() hl.dispatch(hl.dsp.exec_cmd("shaderbg \"*\" ${./fbm.frag}")) end'')
+      systemd.user.services.shaderbg = {
+        Unit = {
+          Description = "shaderbg wallpaper";
+          After = [ "graphical-session.target" ];
+          PartOf = [
+            "graphical-session.target"
+            "wayland-wm@Hyprland.service"
           ];
-        }
-      ];
+        };
+        Service = {
+          ExecStart = "${pkgs.shaderbg}/bin/shaderbg \"*\" ${./fbm.frag}";
+          Restart = "always";
+          RestartSec = "200ms";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
     };
 }
