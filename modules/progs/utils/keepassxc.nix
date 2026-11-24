@@ -14,8 +14,8 @@
             [General]
             ConfigVersion=2
             BackupBeforeSave=true
-            BackupFilePathPattern=/home/${userSettings.username}/Passwords/{DB_FILENAME}.old.kdbx
-            UseAtomicSaves=false
+            BackupFilePathPattern=${config.home.homeDirectory}/Passwords/{DB_FILENAME}.old.kdbx
+            UseAtomicSaves=true
 
             [Browser]
             CustomProxyLocation=
@@ -49,7 +49,7 @@
 
       systemd.user.services.keepassxc =
         let
-          database = "/home/${userSettings.username}/DriveSynced/Passwords.kdbx";
+          database = "${config.home.homeDirectory}/DriveSynced/Passwords.kdbx";
           rcloneMountUnit = "rclone-mount:Synced@google-drive.service";
           sessionTarget = config.wayland.systemd.target;
         in
