@@ -7,7 +7,7 @@ import QtQuick.Layouts
 
 StylizedPaddedRectangle {
     id: tray
-    level: 1
+    level: 0
 
     visible: SystemTray.items.values.length !== 0
 

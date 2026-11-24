@@ -5,7 +5,7 @@ import "Oklab.js" as Oklab
 
 StylizedPaddedRectangle {
     id: power
-    level: 1
+    level: 0
 
     visible: UPower.displayDevice.isLaptopBattery
 

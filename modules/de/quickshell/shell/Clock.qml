@@ -5,7 +5,7 @@ import Quickshell
 
 StylizedPaddedRectangle {
     id: clock
-    level: 1
+    level: 0
 
     SystemClock {
         id: systemClock

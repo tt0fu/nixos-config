@@ -8,7 +8,7 @@ Rectangle {
     color: "transparent"
     border.color: Colors.border
     border.width: Sizes.borderWidth
-    radius: Sizes.borderRadius - level * Sizes.gap
+    radius: Sizes.radiusFor(level)
 
     Behavior on border.color {
         StylizedColorAnimation {}

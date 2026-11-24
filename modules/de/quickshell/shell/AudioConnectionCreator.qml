@@ -13,7 +13,7 @@ StylizedPaddedRectangle {
     required property PwNode node
     property bool sourceSide: false
 
-    level: 2
+    level: 1
 
     readonly property var candidates: AudioNode.candidates(creator.node, creator.sourceSide)
 

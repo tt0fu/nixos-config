@@ -59,7 +59,7 @@ StylizedColumnLayout {
     StylizedPaddedRectangle {
         Layout.fillWidth: true
         Layout.preferredWidth: launcher.maxListWidth
-        level: 1
+        level: 0
         child: StylizedTextField {
             id: launcherTextField
             focus: GlobalState.appLauncherOpened
@@ -76,7 +76,7 @@ StylizedColumnLayout {
         Layout.fillWidth: true
         Layout.preferredWidth: launcher.maxListWidth
         Layout.preferredHeight: Math.min(launcher.maxListHeight, entriesList.contentHeight + Sizes.gap * 2)
-        level: 1
+        level: 0
         child: ScrollView {
             anchors.fill: parent
             anchors.margins: Sizes.gap
@@ -101,7 +101,7 @@ StylizedColumnLayout {
                     required property int index
                     required property DesktopEntry modelData
                     width: ListView.view.width
-                    level: 2
+                    level: 1
                     border.color: {
                         if (launcherEntryMouseArea.containsMouse)
                             return Colors.hover;
@@ -133,7 +133,7 @@ StylizedColumnLayout {
                     }
                 }
                 highlight: StylizedRectangle {
-                    level: 2
+                    level: 1
                     z: 2
                 }
             }

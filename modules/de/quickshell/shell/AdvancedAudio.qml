@@ -9,7 +9,7 @@ import Quickshell.Services.Pipewire
 StylizedPaddedRectangle {
     id: advancedAudio
 
-    level: 1
+    level: 0
     anchors.margins: Sizes.gap
     
     property real columnWidth: 400

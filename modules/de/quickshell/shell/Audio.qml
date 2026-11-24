@@ -7,7 +7,7 @@ import Quickshell.Services.Pipewire
 
 StylizedPaddedRectangle {
     id: audio
-    level: 1
+    level: 0
 
     child: StylizedRowLayout {
         anchors.fill: parent

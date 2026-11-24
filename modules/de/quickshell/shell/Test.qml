@@ -5,7 +5,7 @@ import "Oklab.js" as Oklab
 
 StylizedPaddedRectangle {
     id: test
-    level: 1
+    level: 0
 
     property real val: 0.0
 

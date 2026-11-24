@@ -355,7 +355,7 @@ ShellRoot {
                     y: viewRect.y,
                     width: viewRect.width,
                     height: viewRect.height
-                }, Sizes.borderRadius)
+                }, Sizes.radiusFor(-1))
 
                 property string filled: BorderPath.fillPath(borderShape.outline, borderShape.width, borderShape.height)
 

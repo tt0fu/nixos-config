@@ -114,7 +114,7 @@ Item {
 
             StylizedPaddedRectangle {
                 id: workspaceRect
-                level: 1
+                level: 0
 
                 // required property int index
                 // property HyprlandWorkspace workspace: Hyprland.workspaces.values.find(w => w.id === index + 1) ?? null
@@ -178,7 +178,7 @@ Item {
 
     StylizedRectangle {
         id: selectionRect
-        level: 1
+        level: 0
 
         anchors.centerIn: parent
         z: 1

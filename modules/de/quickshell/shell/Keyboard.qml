@@ -5,7 +5,7 @@ import Quickshell.Hyprland
 
 StylizedPaddedRectangle {
     id: keyboard
-    level: 1
+    level: 0
 
     property string layout: "EN"
 

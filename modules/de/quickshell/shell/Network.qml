@@ -5,7 +5,7 @@ import Quickshell.Networking
 
 StylizedPaddedRectangle {
     id: network
-    level: 1
+    level: 0
 
     readonly property var devices: Networking.devices.values
 

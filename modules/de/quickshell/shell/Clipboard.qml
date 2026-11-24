@@ -89,7 +89,7 @@ StylizedColumnLayout {
     StylizedPaddedRectangle {
         Layout.fillWidth: true
         Layout.preferredWidth: maxListWidth
-        level: 1
+        level: 0
         child: StylizedTextField {
             id: clipboardTextField
             focus: GlobalState.clipboardOpened
@@ -110,7 +110,7 @@ StylizedColumnLayout {
         Layout.fillWidth: true
         Layout.preferredWidth: maxListWidth
         Layout.preferredHeight: Math.min(maxListHeight, itemsList.contentHeight + Sizes.gap * 2)
-        level: 1
+        level: 0
 
         child: ScrollView {
             anchors.fill: parent
@@ -136,7 +136,7 @@ StylizedColumnLayout {
                     required property int index
                     required property var modelData
                     width: ListView.view.width
-                    level: 2
+                    level: 1
                     border.color: {
                         if (delegateMouseArea.containsMouse)
                             return Colors.hover;
@@ -164,7 +164,7 @@ StylizedColumnLayout {
                     }
                 }
                 highlight: StylizedRectangle {
-                    level: 2
+                    level: 1
                     z: 2
                 }
             }

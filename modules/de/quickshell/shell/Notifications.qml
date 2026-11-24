@@ -72,7 +72,7 @@ StylizedColumnLayout {
         Layout.fillHeight: true
         Layout.minimumHeight: 0
         Layout.maximumHeight: notifications.maxListHeight
-        level: 1
+        level: 0
         child: ScrollView {
             anchors.fill: parent
             anchors.margins: Sizes.gap
@@ -90,7 +90,7 @@ StylizedColumnLayout {
                 delegate: StylizedPaddedRectangle {
                     id: notification
                     width: ListView.view.width
-                    level: 2
+                    level: 1
                     required property Notification modelData
                     border.color: switch (modelData.urgency) {
                     case NotificationUrgency.Low:
@@ -172,7 +172,7 @@ StylizedColumnLayout {
                                     id: notificationAction
                                     Layout.fillWidth: true
                                     Layout.fillHeight: true
-                                    level: 3
+                                    level: 2
                                     required property NotificationAction modelData
                                     child: RowLayout {
                                         anchors.fill: parent
@@ -205,7 +205,7 @@ StylizedColumnLayout {
                             }
                         }
                         StylizedPaddedRectangle {
-                            level: 3
+                            level: 2
                             visible: notification.modelData.hasInlineReply
                             Layout.fillWidth: true
                             child: StylizedRowLayout {
@@ -245,7 +245,7 @@ StylizedColumnLayout {
     StylizedRowLayout {
         Layout.fillWidth: true
         StylizedPaddedRectangle {
-            level: 1
+            level: 0
             Layout.fillWidth: true
             visible: notifServer.trackedNotifications.values.length > 0
             child: StylizedCenterText {
@@ -265,7 +265,7 @@ StylizedColumnLayout {
             }
         }
         StylizedPaddedRectangle {
-            level: 1
+            level: 0
             Layout.fillWidth: true
             visible: notifServer.trackedNotifications.values.length > 0
             child: StylizedCenterText {
