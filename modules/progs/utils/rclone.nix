@@ -1,26 +1,30 @@
 {
   home =
-    { userSettings, ... }:
+    { config, ... }:
     {
       programs.rclone = {
         enable = true;
-        remotes.google-drive = {
-          config = {
-            type = "drive";
-            scope = "drive.file";
-            team_drive = "";
+        remotes.google-drive =
+          let
+            home = config.home.homeDirectory;
+          in
+          {
+            config = {
+              type = "drive";
+              scope = "drive.file";
+              team_drive = "";
+            };
+            mounts.Synced = {
+              enable = true;
+              autoMount = true;
+              mountPoint = "${home}/DriveSynced";
+            };
+            secrets = {
+              client_id = "${home}/.config/rclone/client_id";
+              client_secret = "${home}/.config/rclone/client_secret";
+              token = "${home}/.config/rclone/token";
+            };
           };
-          mounts.Synced = {
-            enable = true;
-            autoMount = true;
-            mountPoint = "/home/${userSettings.username}/DriveSynced";
-          };
-          secrets = {
-            client_id = "/home/${userSettings.username}/.config/rclone/client_id";
-            client_secret = "/home/${userSettings.username}/.config/rclone/client_secret";
-            token = "/home/${userSettings.username}/.config/rclone/token";
-          };
-        };
       };
     };
 }

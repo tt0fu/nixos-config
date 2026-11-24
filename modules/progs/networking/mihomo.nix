@@ -1,12 +1,16 @@
 {
   os =
-    { pkgs, userSettings, ... }:
-
+    {
+      config,
+      pkgs,
+      userSettings,
+      ...
+    }:
     {
       services.mihomo = {
         enable = true;
         tunMode = true;
-        configFile = "/home/${userSettings.username}/.config/mihomo/config.yaml";
+        configFile = "${config.users.users.${userSettings.username}.home}/.config/mihomo/config.yaml";
         webui = pkgs.zashboard;
       };
 

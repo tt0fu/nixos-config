@@ -1,6 +1,6 @@
 {
   os =
-    { userSettings, ... }:
+    { config, userSettings, ... }:
     {
       programs.nh = {
         enable = true;
@@ -8,7 +8,7 @@
           enable = true;
           extraArgs = "--keep-since 7d --keep 3";
         };
-        flake = "/home/${userSettings.username}/nixos-config";
+        flake = "${config.users.users.${userSettings.username}.home}/nixos-config";
       };
     };
 }
