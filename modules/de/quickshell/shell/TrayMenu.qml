@@ -8,13 +8,9 @@ Item {
     id: trayMenu
 
     property var menuHandle: null
+    property bool active: false
 
     signal closeRequested
-
-    readonly property bool active: GlobalState.trayMenuOpened
-    readonly property int autoCloseDelay: 5000
-
-    property bool hasHovered: false
 
     implicitWidth: menuList.implicitWidth
     implicitHeight: menuList.implicitHeight
@@ -26,53 +22,17 @@ Item {
         onCloseRequested: trayMenu.closeRequested()
     }
 
-    onActiveChanged: {
-        if (active) {
-            hasHovered = false;
-            closeTimer.interval = trayMenu.autoCloseDelay;
-            closeTimer.restart();
-        } else {
-            closeTimer.stop();
-        }
-    }
-
-    onMenuHandleChanged: {
-        if (active) {
-            hasHovered = false;
-            closeTimer.interval = trayMenu.autoCloseDelay;
-            closeTimer.restart();
-        }
-    }
-
-    Component.onCompleted: {
-        if (active) {
-            hasHovered = false;
-            closeTimer.interval = trayMenu.autoCloseDelay;
-            closeTimer.restart();
-        }
-    }
-
     HoverHandler {
         id: menuHover
-
-        onHoveredChanged: {
-            if (hovered) {
-                hasHovered = true;
-                closeTimer.stop();
-            } else if (hasHovered && GlobalState.trayMenuOpened) {
-                closeTimer.interval = 500;
-                closeTimer.restart();
-            }
-        }
     }
 
     Timer {
         id: closeTimer
+
+        interval: 5000
         repeat: false
-        onTriggered: {
-            if (!menuHover.hovered) {
-                trayMenu.closeRequested();
-            }
-        }
+        running: trayMenu.active && !menuHover.hovered
+
+        onTriggered: trayMenu.closeRequested()
     }
 }

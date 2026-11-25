@@ -7,6 +7,7 @@ import QtQuick
 import QtQuick.Shapes
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Services.SystemTray
 import Quickshell.Hyprland
 import "BorderPath.js" as BorderPath
 
@@ -100,7 +101,21 @@ ShellRoot {
         property real rightEdge: 15
         property real bottomEdge: 15
 
-        property var zoneHosts: [clipboardZone, launcherZone, notificationsZone, trayMenuZone, clockDateZone, audioAdvancedZone]
+        property var trayHosts: []
+        property var zoneHosts: [clipboardZone, launcherZone, notificationsZone, clockDateZone, audioAdvancedZone].concat(trayHosts)
+        property var activeTrayHost: GlobalState.trayMenuOwner ? activeTrayHostFor(GlobalState.trayMenuOwner) : null
+
+        function registerTrayHost(host) {
+            trayHosts = trayHosts.concat([host]);
+        }
+
+        function unregisterTrayHost(host) {
+            trayHosts = trayHosts.filter(h => h !== host);
+        }
+
+        function activeTrayHostFor(item) {
+            return trayHosts.find(h => h.trayItem === item) || null;
+        }
         property var zoneNotches: {
             const allOwners = Zones.owners;
             const vx0 = viewRect.x;
@@ -110,25 +125,31 @@ ShellRoot {
             const result = [];
 
             for (const host of zoneHosts) {
-                if (!host || host.zone === "" || !host.hasContent) {
-                    continue;
-                }
-                
-                const currentOwner = allOwners[host.zone];
-                if (currentOwner !== undefined && currentOwner !== host) {
+                if (!host) {
                     continue;
                 }
 
+                const zone = host.zone;
+                const hasContent = host.hasContent;
                 const x0 = host.x;
                 const y0 = host.y;
-                const x1 = host.x + host.width;
-                const y1 = host.y + host.height;
+                const x1 = x0 + host.width;
+                const y1 = y0 + host.height;
+
+                if (zone === "" || !hasContent) {
+                    continue;
+                }
+
+                const currentOwner = allOwners[zone];
+                if (currentOwner !== undefined && currentOwner !== host) {
+                    continue;
+                }
 
                 const overlapsX = x1 > vx0 + 0.5 && x0 < vx1 - 0.5;
                 const overlapsY = y1 > vy0 + 0.5 && y0 < vy1 - 0.5;
 
                 let active = false;
-                switch (host.zone) {
+                switch (zone) {
                 case "top":
                     active = overlapsX && y1 > vy0 + 0.5;
                     break;
@@ -156,7 +177,7 @@ ShellRoot {
                 }
 
                 result.push({
-                    type: host.zone,
+                    type: zone,
                     x0: x0,
                     y0: y0,
                     x1: x1,
@@ -193,7 +214,7 @@ ShellRoot {
                 intersection: Intersection.Subtract
             }
             Region {
-                item: trayMenuZone
+                item: mainWindow.activeTrayHost
                 intersection: Intersection.Subtract
             }
             Region {
@@ -304,25 +325,47 @@ ShellRoot {
                 }
             }
 
-            ZoneHost {
-                id: trayMenuZone
-                zone: "top"
-                open: GlobalState.trayMenuOpened && GlobalState.trayMenuHandle !== null
-                hasAnchorX: true
-                anchorX: GlobalState.trayMenuAnchorX
-                viewX: viewRect.x
-                viewY: viewRect.y - Sizes.gap
-                viewWidth: viewRect.width
-                viewHeight: viewRect.height
-                screenWidth: mainWindow.width
-                screenHeight: mainWindow.height
-                onEvicted: GlobalState.trayMenuOpened = false
+            Repeater {
+                model: SystemTray.items
 
-                TrayMenu {
-                    id: trayMenu
-                    anchors.fill: parent
-                    menuHandle: GlobalState.trayMenuHandle
-                    onCloseRequested: GlobalState.trayMenuOpened = false
+                delegate: ZoneHost {
+                    id: trayMenuZone
+
+                    required property SystemTrayItem modelData
+
+                    readonly property var trayItem: modelData
+
+                    zone: "top"
+                    open: GlobalState.trayMenuOwner === trayMenuZone.trayItem
+                    hasAnchorX: true
+                    anchorX: GlobalState.trayMenuAnchorFor(trayMenuZone.trayItem)
+                    viewX: viewRect.x
+                    viewY: viewRect.y - Sizes.gap
+                    viewWidth: viewRect.width
+                    viewHeight: viewRect.height
+                    screenWidth: mainWindow.width
+                    screenHeight: mainWindow.height
+                    onEvicted: {
+                        if (GlobalState.trayMenuOwner === trayMenuZone.trayItem)
+                            GlobalState.trayMenuOwner = null;
+                    }
+
+                    Component.onCompleted: mainWindow.registerTrayHost(trayMenuZone)
+                    Component.onDestruction: {
+                        mainWindow.unregisterTrayHost(trayMenuZone);
+                        if (GlobalState.trayMenuOwner === trayMenuZone.trayItem)
+                            GlobalState.trayMenuOwner = null;
+                    }
+
+                    TrayMenu {
+                        anchors.fill: parent
+                        menuHandle: trayMenuZone.trayItem ? trayMenuZone.trayItem.menu : null
+                        active: trayMenuZone.open
+                        onCloseRequested: {
+                            if (GlobalState.trayMenuOwner === trayMenuZone.trayItem)
+                                GlobalState.trayMenuOwner = null;
+                        }
+                    }
                 }
             }
 
@@ -397,7 +440,7 @@ ShellRoot {
         implicitHeight: screen.height
         anchors.top: true
         exclusiveZone: -1
-        mask: Region { }
+        mask: Region {}
         WlrLayershell.namespace: "quickshell-border"
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.None

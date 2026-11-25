@@ -12,20 +12,17 @@ StylizedPaddedRectangle {
     visible: SystemTray.items.values.length !== 0
 
     function closeMenu() {
-        GlobalState.trayMenuOpened = false;
+        GlobalState.trayMenuOwner = null;
     }
 
     function toggleMenu(item, visualItem) {
-        if (GlobalState.trayMenuOpened && GlobalState.trayMenuOwner === item) {
+        if (GlobalState.trayMenuOwner === item) {
             closeMenu();
             return;
         }
 
-        const anchor = visualItem.mapToItem(null, 0, 0).x;
-        GlobalState.trayMenuHandle = item.menu;
+        GlobalState.setTrayMenuAnchor(item, visualItem.mapToItem(null, 0, 0).x);
         GlobalState.trayMenuOwner = item;
-        GlobalState.trayMenuAnchorX = anchor;
-        GlobalState.trayMenuOpened = true;
     }
 
     child: StylizedRowLayout {

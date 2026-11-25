@@ -9,6 +9,9 @@ Item {
     property string zone: ""
     property bool open: false
 
+    readonly property bool owns: zone !== "" && Zones.owners[zone] === host
+    readonly property bool shown: open && owns
+
     property real viewX: 0
     property real viewY: 0
     property real viewWidth: 0
@@ -30,7 +33,7 @@ Item {
         return zone !== "" && (currentOwner === undefined || currentOwner === host);
     }
 
-    signal evicted()
+    signal evicted
 
     implicitWidth: content ? content.implicitWidth + Sizes.gap * 2 : 0
     implicitHeight: content ? content.implicitHeight + Sizes.gap * 2 : 0
@@ -39,7 +42,7 @@ Item {
 
     x: targetX
     y: targetY
-    opacity: open && zoneAvailable && hasContent ? 1 : 0
+    opacity: shown && hasContent ? 1 : 0
 
     property bool animateGeometry: true
 
@@ -47,7 +50,7 @@ Item {
 
     Timer {
         id: sizeSettledTimer
-        interval: Animations.duration + 100
+        interval: 80
         onTriggered: host.sizeChanging = false
     }
 
@@ -61,9 +64,9 @@ Item {
 
     readonly property real targetX: {
         if (zone === "left" || zone === "top-left" || zone === "bottom-left")
-            return open ? 0 : -width;
+            return shown ? 0 : -width;
         if (zone === "right" || zone === "top-right" || zone === "bottom-right")
-            return open ? screenWidth - width : screenWidth;
+            return shown ? screenWidth - width : screenWidth;
         if (zone === "top" || zone === "bottom") {
             if (hasAnchorX) {
                 const anchoredX = anchorRight ? anchorX - width : anchorX;
@@ -77,9 +80,9 @@ Item {
 
     readonly property real targetY: {
         if (zone === "top" || zone === "top-left" || zone === "top-right")
-            return open ? viewY : viewY - height;
+            return shown ? viewY : viewY - height;
         if (zone === "bottom" || zone === "bottom-left" || zone === "bottom-right")
-            return open ? screenHeight - height : screenHeight;
+            return shown ? screenHeight - height : screenHeight;
         if (zone === "left" || zone === "right") {
             const centered = viewY + (viewHeight - height) / 2;
             return Math.max(viewY, Math.min(centered, viewBottom - height));
@@ -88,16 +91,30 @@ Item {
     }
 
     function updateRegistration() {
-        if (open && zone !== "" && Zones.isValidZone(zone))
+        if (open && zone !== "" && Zones.isValidZone(zone)) {
+            releaseTimer.stop();
             Zones.request(zone, host);
-        else
-            Zones.releaseAllFor(host);
+        } else {
+            releaseTimer.restart();
+        }
     }
 
     onOpenChanged: host.updateRegistration()
+    Timer {
+        id: releaseTimer
+
+        interval: Animations.duration + 20
+
+        onTriggered: {
+            if (!host.open && host.owns)
+                Zones.release(host.zone, host);
+        }
+    }
+
     onZoneChanged: {
         animateGeometry = false;
         Qt.callLater(() => host.animateGeometry = true);
+        Zones.releaseAllFor(host);
         host.updateRegistration();
     }
     Component.onCompleted: host.updateRegistration()

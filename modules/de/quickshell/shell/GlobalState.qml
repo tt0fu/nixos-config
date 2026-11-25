@@ -10,10 +10,21 @@ Singleton {
     property bool clipboardOpened: false
     property bool locked: false
 
-    property bool trayMenuOpened: false
-    property var trayMenuHandle: null
     property var trayMenuOwner: null
-    property real trayMenuAnchorX: 0
+    readonly property bool trayMenuOpened: trayMenuOwner !== null
+    property var trayMenuAnchors: ({})
+
+    function setTrayMenuAnchor(item, anchor) {
+        if (!item)
+            return;
+        const next = Object.assign({}, trayMenuAnchors);
+        next[item.id] = anchor;
+        trayMenuAnchors = next;
+    }
+
+    function trayMenuAnchorFor(item) {
+        return item && trayMenuAnchors[item.id] !== undefined ? trayMenuAnchors[item.id] : 0;
+    }
 
     property bool clockDateShown: false
 
