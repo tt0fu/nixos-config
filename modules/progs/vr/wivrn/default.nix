@@ -49,4 +49,11 @@
         };
       };
     };
+  deps =
+    modules: with modules; [
+      progs.gaming.steam
+      progs.utils.libnotify
+      progs.vr.nixpkgs-xr
+      progs.vr.wayvr
+    ];
 }

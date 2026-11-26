@@ -11,6 +11,7 @@
 
   deps =
     modules: with modules; [
+      progs.gaming.steam
       progs.vr.nixpkgs-xr
     ];
 }

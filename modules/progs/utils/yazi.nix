@@ -51,4 +51,5 @@
         }
       ];
     };
+  deps = modules: with modules; [ progs.essential.kitty ];
 }

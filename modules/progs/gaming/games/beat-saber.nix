@@ -6,4 +6,5 @@
         bs-manager
       ];
     };
+  deps = modules: with modules; [ progs.gaming.steam ];
 }
