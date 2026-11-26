@@ -14,6 +14,7 @@
       radius = 10;
     };
     spacing = 6;
+    iconSize = 20;
   };
 
   systems = {
@@ -34,6 +35,7 @@
       };
       styleOverrides = {
         font.size = 20;
+        iconSize = 25;
       };
       modules =
         modules:

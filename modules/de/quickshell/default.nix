@@ -13,6 +13,7 @@
         QS_STYLE_BORDER_WIDTH = toString style.border.thickness;
         QS_STYLE_BORDER_RADIUS = toString style.border.radius;
         QS_STYLE_SPACING = toString style.spacing;
+        QS_STYLE_ICONSIZE = toString style.iconSize;
       };
     in
     {
