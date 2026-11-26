@@ -15,25 +15,7 @@
         installRemoteServer = true;
         mutableUserSettings = false;
         userSettings = {
-          agent_servers.pi-acp = {
-            favorite_config_option_values = {
-              thought_level = [
-                "high"
-              ];
-              model = [
-                "coreinfra/deepseek-flash"
-              ];
-            };
-            default_config_options = {
-              model = "coreinfra/deepseek-flash";
-            };
-            type = "registry";
-          };
-          agent = {
-            threads_sidebar.position = "right";
-            dock = "right";
-            enabled = true;
-          };
+          agent = import ./agent.nix;
           base_keymap = "None";
           buffer_font_family = style.font.name;
           buffer_font_features.calt = false;
