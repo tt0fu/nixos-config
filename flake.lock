@@ -298,11 +298,11 @@
     },
     "nixos-builder": {
       "locked": {
-        "lastModified": 1787955583,
-        "narHash": "sha256-RlqF6L1X/idjJY/77WRIxlNp+ufsduWRlIceNVWr7tk=",
+        "lastModified": 1795734126,
+        "narHash": "sha256-NnmDEyMHMIET8c0hoAHMwQcmGH29r4BwZ/owP2GVP20=",
         "owner": "tt0fu",
         "repo": "nixos-builder",
-        "rev": "50e0e3db8e0779e5770eda7d6fe9766d26b34e6f",
+        "rev": "dde6f9bf798827dd786ff88018f41d59424fc98e",
         "type": "github"
       },
       "original": {
