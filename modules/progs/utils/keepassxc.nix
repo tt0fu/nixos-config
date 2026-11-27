@@ -1,4 +1,20 @@
 {
+  os =
+    {
+      pkgs,
+      userSettings,
+      ...
+    }:
+    {
+      powerManagement = {
+        powerDownCommands = ''
+          ${pkgs.systemd}/bin/systemctl --user --machine=${userSettings.username}@.host stop keepassxc.service || true
+        '';
+        resumeCommands = ''
+          ${pkgs.systemd}/bin/systemctl --user --machine=${userSettings.username}@.host start keepassxc.service || true
+        '';
+      };
+    };
   home =
     {
       config,
