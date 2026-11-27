@@ -23,7 +23,7 @@ ShellRoot {
         GlobalState.appLauncherOpened = false;
         GlobalState.clipboardOpened = false;
         GlobalState.notificationsShown = false;
-        GlobalState.trayMenuOpened = false;
+        GlobalState.trayMenuOwner = null;
         GlobalState.clockDateShown = false;
         GlobalState.audioAdvancedOpened = false;
         lockContext.currentText = "";
