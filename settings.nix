@@ -32,6 +32,9 @@
           y = 0;
           scale = 1;
         };
+        wallpaper = {
+          mode = "static";
+        };
       };
       styleOverrides = {
         font.size = 20;
@@ -74,6 +77,9 @@
           x = 0;
           y = 0;
           scale = 1;
+        };
+        wallpaper = {
+          mode = "shader";
         };
       };
       modules =
