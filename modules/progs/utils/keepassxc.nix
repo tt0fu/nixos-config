@@ -6,12 +6,14 @@
       ...
     }:
     {
-      powerManagement = {
-        powerDownCommands = ''
-          ${pkgs.systemd}/bin/systemctl --user --machine=${userSettings.username}@.host stop keepassxc.service || true
-        '';
-        resumeCommands = ''
-          ${pkgs.systemd}/bin/systemctl --user --machine=${userSettings.username}@.host start keepassxc.service || true
+      systemd.services.keepassxc-sleep = {
+        description = "Lock KeePassXC before system sleep";
+        wantedBy = [ "sleep.target" ];
+        before = [ "sleep.target" ];
+        unitConfig.StopWhenUnneeded = true;
+        serviceConfig.Type = "oneshot";
+        script = ''
+          ${pkgs.coreutils}/bin/timeout 20 ${pkgs.systemd}/bin/systemctl --user --machine=${userSettings.username}@.host start --wait keepassxc-lock.service || true
         '';
       };
     };
@@ -60,6 +62,15 @@
             ClearClipboardTimeout=30
             LockDatabaseIdle=false
           '';
+        };
+      };
+
+      systemd.user.services.keepassxc-lock = {
+        Unit.Description = "Lock KeePassXC databases";
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.keepassxc}/bin/keepassxc --lock";
+          TimeoutStartSec = 10;
         };
       };
 
